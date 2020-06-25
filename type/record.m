@@ -31,7 +31,7 @@ let field_new = func (id : Str, t : *Type, ti : *TokenInfo) -> *Field {
 var offset : Nat16  // смещение (порядковый номер) поля в структуре
 var size   : Nat32  // размер структуры
 var talign : Nat8   // выравнивание заданное для структуры
-let type_new_record = func (fields : *List) -> *Type {
+let type_record_new = func (fields : *List) -> *Type {
   let t = type_new(TypeRecord)
   t.record.uid = get_uid()
   t.record.fields = fields

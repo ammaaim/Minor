@@ -70,7 +70,7 @@ let getTypeUnary = func (v : *Value) -> *Type {
   var t : *Type
   let k = v.kind
   if k == ValueRef {
-    t = type_new_pointer(t0)
+    t = type_pointer_new(t0)
   } else if k == ValueDeref {
     if t0.kind != TypePointer {
       error("expected pointer\n", v.ti)

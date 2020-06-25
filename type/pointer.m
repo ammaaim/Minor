@@ -4,7 +4,7 @@
 /*type TypePointer = record {to : *Type}*/
 
 
-let type_new_pointer = func (to : *Type) -> *Type {
+let type_pointer_new = func (to : *Type) -> *Type {
   let t = type_new(TypePointer)
   t.pointer.to = to
   t.size = get("pointerSize") to Nat32

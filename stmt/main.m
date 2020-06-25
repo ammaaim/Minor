@@ -27,6 +27,10 @@ type While = record {
 }
 
 
+
+/*
+ * Statement Kind
+ */
 type StmtKind = enum {
   StmtLet,
   StmtVarDef,
@@ -43,17 +47,20 @@ type StmtKind = enum {
 }
 
 
+/*
+ * Statement
+ */
 type Stmt = record {
   kind : StmtKind
 
-  //union {
-  a : [2]*Value  // expr, assign & return statements
-  b : *Block     // block statement
-  v : *VarDef    // var definition
-  w : *While     // while statement
-  i : *If        // if statement
-  l : Str        // goto & label statement
-  //}
+//union {
+    a : [2]*Value  // expr, assign & return statements
+    b : *Block     // block statement
+    v : *VarDef    // var definition
+    w : *While     // while statement
+    i : *If        // if statement
+    l : Str        // goto & label statement
+//}
 
   ti : *TokenInfo
 }

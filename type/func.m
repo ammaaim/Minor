@@ -10,7 +10,7 @@ type TypeFunc = record {
 */
 
 
-let type_new_func = func (params : *List, rettype : *Type, arghack : Bool) -> *Type {
+let type_func_new = func (params : *List, rettype : *Type, arghack : Bool) -> *Type {
   let t = type_new(TypeFunction)
   t.size = get("pointerSize") to Nat32
   t.function.params = params

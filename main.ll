@@ -5040,7 +5040,7 @@ define %Type* @type_new (%TypeKind %_k) {
   ret %Type* %2
 }
 
-define %Type* @type_new_basic (%Str %_id, %Nat32 %_size, %Nat32 %_p, %Bool %_i, %Bool %_s) {
+define %Type* @type_basic_new (%Str %_id, %Nat32 %_size, %Nat32 %_p, %Bool %_i, %Bool %_s) {
   %id = alloca %Str
   store %Str %_id, %Str* %id
   %size = alloca %Nat32
@@ -5193,7 +5193,7 @@ define void @fpost (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
   ret void
 }
 
-define %Type* @type_new_record (%List* %_fields) {
+define %Type* @type_record_new (%List* %_fields) {
   %fields = alloca %List*
   store %List* %_fields, %List** %fields
 
@@ -5389,7 +5389,7 @@ define void @create_constructor (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
   ret void
 }
 
-define %Type* @type_new_enum (%List* %_constructors) {
+define %Type* @type_enum_new (%List* %_constructors) {
   %constructors = alloca %List*
   store %List* %_constructors, %List** %constructors
 
@@ -5435,7 +5435,7 @@ define %Bool @type_enum_eq (%TypeEnum* %_a, %TypeEnum* %_b) {
   ret %Bool %7
 }
 
-define %Type* @type_new_array (%Type* %_of, %Nat32 %_volume, %Bool %_undefined) {
+define %Type* @type_array_new (%Type* %_of, %Nat32 %_volume, %Bool %_undefined) {
   %of = alloca %Type*
   store %Type* %_of, %Type** %of
   %volume = alloca %Nat32
@@ -5588,7 +5588,7 @@ endif_3:
   ret %Bool 0
 }
 
-define %Type* @type_new_pointer (%Type* %_to) {
+define %Type* @type_pointer_new (%Type* %_to) {
   %to = alloca %Type*
   store %Type* %_to, %Type** %to
 
@@ -5629,7 +5629,7 @@ define %Bool @type_pointer_eq (%TypePointer* %_a, %TypePointer* %_b) {
   ret %Bool %7
 }
 
-define %Type* @type_new_func (%List* %_params, %Type* %_rettype, %Bool %_arghack) {
+define %Type* @type_func_new (%List* %_params, %Type* %_rettype, %Bool %_arghack) {
   %params = alloca %List*
   store %List* %_params, %List** %params
   %rettype = alloca %Type*
@@ -11611,7 +11611,7 @@ else_4:
 endif_4:
 
 ;stmt21:
-  %25 = call %Type* (%Type*) @type_new_pointer (%Type* %18)
+  %25 = call %Type* (%Type*) @type_pointer_new (%Type* %18)
   store %Type* %25, %Type** %t
   br label %endif_3
 else_3:
@@ -11848,7 +11848,7 @@ define %Type* @parse_type_record () {
   %4 = call %List* (%Str) @parse_fields (%Str %3)
 
 ;stmt2:
-  %5 = call %Type* (%List*) @type_new_record (%List* %4)
+  %5 = call %Type* (%List*) @type_record_new (%List* %4)
   ret %Type* %5
 }
 
@@ -11936,7 +11936,7 @@ break_0:
   call void () @skip_nl ()
 
 ;stmt19:
-  %23 = call %Type* (%List*) @type_new_enum (%List* %1)
+  %23 = call %Type* (%List*) @type_enum_new (%List* %1)
   ret %Type* %23
 }
 
@@ -11970,7 +11970,7 @@ else_1:
 endif_1:
 
 ;stmt6:
-  %8 = call %Type* (%Type*, %Nat32, %Bool) @type_new_array (%Type* %3, %Nat32 0, %Bool 1)
+  %8 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %3, %Nat32 0, %Bool 1)
   ret %Type* %8
   br label %endif_0
 else_0:
@@ -12024,7 +12024,7 @@ endif_3:
   %23 = getelementptr inbounds %Storage, %Storage* %22, i32 0, i32 1 ; eval_access
   %24 = load %Int64, %Int64* %23
   %25 = trunc %Int64 %24 to %Nat32
-  %26 = call %Type* (%Type*, %Nat32, %Bool) @type_new_array (%Type* %17, %Nat32 %25, %Bool 0)
+  %26 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %17, %Nat32 %25, %Bool 0)
   ret %Type* %26
 
 ;stmt17:
@@ -12078,7 +12078,7 @@ endif_0:
   %18 = icmp eq %Nat64 %17, 1
 
 ;stmt7:
-  %19 = call %Type* (%List*, %Type*, %Bool) @type_new_func (%List* %2, %Type* %5, %Bool %18)
+  %19 = call %Type* (%List*, %Type*, %Bool) @type_func_new (%List* %2, %Type* %5, %Bool %18)
   ret %Type* %19
 }
 
@@ -12380,7 +12380,7 @@ then_0:
 ;stmt5:
 
 ;stmt6:
-  %10 = call %Type* (%Type*) @type_new_pointer (%Type* %5)
+  %10 = call %Type* (%Type*) @type_pointer_new (%Type* %5)
   store %Type* %10, %Type** %t
   br label %endif_0
 else_0:
@@ -15618,7 +15618,7 @@ define %Value* @term_str () {
 
 ;stmt5:
   %9 = load %Type*, %Type** @typeChar
-  %10 = call %Type* (%Type*, %Nat32, %Bool) @type_new_array (%Type* %9, %Nat32 %7, %Bool 0)
+  %10 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %9, %Nat32 %7, %Bool 0)
 
 ;stmt6:
   %11 = call %Str () @get_name_str ()
@@ -15657,7 +15657,7 @@ define %Value* @term_str () {
   %28 = call %ConstDef* (%Assembly*, %Str, %Value*) @asm_constdef_add (%Assembly* %27, %Str %11, %Value* %16)
 
 ;stmt13:
-  %29 = call %Type* (%Type*) @type_new_pointer (%Type* %10)
+  %29 = call %Type* (%Type*) @type_pointer_new (%Type* %10)
   %30 = inttoptr %Nat32 0 to %Unit*
   %31 = bitcast %Unit* %30 to %Value*
   %32 = inttoptr %Nat32 0 to %Unit*
@@ -15801,7 +15801,7 @@ break_0:
 
 ;stmt18:
   %26 = load %Nat32, %Nat32* %len
-  %27 = call %Type* (%Type*, %Nat32, %Bool) @type_new_array (%Type* %3, %Nat32 %26, %Bool 0)
+  %27 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %3, %Nat32 %26, %Bool 0)
 
 ;stmt19:
   %28 = inttoptr %Nat32 0 to %Unit*
@@ -21729,67 +21729,67 @@ define void @type_init () {
 
 ;stmt0:
   %1 = bitcast [5 x %Nat8]* @func351_str1 to %Str
-  %2 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %1, %Nat32 1, %Nat32 8, %Bool 1, %Bool 1)
+  %2 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %1, %Nat32 1, %Nat32 8, %Bool 1, %Bool 1)
 
 ;stmt1:
   %3 = bitcast [6 x %Nat8]* @func351_str2 to %Str
-  %4 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %3, %Nat32 2, %Nat32 16, %Bool 1, %Bool 1)
+  %4 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %3, %Nat32 2, %Nat32 16, %Bool 1, %Bool 1)
 
 ;stmt2:
   %5 = bitcast [6 x %Nat8]* @func351_str3 to %Str
-  %6 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %5, %Nat32 4, %Nat32 32, %Bool 1, %Bool 1)
+  %6 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %5, %Nat32 4, %Nat32 32, %Bool 1, %Bool 1)
 
 ;stmt3:
   %7 = bitcast [6 x %Nat8]* @func351_str4 to %Str
-  %8 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %7, %Nat32 8, %Nat32 64, %Bool 1, %Bool 1)
+  %8 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %7, %Nat32 8, %Nat32 64, %Bool 1, %Bool 1)
 
 ;stmt4:
   %9 = bitcast [7 x %Nat8]* @func351_str5 to %Str
-  %10 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %9, %Nat32 16, %Nat32 128, %Bool 1, %Bool 1)
+  %10 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %9, %Nat32 16, %Nat32 128, %Bool 1, %Bool 1)
 
 ;stmt5:
   %11 = bitcast [7 x %Nat8]* @func351_str6 to %Str
-  %12 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %11, %Nat32 32, %Nat32 256, %Bool 1, %Bool 1)
+  %12 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %11, %Nat32 32, %Nat32 256, %Bool 1, %Bool 1)
 
 ;stmt6:
   %13 = bitcast [7 x %Nat8]* @func351_str7 to %Str
-  %14 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %13, %Nat32 64, %Nat32 512, %Bool 1, %Bool 1)
+  %14 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %13, %Nat32 64, %Nat32 512, %Bool 1, %Bool 1)
 
 ;stmt7:
   %15 = bitcast [8 x %Nat8]* @func351_str8 to %Str
-  %16 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %15, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 1)
+  %16 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %15, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 1)
 
 ;stmt8:
   %17 = bitcast [5 x %Nat8]* @func351_str9 to %Str
-  %18 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %17, %Nat32 1, %Nat32 8, %Bool 1, %Bool 0)
+  %18 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %17, %Nat32 1, %Nat32 8, %Bool 1, %Bool 0)
 
 ;stmt9:
   %19 = bitcast [6 x %Nat8]* @func351_str10 to %Str
-  %20 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %19, %Nat32 2, %Nat32 16, %Bool 1, %Bool 0)
+  %20 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %19, %Nat32 2, %Nat32 16, %Bool 1, %Bool 0)
 
 ;stmt10:
   %21 = bitcast [6 x %Nat8]* @func351_str11 to %Str
-  %22 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %21, %Nat32 4, %Nat32 32, %Bool 1, %Bool 0)
+  %22 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %21, %Nat32 4, %Nat32 32, %Bool 1, %Bool 0)
 
 ;stmt11:
   %23 = bitcast [6 x %Nat8]* @func351_str12 to %Str
-  %24 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %23, %Nat32 8, %Nat32 64, %Bool 1, %Bool 0)
+  %24 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %23, %Nat32 8, %Nat32 64, %Bool 1, %Bool 0)
 
 ;stmt12:
   %25 = bitcast [7 x %Nat8]* @func351_str13 to %Str
-  %26 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %25, %Nat32 16, %Nat32 128, %Bool 1, %Bool 0)
+  %26 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %25, %Nat32 16, %Nat32 128, %Bool 1, %Bool 0)
 
 ;stmt13:
   %27 = bitcast [7 x %Nat8]* @func351_str14 to %Str
-  %28 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %27, %Nat32 32, %Nat32 256, %Bool 1, %Bool 0)
+  %28 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %27, %Nat32 32, %Nat32 256, %Bool 1, %Bool 0)
 
 ;stmt14:
   %29 = bitcast [7 x %Nat8]* @func351_str15 to %Str
-  %30 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %29, %Nat32 64, %Nat32 512, %Bool 1, %Bool 0)
+  %30 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %29, %Nat32 64, %Nat32 512, %Bool 1, %Bool 0)
 
 ;stmt15:
   %31 = bitcast [8 x %Nat8]* @func351_str16 to %Str
-  %32 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %31, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 0)
+  %32 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %31, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 0)
 
 ;stmt16:
   %33 = bitcast [6 x %Nat8]* @func351_str17 to %Str
@@ -21857,12 +21857,12 @@ define void @type_init () {
 
 ;stmt32:
   %49 = bitcast [5 x %Nat8]* @func351_str33 to %Str
-  %50 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %49, %Nat32 1, %Nat32 0, %Bool 0, %Bool 0)
+  %50 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %49, %Nat32 1, %Nat32 0, %Bool 0, %Bool 0)
   store %Type* %50, %Type** @typeUnit
 
 ;stmt33:
   %51 = bitcast [5 x %Nat8]* @func351_str34 to %Str
-  %52 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_new_basic (%Str %51, %Nat32 1, %Nat32 1, %Bool 0, %Bool 0)
+  %52 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %51, %Nat32 1, %Nat32 1, %Bool 0, %Bool 0)
   store %Type* %52, %Type** @typeBool
 
 ;stmt34:
@@ -21870,7 +21870,7 @@ define void @type_init () {
 
 ;stmt35:
   %53 = load %Type*, %Type** @typeChar
-  %54 = call %Type* (%Type*, %Nat32, %Bool) @type_new_array (%Type* %53, %Nat32 0, %Bool 1)
+  %54 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %53, %Nat32 0, %Bool 1)
   store %Type* %54, %Type** @typeStr
 
 ;stmt36:
@@ -21896,7 +21896,7 @@ define void @type_init () {
 
 ;stmt40:
   %64 = load %Type*, %Type** @typeUnit
-  %65 = call %Type* (%Type*) @type_new_pointer (%Type* %64)
+  %65 = call %Type* (%Type*) @type_pointer_new (%Type* %64)
   store %Type* %65, %Type** @typeFreePtr
 
 ;stmt41:

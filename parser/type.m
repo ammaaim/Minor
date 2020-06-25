@@ -24,7 +24,7 @@ let parse_type = func (add_new_type : Bool) -> *Type {
     if match("*") {
       let to = parse_type(True)
       if to == Nil {return Nil}
-      t = type_new_pointer(to)
+      t = type_pointer_new(to)
     } else if match("[") {
       t = parse_type_array()
     } else if match("(") {
@@ -91,7 +91,7 @@ fail:
 let parse_type_record = func TypeParser {
   need("{")
   let fields = parse_fields("}")
-  return type_new_record(fields)
+  return type_record_new(fields)
 }
 
 
@@ -124,7 +124,7 @@ let parse_type_enum = func TypeParser {
 
   skip_nl()
 
-  return type_new_enum(constructors)
+  return type_enum_new(constructors)
 }
 
 
@@ -136,7 +136,7 @@ let parse_type_array = func TypeParser {
     if item_type == Nil {
       goto fail
     }
-    return type_new_array(item_type, 0, True)
+    return type_array_new(item_type, 0, True)
   }
 
   // Defined Array
@@ -153,7 +153,7 @@ let parse_type_array = func TypeParser {
     goto fail
   }
 
-  return type_new_array(item_type, xsize.storage.val to Nat32, False)
+  return type_array_new(item_type, xsize.storage.val to Nat32, False)
 
 fail:
   return Nil
@@ -166,7 +166,7 @@ let parse_type_func = func TypeParser {
   let rettype = parse_type(True)
   if params == Nil or rettype == Nil {return Nil}
   let arghack = get("flagArghack") == 1
-  return type_new_func(params, rettype, arghack)
+  return type_func_new(params, rettype, arghack)
 }
 
 

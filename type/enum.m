@@ -13,7 +13,7 @@ type EnumConstructor = record {id : Str, d : Int64}
 
 
 
-let type_new_enum = func (constructors : *List /* of EnumConstructor */) -> *Type {
+let type_enum_new = func (constructors : *List /* of EnumConstructor */) -> *Type {
   let t = type_new(TypeEnum)
   t.enum.uid = get_uid()  // UID чтобы отличать enum от другого enum'а на этапе трансляции
   t.size = get("enumSize") to Nat32

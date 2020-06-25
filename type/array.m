@@ -1,14 +1,7 @@
 // type/array
 
 
-/*type TypeArray = record {
-  of        : *Type  // item type
-  volume    : Nat    // property of defined array
-  undefined : Bool   // undefined array - array without defined volume
-}*/
-
-
-let type_new_array = func (of : *Type, volume : Nat32, undefined : Bool) -> *Type {
+let type_array_new = func (of : *Type, volume : Nat32, undefined : Bool) -> *Type {
   let t = type_new(TypeArray)
   t.array.of = of
   t.array.volume = volume

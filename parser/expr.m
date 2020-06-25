@@ -374,7 +374,7 @@ let term_str = func ValueParser {
   let s = dup(text)
   skip()
 
-  let t = type_new_array(typeChar, len, False)
+  let t = type_array_new(typeChar, len, False)
 
   // Есть какая то хрень в том что LLVM считает что у строки тип [X x i8]
   // Но ссылась на константу мы используем ее как [X x i8]*
@@ -392,7 +392,7 @@ let term_str = func ValueParser {
 
   // Создаем значение с типом *[x]Char, тк LLVM трактует массивы
   // упоминаемые по имени, именно как указатели на массивы
-  let v = value_new(ValueId, type_new_pointer(t), Nil, Nil)
+  let v = value_new(ValueId, type_pointer_new(t), Nil, Nil)
   v.storage.class = StorageString
   v.storage.id = id
   v.storage.str.data = s
@@ -441,7 +441,7 @@ let term_arr = func ValueParser {
   }
 
   let id = get_name_arr()
-  let t = type_new_array(of, len, False)
+  let t = type_array_new(of, len, False)
   let v = value_new(ValueId, t, Nil, Nil)
   v.storage.class = StorageArray
   v.storage.id = id
