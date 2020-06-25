@@ -82,7 +82,6 @@ let print_storage_class = func (c : StorageClass) -> Str {
 }
 
 
-
 let value_show = func (v : *Value) -> Unit {
   printf("value: %p {\n", v)
   printf("  kind: %s\n", print_value_kind(v.kind))

@@ -62,9 +62,6 @@ type TypeEnum = record {
 
 
 
-
-
-
 type TypeKind = enum {
   TypeInvalid,
   TypeGenericNum,
@@ -101,9 +98,9 @@ type Type = record {
   enum      : TypeEnum
   //}
 
-  declared_at,      // место где тип был впервые
-  defined_at,       //
-  ti : *TokenInfo
+  declared_at,      // место в коде где тип был упомянут впервые
+  defined_at,       // место в коде где тип был определен
+  ti : *TokenInfo   // место в коде где тип был упомянут
 }
 
 
