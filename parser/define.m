@@ -30,7 +30,6 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
 }
 
 
-
 let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
   assert(id != Nil, "define: id == Nil")
   assert(v != Nil, "define: v == Nil")
@@ -52,7 +51,6 @@ let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
   rename(v, id)
   bind_value_global(id, v)
 }
-
 
 
 // получает значение имя которого выданное генератором

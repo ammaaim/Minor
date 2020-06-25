@@ -69,6 +69,19 @@ let stmt_new = func (kind : StmtKind) -> *Stmt {
 }
 
 
+let stmt_new_vardef = func (id : Str, t : *Type, init_value : *Value) -> *Stmt {
+  let va = malloc(sizeof VarDef) to *VarDef
+  va.id = id
+  va.init_value = init_value
+  va.type = t
+
+  let s = stmt_new(StmtVarDef)
+  s.v = va
+//  s.ti = ti
+  return s
+}
+
+
 // v - значение-выражение, xv - соппряженное значение с классом ClassPre
 // когда мы говорим let x = a + b
 // мы получаем вражение v = a + b - оно будет вычислено и загружено в регистр

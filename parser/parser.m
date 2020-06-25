@@ -61,6 +61,7 @@ let showTypes = func () -> Unit {
   map_foreach(&mctx.type_index, shwt, Nil)
 }
 
+
 let showValues = func () -> Unit {
   let shwv = func MapForeachHandler {
     let len = strlen(k)
@@ -110,19 +111,6 @@ let checkFunc = func (f : *Value) -> Unit {
   }
 
   fctx.cfunc = old_cfunc
-}
-
-
-
-// >>> move it
-let field_new = func (id : Str, t : *Type, ti : *TokenInfo) -> *Field {
-  let f = malloc(sizeof Field) to *Field
-  assert(f != Nil, "field_new")
-  f.id = id
-  f.type = t
-  f.offset = 0
-  f.ti = ti
-  return f
 }
 
 
@@ -305,7 +293,6 @@ let dovardef = func () -> Unit {
 let dolet = func (local : Bool) -> *Stmt {
   let ti = &ctok().ti
   let id = parse_id()
-  //printf("dolet %s\n", id)
 
   need("=")
   let v = expr()
@@ -483,30 +470,15 @@ let sep = func () -> Bool {
 
 
 let separator = func () -> Bool {
-  /* если за нами закрывается скобка - она и есть сепаратор */
   let ct = ctok().text[0]
-
-  if ct == "\n"[0] or ct == ";"[0] {
-    skip()
-    return True
-  }
-
-  if ct == "}"[0] or ct == ")"[0] {
-    return True
-  }
-
-
-/*  if match("\n") {
-    return True
-  } else if match(";") {
-    return True
-  }*/
-
+  if ct == "\n"[0] or ct == ";"[0] {skip(); return True}
+  // если за нами закрывается скобка - сепаратор не нужен
+  if ct == "}"[0] or ct == ")"[0] {return True}
   return False
 }
 
 
-// сбрасывает текущий токен
+// skip current token
 let skip = func () -> Unit {mctx.src.token_node = mctx.src.token_node.next}
 
 

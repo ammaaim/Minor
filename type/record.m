@@ -8,6 +8,25 @@ type TypeRecord = record {
 }
 */
 
+type Field = record {
+  id     : Str
+  type   : *Type
+  offset : Nat16  // record field offset
+  ti     : *TokenInfo
+}
+
+
+
+let field_new = func (id : Str, t : *Type, ti : *TokenInfo) -> *Field {
+  let f = malloc(sizeof Field) to *Field
+  assert(f != Nil, "field_new")
+  f.id = id
+  f.type = t
+  f.offset = 0
+  f.ti = ti
+  return f
+}
+
 
 var offset : Nat16  // смещение (порядковый номер) поля в структуре
 var size   : Nat32  // размер структуры

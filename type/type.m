@@ -1,28 +1,10 @@
 // type/type
 
 
-
-type Field = record {
-  id     : Str
-  type   : *Type
-  offset : Nat16  // record field offset
-  ti     : *TokenInfo
-}
-
-
-/*type TypeUnknown = record {
-  id : Str  // об этом типе ничего не известно, кроме связанного с ним имени
-}*/
-
-
-// неопределенный тип - тот тип что был упомянут
-// но еще не был определен. Содержит в себе список указателей на поля
-// ссылающиеся на этот тип. КОгда будем определять го по настоящему
-// эта запись будет удалена и все ссылки будут переведены на настоящий тип
-
 type TypeUndefined = record {
-  id : Str  // об этом типе ничего не известно, кроме связанного с ним имени
+  id : Str  // We know only identifier
 }
+
 
 type TypeBasic = record {
   id   : Str   //
@@ -38,7 +20,6 @@ type TypeFunc = record {
 }
 
 
-type TypeVar = record {of : *Type}
 type TypePointer = record {to : *Type}
 
 
@@ -51,32 +32,35 @@ type TypeArray = record {
 
 type TypeRecord = record {
   fields : *List  // of Field
-  uid    : Nat32  //
+  uid    : Nat32  // unical id
 }
 
 
 type TypeEnum = record {
   cons : *List  // of Entity (EntityConst)
-  uid  : Nat32  //
+  uid  : Nat32  // unical id
 }
 
 
 
+/*
+ * Type Kind
+ */
 type TypeKind = enum {
-  TypeInvalid,
-  TypeNumeric,
-  TypeUndefined,
-  TypeBasic,
-  TypeFunction,
-  TypeEnum,
-  TypeRecord,
-  TypePointer,
-  TypeArray
+  TypeInvalid,    // Forbidden kind; used ony for debug
+  TypeNumeric,    // Any number without specific type
+  TypeUndefined,  // Type used by id, but still not defined
+  TypeBasic,      // Any builtin type (Unit, Bool, IntXX, NatXX)
+  TypeFunction,   // Callable type
+  TypeEnum,       // Type sum
+  TypeRecord,     // Composite type
+  TypePointer,    // Just Pointer
+  TypeArray       // Defined & Undefined array type
 }
 
 
 /*
- * Type это просто тип-сумма типов (обертка)
+ * Type Structure
  */
 type Type = record {
   kind  : TypeKind
@@ -86,20 +70,19 @@ type Type = record {
   size  : Nat32  // размер типа в байтах (с учетом выравнивания)
   align : Nat8   // заданное значение выравнивания [ЭТО АТТРИБУТ НЕ ТИПА А ЗНАЧЕНИЯ!]
 
-  //union {
-  undefined : TypeUndefined
-  var       : TypeVar
-  basic     : TypeBasic
-  function  : TypeFunc
-  pointer   : TypePointer
-  array     : TypeArray
-  record    : TypeRecord
-  enum      : TypeEnum
-  //}
+//union {
+    undefined : TypeUndefined
+    basic     : TypeBasic
+    function  : TypeFunc
+    pointer   : TypePointer
+    array     : TypeArray
+    record    : TypeRecord
+    enum      : TypeEnum
+//}
 
-  declared_at,      // место в коде где тип был упомянут впервые
-  defined_at,       // место в коде где тип был определен
-  ti : *TokenInfo   // место в коде где тип был упомянут
+  declared_at,     // place in code where type was mentioned first time
+  defined_at,      // place in code where type was defined
+  ti : *TokenInfo  // place in code where type was mentioned
 }
 
 

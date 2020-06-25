@@ -14,9 +14,7 @@ type ValueParser = () -> *Value
 
 
 
-let expr = func ValueParser {
-  return hier1()
-}
+let expr = func ValueParser {return hier1()}  // let expr = hier1  // not worked!
 
 
 let cexpr = func ValueParser {
@@ -41,8 +39,6 @@ let cexpr = func ValueParser {
 fail:
   return Nil
 }
-
-
 
 
 let hier1 = func ValueParser {
@@ -337,7 +333,6 @@ let hier12 = func ValueParser {
 }
 
 
-
 let term = func ValueParser {
   let token = ctok()
   let tt = token.type
@@ -375,11 +370,11 @@ let term = func ValueParser {
 let term_str = func ValueParser {
   let ti = &ctok().ti
   let text = &ctok().text to Str
-  let len3 = strlen(text) + 1
+  let len = strlen(text) + 1
   let s = dup(text)
   skip()
 
-  let t = type_new_array(typeChar, len3, False)
+  let t = type_new_array(typeChar, len, False)
 
   // Есть какая то хрень в том что LLVM считает что у строки тип [X x i8]
   // Но ссылась на константу мы используем ее как [X x i8]*
@@ -392,7 +387,7 @@ let term_str = func ValueParser {
   v_asm.storage.class = StorageString
   v_asm.storage.id = id
   v_asm.storage.str.data = s
-  v_asm.storage.str.length = len3
+  v_asm.storage.str.length = len
   asm_constdef_add(&asm0, id, v_asm)
 
   // Создаем значение с типом *[x]Char, тк LLVM трактует массивы
@@ -401,7 +396,7 @@ let term_str = func ValueParser {
   v.storage.class = StorageString
   v.storage.id = id
   v.storage.str.data = s
-  v.storage.str.length = len3
+  v.storage.str.length = len
 
   // возвращаем операцию приведения указателя на массив к Str
   // это хак с костылем но что поделаешь - LLVM...
@@ -577,8 +572,5 @@ let term_num = func ValueParser {
 let term_hash = func ValueParser {
   return Nil
 }
-
-
-
 
 

@@ -27,8 +27,6 @@ type ListMapHandler = (data, ctx : *Unit, index : Nat) -> *Unit
 
 
 
-
-
 type List = record {
   first, last : *Node
   volume      : Nat64
@@ -102,7 +100,6 @@ let list_subst = func (list : *List, o1 : *Unit, o2 : *Unit) -> Bool {
   n.data = o2
   return True
 }
-
 
 
 let list_node_remove = func (list : *List, n : *Node) -> Unit {

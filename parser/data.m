@@ -26,12 +26,12 @@ let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
 
 
 let get_type = func (id : Str) -> *Type {
-  // сперва ищем в globalTypeIndex тк наибольшая вероятность что тип там
-  // тк встроенные типы наиболее часто встречаются в коде
+  // firstly search in globalTypeIndex тк наибольшая вероятность что тип там
+  // тк встроенные типы чаще всего встречаются в коде
   let builtin_t = map_get(globalTypeIndex, id)
   if builtin_t != Nil {return builtin_t}
 
-  // ищем локально
+  // local searching
   var b : *Block
   b = fctx.cblock
   while b != Nil {
@@ -40,13 +40,13 @@ let get_type = func (id : Str) -> *Type {
     b = b.parent
   }
 
-  // ищем в текущем модуле
+  // searching in current module
   return map_get(&mctx.type_index, id) to *Type
 }
 
 
 
-// используется type/enum тк тип может быть и глобальным и локальным
+// used by type/enum тк тип может быть и глобальным и локальным
 let bind_value = func (id : Str, v : *Value) -> Unit {
   let cblock = fctx.cblock
   if cblock != Nil {
@@ -57,17 +57,19 @@ let bind_value = func (id : Str, v : *Value) -> Unit {
 }
 
 
-// Добавлем bind в указанный блок
+// Add bind into a block
 let bind_value_in_block = func (b : *Block, id : Str, v : *Value) -> Unit {
   map_append(&b.value_index, id, v) to *Value
 }
 
 
+// Add bind into current block
 let bind_value_local = func (id : Str, v : *Value) -> Unit {
   add_value(&fctx.cblock.value_index, id, v)
 }
 
 
+// Add bind to global namespace
 let bind_value_global = func (id : Str, v : *Value) -> Unit {
   add_value(&mctx.value_index, id, v)
 }
@@ -88,7 +90,6 @@ let bind_value_builtin = func (id : Str, v : *Value) -> Unit {
 
 
 
-
 let get_value = func (id : Str) -> *Value {
   let local = get_value_local(id)
   if local != Nil {return local}
@@ -101,12 +102,10 @@ let get_value = func (id : Str) -> *Value {
 }
 
 
-
 // Ищем значение в индексе указанного блока
 let get_value_from_block = func (b : *Block, id : Str) -> *Value {
   return map_get(&b.value_index, id) to *Value
 }
-
 
 
 let get_value_local = func (id : Str) -> *Value {
@@ -144,9 +143,6 @@ let get_value_builtin = func (id : Str) -> *Value {
 }
 
 
-
-
-
 // Ищем значение среди параметров функции
 let get_value_from_params = func (params : *List, id : Str) -> *Value {
   let psearch = func ListSearchHandler {
@@ -169,14 +165,11 @@ let get_value_from_params = func (params : *List, id : Str) -> *Value {
 
 
 
-
-
-
-
 let decorate = func (id : Str) -> Str {
   return id
   //return cat3(mctx.src.abs_path, "_", id)
 }
+
 
 // принимает префикс ресурса (например str)
 // и его номер, формируя строку вида str0
@@ -229,14 +222,14 @@ let get_name = func (res : Str, uid : *Nat32) -> Str {
 var func_uid : Nat32
 let get_name_func = func () -> Str {return get_name("func", &func_uid)}
 
+
 var str_uid : Nat32
 let get_name_str = func () -> Str {
   if fctx.cfunc != Nil {
-    // local string
-    return get_name("str", &fctx.strno)
+    return get_name("str", &fctx.strno)  // local string
   }
-  // global string
-  return get_name("str", &str_uid)
+
+  return get_name("str", &str_uid)  // global string
 }
 
 
@@ -250,22 +243,6 @@ let get_name_var = func () -> Str {return get_name("var", &var_uid)}
 var type_uid : Nat32
 let get_name_type = func () -> Str {return get_name("Type", &type_uid)}
 
-
-
-// кандидат на переезд в stmt/main
-// но VarDef (prt/assembly) не позволяет переехать
-// там какая то засада todo кароч
-let stmt_new_vardef = func (id : Str, t : *Type, init_value : *Value) -> *Stmt {
-  let va = malloc(sizeof VarDef) to *VarDef
-  va.id = id
-  va.init_value = init_value
-  va.type = t
-
-  let s = stmt_new(StmtVarDef)
-  s.v = va
-//  s.ti = ti
-  return s
-}
 
 
 let create_local_var = func (id : Str, t : *Type, init_value : *Value) -> *Value {
@@ -299,4 +276,5 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value) -> Unit 
   v.storage.id = id
   bind_value_global(id, v)
 }
+
 
