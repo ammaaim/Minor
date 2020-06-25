@@ -22,8 +22,8 @@ let prttype = func (t : *Type) -> Unit {
     print_type_func(&t.function)
   } else if k == TypeUndefined {
     printf("%s", t.undefined.id)
-  } else if k == TypeGenericNum {
-    printf("<TypeGenericNum>")
+  } else if k == TypeNumeric {
+    printf("<TypeNumeric>")
   } else if k == TypeGenericRef {
     printf("<TypeGenericRef>")
   } else {

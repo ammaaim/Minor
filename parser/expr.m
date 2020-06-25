@@ -566,7 +566,7 @@ let term_num = func ValueParser {
   }
   skip()
 
-  let t = type_new(TypeGenericNum)
+  let t = type_new(TypeNumeric)
   t.declared_at = ti
   let v = value_new_imm_const(t, d)
   v.defined_at = ti

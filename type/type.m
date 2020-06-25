@@ -64,7 +64,7 @@ type TypeEnum = record {
 
 type TypeKind = enum {
   TypeInvalid,
-  TypeGenericNum,
+  TypeNumeric,
   TypeGenericRef,
   TypeUndefined,
   TypeBasic,

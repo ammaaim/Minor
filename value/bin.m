@@ -5,7 +5,7 @@
 let binTypeOk = func (k : ValueKind, t : *Type) -> Bool {
   if k == ValueEq or k == ValueNe {return True}
 
-  if type_is_basic_integer(t) or t.kind == TypeGenericNum {return True}
+  if type_is_basic_integer(t) or t.kind == TypeNumeric {return True}
 
   if type_eq(t, typeBool) {
     return k == ValueAnd or k == ValueOr or k == ValueXor
@@ -57,7 +57,7 @@ let binImm = func (k : ValueKind, l, r : *Value) -> *Value {
   let lv = l.storage.val
   let rv = r.storage.val
 
-  t = type_new(TypeGenericNum)
+  t = type_new(TypeNumeric)
 
   if k == ValueAdd {
     v = lv + rv

@@ -16,7 +16,7 @@ let isArrayReference = func (t : *Type) -> Bool {
 // постпроцессинг значения перед тем как упаковать его в операцию
 // дженерики если и выжили раньше здесь заменяются на базовые для архитектуры типы
 let post = func (v : *Value) -> *Value {
-  if v.type.kind == TypeGenericNum {
+  if v.type.kind == TypeNumeric {
     v.type = typeBaseInt
   } else if v.type.kind == TypeGenericRef {
     v.type = typeFreePtr
@@ -34,8 +34,8 @@ let nat = func (v : *Value, t : *Type) -> *Value {
   assert(t != Nil, "nat:: t == Nil")
 
   //printf("NAT!\n")
-  // TypeGenericNum -> Basic:Integer
-  if vtype.kind == TypeGenericNum {
+  // TypeNumeric -> Basic:Integer
+  if vtype.kind == TypeNumeric {
     if type_is_basic_integer(t) {
       return value_new_imm_const(t, v.storage.val)
     }

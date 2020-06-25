@@ -256,7 +256,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func144_str2 = private unnamed_addr constant [3 x i8] c"%s\00", align 1
 @func144_str3 = private unnamed_addr constant [2 x i8] c"*\00", align 1
 @func144_str4 = private unnamed_addr constant [3 x i8] c"%s\00", align 1
-@func144_str5 = private unnamed_addr constant [17 x i8] c"<TypeGenericNum>\00", align 1
+@func144_str5 = private unnamed_addr constant [14 x i8] c"<TypeNumeric>\00", align 1
 @func144_str6 = private unnamed_addr constant [17 x i8] c"<TypeGenericRef>\00", align 1
 @func144_str7 = private unnamed_addr constant [31 x i8] c"unkn type kind %d, maybe func?\00", align 1
 @func145_str1 = private unnamed_addr constant [2 x i8] c"(\00", align 1
@@ -8457,7 +8457,7 @@ then_8:
 ;stmt28:
 
 ;stmt29:
-  %47 = bitcast [17 x %Nat8]* @func144_str5 to %Str
+  %47 = bitcast [14 x %Nat8]* @func144_str5 to %Str
   %48 = call %Int32 (%Str, ...) @printf (%Str %47)
   br label %endif_8
 else_8:
