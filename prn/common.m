@@ -1,3 +1,4 @@
+// prn/common
 
 
 var fout : *FILE       // output file
@@ -18,4 +19,5 @@ let o = func (s : Str) -> Unit {fprintf(fout, "%s", s)}
 let nl = func () -> Unit {o("\n")}
 let space = func () -> Unit {o(" ")}
 let comma = func () -> Unit {o(", ")}
+
 

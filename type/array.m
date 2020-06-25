@@ -1,4 +1,4 @@
-
+// type/array
 
 
 /*type TypeArray = record {
@@ -31,3 +31,5 @@ let type_array_eq = func (a, b : *TypeArray) -> Bool {
   if a.volume == b.volume {return True}
   return False
 }
+
+

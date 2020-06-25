@@ -1,4 +1,4 @@
-
+// type/func
 
 
 /*
@@ -8,7 +8,6 @@ type TypeFunc = record {
   arghack : Bool   // , ...
 }
 */
-
 
 
 let type_new_func = func (params : *List, rettype : *Type, arghack : Bool) -> *Type {

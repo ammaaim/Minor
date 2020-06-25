@@ -1,4 +1,4 @@
-
+// prn/stmt
 
 
 var global_if_id, global_while_id, while_id : Nat32

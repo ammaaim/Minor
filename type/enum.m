@@ -1,4 +1,4 @@
-
+// type/enum
 
 
 /*
@@ -9,8 +9,8 @@ type TypeEnum = record {
 */
 
 
-
 type EnumConstructor = record {id : Str, d : Int64}
+
 
 
 let type_new_enum = func (constructors : *List /* of EnumConstructor */) -> *Type {

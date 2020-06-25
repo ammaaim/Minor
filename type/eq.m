@@ -1,4 +1,4 @@
-
+// type/eq
 
 
 let type_eq = func (a, b : *Type) -> Bool {
@@ -24,14 +24,8 @@ let type_eq = func (a, b : *Type) -> Bool {
     return type_record_eq(&a.record, &b.record)
   } else if k == TypeEnum {
     return type_enum_eq(&a.enum, &b.enum)
-  } else if k == TypeGeneric {
-    assert(False, "TypeGeneric in type_eq")
   } else if k == TypeGenericNum {
     return b.kind == TypeGenericNum
-  } else if k == TypeGenericRef {
-    return False
-  } else if k == TypeUnknown {
-    return False
   }
 
   //printf("kind = %d\n", k)

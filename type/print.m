@@ -1,3 +1,4 @@
+// type/print
 
 
 let prttype = func (t : *Type) -> Unit {
@@ -21,15 +22,10 @@ let prttype = func (t : *Type) -> Unit {
     print_type_func(&t.function)
   } else if k == TypeUndefined {
     printf("%s", t.undefined.id)
-  } else if k == TypeGeneric {
-    printf("<TypeGeneric>")
   } else if k == TypeGenericNum {
     printf("<TypeGenericNum>")
   } else if k == TypeGenericRef {
     printf("<TypeGenericRef>")
-    //print_type_generic(&t.generic)
-  } else if k == TypeUnknown {
-    printf("TypeUnknown")
   } else {
     printf("unkn type kind %d, maybe func?", k)
     exit(1)
@@ -58,6 +54,7 @@ let print_type_enum = func (t : *Type) -> Unit {
 }
 
 
+
 let print_type_array = func (t : *Type) -> Unit {
   if t.array.undefined {
     printf("[]")
@@ -81,33 +78,5 @@ let print_type_func = func (t : *TypeFunc) -> Unit {
   list_foreach(t.params, print_params, Nil)
   printf(") -> "); prttype(t.to);
 }
-
-
-/*
-let print_type_generic = func (t : *TypeGeneric) -> Unit {
-
-  printf("<TypeGeneric:")
-  let c = t.class
-  if c == GenericUndefined {
-    printf("Undefined")
-  } else if c == GenericNumeric {
-    printf("Numeric")
-  } else if c == GenericIndexed {
-    printf("Indexed")
-  } else if c == GenericPointer {
-    printf("Pointer")
-  } else if c == GenericReference {
-    printf("Reference")
-  } else if c == GenericAccessible {
-    printf("Accessible")
-  } else if c == GenericCallable {
-    printf("Callable")
-  } else if c == GenericDefined {
-    printf("Defined="); prttype(t.type);
-  }
-  printf(" %p:%d>", t, t.uid)
-}
-*/
-
 
 

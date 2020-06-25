@@ -1,4 +1,4 @@
-
+// type/init
 
 
 let type_init = func () -> Unit {

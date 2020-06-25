@@ -1,4 +1,4 @@
-
+// stmt/main
 
 
 // Compound Statement
@@ -90,9 +90,5 @@ let stmt_new_assign = func (l, r : *Value, ti : *TokenInfo) -> *Stmt {
   s.ti = ti
   return s
 }
-
-
-
-
 
 

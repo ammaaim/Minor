@@ -3,7 +3,6 @@ import "type"
 import "new"
 import "std"
 import "basic"
-import "generic"
 import "record"
 import "enum"
 import "array"
@@ -27,7 +26,6 @@ let type_is_record = func (t : *Type) -> Bool {return t.kind == TypeRecord}
 let type_is_enum = func (t : *Type) -> Bool {return t.kind == TypeEnum}
 let type_is_pointer = func (t : *Type) -> Bool {return t.kind == TypePointer}
 let type_is_array = func (t : *Type) -> Bool {return t.kind == TypeArray}
-let type_is_generic = func (t : *Type) -> Bool {return t.kind == TypeGeneric}
 
 
 let type_is_basic_integer = func (t : *Type) -> Bool {
@@ -52,8 +50,5 @@ let alignment = func (req_sz : Nat32, align : Nat8) -> Nat32 {
   while (sz % align to Nat32) != 0 {sz = sz + 1}
   return sz
 }
-
-
-
 
 

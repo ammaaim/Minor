@@ -1,3 +1,5 @@
+// type/pointer
+
 
 /*type TypePointer = record {to : *Type}*/
 

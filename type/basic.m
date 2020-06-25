@@ -1,4 +1,4 @@
-
+// type/basic
 
 
 /*
@@ -8,7 +8,6 @@ type TypeBasic = record {
   i, s : Bool  // flags: i - integer, s - signed
 }
 */
-
 
 
 let type_new_basic = func (id : Str, size, p : Nat, i, s : Bool) -> *Type {
@@ -21,6 +20,7 @@ let type_new_basic = func (id : Str, size, p : Nat, i, s : Bool) -> *Type {
   t.basic.s = s
   return t
 }
+
 
 let type_basic_eq = func (a, b : *TypeBasic) -> Bool {
   return strcmp(a.id, b.id) == 0

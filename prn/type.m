@@ -1,10 +1,8 @@
-
+// prn/type
 
 
 let print_type = func (t : *Type, print_alias, func_as_ptr : Bool) -> Unit {
-  if t == Nil {
-    assert(False, "prn/print_type :: t = Nil\n")
-  }
+  assert(t != Nil, "prn/print_type :: t = Nil\n")
 
   if print_alias and t.aka != Nil {
     fprintf(fout, "%%%s", t.aka)
@@ -61,10 +59,6 @@ let print_type = func (t : *Type, print_alias, func_as_ptr : Bool) -> Unit {
     }
   } else if k == TypeEnum {
     fprintf(fout, "<UNDEFINED::%s>", t.undefined.id)
-  } else if k == TypeGeneric {
-    printf("generic_type: "); prttype(t); printf("\n")
-    //fatal("generic type in printer")
-    //fprintf(fout, "<GENERIC: UID=%d CL=%d>", t.generic.uid, t.generic.class)
   }
 }
 

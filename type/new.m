@@ -1,3 +1,4 @@
+// type/new
 
 
 let type_new = func (k : TypeKind) -> *Type {
@@ -9,4 +10,5 @@ let type_new = func (k : TypeKind) -> *Type {
   t.align = get("dataAlignment") to Nat8
   return t
 }
+
 

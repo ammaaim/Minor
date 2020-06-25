@@ -1,6 +1,6 @@
+// type/type
 
 
-import "generic"
 
 type Field = record {
   id     : Str
@@ -20,11 +20,9 @@ type Field = record {
 // ссылающиеся на этот тип. КОгда будем определять го по настоящему
 // эта запись будет удалена и все ссылки будут переведены на настоящий тип
 
-// Замени это на TypeGeneric ?
 type TypeUndefined = record {
   id : Str  // об этом типе ничего не известно, кроме связанного с ним имени
 }
-
 
 type TypeBasic = record {
   id   : Str   //
@@ -69,8 +67,6 @@ type TypeEnum = record {
 
 type TypeKind = enum {
   TypeInvalid,
-  TypeUnknown,
-  TypeGeneric,
   TypeGenericNum,
   TypeGenericRef,
   TypeUndefined,
@@ -95,8 +91,6 @@ type Type = record {
   align : Nat8   // заданное значение выравнивания [ЭТО АТТРИБУТ НЕ ТИПА А ЗНАЧЕНИЯ!]
 
   //union {
-  //unknown   : TypeUnknown
-  //generic   : TypeGeneric
   undefined : TypeUndefined
   var       : TypeVar
   basic     : TypeBasic

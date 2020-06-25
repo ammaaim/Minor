@@ -191,7 +191,6 @@ let eval_index = func Eval {
 
 
 let eval_access = func Eval {
-
   var s : *Value
   var record_type : *Type
 
@@ -223,7 +222,6 @@ let eval_access = func Eval {
 
 
 let eval_ref = func Eval {
-
   let vx = eval(v.a[0])
   if vx.storage.class == StorageAddress {
     // если это адрес - вернем его в регистре, а тип обернем в указатель
@@ -246,8 +244,7 @@ let eval_ref = func Eval {
 
 
 let eval_deref = func Eval {
-  // загружаем указатель
-  let vx = load(eval(v.a[0]))
+  let vx = load(eval(v.a[0]))  // загружаем указатель
 
   // возвращаем загруженный указатель как #Address
   return nv(v.type, StorageAddress, vx.storage.reg)
@@ -255,7 +252,6 @@ let eval_deref = func Eval {
 
 
 let eval_not = func Eval {
-
   let vx = load(eval(v.a[0]))
 
   //"%s = xor %s, -1"
@@ -287,17 +283,6 @@ let eval_minus = func Eval {
 }
 
 
-
-let unk_ptr = func (t : *Type) -> Bool {
-  /*if t.kind == TypeGeneric {
-    return t.generic.class == GenericPointer or t.generic.class == GenericReference
-  }*/
-  return False
-}
-
-
-
-
 let eval_cast = func Eval {
   /* Общий вид:
     <op> <ltype> <lvalue> to <type>
@@ -309,7 +294,6 @@ let eval_cast = func Eval {
       inttoptr
       ptrtoint
   */
-
 
   var xx : Nat32
   xx = 0
@@ -323,9 +307,7 @@ let eval_cast = func Eval {
   // поэтому просто возвращаем загруженное значение
   if type_eq(ee.type, to) {return ee}
 
-
   let reg = lab_get()
-
   fprintf(fout, "\n  %%%d = ", reg)
 
   let k = ee.type.kind
@@ -445,7 +427,6 @@ let eval_bin = func Eval {
   } else if k == ValueShr {
     if signed {o = "ashr"} else {o = "lshr"}
   }
-
 
   let l = load(eval(v.a[0]))
   let r = load(eval(v.a[1]))

@@ -1,3 +1,4 @@
+// prn/init
 
 
 let printer_init = func (a : Arch, fname : Str) -> Unit {
@@ -28,4 +29,5 @@ let printer_init = func (a : Arch, fname : Str) -> Unit {
 
   fprintf(fout, "\n")
 }
+
 

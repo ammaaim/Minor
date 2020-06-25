@@ -1,4 +1,4 @@
-
+// type/check
 
 
 // проверяем тип на наличие в нем TypeUndefined
