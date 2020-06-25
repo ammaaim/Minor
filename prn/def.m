@@ -1,5 +1,5 @@
+// prn/def
 
-/* определения 0 го уровня LLVM */
 
 let typedef = func (id : Str, t : *Type) -> Unit {
   fprintf(fout, "\n%%%s = type ", id); print_type(t, False, True);
@@ -63,9 +63,6 @@ let vardef = func (id : Str, t : *Type, v : *Value) -> Unit {
 
 
 let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
-
-  //printf("funcdef: %s\n", id)
-
   lab_reset()
   lab_get()
 
