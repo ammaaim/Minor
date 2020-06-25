@@ -34,7 +34,6 @@ let type_init = func () -> Unit {
 
 
   // Add most popular types
-
   bind_type_builtin("Int64", typeInt64)
   bind_type_builtin("Nat64", typeNat64)
 
