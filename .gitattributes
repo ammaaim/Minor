@@ -1,2 +1,1 @@
-# Sources
-*.m     text diff=csharp
+*.m linguist-language=Golang
