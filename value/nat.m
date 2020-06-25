@@ -37,7 +37,6 @@ let nat = func (v : *Value, t : *Type) -> *Value {
   // TypeGenericNum -> Basic:Integer
   if vtype.kind == TypeGenericNum {
     if type_is_basic_integer(t) {
-      v.type = t      /// AAAAA!!!!! делай копию!!!
       return value_new_imm_const(t, v.storage.val)
     }
   }

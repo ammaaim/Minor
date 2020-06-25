@@ -6812,19 +6812,13 @@ then_1:
 ;stmt6:
 
 ;stmt7:
-  %18 = load %Value*, %Value** %v
-  %19 = getelementptr inbounds %Value, %Value* %18, i32 0, i32 1 ; eval_access
-  %20 = load %Type*, %Type** %t
-  store %Type* %20, %Type** %19
-
-;stmt8:
-  %21 = load %Type*, %Type** %t
-  %22 = load %Value*, %Value** %v
-  %23 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 2 ; eval_access
-  %24 = getelementptr inbounds %Storage, %Storage* %23, i32 0, i32 1 ; eval_access
-  %25 = load %Int64, %Int64* %24
-  %26 = call %Value* (%Type*, %Int64) @value_new_imm_const (%Type* %21, %Int64 %25)
-  ret %Value* %26
+  %18 = load %Type*, %Type** %t
+  %19 = load %Value*, %Value** %v
+  %20 = getelementptr inbounds %Value, %Value* %19, i32 0, i32 2 ; eval_access
+  %21 = getelementptr inbounds %Storage, %Storage* %20, i32 0, i32 1 ; eval_access
+  %22 = load %Int64, %Int64* %21
+  %23 = call %Value* (%Type*, %Int64) @value_new_imm_const (%Type* %18, %Int64 %22)
+  ret %Value* %23
   br label %endif_1
 else_1:
   br label %endif_1
@@ -6834,38 +6828,38 @@ else_0:
   br label %endif_0
 endif_0:
 
-;stmt9:
-  %28 = load %Value*, %Value** %v
-  %29 = getelementptr inbounds %Value, %Value* %28, i32 0, i32 1 ; eval_access
-  %30 = load %Type*, %Type** %29
-  %31 = load %Type*, %Type** %t
-  %32 = call %Bool (%Type*, %Type*) @naturalConversionIsPossible (%Type* %30, %Type* %31)
-  br i1 %32, label %then_2, label %else_2
+;stmt8:
+  %25 = load %Value*, %Value** %v
+  %26 = getelementptr inbounds %Value, %Value* %25, i32 0, i32 1 ; eval_access
+  %27 = load %Type*, %Type** %26
+  %28 = load %Type*, %Type** %t
+  %29 = call %Bool (%Type*, %Type*) @naturalConversionIsPossible (%Type* %27, %Type* %28)
+  br i1 %29, label %then_2, label %else_2
 then_2:
 
+;stmt9:
+
 ;stmt10:
+  %30 = load %Value*, %Value** %v
+  %31 = load %Type*, %Type** %t
+  %32 = load %Value*, %Value** %v
+  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 8 ; eval_access
+  %34 = load %TokenInfo*, %TokenInfo** %33
+  %35 = call %Value* (%Value*, %Type*, %TokenInfo*) @cast (%Value* %30, %Type* %31, %TokenInfo* %34)
 
 ;stmt11:
-  %33 = load %Value*, %Value** %v
-  %34 = load %Type*, %Type** %t
-  %35 = load %Value*, %Value** %v
-  %36 = getelementptr inbounds %Value, %Value* %35, i32 0, i32 8 ; eval_access
-  %37 = load %TokenInfo*, %TokenInfo** %36
-  %38 = call %Value* (%Value*, %Type*, %TokenInfo*) @cast (%Value* %33, %Type* %34, %TokenInfo* %37)
+  %36 = call %Type* (%Value*) @getType (%Value* %35)
 
 ;stmt12:
-  %39 = call %Type* (%Value*) @getType (%Value* %38)
-
-;stmt13:
-  ret %Value* %38
+  ret %Value* %35
   br label %endif_2
 else_2:
   br label %endif_2
 endif_2:
 
-;stmt14:
-  %41 = load %Value*, %Value** %v
-  ret %Value* %41
+;stmt13:
+  %38 = load %Value*, %Value** %v
+  ret %Value* %38
 }
 
 define %Bool @naturalConversionIsPossible (%Type* %_a, %Type* %_b) {
