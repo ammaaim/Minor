@@ -26,7 +26,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %Nat1024 = type i1024
 
 
-; art# <asm0>
+; assembly: <asm0>
 
 
 ;types:
@@ -616,7 +616,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func336_str10 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
 @func340_str1 = private unnamed_addr constant [37 x i8] c"print::StorageRecord not implemented\00", align 1
 @func343_str1 = private unnamed_addr constant [20 x i8] c"print_assembly: %s\0A\00", align 1
-@func343_str2 = private unnamed_addr constant [12 x i8] c"\0A; art# %s\0A\00", align 1
+@func343_str2 = private unnamed_addr constant [17 x i8] c"\0A; assembly: %s\0A\00", align 1
 @func343_str3 = private unnamed_addr constant [11 x i8] c"\0A\0A;types:\0A\00", align 1
 @func343_str4 = private unnamed_addr constant [12 x i8] c"\0A\0A;consts:\0A\00", align 1
 @func343_str5 = private unnamed_addr constant [10 x i8] c"\0A\0A;vars:\0A\00", align 1
@@ -18415,45 +18415,43 @@ define void @print_stmt_if (%If* %_i) {
   %5 = getelementptr inbounds %If, %If* %4, i32 0, i32 0 ; eval_access
   %6 = load %Value*, %Value** %5
   %7 = call %Value* (%Value*) @eval (%Value* %6)
-
-;stmt3:
   %8 = call %Value* (%Value*) @load (%Value* %7)
 
-;stmt4:
+;stmt3:
   %9 = load %Unit*, %Unit** @fout
   %10 = bitcast [10 x %Nat8]* @func305_str1 to %Str
   %11 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %9, %Str %10)
 
-;stmt5:
+;stmt4:
   call void (%Value*) @print_value (%Value* %8)
 
-;stmt6:
+;stmt5:
   %12 = load %Unit*, %Unit** @fout
   %13 = bitcast [35 x %Nat8]* @func305_str2 to %Str
   %14 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %12, %Str %13, %Nat32 %1, %Nat32 %1)
 
-;stmt7:
+;stmt6:
   %15 = load %Unit*, %Unit** @fout
   %16 = bitcast [10 x %Nat8]* @func305_str3 to %Str
   %17 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %15, %Str %16, %Nat32 %1)
 
-;stmt8:
+;stmt7:
   %18 = load %If*, %If** %i
   %19 = getelementptr inbounds %If, %If* %18, i32 0, i32 1 ; eval_access
   %20 = load %Stmt*, %Stmt** %19
   call void (%Stmt*) @print_stmt (%Stmt* %20)
 
-;stmt9:
+;stmt8:
   %21 = load %Unit*, %Unit** @fout
   %22 = bitcast [23 x %Nat8]* @func305_str4 to %Str
   %23 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %21, %Str %22, %Nat32 %1)
 
-;stmt10:
+;stmt9:
   %24 = load %Unit*, %Unit** @fout
   %25 = bitcast [10 x %Nat8]* @func305_str5 to %Str
   %26 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %24, %Str %25, %Nat32 %1)
 
-;stmt11:
+;stmt10:
   %27 = load %If*, %If** %i
   %28 = getelementptr inbounds %If, %If* %27, i32 0, i32 2 ; eval_access
   %29 = load %Stmt*, %Stmt** %28
@@ -18463,9 +18461,9 @@ define void @print_stmt_if (%If* %_i) {
   br i1 %32, label %then_0, label %else_0
 then_0:
 
-;stmt12:
+;stmt11:
 
-;stmt13:
+;stmt12:
   %33 = load %If*, %If** %i
   %34 = getelementptr inbounds %If, %If* %33, i32 0, i32 2 ; eval_access
   %35 = load %Stmt*, %Stmt** %34
@@ -18475,12 +18473,12 @@ else_0:
   br label %endif_0
 endif_0:
 
-;stmt14:
+;stmt13:
   %36 = load %Unit*, %Unit** @fout
   %37 = bitcast [23 x %Nat8]* @func305_str6 to %Str
   %38 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %36, %Str %37, %Nat32 %1)
 
-;stmt15:
+;stmt14:
   %39 = load %Unit*, %Unit** @fout
   %40 = bitcast [11 x %Nat8]* @func305_str7 to %Str
   %41 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %39, %Str %40, %Nat32 %1)
@@ -19046,10 +19044,6 @@ endif_0:
   %39 = load %Value*, %Value** %v
   %40 = call %Value* (%Value*) @eval_bin (%Value* %39)
   ret %Value* %40
-
-;stmt29:
-  %42 = load %Value*, %Value** %v
-  ret %Value* %42
 }
 
 define %Value* @load (%Value* %_v) {
@@ -21419,7 +21413,7 @@ define void @print_assembly (%Assembly* %_a) {
 
 ;stmt1:
   %6 = load %Unit*, %Unit** @fout
-  %7 = bitcast [12 x %Nat8]* @func343_str2 to %Str
+  %7 = bitcast [17 x %Nat8]* @func343_str2 to %Str
   %8 = load %Assembly*, %Assembly** %a
   %9 = getelementptr inbounds %Assembly, %Assembly* %8, i32 0, i32 0 ; eval_access
   %10 = load %Str, %Str* %9

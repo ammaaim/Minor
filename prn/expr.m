@@ -56,8 +56,6 @@ let eval = func Eval {
   }
 
   return eval_bin(v)
-
-  return v
 }
 
 
@@ -379,8 +377,6 @@ let eval_cast = func Eval {
   print_value(ee)
   o(" to ")
   print_type(to, True, True)
-
-  //fprintf(fout, " ; k = %d, x = %d\n", k, xx)
 
   return nv(v.type, StorageRegister, reg)
 }

@@ -1,5 +1,6 @@
 // prn/main
 
+
 import "common"
 import "type"
 import "stmt"
@@ -45,7 +46,7 @@ let foreach_funcdef = func ListForeachHandler {
 let print_assembly = func (a: *Assembly) -> Unit {
   printf("print_assembly: %s\n", a.name)
 
-  fprintf(fout, "\n; art# %s\n", a.name)
+  fprintf(fout, "\n; assembly: %s\n", a.name)
 
   o("\n\n;types:\n")
   list_foreach(a.types, foreach_typedef, Nil)

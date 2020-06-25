@@ -1,7 +1,10 @@
 // prn/stmt
 
 
-var global_if_id, global_while_id, while_id : Nat32
+var global_if_id,
+    global_while_id,
+    while_id : Nat32
+
 
 var blockno, stmtno : Nat32  // just number of statement in function (for comment ;stmt%d)
 
@@ -52,13 +55,11 @@ let print_stmt = func (s : *Stmt) -> Unit {
 }
 
 
-
-
-// Печать значения проискходит в два этапа
+// Печать значения происходит в два этапа
 // 1. eval - распечатывается алгоритм получения значения (вычисление значения)
 // 2. print_value - печатается регистр в котором находится значение (уже вычисленное)
-//                 или непосредственная константа (которая никак не вычисляется в LLVM)
-//
+//                  или непосредственная константа (которая никак не вычисляется в LLVM)
+
 type Eval = (v : *Value) -> *Value
 
 
@@ -85,10 +86,7 @@ let print_stmt_let = func (e, x : *Value) -> Unit {
 let print_stmt_if = func (i : *If) -> Unit {
   let if_id = global_if_id
   global_if_id = global_if_id + 1
-
-  let e = eval(i.cond)
-
-  let c = load(e)
+  let c = load(eval(i.cond))
   fprintf(fout, "\n  br i1 ")
   print_value(c)
   fprintf(fout, ", label %%then_%d, label %%else_%d", if_id, if_id)
@@ -127,7 +125,6 @@ let print_stmt_return = func (rv : *Value) -> Unit {
     o("\nret void")
     return
   }
-  //printf("print_stmt_return %p\n", rv.type)
   let v = load(eval(rv))
   fprintf(fout, "\n  ret ")
   print_type(v.type, True, True)
@@ -168,6 +165,5 @@ let print_block = func (b : *Block) -> Unit {
   }
   list_foreach(b.stmts, for_stmt, Nil)
 }
-
 
 

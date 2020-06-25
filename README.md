@@ -1,4 +1,7 @@
-# minor
+# Minor
+
+Go-like programming language without any runtime for low level porgramming
+
 
 Project structure
 
@@ -16,3 +19,5 @@ Project structure
   type/
   value/
 ```
+
+
