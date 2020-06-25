@@ -17,6 +17,7 @@ let dup = func (s : Str) -> Str {
   return new_s
 }
 
+
 // содает копию строки
 // n - размер результирующей строки
 // 0-терминатор гарантированно будет скопирован
@@ -37,7 +38,7 @@ let cat = func (s1, s2 : Str) -> Str {
 
   let len12 = len1 + len2
 
-  let s = malloc (len12 + 1) to Str
+  let s = malloc (len12 + (1 /* for STR_TERM */)) to Str
 
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
@@ -53,15 +54,15 @@ let cat3 = func (s1, s2, s3 : Str) -> Str {
   let len2 = strlen(s2)
   let len3 = strlen(s3)
 
-  let len12x = len1 + len2
-  let len123x = len12x + len3
+  let len12 = len1 + len2
+  let len123 = len12 + len3
 
-  let s = malloc(len123x + 1) to Str
+  let s = malloc(len123 + (1 /* for STR_TERM */)) to Str
 
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
-  strcpy(&s[len12x] to Str, s3)
-  s[len123x] = STR_TERM
+  strcpy(&s[len12] to Str, s3)
+  s[len123] = STR_TERM
 
   return s
 }
@@ -74,17 +75,17 @@ let cat4 = func (s1, s2, s3, s4 : Str) -> Str {
   let len3 = strlen(s3)
   let len4 = strlen(s4)
 
-  let len12y = len1 + len2
-  let len123y = len12y + len3
-  let len1234y = len123y + len4
+  let len12 = len1 + len2
+  let len123 = len12 + len3
+  let len1234 = len123 + len4
 
-  let s = malloc(len1234y + 1) to Str
+  let s = malloc(len1234 + (1 /* for STR_TERM */)) to Str
 
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
-  strcpy(&s[len12y] to Str, s3)
-  strcpy(&s[len123y] to Str, s4)
-  s[len1234y] = STR_TERM
+  strcpy(&s[len12] to Str, s3)
+  strcpy(&s[len123] to Str, s4)
+  s[len1234] = STR_TERM
 
   return s
 }
@@ -98,19 +99,19 @@ let cat5 = func (s1, s2, s3, s4, s5 : Str) -> Str {
   let len4 = strlen(s4)
   let len5 = strlen(s5)
 
-  let len12z = len1 + len2
-  let len123z = len12z + len3
-  let len1234z = len123z + len4
-  let len12345z = len1234z + len5
+  let len12 = len1 + len2
+  let len123 = len12 + len3
+  let len1234 = len123 + len4
+  let len12345 = len1234 + len5
 
-  let s = malloc(len12345z + 1) to Str
+  let s = malloc(len12345 + (1 /* for STR_TERM */)) to Str
 
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
-  strcpy(&s[len12z] to Str, s3)
-  strcpy(&s[len123z] to Str, s4)
-  strcpy(&s[len1234z] to Str, s5)
-  s[len12345z] = STR_TERM
+  strcpy(&s[len12] to Str, s3)
+  strcpy(&s[len123] to Str, s4)
+  strcpy(&s[len1234] to Str, s5)
+  s[len12345] = STR_TERM
 
   return s
 }
