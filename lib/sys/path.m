@@ -1,3 +1,4 @@
+// lib/sys/path
 
 
 // возвращает длину части пути предшествующей последнему /, плюс его позиция
@@ -39,6 +40,5 @@ let get_last = func (path : Str) -> Str {
   str[len0] = 0
   return str
 }
-
 
 

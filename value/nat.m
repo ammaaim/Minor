@@ -13,7 +13,7 @@ let isArrayReference = func (t : *Type) -> Bool {
 }
 
 
-// приводим значение с типом TypeNumeric к указаному типу (index, shift, call)
+// даем тип t значению v с типом #TypeNumeric (index, shift, call)
 let castIfNumericTo = func (v : *Value, t : *Type) -> *Value {
   if v.type.kind == TypeNumeric {
     v.type = t
@@ -25,7 +25,6 @@ let castIfNumericTo = func (v : *Value, t : *Type) -> *Value {
 // производит натуральное преобразование значения к заданному типу
 // или полсто возвращает значение без преобразования (если оно невозможно)
 let nat = func (v : *Value, t : *Type) -> *Value {
-  //printf("? "); prttype(v.type); printf("\n")
   let vtype = v.type
   assert(vtype != Nil, "nat:: v.type == Nil")
   assert(t != Nil, "nat:: t == Nil")
@@ -38,11 +37,9 @@ let nat = func (v : *Value, t : *Type) -> *Value {
     }
   }
 
-
   if naturalConversionIsPossible(v.type, t) {
-    /*printf("NAT3\n")
-    printf("v.type = "); prttype(v.type); printf("\n");
-    printf("t = "); prttype(t); printf("\n");*/
+    // поскольку этот каст производится в фазе вывода/проверки типов
+    // мы должны его вывести через getType
     let res = cast(v, t, v.ti)
     getType(res)  //!
     return res

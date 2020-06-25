@@ -1,5 +1,7 @@
+// error
 
-// счетчики ошибок и предупреждений
+
+// warning & error counters
 var warncnt, errcnt : Nat
 
 
@@ -14,6 +16,9 @@ let CMAGENTA = 35
 let CCYAN = 36
 
 
+/*
+ * Colors
+ */
 let CINFO = CCYAN
 let CWARNING = CBLUE
 let CERROR = CMAGENTA
@@ -58,6 +63,7 @@ let error = func (s : Str, ti : *TokenInfo) -> Unit {
   }
 }
 
+
 let rem = func (s : Str, ti : *TokenInfo) -> Unit {
   printf("\n%c[0;%dm%s%c[0m", 27, CYELLOW, s, 27)
   if ti != Nil {
@@ -65,7 +71,6 @@ let rem = func (s : Str, ti : *TokenInfo) -> Unit {
     printf("\n")
   }
 }
-
 
 
 // get line from source file (for error displaying)

@@ -1,3 +1,5 @@
+// lib/cpu
+
 
 // обратный код (первое дополнение)
 let ones_complement32 = func (x : Int32) -> Int32 {
@@ -19,4 +21,5 @@ let ones_complement64 = func (x : Int64) -> Int64 {
 let twos_complement64 = func (x : Int64) -> Int64 {
   return ((not (x to Nat64)) + 1) to Int64
 }
+
 

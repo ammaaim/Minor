@@ -1,11 +1,12 @@
+// lib/str
 
 
-// создает новую строку
 let str_new = func (len : Nat) -> Str {
   return malloc(len) to Str
 }
 
-// содает копию строки
+
+// create copy of string
 let dup = func (s0 : Str) -> Str {
   let len = strlen(s0) + (1 /* for 0 */)
   let s1 = str_new(len)
@@ -42,7 +43,7 @@ let cat = func (s1, s2 : Str) -> Str {
 }
 
 
-// склеивает три строки формируя на выходе новую
+// concat three strings to one new
 let cat3 = func (s1, s2, s3 : Str) -> Str {
   let len1 = strlen(s1)
   let len2 = strlen(s2)
@@ -61,7 +62,7 @@ let cat3 = func (s1, s2, s3 : Str) -> Str {
 }
 
 
-// склеивает четыре строки формируя на выходе новую
+// concat four strings to one new
 let cat4 = func (s1, s2, s3, s4 : Str) -> Str {
   let len1 = strlen(s1)
   let len2 = strlen(s2)
@@ -83,7 +84,7 @@ let cat4 = func (s1, s2, s3, s4 : Str) -> Str {
 }
 
 
-// склеивает пять строк формируя на выходе новую
+// concat five strings to one new
 let cat5 = func (s1, s2, s3, s4, s5 : Str) -> Str {
   let len1 = strlen(s1)
   let len2 = strlen(s2)
@@ -106,3 +107,5 @@ let cat5 = func (s1, s2, s3, s4, s5 : Str) -> Str {
   s[len12345z] = 0
   return s
 }
+
+

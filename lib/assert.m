@@ -1,3 +1,4 @@
+// lib/assert
 
 
 let assert = func (cond : Bool, text : Str) -> Unit {
@@ -6,4 +7,5 @@ let assert = func (cond : Bool, text : Str) -> Unit {
     exit(1)
   }
 }
+
 

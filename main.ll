@@ -1566,7 +1566,7 @@ break_0:
   ret %Node* %26
 }
 
-define %Bool @xx (%Node* %_n, %Unit* %_ctx, %Nat32 %_index) {
+define %Bool @func20 (%Node* %_n, %Unit* %_ctx, %Nat32 %_index) {
   %n = alloca %Node*
   store %Node* %_n, %Node** %n
   %ctx = alloca %Unit*
@@ -1592,7 +1592,7 @@ define %Node* @node_search_by_data (%Node* %_node_chain, %Unit* %_data) {
 ;stmt0:
   %1 = load %Node*, %Node** %node_chain
   %2 = load %Unit*, %Unit** %data
-  %3 = call %Node* (%Node*, %NodeSearchHandler, %Unit*) @node_search (%Node* %1, %NodeSearchHandler @xx, %Unit* %2)
+  %3 = call %Node* (%Node*, %NodeSearchHandler, %Unit*) @node_search (%Node* %1, %NodeSearchHandler @func20, %Unit* %2)
   ret %Node* %3
 }
 

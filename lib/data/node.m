@@ -1,4 +1,4 @@
-
+// data/node
 
 
 type Node = record {
@@ -10,7 +10,6 @@ type Node = record {
 // for node_search
 type NodeForeachHandler = (n : *Node, ctx : *Unit, index : Nat) -> Unit
 type NodeSearchHandler = (n : *Node, ctx : *Unit, index : Nat) -> Bool
-
 
 
 
@@ -69,6 +68,7 @@ let node_foreach = func (node_chain : *Node, f : NodeForeachHandler, ctx : *Unit
   }
 }
 
+
 // применяет f к каждой ноде в цепочке node_chain
 let node_search = func (node_chain : *Node, f : NodeSearchHandler, ctx : *Unit) -> *Node {
   if node_chain == Nil {return Nil}
@@ -87,9 +87,7 @@ let node_search = func (node_chain : *Node, f : NodeSearchHandler, ctx : *Unit) 
 
 // поиск ноды по ссылке на data
 let node_search_by_data = func (node_chain : *Node, data : *Unit) -> *Node {
-  let xx = func NodeSearchHandler {return n.data == ctx}
-  return node_search(node_chain, xx, data)
+  return node_search(node_chain, func NodeSearchHandler {return n.data == ctx}, data)
 }
-
 
 

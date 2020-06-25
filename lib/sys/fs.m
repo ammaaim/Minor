@@ -1,8 +1,7 @@
+// lib/sys/fs
 
 
-
-
-// file (or directory) exists?
+// File (or directory) exists?
 let exists = func (fname : Str) -> Bool {
   let fd = open(fname, O_RDONLY)
   if fd < 0 {return False}
@@ -11,7 +10,7 @@ let exists = func (fname : Str) -> Bool {
 }
 
 
-// it's a directory?
+// It's a directory?
 let isdir = func (name : Str) -> Bool {
   let d = opendir(name)
   if d == Nil {return False}

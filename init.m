@@ -7,6 +7,7 @@ import "type/init"
 import "value/init"
 
 
+
 let MINOR_LIB_ENV_VAR = "MINOR_LIB"
 
 
@@ -18,6 +19,8 @@ type Settings = record {
   integerSize,
   pointerSize : Nat32
 }
+
+
 
 let init = func () -> Unit {
   // set project directory
@@ -49,7 +52,7 @@ let init = func () -> Unit {
 
   set("flagArghack", 0)
 
-  //handle_ini("main.ini")
+  //handle_ini("cfg/sys64.cfg")
 
   // create built-in types
   type_init()
@@ -59,7 +62,7 @@ let init = func () -> Unit {
 }
 
 
-
+// not used
 let handle_ini = func (fname : Str) -> Unit {
   let tokens = tokenize(fname)
   sett(tokens.first)
@@ -92,4 +95,5 @@ let handle_ini = func (fname : Str) -> Unit {
     set(key, d)
   }
 }
+
 
