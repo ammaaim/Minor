@@ -1,7 +1,7 @@
 
 # Minor
 
-```c
+```golang
 // директива import включает содержимое указанного исходного файла в текущий
 import "C"
 
@@ -29,7 +29,7 @@ type Point32 = record {x, y : Int32}
 var a, b : Nat32
 
 
-let main = () -> Unit {
+let main = func () -> Unit {
   pirntf("%s", GREETING)
 }
 
