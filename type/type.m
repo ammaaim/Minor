@@ -65,7 +65,7 @@ type TypeKind = enum {
 type Type = record {
   kind  : TypeKind
 
-  aka   : Str    // псевдоним типа (для определенных) нужно для принтера
+  aka   : Str    // type alias (!need for printer)
 
   size  : Nat32  // размер типа в байтах (с учетом выравнивания)
   align : Nat8   // заданное значение выравнивания [ЭТО АТТРИБУТ НЕ ТИПА А ЗНАЧЕНИЯ!]
