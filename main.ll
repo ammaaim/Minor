@@ -644,44 +644,44 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func349_str8 = private unnamed_addr constant [18 x i8] c"%%Str = type i8*\0A\00", align 1
 @func350_str1 = private unnamed_addr constant [17 x i8] c"%%%s = type i%d\0A\00", align 1
 @func349_str9 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@func351_str1 = private unnamed_addr constant [5 x i8] c"Int8\00", align 1
-@func351_str2 = private unnamed_addr constant [6 x i8] c"Int16\00", align 1
-@func351_str3 = private unnamed_addr constant [6 x i8] c"Int32\00", align 1
-@func351_str4 = private unnamed_addr constant [6 x i8] c"Int64\00", align 1
-@func351_str5 = private unnamed_addr constant [7 x i8] c"Int128\00", align 1
-@func351_str6 = private unnamed_addr constant [7 x i8] c"Int256\00", align 1
-@func351_str7 = private unnamed_addr constant [7 x i8] c"Int512\00", align 1
-@func351_str8 = private unnamed_addr constant [8 x i8] c"Int1024\00", align 1
-@func351_str9 = private unnamed_addr constant [5 x i8] c"Nat8\00", align 1
-@func351_str10 = private unnamed_addr constant [6 x i8] c"Nat16\00", align 1
-@func351_str11 = private unnamed_addr constant [6 x i8] c"Nat32\00", align 1
-@func351_str12 = private unnamed_addr constant [6 x i8] c"Nat64\00", align 1
-@func351_str13 = private unnamed_addr constant [7 x i8] c"Nat128\00", align 1
-@func351_str14 = private unnamed_addr constant [7 x i8] c"Nat256\00", align 1
-@func351_str15 = private unnamed_addr constant [7 x i8] c"Nat512\00", align 1
-@func351_str16 = private unnamed_addr constant [8 x i8] c"Nat1024\00", align 1
-@func351_str17 = private unnamed_addr constant [6 x i8] c"Int64\00", align 1
-@func351_str18 = private unnamed_addr constant [6 x i8] c"Nat64\00", align 1
-@func351_str19 = private unnamed_addr constant [6 x i8] c"Int32\00", align 1
-@func351_str20 = private unnamed_addr constant [6 x i8] c"Nat32\00", align 1
-@func351_str21 = private unnamed_addr constant [5 x i8] c"Int8\00", align 1
-@func351_str22 = private unnamed_addr constant [5 x i8] c"Nat8\00", align 1
-@func351_str23 = private unnamed_addr constant [6 x i8] c"Int16\00", align 1
-@func351_str24 = private unnamed_addr constant [6 x i8] c"Nat16\00", align 1
-@func351_str25 = private unnamed_addr constant [7 x i8] c"Int128\00", align 1
-@func351_str26 = private unnamed_addr constant [7 x i8] c"Int256\00", align 1
-@func351_str27 = private unnamed_addr constant [7 x i8] c"Int512\00", align 1
-@func351_str28 = private unnamed_addr constant [8 x i8] c"Int1024\00", align 1
-@func351_str29 = private unnamed_addr constant [7 x i8] c"Nat128\00", align 1
-@func351_str30 = private unnamed_addr constant [7 x i8] c"Nat256\00", align 1
-@func351_str31 = private unnamed_addr constant [7 x i8] c"Nat512\00", align 1
-@func351_str32 = private unnamed_addr constant [8 x i8] c"Nat1024\00", align 1
-@func351_str33 = private unnamed_addr constant [5 x i8] c"Unit\00", align 1
-@func351_str34 = private unnamed_addr constant [5 x i8] c"Bool\00", align 1
-@func351_str35 = private unnamed_addr constant [4 x i8] c"Str\00", align 1
-@func351_str36 = private unnamed_addr constant [5 x i8] c"Unit\00", align 1
-@func351_str37 = private unnamed_addr constant [5 x i8] c"Bool\00", align 1
-@func351_str38 = private unnamed_addr constant [4 x i8] c"Str\00", align 1
+@func351_str1 = private unnamed_addr constant [5 x i8] c"Unit\00", align 1
+@func351_str2 = private unnamed_addr constant [5 x i8] c"Bool\00", align 1
+@func351_str3 = private unnamed_addr constant [5 x i8] c"Unit\00", align 1
+@func351_str4 = private unnamed_addr constant [5 x i8] c"Bool\00", align 1
+@func351_str5 = private unnamed_addr constant [5 x i8] c"Int8\00", align 1
+@func351_str6 = private unnamed_addr constant [6 x i8] c"Int16\00", align 1
+@func351_str7 = private unnamed_addr constant [6 x i8] c"Int32\00", align 1
+@func351_str8 = private unnamed_addr constant [6 x i8] c"Int64\00", align 1
+@func351_str9 = private unnamed_addr constant [7 x i8] c"Int128\00", align 1
+@func351_str10 = private unnamed_addr constant [7 x i8] c"Int256\00", align 1
+@func351_str11 = private unnamed_addr constant [7 x i8] c"Int512\00", align 1
+@func351_str12 = private unnamed_addr constant [8 x i8] c"Int1024\00", align 1
+@func351_str13 = private unnamed_addr constant [5 x i8] c"Nat8\00", align 1
+@func351_str14 = private unnamed_addr constant [6 x i8] c"Nat16\00", align 1
+@func351_str15 = private unnamed_addr constant [6 x i8] c"Nat32\00", align 1
+@func351_str16 = private unnamed_addr constant [6 x i8] c"Nat64\00", align 1
+@func351_str17 = private unnamed_addr constant [7 x i8] c"Nat128\00", align 1
+@func351_str18 = private unnamed_addr constant [7 x i8] c"Nat256\00", align 1
+@func351_str19 = private unnamed_addr constant [7 x i8] c"Nat512\00", align 1
+@func351_str20 = private unnamed_addr constant [8 x i8] c"Nat1024\00", align 1
+@func351_str21 = private unnamed_addr constant [6 x i8] c"Int64\00", align 1
+@func351_str22 = private unnamed_addr constant [6 x i8] c"Nat64\00", align 1
+@func351_str23 = private unnamed_addr constant [6 x i8] c"Int32\00", align 1
+@func351_str24 = private unnamed_addr constant [6 x i8] c"Nat32\00", align 1
+@func351_str25 = private unnamed_addr constant [5 x i8] c"Int8\00", align 1
+@func351_str26 = private unnamed_addr constant [5 x i8] c"Nat8\00", align 1
+@func351_str27 = private unnamed_addr constant [6 x i8] c"Int16\00", align 1
+@func351_str28 = private unnamed_addr constant [6 x i8] c"Nat16\00", align 1
+@func351_str29 = private unnamed_addr constant [4 x i8] c"Str\00", align 1
+@func351_str30 = private unnamed_addr constant [4 x i8] c"Str\00", align 1
+@func351_str31 = private unnamed_addr constant [7 x i8] c"Int128\00", align 1
+@func351_str32 = private unnamed_addr constant [7 x i8] c"Int256\00", align 1
+@func351_str33 = private unnamed_addr constant [7 x i8] c"Int512\00", align 1
+@func351_str34 = private unnamed_addr constant [8 x i8] c"Int1024\00", align 1
+@func351_str35 = private unnamed_addr constant [7 x i8] c"Nat128\00", align 1
+@func351_str36 = private unnamed_addr constant [7 x i8] c"Nat256\00", align 1
+@func351_str37 = private unnamed_addr constant [7 x i8] c"Nat512\00", align 1
+@func351_str38 = private unnamed_addr constant [8 x i8] c"Nat1024\00", align 1
 @func352_str1 = private unnamed_addr constant [6 x i8] c"False\00", align 1
 @func352_str2 = private unnamed_addr constant [5 x i8] c"True\00", align 1
 @MINOR_LIB_ENV_VAR = private unnamed_addr constant [10 x i8] c"MINOR_LIB\00", align 1
@@ -21738,170 +21738,170 @@ define void @type_init () {
 
 ;stmt0:
   %1 = bitcast [5 x %Nat8]* @func351_str1 to %Str
-  %2 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %1, %Nat32 1, %Nat32 8, %Bool 1, %Bool 1)
+  %2 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %1, %Nat32 1, %Nat32 0, %Bool 0, %Bool 0)
+  store %Type* %2, %Type** @typeUnit
 
 ;stmt1:
-  %3 = bitcast [6 x %Nat8]* @func351_str2 to %Str
-  %4 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %3, %Nat32 2, %Nat32 16, %Bool 1, %Bool 1)
+  %3 = bitcast [5 x %Nat8]* @func351_str2 to %Str
+  %4 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %3, %Nat32 1, %Nat32 1, %Bool 0, %Bool 0)
+  store %Type* %4, %Type** @typeBool
 
 ;stmt2:
-  %5 = bitcast [6 x %Nat8]* @func351_str3 to %Str
-  %6 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %5, %Nat32 4, %Nat32 32, %Bool 1, %Bool 1)
+  %5 = bitcast [5 x %Nat8]* @func351_str3 to %Str
+  %6 = load %Type*, %Type** @typeUnit
+  call void (%Str, %Type*) @bind_type_builtin (%Str %5, %Type* %6)
 
 ;stmt3:
-  %7 = bitcast [6 x %Nat8]* @func351_str4 to %Str
-  %8 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %7, %Nat32 8, %Nat32 64, %Bool 1, %Bool 1)
+  %7 = bitcast [5 x %Nat8]* @func351_str4 to %Str
+  %8 = load %Type*, %Type** @typeBool
+  call void (%Str, %Type*) @bind_type_builtin (%Str %7, %Type* %8)
 
 ;stmt4:
-  %9 = bitcast [7 x %Nat8]* @func351_str5 to %Str
-  %10 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %9, %Nat32 16, %Nat32 128, %Bool 1, %Bool 1)
+  %9 = bitcast [5 x %Nat8]* @func351_str5 to %Str
+  %10 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %9, %Nat32 1, %Nat32 8, %Bool 1, %Bool 1)
 
 ;stmt5:
-  %11 = bitcast [7 x %Nat8]* @func351_str6 to %Str
-  %12 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %11, %Nat32 32, %Nat32 256, %Bool 1, %Bool 1)
+  %11 = bitcast [6 x %Nat8]* @func351_str6 to %Str
+  %12 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %11, %Nat32 2, %Nat32 16, %Bool 1, %Bool 1)
 
 ;stmt6:
-  %13 = bitcast [7 x %Nat8]* @func351_str7 to %Str
-  %14 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %13, %Nat32 64, %Nat32 512, %Bool 1, %Bool 1)
+  %13 = bitcast [6 x %Nat8]* @func351_str7 to %Str
+  %14 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %13, %Nat32 4, %Nat32 32, %Bool 1, %Bool 1)
 
 ;stmt7:
-  %15 = bitcast [8 x %Nat8]* @func351_str8 to %Str
-  %16 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %15, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 1)
+  %15 = bitcast [6 x %Nat8]* @func351_str8 to %Str
+  %16 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %15, %Nat32 8, %Nat32 64, %Bool 1, %Bool 1)
 
 ;stmt8:
-  %17 = bitcast [5 x %Nat8]* @func351_str9 to %Str
-  %18 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %17, %Nat32 1, %Nat32 8, %Bool 1, %Bool 0)
+  %17 = bitcast [7 x %Nat8]* @func351_str9 to %Str
+  %18 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %17, %Nat32 16, %Nat32 128, %Bool 1, %Bool 1)
 
 ;stmt9:
-  %19 = bitcast [6 x %Nat8]* @func351_str10 to %Str
-  %20 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %19, %Nat32 2, %Nat32 16, %Bool 1, %Bool 0)
+  %19 = bitcast [7 x %Nat8]* @func351_str10 to %Str
+  %20 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %19, %Nat32 32, %Nat32 256, %Bool 1, %Bool 1)
 
 ;stmt10:
-  %21 = bitcast [6 x %Nat8]* @func351_str11 to %Str
-  %22 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %21, %Nat32 4, %Nat32 32, %Bool 1, %Bool 0)
+  %21 = bitcast [7 x %Nat8]* @func351_str11 to %Str
+  %22 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %21, %Nat32 64, %Nat32 512, %Bool 1, %Bool 1)
 
 ;stmt11:
-  %23 = bitcast [6 x %Nat8]* @func351_str12 to %Str
-  %24 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %23, %Nat32 8, %Nat32 64, %Bool 1, %Bool 0)
+  %23 = bitcast [8 x %Nat8]* @func351_str12 to %Str
+  %24 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %23, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 1)
 
 ;stmt12:
-  %25 = bitcast [7 x %Nat8]* @func351_str13 to %Str
-  %26 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %25, %Nat32 16, %Nat32 128, %Bool 1, %Bool 0)
+  %25 = bitcast [5 x %Nat8]* @func351_str13 to %Str
+  %26 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %25, %Nat32 1, %Nat32 8, %Bool 1, %Bool 0)
 
 ;stmt13:
-  %27 = bitcast [7 x %Nat8]* @func351_str14 to %Str
-  %28 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %27, %Nat32 32, %Nat32 256, %Bool 1, %Bool 0)
+  %27 = bitcast [6 x %Nat8]* @func351_str14 to %Str
+  %28 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %27, %Nat32 2, %Nat32 16, %Bool 1, %Bool 0)
 
 ;stmt14:
-  %29 = bitcast [7 x %Nat8]* @func351_str15 to %Str
-  %30 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %29, %Nat32 64, %Nat32 512, %Bool 1, %Bool 0)
+  %29 = bitcast [6 x %Nat8]* @func351_str15 to %Str
+  %30 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %29, %Nat32 4, %Nat32 32, %Bool 1, %Bool 0)
 
 ;stmt15:
-  %31 = bitcast [8 x %Nat8]* @func351_str16 to %Str
-  %32 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %31, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 0)
+  %31 = bitcast [6 x %Nat8]* @func351_str16 to %Str
+  %32 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %31, %Nat32 8, %Nat32 64, %Bool 1, %Bool 0)
 
 ;stmt16:
-  %33 = bitcast [6 x %Nat8]* @func351_str17 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %33, %Type* %8)
+  %33 = bitcast [7 x %Nat8]* @func351_str17 to %Str
+  %34 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %33, %Nat32 16, %Nat32 128, %Bool 1, %Bool 0)
 
 ;stmt17:
-  %34 = bitcast [6 x %Nat8]* @func351_str18 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %34, %Type* %24)
+  %35 = bitcast [7 x %Nat8]* @func351_str18 to %Str
+  %36 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %35, %Nat32 32, %Nat32 256, %Bool 1, %Bool 0)
 
 ;stmt18:
-  %35 = bitcast [6 x %Nat8]* @func351_str19 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %35, %Type* %6)
+  %37 = bitcast [7 x %Nat8]* @func351_str19 to %Str
+  %38 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %37, %Nat32 64, %Nat32 512, %Bool 1, %Bool 0)
 
 ;stmt19:
-  %36 = bitcast [6 x %Nat8]* @func351_str20 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %36, %Type* %22)
+  %39 = bitcast [8 x %Nat8]* @func351_str20 to %Str
+  %40 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %39, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 0)
 
 ;stmt20:
-  %37 = bitcast [5 x %Nat8]* @func351_str21 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %37, %Type* %2)
+  %41 = bitcast [6 x %Nat8]* @func351_str21 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %41, %Type* %16)
 
 ;stmt21:
-  %38 = bitcast [5 x %Nat8]* @func351_str22 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %38, %Type* %18)
+  %42 = bitcast [6 x %Nat8]* @func351_str22 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %42, %Type* %32)
 
 ;stmt22:
-  %39 = bitcast [6 x %Nat8]* @func351_str23 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %39, %Type* %4)
-
-;stmt23:
-  %40 = bitcast [6 x %Nat8]* @func351_str24 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %40, %Type* %20)
-
-;stmt24:
-  %41 = bitcast [7 x %Nat8]* @func351_str25 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %41, %Type* %10)
-
-;stmt25:
-  %42 = bitcast [7 x %Nat8]* @func351_str26 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %42, %Type* %12)
-
-;stmt26:
-  %43 = bitcast [7 x %Nat8]* @func351_str27 to %Str
+  %43 = bitcast [6 x %Nat8]* @func351_str23 to %Str
   call void (%Str, %Type*) @bind_type_builtin (%Str %43, %Type* %14)
 
+;stmt23:
+  %44 = bitcast [6 x %Nat8]* @func351_str24 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %44, %Type* %30)
+
+;stmt24:
+  %45 = bitcast [5 x %Nat8]* @func351_str25 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %45, %Type* %10)
+
+;stmt25:
+  %46 = bitcast [5 x %Nat8]* @func351_str26 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %46, %Type* %26)
+
+;stmt26:
+  %47 = bitcast [6 x %Nat8]* @func351_str27 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %47, %Type* %12)
+
 ;stmt27:
-  %44 = bitcast [8 x %Nat8]* @func351_str28 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %44, %Type* %16)
+  %48 = bitcast [6 x %Nat8]* @func351_str28 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %48, %Type* %28)
 
 ;stmt28:
-  %45 = bitcast [7 x %Nat8]* @func351_str29 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %45, %Type* %26)
+  store %Type* %26, %Type** @typeChar
 
 ;stmt29:
-  %46 = bitcast [7 x %Nat8]* @func351_str30 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %46, %Type* %28)
+  %49 = load %Type*, %Type** @typeChar
+  %50 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %49, %Nat32 0, %Bool 1)
+  store %Type* %50, %Type** @typeStr
 
 ;stmt30:
-  %47 = bitcast [7 x %Nat8]* @func351_str31 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %47, %Type* %30)
+  %51 = load %Type*, %Type** @typeStr
+  %52 = getelementptr inbounds %Type, %Type* %51, i32 0, i32 1 ; eval_access
+  %53 = bitcast [4 x %Nat8]* @func351_str29 to %Str
+  store %Str %53, %Str* %52
 
 ;stmt31:
-  %48 = bitcast [8 x %Nat8]* @func351_str32 to %Str
-  call void (%Str, %Type*) @bind_type_builtin (%Str %48, %Type* %32)
+  %54 = bitcast [4 x %Nat8]* @func351_str30 to %Str
+  %55 = load %Type*, %Type** @typeStr
+  call void (%Str, %Type*) @bind_type_builtin (%Str %54, %Type* %55)
 
 ;stmt32:
-  %49 = bitcast [5 x %Nat8]* @func351_str33 to %Str
-  %50 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %49, %Nat32 1, %Nat32 0, %Bool 0, %Bool 0)
-  store %Type* %50, %Type** @typeUnit
+  %56 = bitcast [7 x %Nat8]* @func351_str31 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %56, %Type* %18)
 
 ;stmt33:
-  %51 = bitcast [5 x %Nat8]* @func351_str34 to %Str
-  %52 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @type_basic_new (%Str %51, %Nat32 1, %Nat32 1, %Bool 0, %Bool 0)
-  store %Type* %52, %Type** @typeBool
+  %57 = bitcast [7 x %Nat8]* @func351_str32 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %57, %Type* %20)
 
 ;stmt34:
-  store %Type* %18, %Type** @typeChar
+  %58 = bitcast [7 x %Nat8]* @func351_str33 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %58, %Type* %22)
 
 ;stmt35:
-  %53 = load %Type*, %Type** @typeChar
-  %54 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %53, %Nat32 0, %Bool 1)
-  store %Type* %54, %Type** @typeStr
+  %59 = bitcast [8 x %Nat8]* @func351_str34 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %59, %Type* %24)
 
 ;stmt36:
-  %55 = load %Type*, %Type** @typeStr
-  %56 = getelementptr inbounds %Type, %Type* %55, i32 0, i32 1 ; eval_access
-  %57 = bitcast [4 x %Nat8]* @func351_str35 to %Str
-  store %Str %57, %Str* %56
+  %60 = bitcast [7 x %Nat8]* @func351_str35 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %60, %Type* %34)
 
 ;stmt37:
-  %58 = bitcast [5 x %Nat8]* @func351_str36 to %Str
-  %59 = load %Type*, %Type** @typeUnit
-  call void (%Str, %Type*) @bind_type_builtin (%Str %58, %Type* %59)
+  %61 = bitcast [7 x %Nat8]* @func351_str36 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %61, %Type* %36)
 
 ;stmt38:
-  %60 = bitcast [5 x %Nat8]* @func351_str37 to %Str
-  %61 = load %Type*, %Type** @typeBool
-  call void (%Str, %Type*) @bind_type_builtin (%Str %60, %Type* %61)
+  %62 = bitcast [7 x %Nat8]* @func351_str37 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %62, %Type* %38)
 
 ;stmt39:
-  %62 = bitcast [4 x %Nat8]* @func351_str38 to %Str
-  %63 = load %Type*, %Type** @typeStr
-  call void (%Str, %Type*) @bind_type_builtin (%Str %62, %Type* %63)
+  %63 = bitcast [8 x %Nat8]* @func351_str38 to %Str
+  call void (%Str, %Type*) @bind_type_builtin (%Str %63, %Type* %40)
 
 ;stmt40:
   %64 = load %Type*, %Type** @typeUnit
@@ -21909,19 +21909,19 @@ define void @type_init () {
   store %Type* %65, %Type** @typeFreePtr
 
 ;stmt41:
-  store %Type* %6, %Type** @typeBaseInt
+  store %Type* %14, %Type** @typeBaseInt
 
 ;stmt42:
-  store %Type* %22, %Type** @typeBaseNat
+  store %Type* %30, %Type** @typeBaseNat
 
 ;stmt43:
-  store %Type* %22, %Type** @typeSizeof
+  store %Type* %30, %Type** @typeSizeof
 
 ;stmt44:
-  store %Type* %4, %Type** @typeAlignof
+  store %Type* %12, %Type** @typeAlignof
 
 ;stmt45:
-  store %Type* %4, %Type** @typeEnum
+  store %Type* %12, %Type** @typeEnum
   ret void
 }
 
