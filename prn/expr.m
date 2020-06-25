@@ -1,4 +1,4 @@
-
+// prn/expr
 
 
 // ino = item number
@@ -62,7 +62,6 @@ let eval = func Eval {
 
 
 let load = func Eval {
-
   // в загрузке нуждаются только значения с изменяемым классом памяти
   // это StorageGlobal, StorageLocal & StorageAddress;
   // остальные вернем просто так
@@ -71,18 +70,13 @@ let load = func Eval {
   }
 
   let reg = lab_get()
-
-
-
   fprintf(fout, "\n  %%%d = load ", reg)
-
   print_type(v.type, True, True)
   comma()
   print_type(v.type, True, True)
   o("* ")
 
   print_value(v)
-//  printf("end-load\n")
   return nv(v.type, StorageRegister, reg)
 }
 
@@ -90,10 +84,7 @@ let load = func Eval {
 let eval_call = func Eval {
   /*"%retval = call i32 @test(i32 %argc)"*/
   let ee = eval(v.a[0])
-
-  let f = load(ee) // function
-
-
+  let f = load(ee)
 
   /* вычисляем аргументы перед печатью вызова */
   let args = list_new()
