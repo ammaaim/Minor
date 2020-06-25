@@ -66,4 +66,3 @@ let storageIsMutable = func (s : *Storage) -> Bool {
 }
 
 
-
