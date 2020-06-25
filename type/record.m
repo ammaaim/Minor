@@ -28,31 +28,37 @@ let field_new = func (id : Str, t : *Type, ti : *TokenInfo) -> *Field {
 }
 
 
-var offset : Nat16  // смещение (порядковый номер) поля в структуре
-var size   : Nat32  // размер структуры
-var talign : Nat8   // выравнивание заданное для структуры
 let type_record_new = func (fields : *List) -> *Type {
   let t = type_new(TypeRecord)
   t.record.uid = get_uid()
   t.record.fields = fields
 
-  // последовательно обрабатываем все поля
-  // проверяем их типы на валидность
-  // прописываем им offset
+  // Check fields, set offsets
 
-  size = 0
-  offset = 0
-  talign = t.align
+  type FieldHandleContext = record {
+    offset : Nat16  // смещение (порядковый номер) поля в структуре
+    size   : Nat32  // размер структуры
+    talign : Nat8   // выравнивание заданное для структуры
+  }
+
+  var fhc : FieldHandleContext
+  fhc.size = 0
+  fhc.offset = 0
+  fhc.talign = t.align
+
   let fpost = func ListForeachHandler {
     let f = data to *Field
     let t = f.type
+    let fhc = ctx to *FieldHandleContext
     type_check(t)
-    f.offset = offset
-    offset = offset + 1
-    size = size + alignment(t.size, talign)
+    f.offset = fhc.offset
+    fhc.offset = fhc.offset + 1
+    fhc.size = fhc.size + alignment(t.size, fhc.talign)
   }
-  list_foreach(t.record.fields, fpost, &size)
-  t.size = size
+  list_foreach(t.record.fields, fpost, &fhc)
+
+  t.size = fhc.size
+
   return t
 }
 

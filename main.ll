@@ -64,6 +64,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %TypeKind = type %Int16
 %Type = type {%TypeKind, %Str, %Nat32, %Nat8, %TypeUndefined, %TypeBasic, %TypeFunc, %TypePointer, %TypeArray, %TypeRecord, %TypeEnum, %TokenInfo*, %TokenInfo*, %TokenInfo*}
 %Field = type {%Str, %Type*, %Nat16, %TokenInfo*}
+%FieldHandleContext = type {%Nat16, %Nat32, %Nat8}
 %EnumConstructor = type {%Str, %Int64}
 %StorageClass = type %Int16
 %String = type {%Str, %Nat32}
@@ -725,9 +726,6 @@ target triple = "x86_64-apple-macosx10.14.0"
 @typeFreePtr = global %Type* zeroinitializer
 @typeBaseInt = global %Type* zeroinitializer
 @typeBaseNat = global %Type* zeroinitializer
-@offset = global %Nat16 zeroinitializer
-@size = global %Nat32 zeroinitializer
-@talign = global %Nat8 zeroinitializer
 @x_uid = global %Nat32 zeroinitializer
 @needs = global %Bool zeroinitializer
 @asm0 = global %Assembly zeroinitializer
@@ -5170,26 +5168,36 @@ define void @fpost (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
   %4 = load %Type*, %Type** %3
 
 ;stmt2:
-  call void (%Type*) @type_check (%Type* %4)
+  %5 = load %Unit*, %Unit** %ctx
+  %6 = bitcast %Unit* %5 to %FieldHandleContext*
 
 ;stmt3:
-  %5 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 2 ; eval_access
-  %6 = load %Nat16, %Nat16* @offset
-  store %Nat16 %6, %Nat16* %5
+  call void (%Type*) @type_check (%Type* %4)
 
 ;stmt4:
-  %7 = load %Nat16, %Nat16* @offset
-  %8 = add %Nat16 %7, 1
-  store %Nat16 %8, %Nat16* @offset
+  %7 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 2 ; eval_access
+  %8 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %6, i32 0, i32 0 ; eval_access
+  %9 = load %Nat16, %Nat16* %8
+  store %Nat16 %9, %Nat16* %7
 
 ;stmt5:
-  %9 = load %Nat32, %Nat32* @size
-  %10 = getelementptr inbounds %Type, %Type* %4, i32 0, i32 2 ; eval_access
-  %11 = load %Nat32, %Nat32* %10
-  %12 = load %Nat8, %Nat8* @talign
-  %13 = call %Nat32 (%Nat32, %Nat8) @alignment (%Nat32 %11, %Nat8 %12)
-  %14 = add %Nat32 %9, %13
-  store %Nat32 %14, %Nat32* @size
+  %10 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %6, i32 0, i32 0 ; eval_access
+  %11 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %6, i32 0, i32 0 ; eval_access
+  %12 = load %Nat16, %Nat16* %11
+  %13 = add %Nat16 %12, 1
+  store %Nat16 %13, %Nat16* %10
+
+;stmt6:
+  %14 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %6, i32 0, i32 1 ; eval_access
+  %15 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %6, i32 0, i32 1 ; eval_access
+  %16 = load %Nat32, %Nat32* %15
+  %17 = getelementptr inbounds %Type, %Type* %4, i32 0, i32 2 ; eval_access
+  %18 = load %Nat32, %Nat32* %17
+  %19 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %6, i32 0, i32 2 ; eval_access
+  %20 = load %Nat8, %Nat8* %19
+  %21 = call %Nat32 (%Nat32, %Nat8) @alignment (%Nat32 %18, %Nat8 %20)
+  %22 = add %Nat32 %16, %21
+  store %Nat32 %22, %Nat32* %14
   ret void
 }
 
@@ -5213,30 +5221,37 @@ define %Type* @type_record_new (%List* %_fields) {
   store %List* %7, %List** %6
 
 ;stmt3:
-  store %Nat32 0, %Nat32* @size
+  %fhc = alloca %FieldHandleContext
 
 ;stmt4:
-  store %Nat16 0, %Nat16* @offset
+  %8 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %fhc, i32 0, i32 1 ; eval_access
+  store %Nat32 0, %Nat32* %8
 
 ;stmt5:
-  %8 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 3 ; eval_access
-  %9 = load %Nat8, %Nat8* %8
-  store %Nat8 %9, %Nat8* @talign
+  %9 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %fhc, i32 0, i32 0 ; eval_access
+  store %Nat16 0, %Nat16* %9
 
 ;stmt6:
-  %10 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 9 ; eval_access
-  %11 = getelementptr inbounds %TypeRecord, %TypeRecord* %10, i32 0, i32 0 ; eval_access
-  %12 = load %List*, %List** %11
-  %13 = getelementptr inbounds %Nat32, %Nat32* @size, i32 0 ; ref
-  %14 = bitcast %Nat32* %13 to %Unit*
-  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %12, %ListForeachHandler @fpost, %Unit* %14)
+  %10 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %fhc, i32 0, i32 2 ; eval_access
+  %11 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 3 ; eval_access
+  %12 = load %Nat8, %Nat8* %11
+  store %Nat8 %12, %Nat8* %10
 
 ;stmt7:
-  %15 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 2 ; eval_access
-  %16 = load %Nat32, %Nat32* @size
-  store %Nat32 %16, %Nat32* %15
+  %13 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 9 ; eval_access
+  %14 = getelementptr inbounds %TypeRecord, %TypeRecord* %13, i32 0, i32 0 ; eval_access
+  %15 = load %List*, %List** %14
+  %16 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %fhc, i32 0 ; ref
+  %17 = bitcast %FieldHandleContext* %16 to %Unit*
+  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %15, %ListForeachHandler @fpost, %Unit* %17)
 
 ;stmt8:
+  %18 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 2 ; eval_access
+  %19 = getelementptr inbounds %FieldHandleContext, %FieldHandleContext* %fhc, i32 0, i32 1 ; eval_access
+  %20 = load %Nat32, %Nat32* %19
+  store %Nat32 %20, %Nat32* %18
+
+;stmt9:
   ret %Type* %1
 }
 
