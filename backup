@@ -1,0 +1,4 @@
+
+cp ./backups/main.ll.backup ./backups/main.ll.backup.2
+cp ./main.ll ./backups/main.ll.backup
+cp ./m2 ./backups/m2
