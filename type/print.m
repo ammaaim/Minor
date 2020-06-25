@@ -54,7 +54,6 @@ let print_type_enum = func (t : *Type) -> Unit {
 }
 
 
-
 let print_type_array = func (t : *Type) -> Unit {
   if t.array.undefined {
     printf("[]")

@@ -98,7 +98,6 @@ let binImm = func (k : ValueKind, l, r : *Value) -> *Value {
 }
 
 
-
 let getTypeBinary = func (v : *Value) -> *Type {
   let lv = v.a[0]
   let rv = v.a[1]
