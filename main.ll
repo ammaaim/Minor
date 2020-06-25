@@ -193,14 +193,14 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func91_str1 = private unnamed_addr constant [12 x i8] c"pointerSize\00", align 1
 @func93_str1 = private unnamed_addr constant [12 x i8] c"pointerSize\00", align 1
 @func95_str1 = private unnamed_addr constant [12 x i8] c"pointerSize\00", align 1
-@func98_str1 = private unnamed_addr constant [26 x i8] c"type_eq unknown type kind\00", align 1
-@func112_str1 = private unnamed_addr constant [10 x i8] c"value_new\00", align 1
-@func122_str1 = private unnamed_addr constant [14 x i8] c"unknown value\00", align 1
-@func122_str2 = private unnamed_addr constant [25 x i8] c"getType:: unknown v.kind\00", align 1
-@func125_str1 = private unnamed_addr constant [20 x i8] c"nat:: v.type == Nil\00", align 1
-@func125_str2 = private unnamed_addr constant [15 x i8] c"nat:: t == Nil\00", align 1
-@func129_str1 = private unnamed_addr constant [15 x i8] c"undefined type\00", align 1
-@func127_str1 = private unnamed_addr constant [26 x i8] c"type_check undefined type\00", align 1
+@func100_str1 = private unnamed_addr constant [15 x i8] c"undefined type\00", align 1
+@func98_str1 = private unnamed_addr constant [36 x i8] c"type_undefined_check undefined type\00", align 1
+@func101_str1 = private unnamed_addr constant [26 x i8] c"type_eq unknown type kind\00", align 1
+@func115_str1 = private unnamed_addr constant [10 x i8] c"value_new\00", align 1
+@func125_str1 = private unnamed_addr constant [14 x i8] c"unknown value\00", align 1
+@func125_str2 = private unnamed_addr constant [25 x i8] c"getType:: unknown v.kind\00", align 1
+@func128_str1 = private unnamed_addr constant [20 x i8] c"nat:: v.type == Nil\00", align 1
+@func128_str2 = private unnamed_addr constant [15 x i8] c"nat:: t == Nil\00", align 1
 @func130_str1 = private unnamed_addr constant [9 x i8] c"stmt_new\00", align 1
 @func135_str1 = private unnamed_addr constant [16 x i8] c"asm_typedef_add\00", align 1
 @func136_str1 = private unnamed_addr constant [17 x i8] c"asm_constdef_add\00", align 1
@@ -5172,7 +5172,7 @@ define void @fpost (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
   %6 = bitcast %Unit* %5 to %FieldHandleContext*
 
 ;stmt3:
-  call void (%Type*) @type_check (%Type* %4)
+  call void (%Type*) @type_undefined_check (%Type* %4)
 
 ;stmt4:
   %7 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 2 ; eval_access
@@ -5294,18 +5294,18 @@ endif_0:
   ret %Unit* %11
 }
 
-define %Field* @type_record_get_field (%Type* %_r, %Str %_fid) {
-  %r = alloca %Type*
-  store %Type* %_r, %Type** %r
-  %fid = alloca %Str
-  store %Str %_fid, %Str* %fid
+define %Field* @type_record_get_field (%Type* %_t, %Str %_field_id) {
+  %t = alloca %Type*
+  store %Type* %_t, %Type** %t
+  %field_id = alloca %Str
+  store %Str %_field_id, %Str* %field_id
 
 ;stmt0:
-  %1 = load %Type*, %Type** %r
+  %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 9 ; eval_access
   %3 = getelementptr inbounds %TypeRecord, %TypeRecord* %2, i32 0, i32 0 ; eval_access
   %4 = load %List*, %List** %3
-  %5 = load %Str, %Str* %fid
+  %5 = load %Str, %Str* %field_id
   %6 = bitcast %Str %5 to %Unit*
   %7 = call %Unit* (%List*, %ListSearchHandler, %Unit*) @list_search (%List* %4, %ListSearchHandler @fsearch2, %Unit* %6)
   %8 = bitcast %Unit* %7 to %Field*
@@ -5790,6 +5790,217 @@ endif_0:
   ret %Bool %17
 }
 
+define void @foreach_func_param (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
+  %data = alloca %Unit*
+  store %Unit* %_data, %Unit** %data
+  %ctx = alloca %Unit*
+  store %Unit* %_ctx, %Unit** %ctx
+  %index = alloca %Nat32
+  store %Nat32 %_index, %Nat32* %index
+
+;stmt0:
+  %1 = load %Unit*, %Unit** %data
+  %2 = bitcast %Unit* %1 to %Field*
+
+;stmt1:
+  %3 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 1 ; eval_access
+  %4 = load %Type*, %Type** %3
+  call void (%Type*) @type_undefined_check (%Type* %4)
+  ret void
+}
+
+define void @foreach_struct_field (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
+  %data = alloca %Unit*
+  store %Unit* %_data, %Unit** %data
+  %ctx = alloca %Unit*
+  store %Unit* %_ctx, %Unit** %ctx
+  %index = alloca %Nat32
+  store %Nat32 %_index, %Nat32* %index
+
+;stmt0:
+  %1 = load %Unit*, %Unit** %data
+  %2 = bitcast %Unit* %1 to %Field*
+
+;stmt1:
+  %3 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 1 ; eval_access
+  %4 = load %Type*, %Type** %3
+  %5 = getelementptr inbounds %Type, %Type* %4, i32 0, i32 0 ; eval_access
+  %6 = load %TypeKind, %TypeKind* %5
+  %7 = icmp eq %TypeKind %6, 2
+  br i1 %7, label %then_0, label %else_0
+then_0:
+
+;stmt2:
+
+;stmt3:
+  %8 = bitcast [15 x %Nat8]* @func100_str1 to %Str
+  %9 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 1 ; eval_access
+  %10 = load %Type*, %Type** %9
+  %11 = getelementptr inbounds %Type, %Type* %10, i32 0, i32 13 ; eval_access
+  %12 = load %TokenInfo*, %TokenInfo** %11
+  call void (%Str, %TokenInfo*) @error (%Str %8, %TokenInfo* %12)
+  br label %endif_0
+else_0:
+  br label %endif_0
+endif_0:
+  ret void
+}
+
+define void @type_undefined_check (%Type* %_t) {
+  %t = alloca %Type*
+  store %Type* %_t, %Type** %t
+
+;stmt0:
+  %1 = load %Type*, %Type** %t
+  %2 = call %Bool (%Type*) @type_is_basic (%Type* %1)
+  br i1 %2, label %then_0, label %else_0
+then_0:
+
+;stmt1:
+  br label %endif_0
+else_0:
+
+;stmt2:
+  %3 = load %Type*, %Type** %t
+  %4 = call %Bool (%Type*) @type_is_pointer (%Type* %3)
+  br i1 %4, label %then_1, label %else_1
+then_1:
+
+;stmt3:
+
+;stmt4:
+  %5 = load %Type*, %Type** %t
+  %6 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 7 ; eval_access
+  %7 = getelementptr inbounds %TypePointer, %TypePointer* %6, i32 0, i32 0 ; eval_access
+  %8 = load %Type*, %Type** %7
+  %9 = getelementptr inbounds %Type, %Type* %8, i32 0, i32 0 ; eval_access
+  %10 = load %TypeKind, %TypeKind* %9
+  %11 = icmp eq %TypeKind %10, 2
+  br i1 %11, label %then_2, label %else_2
+then_2:
+
+;stmt5:
+  br label %endif_2
+else_2:
+
+;stmt6:
+
+;stmt7:
+  %12 = load %Type*, %Type** %t
+  %13 = getelementptr inbounds %Type, %Type* %12, i32 0, i32 7 ; eval_access
+  %14 = getelementptr inbounds %TypePointer, %TypePointer* %13, i32 0, i32 0 ; eval_access
+  %15 = load %Type*, %Type** %14
+  call void (%Type*) @type_undefined_check (%Type* %15)
+  br label %endif_2
+endif_2:
+  br label %endif_1
+else_1:
+
+;stmt8:
+  %16 = load %Type*, %Type** %t
+  %17 = call %Bool (%Type*) @type_is_array (%Type* %16)
+  br i1 %17, label %then_3, label %else_3
+then_3:
+
+;stmt9:
+
+;stmt10:
+  %18 = load %Type*, %Type** %t
+  %19 = getelementptr inbounds %Type, %Type* %18, i32 0, i32 8 ; eval_access
+  %20 = getelementptr inbounds %TypeArray, %TypeArray* %19, i32 0, i32 0 ; eval_access
+  %21 = load %Type*, %Type** %20
+  call void (%Type*) @type_undefined_check (%Type* %21)
+  br label %endif_3
+else_3:
+
+;stmt11:
+  %22 = load %Type*, %Type** %t
+  %23 = call %Bool (%Type*) @type_is_function (%Type* %22)
+  br i1 %23, label %then_4, label %else_4
+then_4:
+
+;stmt12:
+
+;stmt13:
+  %24 = load %Type*, %Type** %t
+  %25 = getelementptr inbounds %Type, %Type* %24, i32 0, i32 6 ; eval_access
+  %26 = getelementptr inbounds %TypeFunc, %TypeFunc* %25, i32 0, i32 1 ; eval_access
+  %27 = load %Type*, %Type** %26
+  call void (%Type*) @type_undefined_check (%Type* %27)
+
+;stmt14:
+  %28 = load %Type*, %Type** %t
+  %29 = getelementptr inbounds %Type, %Type* %28, i32 0, i32 6 ; eval_access
+  %30 = getelementptr inbounds %TypeFunc, %TypeFunc* %29, i32 0, i32 0 ; eval_access
+  %31 = load %List*, %List** %30
+  %32 = inttoptr %Nat32 0 to %Unit*
+  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %31, %ListForeachHandler @foreach_func_param, %Unit* %32)
+  br label %endif_4
+else_4:
+
+;stmt15:
+  %33 = load %Type*, %Type** %t
+  %34 = call %Bool (%Type*) @type_is_record (%Type* %33)
+  br i1 %34, label %then_5, label %else_5
+then_5:
+
+;stmt16:
+
+;stmt17:
+  %35 = load %Type*, %Type** %t
+  %36 = getelementptr inbounds %Type, %Type* %35, i32 0, i32 9 ; eval_access
+  %37 = getelementptr inbounds %TypeRecord, %TypeRecord* %36, i32 0, i32 0 ; eval_access
+  %38 = load %List*, %List** %37
+  %39 = inttoptr %Nat32 0 to %Unit*
+  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %38, %ListForeachHandler @foreach_struct_field, %Unit* %39)
+  br label %endif_5
+else_5:
+
+;stmt18:
+  %40 = load %Type*, %Type** %t
+  %41 = call %Bool (%Type*) @type_is_enum (%Type* %40)
+  br i1 %41, label %then_6, label %else_6
+then_6:
+
+;stmt19:
+  br label %endif_6
+else_6:
+
+;stmt20:
+  %42 = load %Type*, %Type** %t
+  %43 = getelementptr inbounds %Type, %Type* %42, i32 0, i32 0 ; eval_access
+  %44 = load %TypeKind, %TypeKind* %43
+  %45 = icmp eq %TypeKind %44, 2
+  br i1 %45, label %then_7, label %else_7
+then_7:
+
+;stmt21:
+
+;stmt22:
+  %46 = bitcast [36 x %Nat8]* @func98_str1 to %Str
+  %47 = load %Type*, %Type** %t
+  %48 = getelementptr inbounds %Type, %Type* %47, i32 0, i32 13 ; eval_access
+  %49 = load %TokenInfo*, %TokenInfo** %48
+  call void (%Str, %TokenInfo*) @error (%Str %46, %TokenInfo* %49)
+  br label %endif_7
+else_7:
+  br label %endif_7
+endif_7:
+  br label %endif_6
+endif_6:
+  br label %endif_5
+endif_5:
+  br label %endif_4
+endif_4:
+  br label %endif_3
+endif_3:
+  br label %endif_1
+endif_1:
+  br label %endif_0
+endif_0:
+  ret void
+}
+
 define %Bool @type_eq (%Type* %_a, %Type* %_b) {
   %a = alloca %Type*
   store %Type* %_a, %Type** %a
@@ -5998,7 +6209,7 @@ endif_4:
 endif_3:
 
 ;stmt30:
-  %82 = bitcast [26 x %Nat8]* @func98_str1 to %Str
+  %82 = bitcast [26 x %Nat8]* @func101_str1 to %Str
   call void (%Bool, %Str) @assert (%Bool 0, %Str %82)
 
 ;stmt31:
@@ -6251,7 +6462,7 @@ define %Value* @value_new (%ValueKind %_k, %Type* %_t, %Value* %_l, %Value* %_r)
   %3 = bitcast %Value* %2 to %Unit*
   %4 = inttoptr %Nat32 0 to %Unit*
   %5 = icmp ne %Unit* %3, %4
-  %6 = bitcast [10 x %Nat8]* @func112_str1 to %Str
+  %6 = bitcast [10 x %Nat8]* @func115_str1 to %Str
   call void (%Bool, %Str) @assert (%Bool %5, %Str %6)
 
 ;stmt2:
@@ -6578,7 +6789,7 @@ then_3:
 ;stmt16:
 
 ;stmt17:
-  %28 = bitcast [14 x %Nat8]* @func122_str1 to %Str
+  %28 = bitcast [14 x %Nat8]* @func125_str1 to %Str
   %29 = load %Value*, %Value** %v
   %30 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 8 ; eval_access
   %31 = load %TokenInfo*, %TokenInfo** %30
@@ -6732,7 +6943,7 @@ endif_2:
 fail:
 
 ;stmt44:
-  %66 = bitcast [25 x %Nat8]* @func122_str2 to %Str
+  %66 = bitcast [25 x %Nat8]* @func125_str2 to %Str
   call void (%Bool, %Str) @assert (%Bool 0, %Str %66)
 
 ;stmt45:
@@ -6818,7 +7029,7 @@ define %Value* @nat (%Value* %_v, %Type* %_t) {
   %4 = bitcast %Type* %3 to %Unit*
   %5 = inttoptr %Nat32 0 to %Unit*
   %6 = icmp ne %Unit* %4, %5
-  %7 = bitcast [20 x %Nat8]* @func125_str1 to %Str
+  %7 = bitcast [20 x %Nat8]* @func128_str1 to %Str
   call void (%Bool, %Str) @assert (%Bool %6, %Str %7)
 
 ;stmt2:
@@ -6826,7 +7037,7 @@ define %Value* @nat (%Value* %_v, %Type* %_t) {
   %9 = bitcast %Type* %8 to %Unit*
   %10 = inttoptr %Nat32 0 to %Unit*
   %11 = icmp ne %Unit* %9, %10
-  %12 = bitcast [15 x %Nat8]* @func125_str2 to %Str
+  %12 = bitcast [15 x %Nat8]* @func128_str2 to %Str
   call void (%Bool, %Str) @assert (%Bool %11, %Str %12)
 
 ;stmt3:
@@ -7064,217 +7275,6 @@ endif_7:
 
 ;stmt25:
   ret %Bool 0
-}
-
-define void @foreach_func_param (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
-  %data = alloca %Unit*
-  store %Unit* %_data, %Unit** %data
-  %ctx = alloca %Unit*
-  store %Unit* %_ctx, %Unit** %ctx
-  %index = alloca %Nat32
-  store %Nat32 %_index, %Nat32* %index
-
-;stmt0:
-  %1 = load %Unit*, %Unit** %data
-  %2 = bitcast %Unit* %1 to %Field*
-
-;stmt1:
-  %3 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 1 ; eval_access
-  %4 = load %Type*, %Type** %3
-  call void (%Type*) @type_check (%Type* %4)
-  ret void
-}
-
-define void @foreach_struct_field (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
-  %data = alloca %Unit*
-  store %Unit* %_data, %Unit** %data
-  %ctx = alloca %Unit*
-  store %Unit* %_ctx, %Unit** %ctx
-  %index = alloca %Nat32
-  store %Nat32 %_index, %Nat32* %index
-
-;stmt0:
-  %1 = load %Unit*, %Unit** %data
-  %2 = bitcast %Unit* %1 to %Field*
-
-;stmt1:
-  %3 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 1 ; eval_access
-  %4 = load %Type*, %Type** %3
-  %5 = getelementptr inbounds %Type, %Type* %4, i32 0, i32 0 ; eval_access
-  %6 = load %TypeKind, %TypeKind* %5
-  %7 = icmp eq %TypeKind %6, 2
-  br i1 %7, label %then_0, label %else_0
-then_0:
-
-;stmt2:
-
-;stmt3:
-  %8 = bitcast [15 x %Nat8]* @func129_str1 to %Str
-  %9 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 1 ; eval_access
-  %10 = load %Type*, %Type** %9
-  %11 = getelementptr inbounds %Type, %Type* %10, i32 0, i32 13 ; eval_access
-  %12 = load %TokenInfo*, %TokenInfo** %11
-  call void (%Str, %TokenInfo*) @error (%Str %8, %TokenInfo* %12)
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-  ret void
-}
-
-define void @type_check (%Type* %_t) {
-  %t = alloca %Type*
-  store %Type* %_t, %Type** %t
-
-;stmt0:
-  %1 = load %Type*, %Type** %t
-  %2 = call %Bool (%Type*) @type_is_basic (%Type* %1)
-  br i1 %2, label %then_0, label %else_0
-then_0:
-
-;stmt1:
-  br label %endif_0
-else_0:
-
-;stmt2:
-  %3 = load %Type*, %Type** %t
-  %4 = call %Bool (%Type*) @type_is_pointer (%Type* %3)
-  br i1 %4, label %then_1, label %else_1
-then_1:
-
-;stmt3:
-
-;stmt4:
-  %5 = load %Type*, %Type** %t
-  %6 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 7 ; eval_access
-  %7 = getelementptr inbounds %TypePointer, %TypePointer* %6, i32 0, i32 0 ; eval_access
-  %8 = load %Type*, %Type** %7
-  %9 = getelementptr inbounds %Type, %Type* %8, i32 0, i32 0 ; eval_access
-  %10 = load %TypeKind, %TypeKind* %9
-  %11 = icmp eq %TypeKind %10, 2
-  br i1 %11, label %then_2, label %else_2
-then_2:
-
-;stmt5:
-  br label %endif_2
-else_2:
-
-;stmt6:
-
-;stmt7:
-  %12 = load %Type*, %Type** %t
-  %13 = getelementptr inbounds %Type, %Type* %12, i32 0, i32 7 ; eval_access
-  %14 = getelementptr inbounds %TypePointer, %TypePointer* %13, i32 0, i32 0 ; eval_access
-  %15 = load %Type*, %Type** %14
-  call void (%Type*) @type_check (%Type* %15)
-  br label %endif_2
-endif_2:
-  br label %endif_1
-else_1:
-
-;stmt8:
-  %16 = load %Type*, %Type** %t
-  %17 = call %Bool (%Type*) @type_is_array (%Type* %16)
-  br i1 %17, label %then_3, label %else_3
-then_3:
-
-;stmt9:
-
-;stmt10:
-  %18 = load %Type*, %Type** %t
-  %19 = getelementptr inbounds %Type, %Type* %18, i32 0, i32 8 ; eval_access
-  %20 = getelementptr inbounds %TypeArray, %TypeArray* %19, i32 0, i32 0 ; eval_access
-  %21 = load %Type*, %Type** %20
-  call void (%Type*) @type_check (%Type* %21)
-  br label %endif_3
-else_3:
-
-;stmt11:
-  %22 = load %Type*, %Type** %t
-  %23 = call %Bool (%Type*) @type_is_function (%Type* %22)
-  br i1 %23, label %then_4, label %else_4
-then_4:
-
-;stmt12:
-
-;stmt13:
-  %24 = load %Type*, %Type** %t
-  %25 = getelementptr inbounds %Type, %Type* %24, i32 0, i32 6 ; eval_access
-  %26 = getelementptr inbounds %TypeFunc, %TypeFunc* %25, i32 0, i32 1 ; eval_access
-  %27 = load %Type*, %Type** %26
-  call void (%Type*) @type_check (%Type* %27)
-
-;stmt14:
-  %28 = load %Type*, %Type** %t
-  %29 = getelementptr inbounds %Type, %Type* %28, i32 0, i32 6 ; eval_access
-  %30 = getelementptr inbounds %TypeFunc, %TypeFunc* %29, i32 0, i32 0 ; eval_access
-  %31 = load %List*, %List** %30
-  %32 = inttoptr %Nat32 0 to %Unit*
-  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %31, %ListForeachHandler @foreach_func_param, %Unit* %32)
-  br label %endif_4
-else_4:
-
-;stmt15:
-  %33 = load %Type*, %Type** %t
-  %34 = call %Bool (%Type*) @type_is_record (%Type* %33)
-  br i1 %34, label %then_5, label %else_5
-then_5:
-
-;stmt16:
-
-;stmt17:
-  %35 = load %Type*, %Type** %t
-  %36 = getelementptr inbounds %Type, %Type* %35, i32 0, i32 9 ; eval_access
-  %37 = getelementptr inbounds %TypeRecord, %TypeRecord* %36, i32 0, i32 0 ; eval_access
-  %38 = load %List*, %List** %37
-  %39 = inttoptr %Nat32 0 to %Unit*
-  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %38, %ListForeachHandler @foreach_struct_field, %Unit* %39)
-  br label %endif_5
-else_5:
-
-;stmt18:
-  %40 = load %Type*, %Type** %t
-  %41 = call %Bool (%Type*) @type_is_enum (%Type* %40)
-  br i1 %41, label %then_6, label %else_6
-then_6:
-
-;stmt19:
-  br label %endif_6
-else_6:
-
-;stmt20:
-  %42 = load %Type*, %Type** %t
-  %43 = getelementptr inbounds %Type, %Type* %42, i32 0, i32 0 ; eval_access
-  %44 = load %TypeKind, %TypeKind* %43
-  %45 = icmp eq %TypeKind %44, 2
-  br i1 %45, label %then_7, label %else_7
-then_7:
-
-;stmt21:
-
-;stmt22:
-  %46 = bitcast [26 x %Nat8]* @func127_str1 to %Str
-  %47 = load %Type*, %Type** %t
-  %48 = getelementptr inbounds %Type, %Type* %47, i32 0, i32 13 ; eval_access
-  %49 = load %TokenInfo*, %TokenInfo** %48
-  call void (%Str, %TokenInfo*) @error (%Str %46, %TokenInfo* %49)
-  br label %endif_7
-else_7:
-  br label %endif_7
-endif_7:
-  br label %endif_6
-endif_6:
-  br label %endif_5
-endif_5:
-  br label %endif_4
-endif_4:
-  br label %endif_3
-endif_3:
-  br label %endif_1
-endif_1:
-  br label %endif_0
-endif_0:
-  ret void
 }
 
 define %Stmt* @stmt_new (%StmtKind %_kind) {

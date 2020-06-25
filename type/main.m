@@ -10,6 +10,7 @@ import "enum"
 import "array"
 import "pointer"
 import "func"
+import "undefined"
 import "eq"
 
 

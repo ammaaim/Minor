@@ -1,3 +1,4 @@
+// main
 
 
 import "C"
@@ -12,7 +13,6 @@ import "error"
 import "type"
 import "value/misc"
 import "value/nat"
-import "type/check"
 import "stmt"
 import "prn/assembly"
 import "value/2str"
