@@ -14038,20 +14038,19 @@ body_1:
   %91 = call %Type* (%Value*) @getType (%Value* %90)
 
 ;stmt38:
-  %92 = load %Type*, %Type** @typeBaseInt
-  %93 = call %Value* (%Value*, %Type*) @nat (%Value* %90, %Type* %92)
+  %92 = call %Value* (%Value*) @post (%Value* %90)
 
 ;stmt39:
-  %94 = load %List*, %List** %a
-  %95 = bitcast %Value* %90 to %Unit*
-  %96 = bitcast %Value* %93 to %Unit*
-  %97 = call %Bool (%List*, %Unit*, %Unit*) @list_subst (%List* %94, %Unit* %95, %Unit* %96)
+  %93 = load %List*, %List** %a
+  %94 = bitcast %Value* %90 to %Unit*
+  %95 = bitcast %Value* %92 to %Unit*
+  %96 = call %Bool (%List*, %Unit*, %Unit*) @list_subst (%List* %93, %Unit* %94, %Unit* %95)
 
 ;stmt40:
-  %98 = load %Node*, %Node** %aln
-  %99 = getelementptr inbounds %Node, %Node* %98, i32 0, i32 1 ; eval_access
-  %100 = load %Node*, %Node** %99
-  store %Node* %100, %Node** %aln
+  %97 = load %Node*, %Node** %aln
+  %98 = getelementptr inbounds %Node, %Node* %97, i32 0, i32 1 ; eval_access
+  %99 = load %Node*, %Node** %98
+  store %Node* %99, %Node** %aln
   br label %continue_1
 break_1:
 

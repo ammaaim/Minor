@@ -91,7 +91,8 @@ let checkParams = func (f : *Value, a : *List, ti : *TokenInfo) -> Bool {
 
     getType(arg)
 
-    let new_a = nat(arg, typeBaseInt)
+    // ?: typeGenericInt -> typeBaseInt
+    let new_a = post(arg)
 
     // заменяем аргумент в списке на приведенный
     list_subst(a, arg, new_a)
