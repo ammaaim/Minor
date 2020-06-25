@@ -11,7 +11,7 @@ let exists = func (fname : Str) -> Bool {
 }
 
 
-// it's directory?
+// it's a directory?
 let isdir = func (name : Str) -> Bool {
   let d = opendir(name)
   if d == Nil {return False}
