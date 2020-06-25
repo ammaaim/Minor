@@ -28,8 +28,6 @@ let type_eq = func (a, b : *Type) -> Bool {
     return b.kind == TypeNumeric
   }
 
-  //printf("kind = %d\n", k)
-  //rem("at", &ctok().ti)
   assert(False, "type_eq unknown type kind")
   return False
 }

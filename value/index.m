@@ -17,8 +17,8 @@ let getTypeIndex = func (v : *Value) -> *Type {
   getType(i)
 
   // приводим GenericTypeInt к typeBaseInt если надо
-  post(a)
-  post(i)
+  castIfNumericTo(a, typeBaseInt)
+  castIfNumericTo(i, typeBaseInt)
 
   return a.type.array.of
 }

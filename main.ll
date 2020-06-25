@@ -6714,9 +6714,11 @@ endif_0:
   ret %Bool %9
 }
 
-define %Value* @post (%Value* %_v) {
+define %Value* @castIfNumericTo (%Value* %_v, %Type* %_t) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
+  %t = alloca %Type*
+  store %Type* %_t, %Type** %t
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
@@ -6733,7 +6735,7 @@ then_0:
 ;stmt2:
   %7 = load %Value*, %Value** %v
   %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 1 ; eval_access
-  %9 = load %Type*, %Type** @typeBaseInt
+  %9 = load %Type*, %Type** %t
   store %Type* %9, %Type** %8
   br label %endif_0
 else_0:
@@ -13307,15 +13309,17 @@ define %Type* @getTypeShift (%Value* %_v) {
   %10 = call %Type* (%Value*) @getType (%Value* %8)
 
 ;stmt4:
-  %11 = call %Value* (%Value*) @post (%Value* %4)
-  %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 1 ; eval_access
-  %13 = load %Type*, %Type** %12
+  %11 = load %Type*, %Type** @typeBaseInt
+  %12 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %4, %Type* %11)
+  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 1 ; eval_access
+  %14 = load %Type*, %Type** %13
 
 ;stmt5:
-  %14 = call %Value* (%Value*) @post (%Value* %8)
+  %15 = load %Type*, %Type** @typeBaseInt
+  %16 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %8, %Type* %15)
 
 ;stmt6:
-  ret %Type* %13
+  ret %Type* %14
 }
 
 define %Value* @indx (%Value* %_a, %Value* %_i, %TokenInfo* %_ti) {
@@ -13389,18 +13393,20 @@ define %Type* @getTypeIndex (%Value* %_v) {
   %10 = call %Type* (%Value*) @getType (%Value* %8)
 
 ;stmt4:
-  %11 = call %Value* (%Value*) @post (%Value* %4)
+  %11 = load %Type*, %Type** @typeBaseInt
+  %12 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %4, %Type* %11)
 
 ;stmt5:
-  %12 = call %Value* (%Value*) @post (%Value* %8)
+  %13 = load %Type*, %Type** @typeBaseInt
+  %14 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %8, %Type* %13)
 
 ;stmt6:
-  %13 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 1 ; eval_access
-  %14 = load %Type*, %Type** %13
-  %15 = getelementptr inbounds %Type, %Type* %14, i32 0, i32 9 ; eval_access
-  %16 = getelementptr inbounds %TypeArray, %TypeArray* %15, i32 0, i32 0 ; eval_access
-  %17 = load %Type*, %Type** %16
-  ret %Type* %17
+  %15 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 1 ; eval_access
+  %16 = load %Type*, %Type** %15
+  %17 = getelementptr inbounds %Type, %Type* %16, i32 0, i32 9 ; eval_access
+  %18 = getelementptr inbounds %TypeArray, %TypeArray* %17, i32 0, i32 0 ; eval_access
+  %19 = load %Type*, %Type** %18
+  ret %Type* %19
 }
 
 define %Value* @access (%Value* %_r, %Str %_fid, %TokenInfo* %_ti) {
@@ -13904,19 +13910,20 @@ body_1:
   %91 = call %Type* (%Value*) @getType (%Value* %90)
 
 ;stmt38:
-  %92 = call %Value* (%Value*) @post (%Value* %90)
+  %92 = load %Type*, %Type** @typeBaseInt
+  %93 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %90, %Type* %92)
 
 ;stmt39:
-  %93 = load %List*, %List** %a
-  %94 = bitcast %Value* %90 to %Unit*
-  %95 = bitcast %Value* %92 to %Unit*
-  %96 = call %Bool (%List*, %Unit*, %Unit*) @list_subst (%List* %93, %Unit* %94, %Unit* %95)
+  %94 = load %List*, %List** %a
+  %95 = bitcast %Value* %90 to %Unit*
+  %96 = bitcast %Value* %93 to %Unit*
+  %97 = call %Bool (%List*, %Unit*, %Unit*) @list_subst (%List* %94, %Unit* %95, %Unit* %96)
 
 ;stmt40:
-  %97 = load %Node*, %Node** %aln
-  %98 = getelementptr inbounds %Node, %Node* %97, i32 0, i32 1 ; eval_access
-  %99 = load %Node*, %Node** %98
-  store %Node* %99, %Node** %aln
+  %98 = load %Node*, %Node** %aln
+  %99 = getelementptr inbounds %Node, %Node* %98, i32 0, i32 1 ; eval_access
+  %100 = load %Node*, %Node** %99
+  store %Node* %100, %Node** %aln
   br label %continue_1
 break_1:
 

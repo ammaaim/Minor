@@ -13,11 +13,10 @@ let isArrayReference = func (t : *Type) -> Bool {
 }
 
 
-// постпроцессинг значения перед тем как упаковать его в операцию
-// дженерики если и выжили раньше здесь заменяются на базовые для архитектуры типы
-let post = func (v : *Value) -> *Value {
+// приводим значение с типом TypeNumeric к указаному типу (index, shift, call)
+let castIfNumericTo = func (v : *Value, t : *Type) -> *Value {
   if v.type.kind == TypeNumeric {
-    v.type = typeBaseInt
+    v.type = t
   }
   return v
 }

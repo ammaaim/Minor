@@ -40,7 +40,6 @@ let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
   // alerady exists
   let ae = get_value_global(id)
   if ae != Nil {
-    //ae.arguments = v.arguments  // after allCalls  ????????? не нужно  ????
     ae.kind = v.kind
     ae.type = v.type
     ae.storage = v.storage
@@ -89,4 +88,5 @@ let rename = func (v : *Value, id : Str) -> Unit {
     asm_const_rename(&asm0, default_name, real_id)
   }
 }
+
 

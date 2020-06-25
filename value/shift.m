@@ -42,8 +42,8 @@ let getTypeShift = func (v : *Value) -> *Type {
   getType(r)
 
   // приводим GenericTypeInt к typeBaseInt если надо
-  let t = post(a).type
-  post(r)
+  let t = castIfNumericTo(a, typeBaseInt).type
+  castIfNumericTo(r, typeBaseInt)
 
   return t
 }
