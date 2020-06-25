@@ -13,3 +13,5 @@ let type_new_pointer = func (to : *Type) -> *Type {
 let type_pointer_eq = func (a, b : *TypePointer) -> Bool {
   return type_eq(a.to, b.to)
 }
+
+
