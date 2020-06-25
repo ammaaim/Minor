@@ -790,12 +790,12 @@ define %Str @str_new (%Nat32 %_len) {
   ret %Str %3
 }
 
-define %Str @dup (%Str %_s0) {
-  %s0 = alloca %Str
-  store %Str %_s0, %Str* %s0
+define %Str @dup (%Str %_s) {
+  %s = alloca %Str
+  store %Str %_s, %Str* %s
 
 ;stmt0:
-  %1 = load %Str, %Str* %s0
+  %1 = load %Str, %Str* %s
   %2 = call %Nat32 (%Str) @strlen (%Str %1)
   %3 = add %Nat32 %2, 1
 
@@ -803,7 +803,7 @@ define %Str @dup (%Str %_s0) {
   %4 = call %Str (%Nat32) @str_new (%Nat32 %3)
 
 ;stmt2:
-  %5 = load %Str, %Str* %s0
+  %5 = load %Str, %Str* %s
   %6 = call %Nat8* (%Str, %Str) @strcpy (%Str %4, %Str %5)
 
 ;stmt3:

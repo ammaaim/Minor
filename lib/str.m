@@ -10,11 +10,11 @@ let str_new = func (len : Nat) -> Str {
 
 
 // create copy of string
-let dup = func (s0 : Str) -> Str {
-  let len = strlen(s0) + (1 /* for STR_TERM */)
-  let s1 = str_new(len)
-  strcpy(s1, s0)
-  return s1
+let dup = func (s : Str) -> Str {
+  let len = strlen(s) + (1 /* for STR_TERM */)
+  let new_s = str_new(len)
+  strcpy(new_s, s)
+  return new_s
 }
 
 // содает копию строки
@@ -42,6 +42,7 @@ let cat = func (s1, s2 : Str) -> Str {
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
   s[len12] = STR_TERM
+
   return s
 }
 
@@ -61,6 +62,7 @@ let cat3 = func (s1, s2, s3 : Str) -> Str {
   strcpy(&s[len1] to Str, s2)
   strcpy(&s[len12x] to Str, s3)
   s[len123x] = STR_TERM
+
   return s
 }
 
@@ -83,6 +85,7 @@ let cat4 = func (s1, s2, s3, s4 : Str) -> Str {
   strcpy(&s[len12y] to Str, s3)
   strcpy(&s[len123y] to Str, s4)
   s[len1234y] = STR_TERM
+
   return s
 }
 
@@ -108,6 +111,7 @@ let cat5 = func (s1, s2, s3, s4, s5 : Str) -> Str {
   strcpy(&s[len123z] to Str, s4)
   strcpy(&s[len1234z] to Str, s5)
   s[len12345z] = STR_TERM
+
   return s
 }
 
