@@ -18,8 +18,6 @@ let isArrayReference = func (t : *Type) -> Bool {
 let post = func (v : *Value) -> *Value {
   if v.type.kind == TypeNumeric {
     v.type = typeBaseInt
-  } else if v.type.kind == TypeGenericRef {
-    v.type = typeFreePtr
   }
   return v
 }

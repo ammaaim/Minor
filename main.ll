@@ -257,8 +257,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func144_str3 = private unnamed_addr constant [2 x i8] c"*\00", align 1
 @func144_str4 = private unnamed_addr constant [3 x i8] c"%s\00", align 1
 @func144_str5 = private unnamed_addr constant [14 x i8] c"<TypeNumeric>\00", align 1
-@func144_str6 = private unnamed_addr constant [17 x i8] c"<TypeGenericRef>\00", align 1
-@func144_str7 = private unnamed_addr constant [31 x i8] c"unkn type kind %d, maybe func?\00", align 1
+@func144_str6 = private unnamed_addr constant [31 x i8] c"unkn type kind %d, maybe func?\00", align 1
 @func145_str1 = private unnamed_addr constant [2 x i8] c"(\00", align 1
 @func146_str1 = private unnamed_addr constant [6 x i8] c"%s : \00", align 1
 @func146_str2 = private unnamed_addr constant [3 x i8] c", \00", align 1
@@ -5055,7 +5054,7 @@ define %Type* @type_new_basic (%Str %_id, %Nat32 %_size, %Nat32 %_p, %Bool %_i, 
   store %Bool %_s, %Bool* %s
 
 ;stmt0:
-  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 4)
+  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 3)
 
 ;stmt1:
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 2 ; eval_access
@@ -5158,7 +5157,7 @@ define %Type* @type_new_record (%List* %_fields) {
   store %List* %_fields, %List** %fields
 
 ;stmt0:
-  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 7)
+  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 6)
 
 ;stmt1:
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 10 ; eval_access
@@ -5354,7 +5353,7 @@ define %Type* @type_new_enum (%List* %_constructors) {
   store %List* %_constructors, %List** %constructors
 
 ;stmt0:
-  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 6)
+  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 5)
 
 ;stmt1:
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 11 ; eval_access
@@ -5404,7 +5403,7 @@ define %Type* @type_new_array (%Type* %_of, %Nat32 %_volume, %Bool %_undefined) 
   store %Bool %_undefined, %Bool* %undefined
 
 ;stmt0:
-  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 9)
+  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 8)
 
 ;stmt1:
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 9 ; eval_access
@@ -5553,7 +5552,7 @@ define %Type* @type_new_pointer (%Type* %_to) {
   store %Type* %_to, %Type** %to
 
 ;stmt0:
-  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 8)
+  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 7)
 
 ;stmt1:
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 8 ; eval_access
@@ -5598,7 +5597,7 @@ define %Type* @type_new_func (%List* %_params, %Type* %_rettype, %Bool %_arghack
   store %Bool %_arghack, %Bool* %arghack
 
 ;stmt0:
-  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 5)
+  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 4)
 
 ;stmt1:
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 2 ; eval_access
@@ -5811,7 +5810,7 @@ endif_1:
   %33 = load %TypeKind, %TypeKind* %32
 
 ;stmt9:
-  %34 = icmp eq %TypeKind %33, 4
+  %34 = icmp eq %TypeKind %33, 3
   br i1 %34, label %then_3, label %else_3
 then_3:
 
@@ -5828,7 +5827,7 @@ then_3:
 else_3:
 
 ;stmt12:
-  %41 = icmp eq %TypeKind %33, 8
+  %41 = icmp eq %TypeKind %33, 7
   br i1 %41, label %then_4, label %else_4
 then_4:
 
@@ -5845,7 +5844,7 @@ then_4:
 else_4:
 
 ;stmt15:
-  %48 = icmp eq %TypeKind %33, 9
+  %48 = icmp eq %TypeKind %33, 8
   br i1 %48, label %then_5, label %else_5
 then_5:
 
@@ -5862,7 +5861,7 @@ then_5:
 else_5:
 
 ;stmt18:
-  %55 = icmp eq %TypeKind %33, 5
+  %55 = icmp eq %TypeKind %33, 4
   br i1 %55, label %then_6, label %else_6
 then_6:
 
@@ -5879,7 +5878,7 @@ then_6:
 else_6:
 
 ;stmt21:
-  %62 = icmp eq %TypeKind %33, 7
+  %62 = icmp eq %TypeKind %33, 6
   br i1 %62, label %then_7, label %else_7
 then_7:
 
@@ -5896,7 +5895,7 @@ then_7:
 else_7:
 
 ;stmt24:
-  %69 = icmp eq %TypeKind %33, 6
+  %69 = icmp eq %TypeKind %33, 5
   br i1 %69, label %then_8, label %else_8
 then_8:
 
@@ -5955,7 +5954,7 @@ define %Type* @type_new_undefined (%Str %_id) {
   store %Str %_id, %Str* %id
 
 ;stmt0:
-  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 3)
+  %1 = call %Type* (%TypeKind) @type_new (%TypeKind 2)
 
 ;stmt1:
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 4 ; eval_access
@@ -5979,7 +5978,7 @@ define %Bool @type_is_basic (%Type* %_t) {
   %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 0 ; eval_access
   %3 = load %TypeKind, %TypeKind* %2
-  %4 = icmp eq %TypeKind %3, 4
+  %4 = icmp eq %TypeKind %3, 3
   ret %Bool %4
 }
 
@@ -5991,7 +5990,7 @@ define %Bool @type_is_function (%Type* %_t) {
   %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 0 ; eval_access
   %3 = load %TypeKind, %TypeKind* %2
-  %4 = icmp eq %TypeKind %3, 5
+  %4 = icmp eq %TypeKind %3, 4
   ret %Bool %4
 }
 
@@ -6003,7 +6002,7 @@ define %Bool @type_is_record (%Type* %_t) {
   %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 0 ; eval_access
   %3 = load %TypeKind, %TypeKind* %2
-  %4 = icmp eq %TypeKind %3, 7
+  %4 = icmp eq %TypeKind %3, 6
   ret %Bool %4
 }
 
@@ -6015,7 +6014,7 @@ define %Bool @type_is_enum (%Type* %_t) {
   %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 0 ; eval_access
   %3 = load %TypeKind, %TypeKind* %2
-  %4 = icmp eq %TypeKind %3, 6
+  %4 = icmp eq %TypeKind %3, 5
   ret %Bool %4
 }
 
@@ -6027,7 +6026,7 @@ define %Bool @type_is_pointer (%Type* %_t) {
   %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 0 ; eval_access
   %3 = load %TypeKind, %TypeKind* %2
-  %4 = icmp eq %TypeKind %3, 8
+  %4 = icmp eq %TypeKind %3, 7
   ret %Bool %4
 }
 
@@ -6039,7 +6038,7 @@ define %Bool @type_is_array (%Type* %_t) {
   %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 0 ; eval_access
   %3 = load %TypeKind, %TypeKind* %2
-  %4 = icmp eq %TypeKind %3, 9
+  %4 = icmp eq %TypeKind %3, 8
   ret %Bool %4
 }
 
@@ -6051,7 +6050,7 @@ define %Bool @type_is_basic_integer (%Type* %_t) {
   %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 0 ; eval_access
   %3 = load %TypeKind, %TypeKind* %2
-  %4 = icmp eq %TypeKind %3, 4
+  %4 = icmp eq %TypeKind %3, 3
   br i1 %4, label %then_0, label %else_0
 then_0:
 
@@ -6694,7 +6693,7 @@ define %Bool @isArrayReference (%Type* %_t) {
   %1 = load %Type*, %Type** %t
   %2 = getelementptr inbounds %Type, %Type* %1, i32 0, i32 0 ; eval_access
   %3 = load %TypeKind, %TypeKind* %2
-  %4 = icmp ne %TypeKind %3, 9
+  %4 = icmp ne %TypeKind %3, 8
   br i1 %4, label %then_0, label %else_0
 then_0:
 
@@ -6738,34 +6737,12 @@ then_0:
   store %Type* %9, %Type** %8
   br label %endif_0
 else_0:
-
-;stmt3:
-  %10 = load %Value*, %Value** %v
-  %11 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 1 ; eval_access
-  %12 = load %Type*, %Type** %11
-  %13 = getelementptr inbounds %Type, %Type* %12, i32 0, i32 0 ; eval_access
-  %14 = load %TypeKind, %TypeKind* %13
-  %15 = icmp eq %TypeKind %14, 2
-  br i1 %15, label %then_1, label %else_1
-then_1:
-
-;stmt4:
-
-;stmt5:
-  %16 = load %Value*, %Value** %v
-  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 1 ; eval_access
-  %18 = load %Type*, %Type** @typeFreePtr
-  store %Type* %18, %Type** %17
-  br label %endif_1
-else_1:
-  br label %endif_1
-endif_1:
   br label %endif_0
 endif_0:
 
-;stmt6:
-  %19 = load %Value*, %Value** %v
-  ret %Value* %19
+;stmt3:
+  %10 = load %Value*, %Value** %v
+  ret %Value* %10
 }
 
 define %Value* @nat (%Value* %_v, %Type* %_t) {
@@ -6879,8 +6856,8 @@ define %Bool @naturalConversionIsPossible (%Type* %_a, %Type* %_b) {
   %6 = load %TypeKind, %TypeKind* %5
 
 ;stmt2:
-  %7 = icmp eq %TypeKind %3, 9
-  %8 = icmp eq %TypeKind %6, 9
+  %7 = icmp eq %TypeKind %3, 8
+  %8 = icmp eq %TypeKind %6, 8
   %9 = and %Bool %7, %8
   br i1 %9, label %then_0, label %else_0
 then_0:
@@ -6915,8 +6892,8 @@ else_0:
 endif_0:
 
 ;stmt7:
-  %21 = icmp eq %TypeKind %3, 8
-  %22 = icmp eq %TypeKind %6, 8
+  %21 = icmp eq %TypeKind %3, 7
+  %22 = icmp eq %TypeKind %6, 7
   %23 = and %Bool %21, %22
   br i1 %23, label %then_2, label %else_2
 then_2:
@@ -6960,8 +6937,8 @@ else_2:
 endif_2:
 
 ;stmt15:
-  %32 = icmp eq %TypeKind %3, 9
-  %33 = icmp eq %TypeKind %6, 8
+  %32 = icmp eq %TypeKind %3, 8
+  %33 = icmp eq %TypeKind %6, 7
   %34 = and %Bool %32, %33
   br i1 %34, label %then_5, label %else_5
 then_5:
@@ -6994,8 +6971,8 @@ else_5:
 endif_5:
 
 ;stmt20:
-  %44 = icmp eq %TypeKind %6, 9
-  %45 = icmp eq %TypeKind %3, 8
+  %44 = icmp eq %TypeKind %6, 8
+  %45 = icmp eq %TypeKind %3, 7
   %46 = and %Bool %44, %45
   br i1 %46, label %then_7, label %else_7
 then_7:
@@ -7067,7 +7044,7 @@ define void @foreach_struct_field (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) 
   %4 = load %Type*, %Type** %3
   %5 = getelementptr inbounds %Type, %Type* %4, i32 0, i32 0 ; eval_access
   %6 = load %TypeKind, %TypeKind* %5
-  %7 = icmp eq %TypeKind %6, 3
+  %7 = icmp eq %TypeKind %6, 2
   br i1 %7, label %then_0, label %else_0
 then_0:
 
@@ -7116,7 +7093,7 @@ then_1:
   %8 = load %Type*, %Type** %7
   %9 = getelementptr inbounds %Type, %Type* %8, i32 0, i32 0 ; eval_access
   %10 = load %TypeKind, %TypeKind* %9
-  %11 = icmp eq %TypeKind %10, 3
+  %11 = icmp eq %TypeKind %10, 2
   br i1 %11, label %then_2, label %else_2
 then_2:
 
@@ -7211,7 +7188,7 @@ else_6:
   %42 = load %Type*, %Type** %t
   %43 = getelementptr inbounds %Type, %Type* %42, i32 0, i32 0 ; eval_access
   %44 = load %TypeKind, %TypeKind* %43
-  %45 = icmp eq %TypeKind %44, 3
+  %45 = icmp eq %TypeKind %44, 2
   br i1 %45, label %then_7, label %else_7
 then_7:
 
@@ -8343,7 +8320,7 @@ endif_0:
   %15 = load %TypeKind, %TypeKind* %14
 
 ;stmt5:
-  %16 = icmp eq %TypeKind %15, 4
+  %16 = icmp eq %TypeKind %15, 3
   br i1 %16, label %then_1, label %else_1
 then_1:
 
@@ -8360,7 +8337,7 @@ then_1:
 else_1:
 
 ;stmt8:
-  %23 = icmp eq %TypeKind %15, 8
+  %23 = icmp eq %TypeKind %15, 7
   br i1 %23, label %then_2, label %else_2
 then_2:
 
@@ -8380,7 +8357,7 @@ then_2:
 else_2:
 
 ;stmt12:
-  %30 = icmp eq %TypeKind %15, 9
+  %30 = icmp eq %TypeKind %15, 8
   br i1 %30, label %then_3, label %else_3
 then_3:
 
@@ -8393,7 +8370,7 @@ then_3:
 else_3:
 
 ;stmt15:
-  %32 = icmp eq %TypeKind %15, 7
+  %32 = icmp eq %TypeKind %15, 6
   br i1 %32, label %then_4, label %else_4
 then_4:
 
@@ -8406,7 +8383,7 @@ then_4:
 else_4:
 
 ;stmt18:
-  %34 = icmp eq %TypeKind %15, 6
+  %34 = icmp eq %TypeKind %15, 5
   br i1 %34, label %then_5, label %else_5
 then_5:
 
@@ -8419,7 +8396,7 @@ then_5:
 else_5:
 
 ;stmt21:
-  %36 = icmp eq %TypeKind %15, 5
+  %36 = icmp eq %TypeKind %15, 4
   br i1 %36, label %then_6, label %else_6
 then_6:
 
@@ -8433,7 +8410,7 @@ then_6:
 else_6:
 
 ;stmt24:
-  %39 = icmp eq %TypeKind %15, 3
+  %39 = icmp eq %TypeKind %15, 2
   br i1 %39, label %then_7, label %else_7
 then_7:
 
@@ -8463,28 +8440,13 @@ then_8:
 else_8:
 
 ;stmt30:
-  %49 = icmp eq %TypeKind %15, 2
-  br i1 %49, label %then_9, label %else_9
-then_9:
 
 ;stmt31:
+  %49 = bitcast [31 x %Nat8]* @func144_str6 to %Str
+  %50 = call %Int32 (%Str, ...) @printf (%Str %49, %TypeKind %15)
 
 ;stmt32:
-  %50 = bitcast [17 x %Nat8]* @func144_str6 to %Str
-  %51 = call %Int32 (%Str, ...) @printf (%Str %50)
-  br label %endif_9
-else_9:
-
-;stmt33:
-
-;stmt34:
-  %52 = bitcast [31 x %Nat8]* @func144_str7 to %Str
-  %53 = call %Int32 (%Str, ...) @printf (%Str %52, %TypeKind %15)
-
-;stmt35:
   call void (%Int32) @exit (%Int32 1)
-  br label %endif_9
-endif_9:
   br label %endif_8
 endif_8:
   br label %endif_7
@@ -8876,7 +8838,7 @@ define void @chk (%Unit* %_k, %Unit* %_v, %Unit* %_ctx) {
   %5 = load %Type*, %Type** %4
   %6 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0 ; eval_access
   %7 = load %TypeKind, %TypeKind* %6
-  %8 = icmp eq %TypeKind %7, 5
+  %8 = icmp eq %TypeKind %7, 4
   br i1 %8, label %then_0, label %else_0
 then_0:
 
@@ -9462,7 +9424,7 @@ endif_1:
   %14 = load %Type*, %Type** %t
   %15 = getelementptr inbounds %Type, %Type* %14, i32 0, i32 0 ; eval_access
   %16 = load %TypeKind, %TypeKind* %15
-  %17 = icmp ne %TypeKind %16, 4
+  %17 = icmp ne %TypeKind %16, 3
   br i1 %17, label %then_2, label %else_2
 then_2:
 
@@ -9514,7 +9476,7 @@ then_4:
   %31 = load %Type*, %Type** %tt
   %32 = getelementptr inbounds %Type, %Type* %31, i32 0, i32 0 ; eval_access
   %33 = load %TypeKind, %TypeKind* %32
-  %34 = icmp eq %TypeKind %33, 3
+  %34 = icmp eq %TypeKind %33, 2
   br i1 %34, label %then_5, label %else_5
 then_5:
 
@@ -10363,7 +10325,7 @@ endif_1:
   %36 = load %Type*, %Type** %type
   %37 = getelementptr inbounds %Type, %Type* %36, i32 0, i32 0 ; eval_access
   %38 = load %TypeKind, %TypeKind* %37
-  %39 = icmp eq %TypeKind %38, 5
+  %39 = icmp eq %TypeKind %38, 4
   br i1 %39, label %then_2, label %else_2
 then_2:
 
@@ -12432,7 +12394,7 @@ then_1:
 ;stmt9:
   %12 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0 ; eval_access
   %13 = load %TypeKind, %TypeKind* %12
-  %14 = icmp ne %TypeKind %13, 8
+  %14 = icmp ne %TypeKind %13, 7
   br i1 %14, label %then_2, label %else_2
 then_2:
 
@@ -13518,7 +13480,7 @@ define %Type* @getTypeAccess (%Value* %_v) {
 ;stmt3:
   %6 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0 ; eval_access
   %7 = load %TypeKind, %TypeKind* %6
-  %8 = icmp eq %TypeKind %7, 8
+  %8 = icmp eq %TypeKind %7, 7
   br i1 %8, label %then_0, label %else_0
 then_0:
 
@@ -13543,7 +13505,7 @@ endif_0:
   %12 = load %Type*, %Type** %record_type
   %13 = getelementptr inbounds %Type, %Type* %12, i32 0, i32 0 ; eval_access
   %14 = load %TypeKind, %TypeKind* %13
-  %15 = icmp ne %TypeKind %14, 7
+  %15 = icmp ne %TypeKind %14, 6
   br i1 %15, label %then_1, label %else_1
 then_1:
 
@@ -13679,7 +13641,7 @@ define %Type* @getTypeCall (%Value* %_v) {
 ;stmt2:
   %6 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0 ; eval_access
   %7 = load %TypeKind, %TypeKind* %6
-  %8 = icmp ne %TypeKind %7, 5
+  %8 = icmp ne %TypeKind %7, 4
   br i1 %8, label %then_0, label %else_0
 then_0:
 
@@ -15963,7 +15925,7 @@ endif_1:
 ;stmt20:
   %31 = getelementptr inbounds %Type, %Type* %24, i32 0, i32 0 ; eval_access
   %32 = load %TypeKind, %TypeKind* %31
-  %33 = icmp ne %TypeKind %32, 5
+  %33 = icmp ne %TypeKind %32, 4
   br i1 %33, label %then_2, label %else_2
 then_2:
 
@@ -17836,7 +17798,7 @@ endif_0:
   %23 = load %TypeKind, %TypeKind* %22
 
 ;stmt6:
-  %24 = icmp eq %TypeKind %23, 4
+  %24 = icmp eq %TypeKind %23, 3
   br i1 %24, label %then_1, label %else_1
 then_1:
 
@@ -17854,7 +17816,7 @@ then_1:
 else_1:
 
 ;stmt9:
-  %32 = icmp eq %TypeKind %23, 6
+  %32 = icmp eq %TypeKind %23, 5
   br i1 %32, label %then_2, label %else_2
 then_2:
 
@@ -17867,7 +17829,7 @@ then_2:
 else_2:
 
 ;stmt12:
-  %34 = icmp eq %TypeKind %23, 7
+  %34 = icmp eq %TypeKind %23, 6
   br i1 %34, label %then_3, label %else_3
 then_3:
 
@@ -17897,7 +17859,7 @@ then_3:
 else_3:
 
 ;stmt18:
-  %46 = icmp eq %TypeKind %23, 9
+  %46 = icmp eq %TypeKind %23, 8
   br i1 %46, label %then_4, label %else_4
 then_4:
 
@@ -17954,7 +17916,7 @@ endif_5:
 else_4:
 
 ;stmt28:
-  %70 = icmp eq %TypeKind %23, 8
+  %70 = icmp eq %TypeKind %23, 7
   br i1 %70, label %then_6, label %else_6
 then_6:
 
@@ -17975,7 +17937,7 @@ then_6:
 else_6:
 
 ;stmt32:
-  %78 = icmp eq %TypeKind %23, 5
+  %78 = icmp eq %TypeKind %23, 4
   br i1 %78, label %then_7, label %else_7
 then_7:
 
@@ -18069,7 +18031,7 @@ endif_10:
 else_7:
 
 ;stmt49:
-  %112 = icmp eq %TypeKind %23, 6
+  %112 = icmp eq %TypeKind %23, 5
   br i1 %112, label %then_11, label %else_11
 then_11:
 
@@ -19532,7 +19494,7 @@ define %Value* @eval_access (%Value* %_v) {
   %8 = load %Type*, %Type** %7
   %9 = getelementptr inbounds %Type, %Type* %8, i32 0, i32 0 ; eval_access
   %10 = load %TypeKind, %TypeKind* %9
-  %11 = icmp eq %TypeKind %10, 8
+  %11 = icmp eq %TypeKind %10, 7
   br i1 %11, label %then_0, label %else_0
 then_0:
 
@@ -19887,14 +19849,14 @@ endif_0:
 ;stmt11:
   %22 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 0 ; eval_access
   %23 = load %TypeKind, %TypeKind* %22
-  %24 = icmp eq %TypeKind %23, 9
+  %24 = icmp eq %TypeKind %23, 8
   br i1 %24, label %then_1, label %else_1
 then_1:
 
 ;stmt12:
 
 ;stmt13:
-  %25 = icmp eq %TypeKind %21, 4
+  %25 = icmp eq %TypeKind %21, 3
   br i1 %25, label %then_2, label %else_2
 then_2:
 
@@ -19921,10 +19883,10 @@ else_1:
 ;stmt18:
   %32 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 0 ; eval_access
   %33 = load %TypeKind, %TypeKind* %32
-  %34 = icmp eq %TypeKind %33, 8
+  %34 = icmp eq %TypeKind %33, 7
   %35 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 0 ; eval_access
   %36 = load %TypeKind, %TypeKind* %35
-  %37 = icmp eq %TypeKind %36, 5
+  %37 = icmp eq %TypeKind %36, 4
   %38 = or %Bool %34, %37
   br i1 %38, label %then_3, label %else_3
 then_3:
@@ -19932,9 +19894,9 @@ then_3:
 ;stmt19:
 
 ;stmt20:
-  %39 = icmp eq %TypeKind %21, 8
-  %40 = icmp eq %TypeKind %21, 9
-  %41 = icmp eq %TypeKind %21, 5
+  %39 = icmp eq %TypeKind %21, 7
+  %40 = icmp eq %TypeKind %21, 8
+  %41 = icmp eq %TypeKind %21, 4
   %42 = or %Bool %40, %41
   %43 = or %Bool %39, %42
   br i1 %43, label %then_4, label %else_4
@@ -19963,14 +19925,14 @@ else_3:
 ;stmt25:
   %50 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 0 ; eval_access
   %51 = load %TypeKind, %TypeKind* %50
-  %52 = icmp eq %TypeKind %51, 4
+  %52 = icmp eq %TypeKind %51, 3
   br i1 %52, label %then_5, label %else_5
 then_5:
 
 ;stmt26:
 
 ;stmt27:
-  %53 = icmp eq %TypeKind %21, 4
+  %53 = icmp eq %TypeKind %21, 3
   br i1 %53, label %then_6, label %else_6
 then_6:
 
@@ -20059,7 +20021,7 @@ endif_7:
 else_6:
 
 ;stmt42:
-  %90 = icmp eq %TypeKind %21, 8
+  %90 = icmp eq %TypeKind %21, 7
   br i1 %90, label %then_10, label %else_10
 then_10:
 
@@ -20073,7 +20035,7 @@ then_10:
 else_10:
 
 ;stmt45:
-  %94 = icmp eq %TypeKind %21, 6
+  %94 = icmp eq %TypeKind %21, 5
   br i1 %94, label %then_11, label %else_11
 then_11:
 
@@ -20133,7 +20095,7 @@ endif_12:
 else_11:
 
 ;stmt56:
-  %116 = icmp eq %TypeKind %21, 9
+  %116 = icmp eq %TypeKind %21, 8
   br i1 %116, label %then_14, label %else_14
 then_14:
 

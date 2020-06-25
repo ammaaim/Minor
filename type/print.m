@@ -24,8 +24,6 @@ let prttype = func (t : *Type) -> Unit {
     printf("%s", t.undefined.id)
   } else if k == TypeNumeric {
     printf("<TypeNumeric>")
-  } else if k == TypeGenericRef {
-    printf("<TypeGenericRef>")
   } else {
     printf("unkn type kind %d, maybe func?", k)
     exit(1)
