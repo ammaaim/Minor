@@ -26,6 +26,7 @@ let arraydef = func (id : Str, t : *Type, items : *List) -> Unit {
   fprintf(fout, "], align 16")
 }
 
+
 let stringdef = func (id : Str, len : Nat32, s : Str) -> Unit {
   //@str_108 = private unnamed_addr constant [7 x i8] c"Nat32\00", align 1
   fprintf(fout, "\n@%s = private unnamed_addr constant [%d x i8] c\"", id, len)
@@ -53,11 +54,13 @@ let stringdef = func (id : Str, len : Nat32, s : Str) -> Unit {
   fprintf(fout, "\\%02d\", align 1", 0)
 }
 
+
 let vardef = func (id : Str, t : *Type, v : *Value) -> Unit {
   fprintf(fout, "\n@%s = global ", id)
   print_type(t, True, True); space();
   if v != Nil {print_value(v)} else {o("zeroinitializer")}
 }
+
 
 let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
 
@@ -77,8 +80,6 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
   } else {
     print_type(t.function.to, True, True)
   }
-
-
 
   fprintf(fout, " @%s (", id)
   need_comma = False
