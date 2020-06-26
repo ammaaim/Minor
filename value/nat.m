@@ -2,6 +2,7 @@
 
 
 // Натуральное преобразование
+// Вызывается в фазе проверки типов
 // 1. [0] -> []
 // 2. *Unit -> * && * -> *Unit
 // 3. *Unit -> [] && [] -> *Unit
@@ -29,7 +30,6 @@ let nat = func (v : *Value, t : *Type) -> *Value {
   assert(vtype != Nil, "nat:: v.type == Nil")
   assert(t != Nil, "nat:: t == Nil")
 
-  //printf("NAT!\n")
   // TypeNumeric -> Basic:Integer
   if vtype.kind == TypeNumeric {
     if type_is_basic_integer(t) {

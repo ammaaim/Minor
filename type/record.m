@@ -50,7 +50,7 @@ let type_record_new = func (fields : *List) -> *Type {
     let f = data to *Field
     let t = f.type
     let fhc = ctx to *FieldHandleContext
-    type_undefined_check(t)
+    typeUndefinedCheck(t)
     f.offset = fhc.offset
     fhc.offset = fhc.offset + 1
     fhc.size = fhc.size + alignment(t.size, fhc.talign)
