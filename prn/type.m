@@ -19,7 +19,7 @@ let printType = func (t : *Type, print_alias, func_as_ptr : Bool) -> Unit {
   } else if k == TypeArray {
     printTypeArray(&t.array)
   } else if k == TypePointer {
-    printType(t.pointer.to, True, True); fprintf(fout, "*")
+    printTypePointer(&t.pointer)
   } else if k == TypeFunction {
     printTypeFunc(&t.function, func_as_ptr)
   } else if k == TypeEnum {
@@ -52,6 +52,12 @@ let printTypeArray = func (a : *TypeArray) -> Unit {
     printType(of, True, True)
     fprintf(fout, "]")
   }
+}
+
+
+let printTypePointer = func (p : *TypePointer) -> Unit {
+  printType(p.to, True, True)
+  fprintf(fout, "*")
 }
 
 
