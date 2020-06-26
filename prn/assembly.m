@@ -75,34 +75,29 @@ let asm_funcdef_add = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *
 }
 
 
+// rename function in assembly
 let asm_func_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
-  // ищем в сборке эту функцию
-  let search_func_by_id = func ListSearchHandler {
-    let f = data to *FuncDef
-    if strcmp(f.id, ctx to Str) == 0 {return f}
-    return Nil
-  }
-  let f = list_search(a.funcs, search_func_by_id, id_from) to *FuncDef
-  assert(f != Nil, "asm_func_rename: func not found")
-
-  // нашли, подменяем id
-  f.id = id_to
+  asm_rename(a.funcs, id_from, id_to)
 }
 
 
+// rename const (string, array, struct) in assembly
 let asm_const_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
-  // ищем в сборке эту константу
-  let search_const_by_id = func ListSearchHandler {
-    let f = data to *ConstDef
-    if strcmp(f.id, ctx to Str) == 0 {return f}
+  asm_rename(a.consts, id_from, id_to)
+}
+
+
+// rename any entity (string, array, struct) in assembly
+let asm_rename = func (list : *List, id_from, id_to : Str) -> Unit {
+  let search = func ListSearchHandler {
+    let id = data to *Str
+    if strcmp(*id, ctx to Str) == 0 {return data}
     return Nil
   }
-  let c = list_search(a.consts, search_const_by_id, id_from) to *ConstDef
-  assert(c != Nil, "asm_const_rename: const not found")
+  let c = list_search(list, search, id_from) to *ConstDef
+  assert(c != Nil, "asm_rename: target not found")
 
-  // нашли, подменяем id
   c.id = id_to
 }
-
 
 
