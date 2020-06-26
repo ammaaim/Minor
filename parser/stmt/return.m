@@ -1,8 +1,6 @@
 // parser/stmt/return
 
 
-
-
 let stmtReturn = func StmtParser {
   var v : *Value
   if separator() {
@@ -23,7 +21,6 @@ let stmtReturn = func StmtParser {
 fail:
   return Nil
 }
-
 
 
 let stmtReturnCheck = func (s : *Stmt) -> Unit {
