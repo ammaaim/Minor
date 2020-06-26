@@ -423,15 +423,15 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func267_str2 = private unnamed_addr constant [2 x i8] c"x\00", align 1
 @func267_str3 = private unnamed_addr constant [5 x i8] c"%llx\00", align 1
 @func267_str4 = private unnamed_addr constant [5 x i8] c"%lld\00", align 1
-@func270_str1 = private unnamed_addr constant [13 x i8] c"invalid lval\00", align 1
-@func270_str2 = private unnamed_addr constant [11 x i8] c"type error\00", align 1
-@func270_str3 = private unnamed_addr constant [9 x i8] c"LTYPE = \00", align 1
-@func270_str4 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@func270_str5 = private unnamed_addr constant [9 x i8] c"RTYPE = \00", align 1
-@func270_str6 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@func276_str1 = private unnamed_addr constant [2 x i8] c"=\00", align 1
-@func276_str2 = private unnamed_addr constant [25 x i8] c"stmt::fail_with_restore\0A\00", align 1
-@func276_str3 = private unnamed_addr constant [10 x i8] c"YYY = %s\0A\00", align 1
+@func274_str1 = private unnamed_addr constant [2 x i8] c"=\00", align 1
+@func274_str2 = private unnamed_addr constant [25 x i8] c"stmt::fail_with_restore\0A\00", align 1
+@func274_str3 = private unnamed_addr constant [10 x i8] c"YYY = %s\0A\00", align 1
+@func276_str1 = private unnamed_addr constant [13 x i8] c"invalid lval\00", align 1
+@func276_str2 = private unnamed_addr constant [11 x i8] c"type error\00", align 1
+@func276_str3 = private unnamed_addr constant [9 x i8] c"LTYPE = \00", align 1
+@func276_str4 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@func276_str5 = private unnamed_addr constant [9 x i8] c"RTYPE = \00", align 1
+@func276_str6 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 @func277_str1 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 @func277_str2 = private unnamed_addr constant [2 x i8] c"{\00", align 1
 @func277_str3 = private unnamed_addr constant [5 x i8] c"else\00", align 1
@@ -16217,148 +16217,6 @@ define %Value* @term_hash () {
   ret %Value* %2
 }
 
-define %Stmt* @assign (%Value* %_l, %Value* %_r, %TokenInfo* %_ti) {
-  %l = alloca %Value*
-  store %Value* %_l, %Value** %l
-  %r = alloca %Value*
-  store %Value* %_r, %Value** %r
-  %ti = alloca %TokenInfo*
-  store %TokenInfo* %_ti, %TokenInfo** %ti
-
-;stmt0:
-  %1 = load %Value*, %Value** %l
-  %2 = bitcast %Value* %1 to %Unit*
-  %3 = inttoptr %Nat32 0 to %Unit*
-  %4 = icmp eq %Unit* %2, %3
-  %5 = load %Value*, %Value** %r
-  %6 = bitcast %Value* %5 to %Unit*
-  %7 = inttoptr %Nat32 0 to %Unit*
-  %8 = icmp eq %Unit* %6, %7
-  %9 = or %Bool %4, %8
-  br i1 %9, label %then_0, label %else_0
-then_0:
-
-;stmt1:
-
-;stmt2:
-  %10 = inttoptr %Nat32 0 to %Unit*
-  %11 = bitcast %Unit* %10 to %Stmt*
-  ret %Stmt* %11
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt3:
-  %13 = load %Value*, %Value** %l
-  %14 = load %Value*, %Value** %r
-  %15 = load %TokenInfo*, %TokenInfo** %ti
-  %16 = call %Stmt* (%Value*, %Value*, %TokenInfo*) @stmt_new_assign (%Value* %13, %Value* %14, %TokenInfo* %15)
-  ret %Stmt* %16
-}
-
-define void @checkStmtAssign (%Stmt* %_s) {
-  %s = alloca %Stmt*
-  store %Stmt* %_s, %Stmt** %s
-
-;stmt0:
-  %1 = load %Stmt*, %Stmt** %s
-  %2 = getelementptr inbounds %Stmt, %Stmt* %1, i32 0, i32 1 ; eval_access
-  %3 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %2, i32 0, %Int32 0 ; eval_index
-  %4 = load %Value*, %Value** %3
-
-;stmt1:
-  %5 = load %Stmt*, %Stmt** %s
-  %6 = getelementptr inbounds %Stmt, %Stmt* %5, i32 0, i32 1 ; eval_access
-  %7 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %6, i32 0, %Int32 1 ; eval_index
-  %8 = load %Value*, %Value** %7
-
-;stmt2:
-  %9 = call %Type* (%Value*) @getType (%Value* %4)
-
-;stmt3:
-  %10 = call %Type* (%Value*) @getType (%Value* %8)
-
-;stmt4:
-  %11 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 2 ; eval_access
-  %12 = call %Bool (%Storage*) @storageIsMutable (%Storage* %11)
-  %13 = xor %Bool %12, 1
-  br i1 %13, label %then_0, label %else_0
-then_0:
-
-;stmt5:
-
-;stmt6:
-  %14 = bitcast [13 x %Nat8]* @func270_str1 to %Str
-  %15 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 8 ; eval_access
-  %16 = load %TokenInfo*, %TokenInfo** %15
-  call void (%Str, %TokenInfo*) @error (%Str %14, %TokenInfo* %16)
-
-;stmt7:
-ret void
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt8:
-  %18 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 1 ; eval_access
-  %19 = load %Type*, %Type** %18
-  %20 = call %Value* (%Value*, %Type*) @nat (%Value* %8, %Type* %19)
-
-;stmt9:
-  %21 = getelementptr inbounds %Value, %Value* %20, i32 0, i32 1 ; eval_access
-  %22 = load %Type*, %Type** %21
-  %23 = call %Bool (%Type*, %Type*) @type_eq (%Type* %9, %Type* %22)
-  %24 = xor %Bool %23, 1
-  br i1 %24, label %then_1, label %else_1
-then_1:
-
-;stmt10:
-
-;stmt11:
-  %25 = bitcast [11 x %Nat8]* @func270_str2 to %Str
-  %26 = load %Stmt*, %Stmt** %s
-  %27 = getelementptr inbounds %Stmt, %Stmt* %26, i32 0, i32 7 ; eval_access
-  %28 = load %TokenInfo*, %TokenInfo** %27
-  call void (%Str, %TokenInfo*) @error (%Str %25, %TokenInfo* %28)
-
-;stmt12:
-  %29 = bitcast [9 x %Nat8]* @func270_str3 to %Str
-  %30 = call %Int32 (%Str, ...) @printf (%Str %29)
-
-;stmt13:
-  call void (%Type*) @prttype (%Type* %9)
-
-;stmt14:
-  %31 = bitcast [2 x %Nat8]* @func270_str4 to %Str
-  %32 = call %Int32 (%Str, ...) @printf (%Str %31)
-
-;stmt15:
-  %33 = bitcast [9 x %Nat8]* @func270_str5 to %Str
-  %34 = call %Int32 (%Str, ...) @printf (%Str %33)
-
-;stmt16:
-  %35 = getelementptr inbounds %Value, %Value* %20, i32 0, i32 1 ; eval_access
-  %36 = load %Type*, %Type** %35
-  call void (%Type*) @prttype (%Type* %36)
-
-;stmt17:
-  %37 = bitcast [2 x %Nat8]* @func270_str6 to %Str
-  %38 = call %Int32 (%Str, ...) @printf (%Str %37)
-  br label %endif_1
-else_1:
-  br label %endif_1
-endif_1:
-
-;stmt18:
-  %39 = load %Stmt*, %Stmt** %s
-  %40 = getelementptr inbounds %Stmt, %Stmt* %39, i32 0, i32 1 ; eval_access
-  %41 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %40, i32 0, %Int32 1 ; eval_index
-  store %Value* %20, %Value** %41
-  ret void
-}
-
 define void @stmtLetCheck (%Stmt* %_s) {
   %s = alloca %Stmt*
   store %Stmt* %_s, %Stmt** %s
@@ -16460,7 +16318,7 @@ define void @chkb (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
   %2 = bitcast %Unit* %1 to %Stmt*
 
 ;stmt1:
-  call void (%Stmt*) @checkStmt (%Stmt* %2)
+  call void (%Stmt*) @stmtCheck (%Stmt* %2)
   ret void
 }
 
@@ -16523,7 +16381,7 @@ endif_0:
   %7 = getelementptr inbounds %Token, %Token* %6, i32 0, i32 1 ; eval_access
 
 ;stmt5:
-  %8 = bitcast [2 x %Nat8]* @func276_str1 to %Str
+  %8 = bitcast [2 x %Nat8]* @func274_str1 to %Str
   %9 = call %Bool (%Str) @match (%Str %8)
   %10 = xor %Bool %9, 1
   br i1 %10, label %then_1, label %else_1
@@ -16564,11 +16422,11 @@ endif_1:
 fail_with_restore:
 
 ;stmt14:
-  %21 = bitcast [25 x %Nat8]* @func276_str2 to %Str
+  %21 = bitcast [25 x %Nat8]* @func274_str2 to %Str
   %22 = call %Int32 (%Str, ...) @printf (%Str %21)
 
 ;stmt15:
-  %23 = bitcast [10 x %Nat8]* @func276_str3 to %Str
+  %23 = bitcast [10 x %Nat8]* @func274_str3 to %Str
   %24 = call %Token* () @ctok ()
   %25 = getelementptr inbounds %Token, %Token* %24, i32 0, i32 2 ; eval_access
   %26 = getelementptr inbounds [0 x %Nat8], [0 x %Nat8]* %25, i32 0, %Int32 0 ; eval_index
@@ -16587,6 +16445,148 @@ fail:
   %31 = inttoptr %Nat32 0 to %Unit*
   %32 = bitcast %Unit* %31 to %Stmt*
   ret %Stmt* %32
+}
+
+define %Stmt* @assign (%Value* %_l, %Value* %_r, %TokenInfo* %_ti) {
+  %l = alloca %Value*
+  store %Value* %_l, %Value** %l
+  %r = alloca %Value*
+  store %Value* %_r, %Value** %r
+  %ti = alloca %TokenInfo*
+  store %TokenInfo* %_ti, %TokenInfo** %ti
+
+;stmt0:
+  %1 = load %Value*, %Value** %l
+  %2 = bitcast %Value* %1 to %Unit*
+  %3 = inttoptr %Nat32 0 to %Unit*
+  %4 = icmp eq %Unit* %2, %3
+  %5 = load %Value*, %Value** %r
+  %6 = bitcast %Value* %5 to %Unit*
+  %7 = inttoptr %Nat32 0 to %Unit*
+  %8 = icmp eq %Unit* %6, %7
+  %9 = or %Bool %4, %8
+  br i1 %9, label %then_0, label %else_0
+then_0:
+
+;stmt1:
+
+;stmt2:
+  %10 = inttoptr %Nat32 0 to %Unit*
+  %11 = bitcast %Unit* %10 to %Stmt*
+  ret %Stmt* %11
+  br label %endif_0
+else_0:
+  br label %endif_0
+endif_0:
+
+;stmt3:
+  %13 = load %Value*, %Value** %l
+  %14 = load %Value*, %Value** %r
+  %15 = load %TokenInfo*, %TokenInfo** %ti
+  %16 = call %Stmt* (%Value*, %Value*, %TokenInfo*) @stmt_new_assign (%Value* %13, %Value* %14, %TokenInfo* %15)
+  ret %Stmt* %16
+}
+
+define void @stmtAssignCheck (%Stmt* %_s) {
+  %s = alloca %Stmt*
+  store %Stmt* %_s, %Stmt** %s
+
+;stmt0:
+  %1 = load %Stmt*, %Stmt** %s
+  %2 = getelementptr inbounds %Stmt, %Stmt* %1, i32 0, i32 1 ; eval_access
+  %3 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %2, i32 0, %Int32 0 ; eval_index
+  %4 = load %Value*, %Value** %3
+
+;stmt1:
+  %5 = load %Stmt*, %Stmt** %s
+  %6 = getelementptr inbounds %Stmt, %Stmt* %5, i32 0, i32 1 ; eval_access
+  %7 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %6, i32 0, %Int32 1 ; eval_index
+  %8 = load %Value*, %Value** %7
+
+;stmt2:
+  %9 = call %Type* (%Value*) @getType (%Value* %4)
+
+;stmt3:
+  %10 = call %Type* (%Value*) @getType (%Value* %8)
+
+;stmt4:
+  %11 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 2 ; eval_access
+  %12 = call %Bool (%Storage*) @storageIsMutable (%Storage* %11)
+  %13 = xor %Bool %12, 1
+  br i1 %13, label %then_0, label %else_0
+then_0:
+
+;stmt5:
+
+;stmt6:
+  %14 = bitcast [13 x %Nat8]* @func276_str1 to %Str
+  %15 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 8 ; eval_access
+  %16 = load %TokenInfo*, %TokenInfo** %15
+  call void (%Str, %TokenInfo*) @error (%Str %14, %TokenInfo* %16)
+
+;stmt7:
+ret void
+  br label %endif_0
+else_0:
+  br label %endif_0
+endif_0:
+
+;stmt8:
+  %18 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 1 ; eval_access
+  %19 = load %Type*, %Type** %18
+  %20 = call %Value* (%Value*, %Type*) @nat (%Value* %8, %Type* %19)
+
+;stmt9:
+  %21 = getelementptr inbounds %Value, %Value* %20, i32 0, i32 1 ; eval_access
+  %22 = load %Type*, %Type** %21
+  %23 = call %Bool (%Type*, %Type*) @type_eq (%Type* %9, %Type* %22)
+  %24 = xor %Bool %23, 1
+  br i1 %24, label %then_1, label %else_1
+then_1:
+
+;stmt10:
+
+;stmt11:
+  %25 = bitcast [11 x %Nat8]* @func276_str2 to %Str
+  %26 = load %Stmt*, %Stmt** %s
+  %27 = getelementptr inbounds %Stmt, %Stmt* %26, i32 0, i32 7 ; eval_access
+  %28 = load %TokenInfo*, %TokenInfo** %27
+  call void (%Str, %TokenInfo*) @error (%Str %25, %TokenInfo* %28)
+
+;stmt12:
+  %29 = bitcast [9 x %Nat8]* @func276_str3 to %Str
+  %30 = call %Int32 (%Str, ...) @printf (%Str %29)
+
+;stmt13:
+  call void (%Type*) @prttype (%Type* %9)
+
+;stmt14:
+  %31 = bitcast [2 x %Nat8]* @func276_str4 to %Str
+  %32 = call %Int32 (%Str, ...) @printf (%Str %31)
+
+;stmt15:
+  %33 = bitcast [9 x %Nat8]* @func276_str5 to %Str
+  %34 = call %Int32 (%Str, ...) @printf (%Str %33)
+
+;stmt16:
+  %35 = getelementptr inbounds %Value, %Value* %20, i32 0, i32 1 ; eval_access
+  %36 = load %Type*, %Type** %35
+  call void (%Type*) @prttype (%Type* %36)
+
+;stmt17:
+  %37 = bitcast [2 x %Nat8]* @func276_str6 to %Str
+  %38 = call %Int32 (%Str, ...) @printf (%Str %37)
+  br label %endif_1
+else_1:
+  br label %endif_1
+endif_1:
+
+;stmt18:
+  %39 = load %Stmt*, %Stmt** %s
+  %40 = getelementptr inbounds %Stmt, %Stmt* %39, i32 0, i32 1 ; eval_access
+  %41 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %40, i32 0, %Int32 1 ; eval_index
+  store %Value* %20, %Value** %41
+  ret void
 }
 
 define %Stmt* @stmtIf (%TokenInfo* %_ti) {
@@ -16773,12 +16773,12 @@ endif_0:
 ;stmt7:
   %16 = getelementptr inbounds %If, %If* %3, i32 0, i32 1 ; eval_access
   %17 = load %Stmt*, %Stmt** %16
-  call void (%Stmt*) @checkStmt (%Stmt* %17)
+  call void (%Stmt*) @stmtCheck (%Stmt* %17)
 
 ;stmt8:
   %18 = getelementptr inbounds %If, %If* %3, i32 0, i32 2 ; eval_access
   %19 = load %Stmt*, %Stmt** %18
-  call void (%Stmt*) @checkStmt (%Stmt* %19)
+  call void (%Stmt*) @stmtCheck (%Stmt* %19)
   ret void
 }
 
@@ -16931,7 +16931,7 @@ endif_0:
 ;stmt7:
   %16 = getelementptr inbounds %While, %While* %3, i32 0, i32 1 ; eval_access
   %17 = load %Stmt*, %Stmt** %16
-  call void (%Stmt*) @checkStmt (%Stmt* %17)
+  call void (%Stmt*) @stmtCheck (%Stmt* %17)
   ret void
 }
 
@@ -17119,7 +17119,7 @@ endif_0:
   ret %Stmt* %8
 }
 
-define void @checkStmt (%Stmt* %_s) {
+define void @stmtCheck (%Stmt* %_s) {
   %s = alloca %Stmt*
   store %Stmt* %_s, %Stmt** %s
 
@@ -17183,7 +17183,7 @@ then_3:
 
 ;stmt12:
   %18 = load %Stmt*, %Stmt** %s
-  call void (%Stmt*) @checkStmtAssign (%Stmt* %18)
+  call void (%Stmt*) @stmtAssignCheck (%Stmt* %18)
   br label %endif_3
 else_3:
 

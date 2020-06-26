@@ -26,7 +26,7 @@ let stmtBlockCheck = func (b : *Block) -> Unit {
   // secondly check the block statements
   let chkb = func ListForeachHandler {
     let stmt = data to *Stmt
-    checkStmt(stmt)
+    stmtCheck(stmt)
   }
   list_foreach(b.stmts, chkb, Nil)
 

@@ -1,11 +1,10 @@
 // parser/stmt
 
 
-import "stmt/assign"
-
 import "let"
 import "block"
 import "expr"
+import "assign"
 import "if"
 import "while"
 import "return"
@@ -14,8 +13,10 @@ import "continue"
 
 
 
+
+
 // проверка типов для всех выражений входящих в состав стейтмента
-let checkStmt = func (s : *Stmt) -> Unit {
+let stmtCheck = func (s : *Stmt) -> Unit {
   if s == Nil {return}
   let k = s.kind
   if k == StmtLet {
@@ -23,7 +24,7 @@ let checkStmt = func (s : *Stmt) -> Unit {
   } else if k == StmtExpr {
     getType(s.a[0])
   } else if k == StmtAssign {
-    checkStmtAssign(s)
+    stmtAssignCheck(s)
   } else if k == StmtBlock {
     stmtBlockCheck(s.b)
   } else if k == StmtIf {

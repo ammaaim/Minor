@@ -33,7 +33,7 @@ let stmtWhileCheck = func (s : *Stmt) -> Unit {
     }
   }
 
-  checkStmt(w.stmt)
+  stmtCheck(w.stmt)
 }
 
 

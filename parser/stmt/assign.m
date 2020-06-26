@@ -7,7 +7,7 @@ let assign = func (l, r : *Value, ti : *TokenInfo) -> *Stmt {
 }
 
 
-let checkStmtAssign = func (s : *Stmt) -> Unit {
+let stmtAssignCheck = func (s : *Stmt) -> Unit {
   let lv = s.a[0]
   let rv = s.a[1]
 

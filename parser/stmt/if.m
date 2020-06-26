@@ -43,8 +43,8 @@ let stmtIfCheck = func (s : *Stmt) -> Unit {
     }
   }
 
-  checkStmt(i.then)
-  checkStmt(i.else)
+  stmtCheck(i.then)
+  stmtCheck(i.else)
 }
 
 
