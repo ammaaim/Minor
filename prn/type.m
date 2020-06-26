@@ -22,8 +22,6 @@ let printType = func (t : *Type, print_alias, func_as_ptr : Bool) -> Unit {
     printTypePointer(&t.pointer)
   } else if k == TypeFunction {
     printTypeFunc(&t.function, func_as_ptr)
-  } else if k == TypeEnum {
-    fprintf(fout, "<UNDEFINED::%s>", t.undefined.id)
   }
 }
 

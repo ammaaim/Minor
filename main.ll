@@ -464,7 +464,6 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func296_str1 = private unnamed_addr constant [26 x i8] c"prn/printType :: t = Nil\0A\00", align 1
 @func296_str2 = private unnamed_addr constant [5 x i8] c"%%%s\00", align 1
 @func296_str3 = private unnamed_addr constant [5 x i8] c"%%%s\00", align 1
-@func296_str4 = private unnamed_addr constant [16 x i8] c"<UNDEFINED::%s>\00", align 1
 @func297_str1 = private unnamed_addr constant [2 x i8] c"{\00", align 1
 @func298_str1 = private unnamed_addr constant [3 x i8] c", \00", align 1
 @func297_str2 = private unnamed_addr constant [2 x i8] c"}\00", align 1
@@ -17785,26 +17784,6 @@ then_6:
   call void (%TypeFunc*, %Bool) @printTypeFunc (%TypeFunc* %45, %Bool %46)
   br label %endif_6
 else_6:
-
-;stmt24:
-  %47 = icmp eq %TypeKind %23, 5
-  br i1 %47, label %then_7, label %else_7
-then_7:
-
-;stmt25:
-
-;stmt26:
-  %48 = load %Unit*, %Unit** @fout
-  %49 = bitcast [16 x %Nat8]* @func296_str4 to %Str
-  %50 = load %Type*, %Type** %t
-  %51 = getelementptr inbounds %Type, %Type* %50, i32 0, i32 4 ; eval_access
-  %52 = getelementptr inbounds %TypeUndefined, %TypeUndefined* %51, i32 0, i32 0 ; eval_access
-  %53 = load %Str, %Str* %52
-  %54 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %48, %Str %49, %Str %53)
-  br label %endif_7
-else_7:
-  br label %endif_7
-endif_7:
   br label %endif_6
 endif_6:
   br label %endif_5
