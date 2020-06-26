@@ -1,5 +1,7 @@
 // type/undefined
 
+// здесь есть проблема с бесконечной рекурсией, см typeUndefinedCheckRecord
+
 
 // проверяем тип на наличие в нем TypeUndefined
 // TypeUndefined допустим лишь для указателя на
@@ -14,7 +16,7 @@ let typeUndefinedCheck = func (t : *Type) -> Unit {
   } else if type_is_record(t) {
     typeUndefinedCheckRecord(&t.record)
   } else if t.kind == TypeUndefined {
-    error("typeUndefinedCheck undefined type", t.ti)
+    error("undefined type", t.ti)
   }
 }
 
@@ -47,6 +49,7 @@ let typeUndefinedCheckRecord = func (r : *TypeRecord) -> Unit {
   // (но может быть указателем или неопр массивом undef-типа)
   let foreach_struct_field = func ListForeachHandler {
     let f = data to *Field
+    //typeUndefinedCheck(f.type)  // должно быть так но возн беск рекурсия! исправь это
     if f.type.kind == TypeUndefined {
       error("undefined type", f.type.ti)
     }

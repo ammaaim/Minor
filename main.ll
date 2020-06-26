@@ -193,7 +193,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func91_str1 = private unnamed_addr constant [12 x i8] c"pointerSize\00", align 1
 @func93_str1 = private unnamed_addr constant [12 x i8] c"pointerSize\00", align 1
 @func95_str1 = private unnamed_addr constant [12 x i8] c"pointerSize\00", align 1
-@func98_str1 = private unnamed_addr constant [34 x i8] c"typeUndefinedCheck undefined type\00", align 1
+@func98_str1 = private unnamed_addr constant [15 x i8] c"undefined type\00", align 1
 @func103_str1 = private unnamed_addr constant [15 x i8] c"undefined type\00", align 1
 @func104_str1 = private unnamed_addr constant [26 x i8] c"type_eq unknown type kind\00", align 1
 @func118_str1 = private unnamed_addr constant [10 x i8] c"value_new\00", align 1
@@ -5865,7 +5865,7 @@ then_4:
 ;stmt13:
 
 ;stmt14:
-  %23 = bitcast [34 x %Nat8]* @func98_str1 to %Str
+  %23 = bitcast [15 x %Nat8]* @func98_str1 to %Str
   %24 = load %Type*, %Type** %t
   %25 = getelementptr inbounds %Type, %Type* %24, i32 0, i32 13 ; eval_access
   %26 = load %TokenInfo*, %TokenInfo** %25
