@@ -278,3 +278,11 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value) -> Unit 
 }
 
 
+// add statement to current block
+let add_stmt = func (s : *Stmt) -> Unit {
+  if s != Nil {
+    list_append(fctx.cblock.stmts, s)
+  }
+}
+
+

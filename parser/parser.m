@@ -100,16 +100,17 @@ let checkMain = func () -> Unit {
 
 
 let checkFunc = func (f : *Value) -> Unit {
-  //printf("\ncheckFunc: %s\n", f.storage.id)
-
+  // set context
   let old_cfunc = fctx.cfunc
   fctx.cfunc = f  // for get_value
 
   let b = f.block
+  // extern function cannot have the block
   if b != Nil {
     checkBlock(b)
   }
 
+  // reset context
   fctx.cfunc = old_cfunc
 }
 

@@ -50,7 +50,7 @@ let checkStmtReturn = func (s : *Stmt) -> Unit {
 
 let checkStmtLet = func (s : *Stmt) -> Unit {
   let v = s.a[0]   // выражение
-  let vx = s.a[1]  // сопряженное значения (ид)
+  let vx = s.a[1]  // сопряженное с ним значение (ид)
 
   let value_id = vx.storage.id
 
@@ -82,40 +82,34 @@ let checkStmt = func (s : *Stmt) -> Unit {
 
 
 let checkBlock = func (b : *Block) -> Unit {
+  // set context
   let old_cblock = fctx.cblock
-  fctx.cblock = b  // ! for
+  fctx.cblock = b
 
-  // сперва чекаем все локальные функции
+  // firstly check the local functions
   let chkf = func ListForeachHandler {
     let fv = data to *Value
     checkFunc(fv)
   }
   list_foreach(b.local_functions, chkf, Nil)
 
-  // затем чекаем собственно сам блок
+  // secondly check the block statements
   let chkb = func ListForeachHandler {
     let stmt = data to *Stmt
     checkStmt(stmt)
   }
   list_foreach(b.stmts, chkb, Nil)
 
-  fctx.cblock = old_cblock  //!
+  // reset context
+  fctx.cblock = old_cblock
 }
 
 
-
-let stmtBlock = func (b : *Block) -> *Stmt {
-  let s = stmt_new(StmtBlock)
-  s.b = b
-  //s.ti = ti
-  return s
-}
-
-let stmt_block = func StmtParser {
+let stmtBlock = func StmtParser {
   let b = doblock()
   if b == Nil {return Nil}
-  let s = stmtBlock(b)
-  //s.b = b
+  let s = stmt_new(StmtBlock)
+  s.b = b
   s.ti = ti
   return s
 }
@@ -127,17 +121,17 @@ let stmt = func () -> *Stmt {
   if match("let") {
     return dolet(True); sep()
   } else if match("{") {
-    return stmt_block(ti)
+    return stmtBlock(ti)
   } else if match("if") {
-    return stmt_if(ti)
+    return stmtIf(ti)
   } else if match("while") {
-    return stmt_while(ti)
+    return stmtWhile(ti)
   } else if match("return") {
-    return stmt_ret(ti)
+    return stmtRet(ti)
   } else if match("break") {
-    return stmt_break(ti)
+    return stmtBreak(ti)
   } else if match("continue") {
-    return stmt_cont(ti)
+    return stmtContinue(ti)
   } else if match("var") {
     dovardef(); sep()
     return Nil
@@ -145,7 +139,7 @@ let stmt = func () -> *Stmt {
     dotypedef(); sep()
     return Nil
   } else if match("goto") {
-    return stmt_goto(ti)
+    return stmtGoto(ti)
   }
 
   // Maybe Label?
@@ -179,21 +173,21 @@ let stmt_restore = func () -> Unit {
 }
 
 
-let stmt_if = func StmtParser {
+let stmtIf = func StmtParser {
   let i = malloc(sizeof If) to *If
   i.cond = expr()
   match("\n")
   let ti_then_block = &ctok().ti
   need("{")
-  i.then = stmt_block(ti_then_block)
+  i.then = stmtBlock(ti_then_block)
   if match("else") {
     match("\n")
     let ti_else_branch = &ctok().ti
     if match("if") {
-      i.else = stmt_if(ti_else_branch)
+      i.else = stmtIf(ti_else_branch)
     } else {
       need("{")
-      i.else = stmt_block(ti_else_branch)
+      i.else = stmtBlock(ti_else_branch)
     }
   } else {
     i.else = Nil
@@ -211,14 +205,14 @@ fail:
 }
 
 
-let stmt_while = func StmtParser {
+let stmtWhile = func StmtParser {
   fctx.loop = fctx.loop + 1
   let w = malloc(sizeof While) to *While
   w.cond = expr()
   match("\n")
   let ti_block = &ctok().ti
   need("{")
-  w.stmt = stmt_block(ti_block)
+  w.stmt = stmtBlock(ti_block)
   fctx.loop = fctx.loop - 1
 
   if w.cond == Nil or w.stmt == Nil {goto fail}
@@ -234,8 +228,7 @@ fail:
 }
 
 
-let stmt_ret = func StmtParser {
-
+let stmtRet = func StmtParser {
   var v : *Value
   if separator() {
     v = Nil
@@ -257,7 +250,7 @@ fail:
 }
 
 
-let stmt_break = func StmtParser {
+let stmtBreak = func StmtParser {
   sep()
   if fctx.loop == 0 {
     error("`break` outside any loop operator", Nil)
@@ -266,7 +259,7 @@ let stmt_break = func StmtParser {
 }
 
 
-let stmt_cont = func StmtParser {
+let stmtContinue = func StmtParser {
   sep()
   if fctx.loop == 0 {
     error("`continue` outside any loop operator", Nil)
@@ -284,7 +277,7 @@ let setlab = func (lab : Str, ti : *TokenInfo) -> Unit {
 }
 
 
-let stmt_goto = func StmtParser {
+let stmtGoto = func StmtParser {
   let lab = parse_id()
   if lab == Nil {
     error("expected label", Nil)
@@ -324,15 +317,6 @@ fail_with_restore:
 
 fail:
   return Nil
-}
-
-
-
-// добавляет стейтмент в текущий блок
-let add_stmt = func (s : *Stmt) -> Unit {
-  if s != Nil {
-    list_append(fctx.cblock.stmts, s)
-  }
 }
 
 
