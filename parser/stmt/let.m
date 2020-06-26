@@ -13,3 +13,4 @@ let stmtLetCheck = func (s : *Stmt) -> Unit {
   vx.type = t
 }
 
+

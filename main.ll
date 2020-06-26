@@ -296,133 +296,133 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func164_str3 = private unnamed_addr constant [14 x i8] c"cannot import\00", align 1
 @func165_str1 = private unnamed_addr constant [2 x i8] c"=\00", align 1
 @func168_str1 = private unnamed_addr constant [2 x i8] c"=\00", align 1
-@func171_str1 = private unnamed_addr constant [2 x i8] c"}\00", align 1
-@func171_str2 = private unnamed_addr constant [23 x i8] c"unexpected end-of-file\00", align 1
-@func171_str3 = private unnamed_addr constant [2 x i8] c"}\00", align 1
-@func172_str1 = private unnamed_addr constant [12 x i8] c"expected id\00", align 1
-@func172_str2 = private unnamed_addr constant [9 x i8] c"tt = %d\0A\00", align 1
-@func172_str3 = private unnamed_addr constant [9 x i8] c"tx = %d\0A\00", align 1
-@func172_str4 = private unnamed_addr constant [14 x i8] c"instead '%s'\0A\00", align 1
-@func173_str1 = private unnamed_addr constant [2 x i8] c",\00", align 1
-@func173_str2 = private unnamed_addr constant [2 x i8] c":\00", align 1
-@func179_str1 = private unnamed_addr constant [19 x i8] c"expected separator\00", align 1
-@func180_str1 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@func180_str2 = private unnamed_addr constant [2 x i8] c";\00", align 1
-@func180_str3 = private unnamed_addr constant [2 x i8] c"}\00", align 1
-@func180_str4 = private unnamed_addr constant [2 x i8] c")\00", align 1
-@func184_str1 = private unnamed_addr constant [25 x i8] c"attempt to redeclaration\00", align 1
-@func184_str2 = private unnamed_addr constant [14 x i8] c"declared at: \00", align 1
-@func185_str1 = private unnamed_addr constant [18 x i8] c"define: id == Nil\00", align 1
-@func185_str2 = private unnamed_addr constant [17 x i8] c"define: v == Nil\00", align 1
-@func190_str1 = private unnamed_addr constant [44 x i8] c"type bind error: attempt to id redefinition\00", align 1
-@func196_str1 = private unnamed_addr constant [45 x i8] c"value bind error: attempt to id redefinition\00", align 1
-@func202_str1 = private unnamed_addr constant [4 x i8] c"Nil\00", align 1
-@func202_str2 = private unnamed_addr constant [5 x i8] c"self\00", align 1
-@func206_str1 = private unnamed_addr constant [5 x i8] c"%s%u\00", align 1
-@func207_str1 = private unnamed_addr constant [1 x i8] c"\00", align 1
-@func207_str2 = private unnamed_addr constant [4 x i8] c"%s_\00", align 1
-@func208_str1 = private unnamed_addr constant [5 x i8] c"%s%s\00", align 1
-@func209_str1 = private unnamed_addr constant [5 x i8] c"func\00", align 1
-@func210_str1 = private unnamed_addr constant [4 x i8] c"str\00", align 1
-@func210_str2 = private unnamed_addr constant [4 x i8] c"str\00", align 1
-@func211_str1 = private unnamed_addr constant [4 x i8] c"arr\00", align 1
-@func212_str1 = private unnamed_addr constant [4 x i8] c"var\00", align 1
-@func213_str1 = private unnamed_addr constant [5 x i8] c"Type\00", align 1
-@func217_str1 = private unnamed_addr constant [7 x i8] c"record\00", align 1
-@func217_str2 = private unnamed_addr constant [5 x i8] c"enum\00", align 1
-@func217_str3 = private unnamed_addr constant [2 x i8] c"*\00", align 1
-@func217_str4 = private unnamed_addr constant [2 x i8] c"[\00", align 1
-@func217_str5 = private unnamed_addr constant [2 x i8] c"(\00", align 1
-@func217_str6 = private unnamed_addr constant [14 x i8] c"expected type\00", align 1
-@func217_str7 = private unnamed_addr constant [8 x i8] c"tok=%s\0A\00", align 1
-@func217_str8 = private unnamed_addr constant [14 x i8] c"dataAlignment\00", align 1
-@func218_str1 = private unnamed_addr constant [12 x i8] c"expected id\00", align 1
-@func219_str1 = private unnamed_addr constant [14 x i8] c"dofield error\00", align 1
-@func219_str2 = private unnamed_addr constant [2 x i8] c",\00", align 1
+@func171_str1 = private unnamed_addr constant [12 x i8] c"expected id\00", align 1
+@func171_str2 = private unnamed_addr constant [9 x i8] c"tt = %d\0A\00", align 1
+@func171_str3 = private unnamed_addr constant [9 x i8] c"tx = %d\0A\00", align 1
+@func171_str4 = private unnamed_addr constant [14 x i8] c"instead '%s'\0A\00", align 1
+@func172_str1 = private unnamed_addr constant [2 x i8] c",\00", align 1
+@func172_str2 = private unnamed_addr constant [2 x i8] c":\00", align 1
+@func178_str1 = private unnamed_addr constant [19 x i8] c"expected separator\00", align 1
+@func179_str1 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@func179_str2 = private unnamed_addr constant [2 x i8] c";\00", align 1
+@func179_str3 = private unnamed_addr constant [2 x i8] c"}\00", align 1
+@func179_str4 = private unnamed_addr constant [2 x i8] c")\00", align 1
+@func183_str1 = private unnamed_addr constant [25 x i8] c"attempt to redeclaration\00", align 1
+@func183_str2 = private unnamed_addr constant [14 x i8] c"declared at: \00", align 1
+@func184_str1 = private unnamed_addr constant [18 x i8] c"define: id == Nil\00", align 1
+@func184_str2 = private unnamed_addr constant [17 x i8] c"define: v == Nil\00", align 1
+@func189_str1 = private unnamed_addr constant [44 x i8] c"type bind error: attempt to id redefinition\00", align 1
+@func195_str1 = private unnamed_addr constant [45 x i8] c"value bind error: attempt to id redefinition\00", align 1
+@func201_str1 = private unnamed_addr constant [4 x i8] c"Nil\00", align 1
+@func201_str2 = private unnamed_addr constant [5 x i8] c"self\00", align 1
+@func205_str1 = private unnamed_addr constant [5 x i8] c"%s%u\00", align 1
+@func206_str1 = private unnamed_addr constant [1 x i8] c"\00", align 1
+@func206_str2 = private unnamed_addr constant [4 x i8] c"%s_\00", align 1
+@func207_str1 = private unnamed_addr constant [5 x i8] c"%s%s\00", align 1
+@func208_str1 = private unnamed_addr constant [5 x i8] c"func\00", align 1
+@func209_str1 = private unnamed_addr constant [4 x i8] c"str\00", align 1
+@func209_str2 = private unnamed_addr constant [4 x i8] c"str\00", align 1
+@func210_str1 = private unnamed_addr constant [4 x i8] c"arr\00", align 1
+@func211_str1 = private unnamed_addr constant [4 x i8] c"var\00", align 1
+@func212_str1 = private unnamed_addr constant [5 x i8] c"Type\00", align 1
+@func216_str1 = private unnamed_addr constant [7 x i8] c"record\00", align 1
+@func216_str2 = private unnamed_addr constant [5 x i8] c"enum\00", align 1
+@func216_str3 = private unnamed_addr constant [2 x i8] c"*\00", align 1
+@func216_str4 = private unnamed_addr constant [2 x i8] c"[\00", align 1
+@func216_str5 = private unnamed_addr constant [2 x i8] c"(\00", align 1
+@func216_str6 = private unnamed_addr constant [14 x i8] c"expected type\00", align 1
+@func216_str7 = private unnamed_addr constant [8 x i8] c"tok=%s\0A\00", align 1
+@func216_str8 = private unnamed_addr constant [14 x i8] c"dataAlignment\00", align 1
+@func217_str1 = private unnamed_addr constant [12 x i8] c"expected id\00", align 1
+@func218_str1 = private unnamed_addr constant [14 x i8] c"dofield error\00", align 1
+@func218_str2 = private unnamed_addr constant [2 x i8] c",\00", align 1
+@func219_str1 = private unnamed_addr constant [2 x i8] c"{\00", align 1
+@func219_str2 = private unnamed_addr constant [2 x i8] c"}\00", align 1
 @func220_str1 = private unnamed_addr constant [2 x i8] c"{\00", align 1
 @func220_str2 = private unnamed_addr constant [2 x i8] c"}\00", align 1
-@func221_str1 = private unnamed_addr constant [2 x i8] c"{\00", align 1
-@func221_str2 = private unnamed_addr constant [2 x i8] c"}\00", align 1
-@func221_str3 = private unnamed_addr constant [2 x i8] c",\00", align 1
-@func221_str4 = private unnamed_addr constant [2 x i8] c"}\00", align 1
-@func222_str1 = private unnamed_addr constant [2 x i8] c"]\00", align 1
-@func222_str2 = private unnamed_addr constant [2 x i8] c"]\00", align 1
-@func223_str1 = private unnamed_addr constant [2 x i8] c")\00", align 1
-@func223_str2 = private unnamed_addr constant [3 x i8] c"->\00", align 1
-@func223_str3 = private unnamed_addr constant [12 x i8] c"flagArghack\00", align 1
-@func224_str1 = private unnamed_addr constant [40 x i8] c"value/un :: unknown value kind received\00", align 1
-@func229_str1 = private unnamed_addr constant [18 x i8] c"expected pointer\0A\00", align 1
-@func234_str1 = private unnamed_addr constant [32 x i8] c"binImm :: unknown bin operation\00", align 1
-@func235_str1 = private unnamed_addr constant [11 x i8] c"type error\00", align 1
-@func235_str2 = private unnamed_addr constant [9 x i8] c"LTYPE = \00", align 1
-@func235_str3 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@func235_str4 = private unnamed_addr constant [9 x i8] c"RTYPE = \00", align 1
-@func235_str5 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@func235_str6 = private unnamed_addr constant [18 x i8] c"binary type error\00", align 1
-@func241_str1 = private unnamed_addr constant [41 x i8] c"expected record / pointer to record type\00", align 1
-@func241_str2 = private unnamed_addr constant [16 x i8] c"undefined field\00", align 1
-@func243_str1 = private unnamed_addr constant [18 x i8] c"expected function\00", align 1
-@func244_str1 = private unnamed_addr constant [21 x i8] c"not enough arguments\00", align 1
-@func244_str2 = private unnamed_addr constant [19 x i8] c"too many arguments\00", align 1
-@func244_str3 = private unnamed_addr constant [37 x i8] c"argument type not match param type: \00", align 1
-@func244_str4 = private unnamed_addr constant [7 x i8] c"arg = \00", align 1
-@func244_str5 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@func244_str6 = private unnamed_addr constant [7 x i8] c"par = \00", align 1
-@func244_str7 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@func249_str1 = private unnamed_addr constant [24 x i8] c"expected constant value\00", align 1
-@func250_str1 = private unnamed_addr constant [3 x i8] c"or\00", align 1
-@func251_str1 = private unnamed_addr constant [4 x i8] c"xor\00", align 1
-@func252_str1 = private unnamed_addr constant [4 x i8] c"and\00", align 1
-@func253_str1 = private unnamed_addr constant [3 x i8] c"==\00", align 1
-@func253_str2 = private unnamed_addr constant [3 x i8] c"!=\00", align 1
-@func254_str1 = private unnamed_addr constant [2 x i8] c"<\00", align 1
-@func254_str2 = private unnamed_addr constant [2 x i8] c">\00", align 1
-@func254_str3 = private unnamed_addr constant [3 x i8] c"<=\00", align 1
-@func254_str4 = private unnamed_addr constant [3 x i8] c">=\00", align 1
-@func255_str1 = private unnamed_addr constant [3 x i8] c"<<\00", align 1
-@func255_str2 = private unnamed_addr constant [3 x i8] c">>\00", align 1
-@func256_str1 = private unnamed_addr constant [2 x i8] c"+\00", align 1
-@func256_str2 = private unnamed_addr constant [2 x i8] c"-\00", align 1
-@func257_str1 = private unnamed_addr constant [2 x i8] c"*\00", align 1
-@func257_str2 = private unnamed_addr constant [2 x i8] c"/\00", align 1
-@func257_str3 = private unnamed_addr constant [2 x i8] c"%\00", align 1
-@func258_str1 = private unnamed_addr constant [3 x i8] c"to\00", align 1
-@func259_str1 = private unnamed_addr constant [2 x i8] c"*\00", align 1
-@func259_str2 = private unnamed_addr constant [2 x i8] c"&\00", align 1
-@func259_str3 = private unnamed_addr constant [4 x i8] c"not\00", align 1
-@func259_str4 = private unnamed_addr constant [2 x i8] c"-\00", align 1
-@func259_str5 = private unnamed_addr constant [7 x i8] c"sizeof\00", align 1
-@func259_str6 = private unnamed_addr constant [23 x i8] c"sizeof expected <type>\00", align 1
-@func259_str7 = private unnamed_addr constant [8 x i8] c"alignof\00", align 1
-@func259_str8 = private unnamed_addr constant [24 x i8] c"alignof expected <type>\00", align 1
+@func220_str3 = private unnamed_addr constant [2 x i8] c",\00", align 1
+@func220_str4 = private unnamed_addr constant [2 x i8] c"}\00", align 1
+@func221_str1 = private unnamed_addr constant [2 x i8] c"]\00", align 1
+@func221_str2 = private unnamed_addr constant [2 x i8] c"]\00", align 1
+@func222_str1 = private unnamed_addr constant [2 x i8] c")\00", align 1
+@func222_str2 = private unnamed_addr constant [3 x i8] c"->\00", align 1
+@func222_str3 = private unnamed_addr constant [12 x i8] c"flagArghack\00", align 1
+@func223_str1 = private unnamed_addr constant [40 x i8] c"value/un :: unknown value kind received\00", align 1
+@func228_str1 = private unnamed_addr constant [18 x i8] c"expected pointer\0A\00", align 1
+@func233_str1 = private unnamed_addr constant [32 x i8] c"binImm :: unknown bin operation\00", align 1
+@func234_str1 = private unnamed_addr constant [11 x i8] c"type error\00", align 1
+@func234_str2 = private unnamed_addr constant [9 x i8] c"LTYPE = \00", align 1
+@func234_str3 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@func234_str4 = private unnamed_addr constant [9 x i8] c"RTYPE = \00", align 1
+@func234_str5 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@func234_str6 = private unnamed_addr constant [18 x i8] c"binary type error\00", align 1
+@func240_str1 = private unnamed_addr constant [41 x i8] c"expected record / pointer to record type\00", align 1
+@func240_str2 = private unnamed_addr constant [16 x i8] c"undefined field\00", align 1
+@func242_str1 = private unnamed_addr constant [18 x i8] c"expected function\00", align 1
+@func243_str1 = private unnamed_addr constant [21 x i8] c"not enough arguments\00", align 1
+@func243_str2 = private unnamed_addr constant [19 x i8] c"too many arguments\00", align 1
+@func243_str3 = private unnamed_addr constant [37 x i8] c"argument type not match param type: \00", align 1
+@func243_str4 = private unnamed_addr constant [7 x i8] c"arg = \00", align 1
+@func243_str5 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@func243_str6 = private unnamed_addr constant [7 x i8] c"par = \00", align 1
+@func243_str7 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@func248_str1 = private unnamed_addr constant [24 x i8] c"expected constant value\00", align 1
+@func249_str1 = private unnamed_addr constant [3 x i8] c"or\00", align 1
+@func250_str1 = private unnamed_addr constant [4 x i8] c"xor\00", align 1
+@func251_str1 = private unnamed_addr constant [4 x i8] c"and\00", align 1
+@func252_str1 = private unnamed_addr constant [3 x i8] c"==\00", align 1
+@func252_str2 = private unnamed_addr constant [3 x i8] c"!=\00", align 1
+@func253_str1 = private unnamed_addr constant [2 x i8] c"<\00", align 1
+@func253_str2 = private unnamed_addr constant [2 x i8] c">\00", align 1
+@func253_str3 = private unnamed_addr constant [3 x i8] c"<=\00", align 1
+@func253_str4 = private unnamed_addr constant [3 x i8] c">=\00", align 1
+@func254_str1 = private unnamed_addr constant [3 x i8] c"<<\00", align 1
+@func254_str2 = private unnamed_addr constant [3 x i8] c">>\00", align 1
+@func255_str1 = private unnamed_addr constant [2 x i8] c"+\00", align 1
+@func255_str2 = private unnamed_addr constant [2 x i8] c"-\00", align 1
+@func256_str1 = private unnamed_addr constant [2 x i8] c"*\00", align 1
+@func256_str2 = private unnamed_addr constant [2 x i8] c"/\00", align 1
+@func256_str3 = private unnamed_addr constant [2 x i8] c"%\00", align 1
+@func257_str1 = private unnamed_addr constant [3 x i8] c"to\00", align 1
+@func258_str1 = private unnamed_addr constant [2 x i8] c"*\00", align 1
+@func258_str2 = private unnamed_addr constant [2 x i8] c"&\00", align 1
+@func258_str3 = private unnamed_addr constant [4 x i8] c"not\00", align 1
+@func258_str4 = private unnamed_addr constant [2 x i8] c"-\00", align 1
+@func258_str5 = private unnamed_addr constant [7 x i8] c"sizeof\00", align 1
+@func258_str6 = private unnamed_addr constant [23 x i8] c"sizeof expected <type>\00", align 1
+@func258_str7 = private unnamed_addr constant [8 x i8] c"alignof\00", align 1
+@func258_str8 = private unnamed_addr constant [24 x i8] c"alignof expected <type>\00", align 1
+@func259_str1 = private unnamed_addr constant [2 x i8] c"(\00", align 1
+@func259_str2 = private unnamed_addr constant [2 x i8] c")\00", align 1
+@func259_str3 = private unnamed_addr constant [3 x i8] c",)\00", align 1
+@func259_str4 = private unnamed_addr constant [2 x i8] c",\00", align 1
+@func259_str5 = private unnamed_addr constant [2 x i8] c")\00", align 1
+@func259_str6 = private unnamed_addr constant [2 x i8] c")\00", align 1
+@func259_str7 = private unnamed_addr constant [2 x i8] c",\00", align 1
+@func259_str8 = private unnamed_addr constant [2 x i8] c"[\00", align 1
+@func259_str9 = private unnamed_addr constant [2 x i8] c"]\00", align 1
+@func259_str10 = private unnamed_addr constant [2 x i8] c".\00", align 1
 @func260_str1 = private unnamed_addr constant [2 x i8] c"(\00", align 1
 @func260_str2 = private unnamed_addr constant [2 x i8] c")\00", align 1
-@func260_str3 = private unnamed_addr constant [3 x i8] c",)\00", align 1
-@func260_str4 = private unnamed_addr constant [2 x i8] c",\00", align 1
-@func260_str5 = private unnamed_addr constant [2 x i8] c")\00", align 1
-@func260_str6 = private unnamed_addr constant [2 x i8] c")\00", align 1
-@func260_str7 = private unnamed_addr constant [2 x i8] c",\00", align 1
-@func260_str8 = private unnamed_addr constant [2 x i8] c"[\00", align 1
-@func260_str9 = private unnamed_addr constant [2 x i8] c"]\00", align 1
-@func260_str10 = private unnamed_addr constant [2 x i8] c".\00", align 1
-@func261_str1 = private unnamed_addr constant [2 x i8] c"(\00", align 1
-@func261_str2 = private unnamed_addr constant [2 x i8] c")\00", align 1
-@func262_str1 = private unnamed_addr constant [5 x i8] c"func\00", align 1
-@func262_str2 = private unnamed_addr constant [6 x i8] c"array\00", align 1
-@func262_str3 = private unnamed_addr constant [24 x i8] c"term: unexpected token\0A\00", align 1
-@func262_str4 = private unnamed_addr constant [12 x i8] c"token = %s\0A\00", align 1
-@func264_str1 = private unnamed_addr constant [2 x i8] c"{\00", align 1
-@func264_str2 = private unnamed_addr constant [2 x i8] c"}\00", align 1
-@func264_str3 = private unnamed_addr constant [2 x i8] c",\00", align 1
-@func264_str4 = private unnamed_addr constant [2 x i8] c",\00", align 1
-@func265_str1 = private unnamed_addr constant [16 x i8] c"funcdef id fail\00", align 1
-@func265_str2 = private unnamed_addr constant [18 x i8] c"funcdef type fail\00", align 1
-@func265_str3 = private unnamed_addr constant [19 x i8] c"expected func type\00", align 1
-@func265_str4 = private unnamed_addr constant [2 x i8] c"{\00", align 1
-@func267_str1 = private unnamed_addr constant [2 x i8] c"0\00", align 1
-@func267_str2 = private unnamed_addr constant [2 x i8] c"x\00", align 1
-@func267_str3 = private unnamed_addr constant [5 x i8] c"%llx\00", align 1
-@func267_str4 = private unnamed_addr constant [5 x i8] c"%lld\00", align 1
+@func261_str1 = private unnamed_addr constant [5 x i8] c"func\00", align 1
+@func261_str2 = private unnamed_addr constant [6 x i8] c"array\00", align 1
+@func261_str3 = private unnamed_addr constant [24 x i8] c"term: unexpected token\0A\00", align 1
+@func261_str4 = private unnamed_addr constant [12 x i8] c"token = %s\0A\00", align 1
+@func263_str1 = private unnamed_addr constant [2 x i8] c"{\00", align 1
+@func263_str2 = private unnamed_addr constant [2 x i8] c"}\00", align 1
+@func263_str3 = private unnamed_addr constant [2 x i8] c",\00", align 1
+@func263_str4 = private unnamed_addr constant [2 x i8] c",\00", align 1
+@func264_str1 = private unnamed_addr constant [16 x i8] c"funcdef id fail\00", align 1
+@func264_str2 = private unnamed_addr constant [18 x i8] c"funcdef type fail\00", align 1
+@func264_str3 = private unnamed_addr constant [19 x i8] c"expected func type\00", align 1
+@func264_str4 = private unnamed_addr constant [2 x i8] c"{\00", align 1
+@func266_str1 = private unnamed_addr constant [2 x i8] c"0\00", align 1
+@func266_str2 = private unnamed_addr constant [2 x i8] c"x\00", align 1
+@func266_str3 = private unnamed_addr constant [5 x i8] c"%llx\00", align 1
+@func266_str4 = private unnamed_addr constant [5 x i8] c"%lld\00", align 1
+@func270_str1 = private unnamed_addr constant [2 x i8] c"}\00", align 1
+@func270_str2 = private unnamed_addr constant [23 x i8] c"unexpected end-of-file\00", align 1
+@func270_str3 = private unnamed_addr constant [2 x i8] c"}\00", align 1
 @func274_str1 = private unnamed_addr constant [2 x i8] c"=\00", align 1
 @func274_str2 = private unnamed_addr constant [25 x i8] c"stmt::fail_with_restore\0A\00", align 1
 @func274_str3 = private unnamed_addr constant [10 x i8] c"YYY = %s\0A\00", align 1
@@ -445,18 +445,18 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func281_str1 = private unnamed_addr constant [27 x i8] c"expected return expression\00", align 1
 @func283_str1 = private unnamed_addr constant [34 x i8] c"`break` outside any loop operator\00", align 1
 @func284_str1 = private unnamed_addr constant [37 x i8] c"`continue` outside any loop operator\00", align 1
-@func286_str1 = private unnamed_addr constant [4 x i8] c"let\00", align 1
-@func286_str2 = private unnamed_addr constant [2 x i8] c"{\00", align 1
-@func286_str3 = private unnamed_addr constant [3 x i8] c"if\00", align 1
-@func286_str4 = private unnamed_addr constant [6 x i8] c"while\00", align 1
-@func286_str5 = private unnamed_addr constant [7 x i8] c"return\00", align 1
-@func286_str6 = private unnamed_addr constant [6 x i8] c"break\00", align 1
-@func286_str7 = private unnamed_addr constant [9 x i8] c"continue\00", align 1
-@func286_str8 = private unnamed_addr constant [4 x i8] c"var\00", align 1
-@func286_str9 = private unnamed_addr constant [5 x i8] c"type\00", align 1
-@func286_str10 = private unnamed_addr constant [5 x i8] c"goto\00", align 1
-@func286_str11 = private unnamed_addr constant [2 x i8] c":\00", align 1
-@func289_str1 = private unnamed_addr constant [15 x i8] c"expected label\00", align 1
+@func285_str1 = private unnamed_addr constant [15 x i8] c"expected label\00", align 1
+@func287_str1 = private unnamed_addr constant [4 x i8] c"let\00", align 1
+@func287_str2 = private unnamed_addr constant [2 x i8] c"{\00", align 1
+@func287_str3 = private unnamed_addr constant [3 x i8] c"if\00", align 1
+@func287_str4 = private unnamed_addr constant [6 x i8] c"while\00", align 1
+@func287_str5 = private unnamed_addr constant [7 x i8] c"return\00", align 1
+@func287_str6 = private unnamed_addr constant [6 x i8] c"break\00", align 1
+@func287_str7 = private unnamed_addr constant [9 x i8] c"continue\00", align 1
+@func287_str8 = private unnamed_addr constant [4 x i8] c"var\00", align 1
+@func287_str9 = private unnamed_addr constant [5 x i8] c"type\00", align 1
+@func287_str10 = private unnamed_addr constant [5 x i8] c"goto\00", align 1
+@func287_str11 = private unnamed_addr constant [2 x i8] c":\00", align 1
 @func292_str1 = private unnamed_addr constant [3 x i8] c"%s\00", align 1
 @func293_str1 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 @func294_str1 = private unnamed_addr constant [2 x i8] c" \00", align 1
@@ -9744,124 +9744,6 @@ define void @doextern () {
   ret void
 }
 
-define %Block* @doblock () {
-
-;stmt0:
-  %1 = call %List* () @map_new ()
-
-;stmt1:
-  %2 = call %Unit* (%Nat32) @malloc (%Nat32 72)
-  %3 = bitcast %Unit* %2 to %Block*
-
-;stmt2:
-  %4 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 1 ; eval_access
-  %5 = call %List* () @map_new ()
-  store %List* %5, %List** %4
-
-;stmt3:
-  %6 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 4 ; eval_access
-  %7 = call %List* () @map_new ()
-  store %List* %7, %List** %6
-
-;stmt4:
-  %8 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 2 ; eval_access
-  call void (%List*) @map_init (%List* %8)
-
-;stmt5:
-  %9 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 3 ; eval_access
-  call void (%List*) @map_init (%List* %9)
-
-;stmt6:
-  %10 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 0 ; eval_access
-  %11 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 1 ; eval_access
-  %12 = load %Block*, %Block** %11
-  store %Block* %12, %Block** %10
-
-;stmt7:
-  %13 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 1 ; eval_access
-  store %Block* %3, %Block** %13
-
-;stmt8:
-  br label %continue_0
-continue_0:
-  %14 = bitcast [2 x %Nat8]* @func171_str1 to %Str
-  %15 = call %Bool (%Str) @match (%Str %14)
-  %16 = xor %Bool %15, 1
-  br i1 %16, label %body_0, label %break_0
-body_0:
-
-;stmt9:
-
-;stmt10:
-  call void () @skip_nl ()
-
-;stmt11:
-  %17 = call %Bool () @eof ()
-  br i1 %17, label %then_0, label %else_0
-then_0:
-
-;stmt12:
-
-;stmt13:
-  %18 = bitcast [23 x %Nat8]* @func171_str2 to %Str
-  call void (%Str) @fatal (%Str %18)
-
-;stmt14:
-  br label %break_0
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt15:
-  %20 = bitcast [2 x %Nat8]* @func171_str3 to %Str
-  %21 = call %Bool (%Str) @match (%Str %20)
-  br i1 %21, label %then_1, label %else_1
-then_1:
-
-;stmt16:
-
-;stmt17:
-  br label %break_0
-  br label %endif_1
-else_1:
-  br label %endif_1
-endif_1:
-
-;stmt18:
-  %23 = call %Stmt* () @stmt ()
-
-;stmt19:
-  %24 = bitcast %Stmt* %23 to %Unit*
-  %25 = inttoptr %Nat32 0 to %Unit*
-  %26 = icmp ne %Unit* %24, %25
-  br i1 %26, label %then_2, label %else_2
-then_2:
-
-;stmt20:
-
-;stmt21:
-  %27 = call %Bool () @sep ()
-
-;stmt22:
-  call void (%Stmt*) @add_stmt (%Stmt* %23)
-  br label %endif_2
-else_2:
-  br label %endif_2
-endif_2:
-  br label %continue_0
-break_0:
-
-;stmt23:
-  %28 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 1 ; eval_access
-  %29 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 0 ; eval_access
-  %30 = load %Block*, %Block** %29
-  store %Block* %30, %Block** %28
-
-;stmt24:
-  ret %Block* %3
-}
-
 define %Str @parse_id () {
 
 ;stmt0:
@@ -9877,25 +9759,25 @@ then_0:
 ;stmt2:
 
 ;stmt3:
-  %5 = bitcast [12 x %Nat8]* @func172_str1 to %Str
+  %5 = bitcast [12 x %Nat8]* @func171_str1 to %Str
   %6 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 1 ; eval_access
   call void (%Str, %TokenInfo*) @error (%Str %5, %TokenInfo* %6)
 
 ;stmt4:
-  %7 = bitcast [9 x %Nat8]* @func172_str2 to %Str
+  %7 = bitcast [9 x %Nat8]* @func171_str2 to %Str
   %8 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 0 ; eval_access
   %9 = load %TokenType, %TokenType* %8
   %10 = call %Int32 (%Str, ...) @printf (%Str %7, %TokenType %9)
 
 ;stmt5:
-  %11 = bitcast [9 x %Nat8]* @func172_str3 to %Str
+  %11 = bitcast [9 x %Nat8]* @func171_str3 to %Str
   %12 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 2 ; eval_access
   %13 = getelementptr inbounds [0 x %Nat8], [0 x %Nat8]* %12, i32 0, %Int32 0 ; eval_index
   %14 = load %Nat8, %Nat8* %13
   %15 = call %Int32 (%Str, ...) @printf (%Str %11, %Nat8 %14)
 
 ;stmt6:
-  %16 = bitcast [14 x %Nat8]* @func172_str4 to %Str
+  %16 = bitcast [14 x %Nat8]* @func171_str4 to %Str
   %17 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 2 ; eval_access
   %18 = bitcast [0 x %Nat8]* %17 to %Str
   %19 = call %Int32 (%Str, ...) @printf (%Str %16, %Str %18)
@@ -9981,7 +9863,7 @@ body_0:
   %9 = call %Bool (%List*, %Unit*) @list_append (%List* %1, %Unit* %8)
 
 ;stmt7:
-  %10 = bitcast [2 x %Nat8]* @func173_str1 to %Str
+  %10 = bitcast [2 x %Nat8]* @func172_str1 to %Str
   %11 = call %Bool (%Str) @match (%Str %10)
   %12 = xor %Bool %11, 1
   br i1 %12, label %then_0, label %else_0
@@ -10002,7 +9884,7 @@ endif_0:
 break_0:
 
 ;stmt11:
-  %14 = bitcast [2 x %Nat8]* @func173_str2 to %Str
+  %14 = bitcast [2 x %Nat8]* @func172_str2 to %Str
   %15 = call %Bool (%Str) @need (%Str %14)
 
 ;stmt12:
@@ -10100,7 +9982,7 @@ then_0:
 ;stmt3:
 
 ;stmt4:
-  %4 = bitcast [19 x %Nat8]* @func179_str1 to %Str
+  %4 = bitcast [19 x %Nat8]* @func178_str1 to %Str
   %5 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 1 ; eval_access
   call void (%Str, %TokenInfo*) @error (%Str %4, %TokenInfo* %5)
   br label %endif_0
@@ -10121,11 +10003,11 @@ define %Bool @separator () {
   %4 = load %Nat8, %Nat8* %3
 
 ;stmt1:
-  %5 = bitcast [2 x %Nat8]* @func180_str1 to %Str
+  %5 = bitcast [2 x %Nat8]* @func179_str1 to %Str
   %6 = getelementptr inbounds %Nat8, %Str %5, %Int32 0 ; eval_index
   %7 = load %Nat8, %Nat8* %6
   %8 = icmp eq %Nat8 %4, %7
-  %9 = bitcast [2 x %Nat8]* @func180_str2 to %Str
+  %9 = bitcast [2 x %Nat8]* @func179_str2 to %Str
   %10 = getelementptr inbounds %Nat8, %Str %9, %Int32 0 ; eval_index
   %11 = load %Nat8, %Nat8* %10
   %12 = icmp eq %Nat8 %4, %11
@@ -10146,11 +10028,11 @@ else_0:
 endif_0:
 
 ;stmt5:
-  %15 = bitcast [2 x %Nat8]* @func180_str3 to %Str
+  %15 = bitcast [2 x %Nat8]* @func179_str3 to %Str
   %16 = getelementptr inbounds %Nat8, %Str %15, %Int32 0 ; eval_index
   %17 = load %Nat8, %Nat8* %16
   %18 = icmp eq %Nat8 %4, %17
-  %19 = bitcast [2 x %Nat8]* @func180_str4 to %Str
+  %19 = bitcast [2 x %Nat8]* @func179_str4 to %Str
   %20 = getelementptr inbounds %Nat8, %Str %19, %Int32 0 ; eval_index
   %21 = load %Nat8, %Nat8* %20
   %22 = icmp eq %Nat8 %4, %21
@@ -10296,12 +10178,12 @@ then_1:
 ;stmt5:
 
 ;stmt6:
-  %16 = bitcast [25 x %Nat8]* @func184_str1 to %Str
+  %16 = bitcast [25 x %Nat8]* @func183_str1 to %Str
   %17 = load %TokenInfo*, %TokenInfo** %ti
   call void (%Str, %TokenInfo*) @error (%Str %16, %TokenInfo* %17)
 
 ;stmt7:
-  %18 = bitcast [14 x %Nat8]* @func184_str2 to %Str
+  %18 = bitcast [14 x %Nat8]* @func183_str2 to %Str
   %19 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 9 ; eval_access
   %20 = load %TokenInfo*, %TokenInfo** %19
   call void (%Str, %TokenInfo*) @rem (%Str %18, %TokenInfo* %20)
@@ -10384,7 +10266,7 @@ define void @def_global (%Str %_id, %Value* %_v, %TokenInfo* %_ti) {
   %2 = bitcast %Str %1 to %Unit*
   %3 = inttoptr %Nat32 0 to %Unit*
   %4 = icmp ne %Unit* %2, %3
-  %5 = bitcast [18 x %Nat8]* @func185_str1 to %Str
+  %5 = bitcast [18 x %Nat8]* @func184_str1 to %Str
   call void (%Bool, %Str) @assert (%Bool %4, %Str %5)
 
 ;stmt1:
@@ -10392,7 +10274,7 @@ define void @def_global (%Str %_id, %Value* %_v, %TokenInfo* %_ti) {
   %7 = bitcast %Value* %6 to %Unit*
   %8 = inttoptr %Nat32 0 to %Unit*
   %9 = icmp ne %Unit* %7, %8
-  %10 = bitcast [17 x %Nat8]* @func185_str2 to %Str
+  %10 = bitcast [17 x %Nat8]* @func184_str2 to %Str
   call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt2:
@@ -10608,7 +10490,7 @@ then_0:
 ;stmt1:
 
 ;stmt2:
-  %6 = bitcast [44 x %Nat8]* @func190_str1 to %Str
+  %6 = bitcast [44 x %Nat8]* @func189_str1 to %Str
   %7 = load %Type*, %Type** %t
   %8 = getelementptr inbounds %Type, %Type* %7, i32 0, i32 13 ; eval_access
   %9 = load %TokenInfo*, %TokenInfo** %8
@@ -10820,7 +10702,7 @@ then_0:
 ;stmt1:
 
 ;stmt2:
-  %6 = bitcast [45 x %Nat8]* @func196_str1 to %Str
+  %6 = bitcast [45 x %Nat8]* @func195_str1 to %Str
   %7 = load %Value*, %Value** %v
   %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 8 ; eval_access
   %9 = load %TokenInfo*, %TokenInfo** %8
@@ -11030,7 +10912,7 @@ define %Value* @get_value_builtin (%Str %_id) {
   store %Str %_id, %Str* %id
 
 ;stmt0:
-  %1 = bitcast [4 x %Nat8]* @func202_str1 to %Str
+  %1 = bitcast [4 x %Nat8]* @func201_str1 to %Str
   %2 = load %Str, %Str* %id
   %3 = call %Int32 (%Str, %Str) @strcmp (%Str %1, %Str %2)
   %4 = icmp eq %Int32 %3, 0
@@ -11062,7 +10944,7 @@ then_1:
 
 ;stmt6:
   %12 = load %Str, %Str* %id
-  %13 = bitcast [5 x %Nat8]* @func202_str2 to %Str
+  %13 = bitcast [5 x %Nat8]* @func201_str2 to %Str
   %14 = call %Int32 (%Str, %Str) @strcmp (%Str %12, %Str %13)
   %15 = icmp eq %Int32 %14, 0
   br i1 %15, label %then_2, label %else_2
@@ -11212,7 +11094,7 @@ define %Str @get_suid (%Str %_prefix, %Nat32 %_uid) {
 
 ;stmt1:
   %7 = bitcast %Str %6 to %Unit*
-  %8 = bitcast [5 x %Nat8]* @func206_str1 to %Str
+  %8 = bitcast [5 x %Nat8]* @func205_str1 to %Str
   %9 = load %Str, %Str* %prefix
   %10 = load %Nat32, %Nat32* %uid
   %11 = call %Int32 (%Unit*, %Str, ...) @sprintf (%Unit* %7, %Str %8, %Str %9, %Nat32 %10)
@@ -11227,7 +11109,7 @@ define %Str @get_prefix () {
   %s = alloca %Str
 
 ;stmt1:
-  %1 = bitcast [1 x %Nat8]* @func207_str1 to %Str
+  %1 = bitcast [1 x %Nat8]* @func206_str1 to %Str
   store %Str %1, %Str* %s
 
 ;stmt2:
@@ -11256,7 +11138,7 @@ then_0:
 ;stmt5:
   %16 = load %Str, %Str* %s
   %17 = bitcast %Str %16 to %Unit*
-  %18 = bitcast [4 x %Nat8]* @func207_str2 to %Str
+  %18 = bitcast [4 x %Nat8]* @func206_str2 to %Str
   %19 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 0 ; eval_access
   %20 = load %Value*, %Value** %19
   %21 = getelementptr inbounds %Value, %Value* %20, i32 0, i32 2 ; eval_access
@@ -11312,7 +11194,7 @@ define %Str @get_name (%Str %_res, %Nat32* %_uid) {
 
 ;stmt5:
   %17 = bitcast %Str %16 to %Unit*
-  %18 = bitcast [5 x %Nat8]* @func208_str1 to %Str
+  %18 = bitcast [5 x %Nat8]* @func207_str1 to %Str
   %19 = load %Str, %Str* %id
   %20 = call %Int32 (%Unit*, %Str, ...) @sprintf (%Unit* %17, %Str %18, %Str %1, %Str %19)
 
@@ -11323,7 +11205,7 @@ define %Str @get_name (%Str %_res, %Nat32* %_uid) {
 define %Str @get_name_func () {
 
 ;stmt0:
-  %1 = bitcast [5 x %Nat8]* @func209_str1 to %Str
+  %1 = bitcast [5 x %Nat8]* @func208_str1 to %Str
   %2 = getelementptr inbounds %Nat32, %Nat32* @func_uid, i32 0 ; ref
   %3 = call %Str (%Str, %Nat32*) @get_name (%Str %1, %Nat32* %2)
   ret %Str %3
@@ -11343,7 +11225,7 @@ then_0:
 ;stmt1:
 
 ;stmt2:
-  %6 = bitcast [4 x %Nat8]* @func210_str1 to %Str
+  %6 = bitcast [4 x %Nat8]* @func209_str1 to %Str
   %7 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 4 ; eval_access
   %8 = call %Str (%Str, %Nat32*) @get_name (%Str %6, %Nat32* %7)
   ret %Str %8
@@ -11353,7 +11235,7 @@ else_0:
 endif_0:
 
 ;stmt3:
-  %10 = bitcast [4 x %Nat8]* @func210_str2 to %Str
+  %10 = bitcast [4 x %Nat8]* @func209_str2 to %Str
   %11 = getelementptr inbounds %Nat32, %Nat32* @str_uid, i32 0 ; ref
   %12 = call %Str (%Str, %Nat32*) @get_name (%Str %10, %Nat32* %11)
   ret %Str %12
@@ -11362,7 +11244,7 @@ endif_0:
 define %Str @get_name_arr () {
 
 ;stmt0:
-  %1 = bitcast [4 x %Nat8]* @func211_str1 to %Str
+  %1 = bitcast [4 x %Nat8]* @func210_str1 to %Str
   %2 = getelementptr inbounds %Nat32, %Nat32* @arr_uid, i32 0 ; ref
   %3 = call %Str (%Str, %Nat32*) @get_name (%Str %1, %Nat32* %2)
   ret %Str %3
@@ -11371,7 +11253,7 @@ define %Str @get_name_arr () {
 define %Str @get_name_var () {
 
 ;stmt0:
-  %1 = bitcast [4 x %Nat8]* @func212_str1 to %Str
+  %1 = bitcast [4 x %Nat8]* @func211_str1 to %Str
   %2 = getelementptr inbounds %Nat32, %Nat32* @var_uid, i32 0 ; ref
   %3 = call %Str (%Str, %Nat32*) @get_name (%Str %1, %Nat32* %2)
   ret %Str %3
@@ -11380,7 +11262,7 @@ define %Str @get_name_var () {
 define %Str @get_name_type () {
 
 ;stmt0:
-  %1 = bitcast [5 x %Nat8]* @func213_str1 to %Str
+  %1 = bitcast [5 x %Nat8]* @func212_str1 to %Str
   %2 = getelementptr inbounds %Nat32, %Nat32* @type_uid, i32 0 ; ref
   %3 = call %Str (%Str, %Nat32*) @get_name (%Str %1, %Nat32* %2)
   ret %Str %3
@@ -11547,7 +11429,7 @@ then_0:
 ;stmt5:
 
 ;stmt6:
-  %9 = bitcast [7 x %Nat8]* @func217_str1 to %Str
+  %9 = bitcast [7 x %Nat8]* @func216_str1 to %Str
   %10 = call %Bool (%Str) @match (%Str %9)
   br i1 %10, label %then_1, label %else_1
 then_1:
@@ -11561,7 +11443,7 @@ then_1:
 else_1:
 
 ;stmt9:
-  %12 = bitcast [5 x %Nat8]* @func217_str2 to %Str
+  %12 = bitcast [5 x %Nat8]* @func216_str2 to %Str
   %13 = call %Bool (%Str) @match (%Str %12)
   br i1 %13, label %then_2, label %else_2
 then_2:
@@ -11589,7 +11471,7 @@ else_0:
 ;stmt14:
 
 ;stmt15:
-  %16 = bitcast [2 x %Nat8]* @func217_str3 to %Str
+  %16 = bitcast [2 x %Nat8]* @func216_str3 to %Str
   %17 = call %Bool (%Str) @match (%Str %16)
   br i1 %17, label %then_3, label %else_3
 then_3:
@@ -11624,7 +11506,7 @@ endif_4:
 else_3:
 
 ;stmt22:
-  %26 = bitcast [2 x %Nat8]* @func217_str4 to %Str
+  %26 = bitcast [2 x %Nat8]* @func216_str4 to %Str
   %27 = call %Bool (%Str) @match (%Str %26)
   br i1 %27, label %then_5, label %else_5
 then_5:
@@ -11638,7 +11520,7 @@ then_5:
 else_5:
 
 ;stmt25:
-  %29 = bitcast [2 x %Nat8]* @func217_str5 to %Str
+  %29 = bitcast [2 x %Nat8]* @func216_str5 to %Str
   %30 = call %Bool (%Str) @match (%Str %29)
   br i1 %30, label %then_6, label %else_6
 then_6:
@@ -11670,11 +11552,11 @@ then_7:
 ;stmt29:
 
 ;stmt30:
-  %36 = bitcast [14 x %Nat8]* @func217_str6 to %Str
+  %36 = bitcast [14 x %Nat8]* @func216_str6 to %Str
   call void (%Str, %TokenInfo*) @error (%Str %36, %TokenInfo* %4)
 
 ;stmt31:
-  %37 = bitcast [8 x %Nat8]* @func217_str7 to %Str
+  %37 = bitcast [8 x %Nat8]* @func216_str7 to %Str
   %38 = call %Token* () @ctok ()
   %39 = getelementptr inbounds %Token, %Token* %38, i32 0, i32 2 ; eval_access
   %40 = load [0 x %Nat8], [0 x %Nat8]* %39
@@ -11690,7 +11572,7 @@ else_7:
   %44 = load %Type*, %Type** %t
   %45 = getelementptr inbounds %Type, %Type* %44, i32 0, i32 2 ; eval_access
   %46 = load %Nat32, %Nat32* %45
-  %47 = bitcast [14 x %Nat8]* @func217_str8 to %Str
+  %47 = bitcast [14 x %Nat8]* @func216_str8 to %Str
   %48 = call %Nat64 (%Str) @get (%Str %47)
   %49 = trunc %Nat64 %48 to %Nat8
   %50 = call %Nat32 (%Nat32, %Nat8) @alignment (%Nat32 %46, %Nat8 %49)
@@ -11732,7 +11614,7 @@ then_0:
 ;stmt3:
 
 ;stmt4:
-  %7 = bitcast [12 x %Nat8]* @func218_str1 to %Str
+  %7 = bitcast [12 x %Nat8]* @func217_str1 to %Str
   call void (%Str, %TokenInfo*) @error (%Str %7, %TokenInfo* %2)
 
 ;stmt5:
@@ -11809,7 +11691,7 @@ then_0:
 ;stmt8:
 
 ;stmt9:
-  %11 = bitcast [14 x %Nat8]* @func219_str1 to %Str
+  %11 = bitcast [14 x %Nat8]* @func218_str1 to %Str
   call void (%Str, %TokenInfo*) @error (%Str %11, %TokenInfo* %6)
 
 ;stmt10:
@@ -11820,7 +11702,7 @@ else_0:
 endif_0:
 
 ;stmt11:
-  %13 = bitcast [2 x %Nat8]* @func219_str2 to %Str
+  %13 = bitcast [2 x %Nat8]* @func218_str2 to %Str
   %14 = call %Bool (%Str) @match (%Str %13)
 
 ;stmt12:
@@ -11847,11 +11729,11 @@ fail:
 define %Type* @parse_type_record () {
 
 ;stmt0:
-  %1 = bitcast [2 x %Nat8]* @func220_str1 to %Str
+  %1 = bitcast [2 x %Nat8]* @func219_str1 to %Str
   %2 = call %Bool (%Str) @need (%Str %1)
 
 ;stmt1:
-  %3 = bitcast [2 x %Nat8]* @func220_str2 to %Str
+  %3 = bitcast [2 x %Nat8]* @func219_str2 to %Str
   %4 = call %List* (%Str) @parse_fields (%Str %3)
 
 ;stmt2:
@@ -11871,7 +11753,7 @@ define %Type* @parse_type_enum () {
   store %Int64 0, %Int64* %num
 
 ;stmt3:
-  %2 = bitcast [2 x %Nat8]* @func221_str1 to %Str
+  %2 = bitcast [2 x %Nat8]* @func220_str1 to %Str
   %3 = call %Bool (%Str) @need (%Str %2)
 
 ;stmt4:
@@ -11880,7 +11762,7 @@ define %Type* @parse_type_enum () {
 ;stmt5:
   br label %continue_0
 continue_0:
-  %4 = bitcast [2 x %Nat8]* @func221_str2 to %Str
+  %4 = bitcast [2 x %Nat8]* @func220_str2 to %Str
   %5 = call %Bool (%Str) @match (%Str %4)
   %6 = xor %Bool %5, 1
   br i1 %6, label %body_0, label %break_0
@@ -11915,7 +11797,7 @@ body_0:
   store %Int64 %16, %Int64* %num
 
 ;stmt13:
-  %17 = bitcast [2 x %Nat8]* @func221_str3 to %Str
+  %17 = bitcast [2 x %Nat8]* @func220_str3 to %Str
   %18 = call %Bool (%Str) @match (%Str %17)
   %19 = xor %Bool %18, 1
   br i1 %19, label %then_0, label %else_0
@@ -11927,7 +11809,7 @@ then_0:
   call void () @skip_nl ()
 
 ;stmt16:
-  %20 = bitcast [2 x %Nat8]* @func221_str4 to %Str
+  %20 = bitcast [2 x %Nat8]* @func220_str4 to %Str
   %21 = call %Bool (%Str) @need (%Str %20)
 
 ;stmt17:
@@ -11950,7 +11832,7 @@ break_0:
 define %Type* @parse_type_array () {
 
 ;stmt0:
-  %1 = bitcast [2 x %Nat8]* @func222_str1 to %Str
+  %1 = bitcast [2 x %Nat8]* @func221_str1 to %Str
   %2 = call %Bool (%Str) @match (%Str %1)
   br i1 %2, label %then_0, label %else_0
 then_0:
@@ -12004,7 +11886,7 @@ else_2:
 endif_2:
 
 ;stmt11:
-  %15 = bitcast [2 x %Nat8]* @func222_str2 to %Str
+  %15 = bitcast [2 x %Nat8]* @func221_str2 to %Str
   %16 = call %Bool (%Str) @need (%Str %15)
 
 ;stmt12:
@@ -12047,11 +11929,11 @@ fail:
 define %Type* @parse_type_func () {
 
 ;stmt0:
-  %1 = bitcast [2 x %Nat8]* @func223_str1 to %Str
+  %1 = bitcast [2 x %Nat8]* @func222_str1 to %Str
   %2 = call %List* (%Str) @parse_fields (%Str %1)
 
 ;stmt1:
-  %3 = bitcast [3 x %Nat8]* @func223_str2 to %Str
+  %3 = bitcast [3 x %Nat8]* @func222_str2 to %Str
   %4 = call %Bool (%Str) @need (%Str %3)
 
 ;stmt2:
@@ -12080,7 +11962,7 @@ else_0:
 endif_0:
 
 ;stmt6:
-  %16 = bitcast [12 x %Nat8]* @func223_str3 to %Str
+  %16 = bitcast [12 x %Nat8]* @func222_str3 to %Str
   %17 = call %Nat64 (%Str) @get (%Str %16)
   %18 = icmp eq %Nat64 %17, 1
 
@@ -12183,7 +12065,7 @@ else_4:
 ;stmt15:
 
 ;stmt16:
-  %32 = bitcast [40 x %Nat8]* @func224_str1 to %Str
+  %32 = bitcast [40 x %Nat8]* @func223_str1 to %Str
   call void (%Bool, %Str) @assert (%Bool 0, %Str %32)
   br label %endif_4
 endif_4:
@@ -12409,7 +12291,7 @@ then_2:
 ;stmt10:
 
 ;stmt11:
-  %15 = bitcast [18 x %Nat8]* @func229_str1 to %Str
+  %15 = bitcast [18 x %Nat8]* @func228_str1 to %Str
   %16 = load %Value*, %Value** %v
   %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 8 ; eval_access
   %18 = load %TokenInfo*, %TokenInfo** %17
@@ -12928,7 +12810,7 @@ else_13:
 ;stmt49:
 
 ;stmt50:
-  %59 = bitcast [32 x %Nat8]* @func234_str1 to %Str
+  %59 = bitcast [32 x %Nat8]* @func233_str1 to %Str
   call void (%Bool, %Str) @assert (%Bool 0, %Str %59)
   br label %endif_13
 endif_13:
@@ -13035,32 +12917,32 @@ then_1:
 ;stmt12:
 
 ;stmt13:
-  %31 = bitcast [11 x %Nat8]* @func235_str1 to %Str
+  %31 = bitcast [11 x %Nat8]* @func234_str1 to %Str
   %32 = load %Value*, %Value** %v
   %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 8 ; eval_access
   %34 = load %TokenInfo*, %TokenInfo** %33
   call void (%Str, %TokenInfo*) @error (%Str %31, %TokenInfo* %34)
 
 ;stmt14:
-  %35 = bitcast [9 x %Nat8]* @func235_str2 to %Str
+  %35 = bitcast [9 x %Nat8]* @func234_str2 to %Str
   %36 = call %Int32 (%Str, ...) @printf (%Str %35)
 
 ;stmt15:
   call void (%Type*) @prttype (%Type* %26)
 
 ;stmt16:
-  %37 = bitcast [2 x %Nat8]* @func235_str3 to %Str
+  %37 = bitcast [2 x %Nat8]* @func234_str3 to %Str
   %38 = call %Int32 (%Str, ...) @printf (%Str %37)
 
 ;stmt17:
-  %39 = bitcast [9 x %Nat8]* @func235_str4 to %Str
+  %39 = bitcast [9 x %Nat8]* @func234_str4 to %Str
   %40 = call %Int32 (%Str, ...) @printf (%Str %39)
 
 ;stmt18:
   call void (%Type*) @prttype (%Type* %28)
 
 ;stmt19:
-  %41 = bitcast [2 x %Nat8]* @func235_str5 to %Str
+  %41 = bitcast [2 x %Nat8]* @func234_str5 to %Str
   %42 = call %Int32 (%Str, ...) @printf (%Str %41)
 
 ;stmt20:
@@ -13084,7 +12966,7 @@ then_2:
 ;stmt23:
 
 ;stmt24:
-  %49 = bitcast [18 x %Nat8]* @func235_str6 to %Str
+  %49 = bitcast [18 x %Nat8]* @func234_str6 to %Str
   %50 = load %Value*, %Value** %v
   %51 = getelementptr inbounds %Value, %Value* %50, i32 0, i32 8 ; eval_access
   %52 = load %TokenInfo*, %TokenInfo** %51
@@ -13524,7 +13406,7 @@ then_1:
 ;stmt9:
 
 ;stmt10:
-  %16 = bitcast [41 x %Nat8]* @func241_str1 to %Str
+  %16 = bitcast [41 x %Nat8]* @func240_str1 to %Str
   %17 = load %Value*, %Value** %v
   %18 = getelementptr inbounds %Value, %Value* %17, i32 0, i32 8 ; eval_access
   %19 = load %TokenInfo*, %TokenInfo** %18
@@ -13556,7 +13438,7 @@ then_2:
 ;stmt14:
 
 ;stmt15:
-  %31 = bitcast [16 x %Nat8]* @func241_str2 to %Str
+  %31 = bitcast [16 x %Nat8]* @func240_str2 to %Str
   %32 = load %Value*, %Value** %v
   %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 8 ; eval_access
   %34 = load %TokenInfo*, %TokenInfo** %33
@@ -13660,7 +13542,7 @@ then_0:
 ;stmt3:
 
 ;stmt4:
-  %9 = bitcast [18 x %Nat8]* @func243_str1 to %Str
+  %9 = bitcast [18 x %Nat8]* @func242_str1 to %Str
   %10 = load %Value*, %Value** %v
   %11 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 8 ; eval_access
   %12 = load %TokenInfo*, %TokenInfo** %11
@@ -13722,7 +13604,7 @@ then_0:
 ;stmt2:
 
 ;stmt3:
-  %13 = bitcast [21 x %Nat8]* @func244_str1 to %Str
+  %13 = bitcast [21 x %Nat8]* @func243_str1 to %Str
   %14 = load %TokenInfo*, %TokenInfo** %ti
   call void (%Str, %TokenInfo*) @error (%Str %13, %TokenInfo* %14)
 
@@ -13757,7 +13639,7 @@ then_2:
 ;stmt8:
 
 ;stmt9:
-  %29 = bitcast [19 x %Nat8]* @func244_str2 to %Str
+  %29 = bitcast [19 x %Nat8]* @func243_str2 to %Str
   %30 = load %TokenInfo*, %TokenInfo** %ti
   call void (%Str, %TokenInfo*) @error (%Str %29, %TokenInfo* %30)
   br label %endif_2
@@ -13833,12 +13715,12 @@ then_3:
 ;stmt21:
 
 ;stmt22:
-  %58 = bitcast [37 x %Nat8]* @func244_str3 to %Str
+  %58 = bitcast [37 x %Nat8]* @func243_str3 to %Str
   %59 = load %TokenInfo*, %TokenInfo** %ti
   call void (%Str, %TokenInfo*) @error (%Str %58, %TokenInfo* %59)
 
 ;stmt23:
-  %60 = bitcast [7 x %Nat8]* @func244_str4 to %Str
+  %60 = bitcast [7 x %Nat8]* @func243_str4 to %Str
   %61 = call %Int32 (%Str, ...) @printf (%Str %60)
 
 ;stmt24:
@@ -13847,11 +13729,11 @@ then_3:
   call void (%Type*) @prttype (%Type* %63)
 
 ;stmt25:
-  %64 = bitcast [2 x %Nat8]* @func244_str5 to %Str
+  %64 = bitcast [2 x %Nat8]* @func243_str5 to %Str
   %65 = call %Int32 (%Str, ...) @printf (%Str %64)
 
 ;stmt26:
-  %66 = bitcast [7 x %Nat8]* @func244_str6 to %Str
+  %66 = bitcast [7 x %Nat8]* @func243_str6 to %Str
   %67 = call %Int32 (%Str, ...) @printf (%Str %66)
 
 ;stmt27:
@@ -13860,7 +13742,7 @@ then_3:
   call void (%Type*) @prttype (%Type* %69)
 
 ;stmt28:
-  %70 = bitcast [2 x %Nat8]* @func244_str7 to %Str
+  %70 = bitcast [2 x %Nat8]* @func243_str7 to %Str
   %71 = call %Int32 (%Str, ...) @printf (%Str %70)
 
 ;stmt29:
@@ -14138,7 +14020,7 @@ then_3:
 ;stmt11:
 
 ;stmt12:
-  %20 = bitcast [24 x %Nat8]* @func249_str1 to %Str
+  %20 = bitcast [24 x %Nat8]* @func248_str1 to %Str
   %21 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 8 ; eval_access
   %22 = load %TokenInfo*, %TokenInfo** %21
   call void (%Str, %TokenInfo*) @error (%Str %20, %TokenInfo* %22)
@@ -14196,7 +14078,7 @@ endif_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt6:
-  %11 = bitcast [3 x %Nat8]* @func250_str1 to %Str
+  %11 = bitcast [3 x %Nat8]* @func249_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -14258,7 +14140,7 @@ endif_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt6:
-  %11 = bitcast [4 x %Nat8]* @func251_str1 to %Str
+  %11 = bitcast [4 x %Nat8]* @func250_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -14320,7 +14202,7 @@ endif_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt6:
-  %11 = bitcast [4 x %Nat8]* @func252_str1 to %Str
+  %11 = bitcast [4 x %Nat8]* @func251_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -14390,7 +14272,7 @@ body_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt8:
-  %11 = bitcast [3 x %Nat8]* @func253_str1 to %Str
+  %11 = bitcast [3 x %Nat8]* @func252_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -14413,7 +14295,7 @@ then_1:
 else_1:
 
 ;stmt14:
-  %16 = bitcast [3 x %Nat8]* @func253_str2 to %Str
+  %16 = bitcast [3 x %Nat8]* @func252_str2 to %Str
   %17 = call %Bool (%Str) @match (%Str %16)
   br i1 %17, label %then_2, label %else_2
 then_2:
@@ -14492,7 +14374,7 @@ body_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt8:
-  %11 = bitcast [2 x %Nat8]* @func254_str1 to %Str
+  %11 = bitcast [2 x %Nat8]* @func253_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -14515,7 +14397,7 @@ then_1:
 else_1:
 
 ;stmt14:
-  %16 = bitcast [2 x %Nat8]* @func254_str2 to %Str
+  %16 = bitcast [2 x %Nat8]* @func253_str2 to %Str
   %17 = call %Bool (%Str) @match (%Str %16)
   br i1 %17, label %then_2, label %else_2
 then_2:
@@ -14538,7 +14420,7 @@ then_2:
 else_2:
 
 ;stmt20:
-  %21 = bitcast [3 x %Nat8]* @func254_str3 to %Str
+  %21 = bitcast [3 x %Nat8]* @func253_str3 to %Str
   %22 = call %Bool (%Str) @match (%Str %21)
   br i1 %22, label %then_3, label %else_3
 then_3:
@@ -14561,7 +14443,7 @@ then_3:
 else_3:
 
 ;stmt26:
-  %26 = bitcast [3 x %Nat8]* @func254_str4 to %Str
+  %26 = bitcast [3 x %Nat8]* @func253_str4 to %Str
   %27 = call %Bool (%Str) @match (%Str %26)
   br i1 %27, label %then_4, label %else_4
 then_4:
@@ -14644,7 +14526,7 @@ body_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt8:
-  %11 = bitcast [3 x %Nat8]* @func255_str1 to %Str
+  %11 = bitcast [3 x %Nat8]* @func254_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -14667,7 +14549,7 @@ then_1:
 else_1:
 
 ;stmt14:
-  %16 = bitcast [3 x %Nat8]* @func255_str2 to %Str
+  %16 = bitcast [3 x %Nat8]* @func254_str2 to %Str
   %17 = call %Bool (%Str) @match (%Str %16)
   br i1 %17, label %then_2, label %else_2
 then_2:
@@ -14746,7 +14628,7 @@ body_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt8:
-  %11 = bitcast [2 x %Nat8]* @func256_str1 to %Str
+  %11 = bitcast [2 x %Nat8]* @func255_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -14769,7 +14651,7 @@ then_1:
 else_1:
 
 ;stmt14:
-  %16 = bitcast [2 x %Nat8]* @func256_str2 to %Str
+  %16 = bitcast [2 x %Nat8]* @func255_str2 to %Str
   %17 = call %Bool (%Str) @match (%Str %16)
   br i1 %17, label %then_2, label %else_2
 then_2:
@@ -14848,7 +14730,7 @@ body_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt8:
-  %11 = bitcast [2 x %Nat8]* @func257_str1 to %Str
+  %11 = bitcast [2 x %Nat8]* @func256_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -14871,7 +14753,7 @@ then_1:
 else_1:
 
 ;stmt14:
-  %16 = bitcast [2 x %Nat8]* @func257_str2 to %Str
+  %16 = bitcast [2 x %Nat8]* @func256_str2 to %Str
   %17 = call %Bool (%Str) @match (%Str %16)
   br i1 %17, label %then_2, label %else_2
 then_2:
@@ -14894,7 +14776,7 @@ then_2:
 else_2:
 
 ;stmt20:
-  %21 = bitcast [2 x %Nat8]* @func257_str3 to %Str
+  %21 = bitcast [2 x %Nat8]* @func256_str3 to %Str
   %22 = call %Bool (%Str) @match (%Str %21)
   br i1 %22, label %then_3, label %else_3
 then_3:
@@ -14967,7 +14849,7 @@ endif_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt6:
-  %11 = bitcast [3 x %Nat8]* @func258_str1 to %Str
+  %11 = bitcast [3 x %Nat8]* @func257_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -15001,7 +14883,7 @@ define %Value* @hier10 () {
   %2 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 1 ; eval_access
 
 ;stmt2:
-  %3 = bitcast [2 x %Nat8]* @func259_str1 to %Str
+  %3 = bitcast [2 x %Nat8]* @func258_str1 to %Str
   %4 = call %Bool (%Str) @match (%Str %3)
   br i1 %4, label %then_0, label %else_0
 then_0:
@@ -15018,7 +14900,7 @@ then_0:
 else_0:
 
 ;stmt6:
-  %7 = bitcast [2 x %Nat8]* @func259_str2 to %Str
+  %7 = bitcast [2 x %Nat8]* @func258_str2 to %Str
   %8 = call %Bool (%Str) @match (%Str %7)
   br i1 %8, label %then_1, label %else_1
 then_1:
@@ -15035,7 +14917,7 @@ then_1:
 else_1:
 
 ;stmt10:
-  %11 = bitcast [4 x %Nat8]* @func259_str3 to %Str
+  %11 = bitcast [4 x %Nat8]* @func258_str3 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_2, label %else_2
 then_2:
@@ -15052,7 +14934,7 @@ then_2:
 else_2:
 
 ;stmt14:
-  %15 = bitcast [2 x %Nat8]* @func259_str4 to %Str
+  %15 = bitcast [2 x %Nat8]* @func258_str4 to %Str
   %16 = call %Bool (%Str) @match (%Str %15)
   br i1 %16, label %then_3, label %else_3
 then_3:
@@ -15069,7 +14951,7 @@ then_3:
 else_3:
 
 ;stmt18:
-  %19 = bitcast [7 x %Nat8]* @func259_str5 to %Str
+  %19 = bitcast [7 x %Nat8]* @func258_str5 to %Str
   %20 = call %Bool (%Str) @match (%Str %19)
   br i1 %20, label %then_4, label %else_4
 then_4:
@@ -15093,7 +14975,7 @@ then_5:
 ;stmt23:
 
 ;stmt24:
-  %27 = bitcast [23 x %Nat8]* @func259_str6 to %Str
+  %27 = bitcast [23 x %Nat8]* @func258_str6 to %Str
   call void (%Str, %TokenInfo*) @error (%Str %27, %TokenInfo* %22)
 
 ;stmt25:
@@ -15121,7 +15003,7 @@ endif_5:
 else_4:
 
 ;stmt28:
-  %38 = bitcast [8 x %Nat8]* @func259_str7 to %Str
+  %38 = bitcast [8 x %Nat8]* @func258_str7 to %Str
   %39 = call %Bool (%Str) @match (%Str %38)
   br i1 %39, label %then_6, label %else_6
 then_6:
@@ -15145,7 +15027,7 @@ then_7:
 ;stmt33:
 
 ;stmt34:
-  %46 = bitcast [24 x %Nat8]* @func259_str8 to %Str
+  %46 = bitcast [24 x %Nat8]* @func258_str8 to %Str
   call void (%Str, %TokenInfo*) @error (%Str %46, %TokenInfo* %41)
 
 ;stmt35:
@@ -15236,7 +15118,7 @@ body_0:
   %10 = getelementptr inbounds %Token, %Token* %9, i32 0, i32 1 ; eval_access
 
 ;stmt8:
-  %11 = bitcast [2 x %Nat8]* @func260_str1 to %Str
+  %11 = bitcast [2 x %Nat8]* @func259_str1 to %Str
   %12 = call %Bool (%Str) @match (%Str %11)
   br i1 %12, label %then_1, label %else_1
 then_1:
@@ -15249,7 +15131,7 @@ then_1:
 ;stmt11:
   br label %continue_1
 continue_1:
-  %14 = bitcast [2 x %Nat8]* @func260_str2 to %Str
+  %14 = bitcast [2 x %Nat8]* @func259_str2 to %Str
   %15 = call %Bool (%Str) @match (%Str %14)
   %16 = xor %Bool %15, 1
   br i1 %16, label %body_1, label %break_1
@@ -15270,11 +15152,11 @@ then_2:
 ;stmt15:
 
 ;stmt16:
-  %21 = bitcast [3 x %Nat8]* @func260_str3 to %Str
+  %21 = bitcast [3 x %Nat8]* @func259_str3 to %Str
   call void (%Str) @skipto (%Str %21)
 
 ;stmt17:
-  %22 = bitcast [2 x %Nat8]* @func260_str4 to %Str
+  %22 = bitcast [2 x %Nat8]* @func259_str4 to %Str
   %23 = call %Bool (%Str) @match (%Str %22)
   br i1 %23, label %then_3, label %else_3
 then_3:
@@ -15287,7 +15169,7 @@ then_3:
 else_3:
 
 ;stmt20:
-  %25 = bitcast [2 x %Nat8]* @func260_str5 to %Str
+  %25 = bitcast [2 x %Nat8]* @func259_str5 to %Str
   %26 = call %Bool (%Str) @match (%Str %25)
   br i1 %26, label %then_4, label %else_4
 then_4:
@@ -15319,7 +15201,7 @@ endif_2:
   %32 = call %Bool (%List*, %Unit*) @list_append (%List* %13, %Unit* %31)
 
 ;stmt26:
-  %33 = bitcast [2 x %Nat8]* @func260_str6 to %Str
+  %33 = bitcast [2 x %Nat8]* @func259_str6 to %Str
   %34 = call %Bool (%Str) @match (%Str %33)
   %35 = xor %Bool %34, 1
   br i1 %35, label %then_5, label %else_5
@@ -15328,7 +15210,7 @@ then_5:
 ;stmt27:
 
 ;stmt28:
-  %36 = bitcast [2 x %Nat8]* @func260_str7 to %Str
+  %36 = bitcast [2 x %Nat8]* @func259_str7 to %Str
   %37 = call %Bool (%Str) @need (%Str %36)
   br label %endif_5
 else_5:
@@ -15350,7 +15232,7 @@ break_1:
 else_1:
 
 ;stmt32:
-  %41 = bitcast [2 x %Nat8]* @func260_str8 to %Str
+  %41 = bitcast [2 x %Nat8]* @func259_str8 to %Str
   %42 = call %Bool (%Str) @match (%Str %41)
   br i1 %42, label %then_6, label %else_6
 then_6:
@@ -15361,7 +15243,7 @@ then_6:
   %43 = call %Value* () @expr ()
 
 ;stmt35:
-  %44 = bitcast [2 x %Nat8]* @func260_str9 to %Str
+  %44 = bitcast [2 x %Nat8]* @func259_str9 to %Str
   %45 = call %Bool (%Str) @match (%Str %44)
 
 ;stmt36:
@@ -15372,7 +15254,7 @@ then_6:
 else_6:
 
 ;stmt37:
-  %48 = bitcast [2 x %Nat8]* @func260_str10 to %Str
+  %48 = bitcast [2 x %Nat8]* @func259_str10 to %Str
   %49 = call %Bool (%Str) @match (%Str %48)
   br i1 %49, label %then_7, label %else_7
 then_7:
@@ -15417,7 +15299,7 @@ define %Value* @hier12 () {
   %2 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 1 ; eval_access
 
 ;stmt2:
-  %3 = bitcast [2 x %Nat8]* @func261_str1 to %Str
+  %3 = bitcast [2 x %Nat8]* @func260_str1 to %Str
   %4 = call %Bool (%Str) @match (%Str %3)
   br i1 %4, label %then_0, label %else_0
 then_0:
@@ -15434,7 +15316,7 @@ then_0:
   store %TokenInfo* %2, %TokenInfo** %7
 
 ;stmt6:
-  %8 = bitcast [2 x %Nat8]* @func261_str2 to %Str
+  %8 = bitcast [2 x %Nat8]* @func260_str2 to %Str
   %9 = call %Bool (%Str) @need (%Str %8)
   br label %endif_0
 else_0:
@@ -15477,7 +15359,7 @@ then_0:
 ;stmt5:
 
 ;stmt6:
-  %7 = bitcast [5 x %Nat8]* @func262_str1 to %Str
+  %7 = bitcast [5 x %Nat8]* @func261_str1 to %Str
   %8 = call %Bool (%Str) @match (%Str %7)
   br i1 %8, label %then_1, label %else_1
 then_1:
@@ -15491,7 +15373,7 @@ then_1:
 else_1:
 
 ;stmt9:
-  %10 = bitcast [6 x %Nat8]* @func262_str2 to %Str
+  %10 = bitcast [6 x %Nat8]* @func261_str2 to %Str
   %11 = call %Bool (%Str) @match (%Str %10)
   br i1 %11, label %then_2, label %else_2
 then_2:
@@ -15558,12 +15440,12 @@ else_5:
 ;stmt23:
 
 ;stmt24:
-  %20 = bitcast [24 x %Nat8]* @func262_str3 to %Str
+  %20 = bitcast [24 x %Nat8]* @func261_str3 to %Str
   %21 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 1 ; eval_access
   call void (%Str, %TokenInfo*) @error (%Str %20, %TokenInfo* %21)
 
 ;stmt25:
-  %22 = bitcast [12 x %Nat8]* @func262_str4 to %Str
+  %22 = bitcast [12 x %Nat8]* @func261_str4 to %Str
   %23 = call %Token* () @ctok ()
   %24 = getelementptr inbounds %Token, %Token* %23, i32 0, i32 2 ; eval_access
   %25 = load [0 x %Nat8], [0 x %Nat8]* %24
@@ -15736,7 +15618,7 @@ define %Value* @term_arr () {
   %3 = call %Type* (%Bool) @parse_type (%Bool 0)
 
 ;stmt2:
-  %4 = bitcast [2 x %Nat8]* @func264_str1 to %Str
+  %4 = bitcast [2 x %Nat8]* @func263_str1 to %Str
   %5 = call %Bool (%Str) @need (%Str %4)
 
 ;stmt3:
@@ -15751,7 +15633,7 @@ define %Value* @term_arr () {
 ;stmt6:
   br label %continue_0
 continue_0:
-  %7 = bitcast [2 x %Nat8]* @func264_str2 to %Str
+  %7 = bitcast [2 x %Nat8]* @func263_str2 to %Str
   %8 = call %Bool (%Str) @match (%Str %7)
   %9 = xor %Bool %8, 1
   br i1 %9, label %body_0, label %break_0
@@ -15777,7 +15659,7 @@ then_0:
 ;stmt11:
 
 ;stmt12:
-  %15 = bitcast [2 x %Nat8]* @func264_str3 to %Str
+  %15 = bitcast [2 x %Nat8]* @func263_str3 to %Str
   %16 = call %Bool (%Str) @match (%Str %15)
 
 ;stmt13:
@@ -15798,7 +15680,7 @@ endif_0:
   %22 = call %Bool (%List*, %Unit*) @list_append (%List* %6, %Unit* %21)
 
 ;stmt16:
-  %23 = bitcast [2 x %Nat8]* @func264_str4 to %Str
+  %23 = bitcast [2 x %Nat8]* @func263_str4 to %Str
   %24 = call %Bool (%Str) @match (%Str %23)
   br label %continue_0
 break_0:
@@ -15902,7 +15784,7 @@ then_0:
 ;stmt12:
 
 ;stmt13:
-  %21 = bitcast [16 x %Nat8]* @func265_str1 to %Str
+  %21 = bitcast [16 x %Nat8]* @func264_str1 to %Str
   %22 = call %Int32 (%Str, ...) @printf (%Str %21)
 
 ;stmt14:
@@ -15925,7 +15807,7 @@ then_1:
 ;stmt17:
 
 ;stmt18:
-  %28 = bitcast [18 x %Nat8]* @func265_str2 to %Str
+  %28 = bitcast [18 x %Nat8]* @func264_str2 to %Str
   %29 = call %Int32 (%Str, ...) @printf (%Str %28)
 
 ;stmt19:
@@ -15945,7 +15827,7 @@ then_2:
 ;stmt21:
 
 ;stmt22:
-  %34 = bitcast [19 x %Nat8]* @func265_str3 to %Str
+  %34 = bitcast [19 x %Nat8]* @func264_str3 to %Str
   %35 = getelementptr inbounds %Type, %Type* %24, i32 0, i32 13 ; eval_access
   %36 = load %TokenInfo*, %TokenInfo** %35
   call void (%Str, %TokenInfo*) @error (%Str %34, %TokenInfo* %36)
@@ -16006,7 +15888,7 @@ endif_3:
   store %Value* %42, %Value** %56
 
 ;stmt33:
-  %57 = bitcast [2 x %Nat8]* @func265_str4 to %Str
+  %57 = bitcast [2 x %Nat8]* @func264_str4 to %Str
   %58 = call %Bool (%Str) @need (%Str %57)
 
 ;stmt34:
@@ -16148,14 +16030,14 @@ define %Value* @term_num () {
   %4 = getelementptr inbounds %Token, %Token* %3, i32 0, i32 2 ; eval_access
   %5 = getelementptr inbounds [0 x %Nat8], [0 x %Nat8]* %4, i32 0, %Int32 0 ; eval_index
   %6 = load %Nat8, %Nat8* %5
-  %7 = bitcast [2 x %Nat8]* @func267_str1 to %Str
+  %7 = bitcast [2 x %Nat8]* @func266_str1 to %Str
   %8 = getelementptr inbounds %Nat8, %Str %7, %Int32 0 ; eval_index
   %9 = load %Nat8, %Nat8* %8
   %10 = icmp eq %Nat8 %6, %9
   %11 = getelementptr inbounds %Token, %Token* %3, i32 0, i32 2 ; eval_access
   %12 = getelementptr inbounds [0 x %Nat8], [0 x %Nat8]* %11, i32 0, %Int32 1 ; eval_index
   %13 = load %Nat8, %Nat8* %12
-  %14 = bitcast [2 x %Nat8]* @func267_str2 to %Str
+  %14 = bitcast [2 x %Nat8]* @func266_str2 to %Str
   %15 = getelementptr inbounds %Nat8, %Str %14, %Int32 0 ; eval_index
   %16 = load %Nat8, %Nat8* %15
   %17 = icmp eq %Nat8 %13, %16
@@ -16169,7 +16051,7 @@ then_0:
   %19 = getelementptr inbounds %Token, %Token* %3, i32 0, i32 2 ; eval_access
   %20 = getelementptr inbounds [0 x %Nat8], [0 x %Nat8]* %19, i32 0, %Int32 2 ; eval_index
   %21 = bitcast %Nat8* %20 to %Unit*
-  %22 = bitcast [5 x %Nat8]* @func267_str3 to %Str
+  %22 = bitcast [5 x %Nat8]* @func266_str3 to %Str
   %23 = getelementptr inbounds %Int64, %Int64* %d, i32 0 ; ref
   %24 = call %Int32 (%Unit*, %Str, ...) @sscanf (%Unit* %21, %Str %22, %Int64* %23)
   br label %endif_0
@@ -16181,7 +16063,7 @@ else_0:
   %25 = getelementptr inbounds %Token, %Token* %3, i32 0, i32 2 ; eval_access
   %26 = getelementptr inbounds [0 x %Nat8], [0 x %Nat8]* %25, i32 0, %Int32 0 ; eval_index
   %27 = bitcast %Nat8* %26 to %Unit*
-  %28 = bitcast [5 x %Nat8]* @func267_str4 to %Str
+  %28 = bitcast [5 x %Nat8]* @func266_str4 to %Str
   %29 = getelementptr inbounds %Int64, %Int64* %d, i32 0 ; ref
   %30 = call %Int32 (%Unit*, %Str, ...) @sscanf (%Unit* %27, %Str %28, %Int64* %29)
   br label %endif_0
@@ -16286,6 +16168,124 @@ endif_0:
 
 ;stmt7:
   ret %Stmt* %8
+}
+
+define %Block* @doblock () {
+
+;stmt0:
+  %1 = call %List* () @map_new ()
+
+;stmt1:
+  %2 = call %Unit* (%Nat32) @malloc (%Nat32 72)
+  %3 = bitcast %Unit* %2 to %Block*
+
+;stmt2:
+  %4 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 1 ; eval_access
+  %5 = call %List* () @map_new ()
+  store %List* %5, %List** %4
+
+;stmt3:
+  %6 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 4 ; eval_access
+  %7 = call %List* () @map_new ()
+  store %List* %7, %List** %6
+
+;stmt4:
+  %8 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 2 ; eval_access
+  call void (%List*) @map_init (%List* %8)
+
+;stmt5:
+  %9 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 3 ; eval_access
+  call void (%List*) @map_init (%List* %9)
+
+;stmt6:
+  %10 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 0 ; eval_access
+  %11 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 1 ; eval_access
+  %12 = load %Block*, %Block** %11
+  store %Block* %12, %Block** %10
+
+;stmt7:
+  %13 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 1 ; eval_access
+  store %Block* %3, %Block** %13
+
+;stmt8:
+  br label %continue_0
+continue_0:
+  %14 = bitcast [2 x %Nat8]* @func270_str1 to %Str
+  %15 = call %Bool (%Str) @match (%Str %14)
+  %16 = xor %Bool %15, 1
+  br i1 %16, label %body_0, label %break_0
+body_0:
+
+;stmt9:
+
+;stmt10:
+  call void () @skip_nl ()
+
+;stmt11:
+  %17 = call %Bool () @eof ()
+  br i1 %17, label %then_0, label %else_0
+then_0:
+
+;stmt12:
+
+;stmt13:
+  %18 = bitcast [23 x %Nat8]* @func270_str2 to %Str
+  call void (%Str) @fatal (%Str %18)
+
+;stmt14:
+  br label %break_0
+  br label %endif_0
+else_0:
+  br label %endif_0
+endif_0:
+
+;stmt15:
+  %20 = bitcast [2 x %Nat8]* @func270_str3 to %Str
+  %21 = call %Bool (%Str) @match (%Str %20)
+  br i1 %21, label %then_1, label %else_1
+then_1:
+
+;stmt16:
+
+;stmt17:
+  br label %break_0
+  br label %endif_1
+else_1:
+  br label %endif_1
+endif_1:
+
+;stmt18:
+  %23 = call %Stmt* () @stmt ()
+
+;stmt19:
+  %24 = bitcast %Stmt* %23 to %Unit*
+  %25 = inttoptr %Nat32 0 to %Unit*
+  %26 = icmp ne %Unit* %24, %25
+  br i1 %26, label %then_2, label %else_2
+then_2:
+
+;stmt20:
+
+;stmt21:
+  %27 = call %Bool () @sep ()
+
+;stmt22:
+  call void (%Stmt*) @add_stmt (%Stmt* %23)
+  br label %endif_2
+else_2:
+  br label %endif_2
+endif_2:
+  br label %continue_0
+break_0:
+
+;stmt23:
+  %28 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 1 ; eval_access
+  %29 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 0 ; eval_access
+  %30 = load %Block*, %Block** %29
+  store %Block* %30, %Block** %28
+
+;stmt24:
+  ret %Block* %3
 }
 
 define void @chkf (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
@@ -17119,6 +17119,53 @@ endif_0:
   ret %Stmt* %8
 }
 
+define %Stmt* @stmtGoto (%TokenInfo* %_ti) {
+  %ti = alloca %TokenInfo*
+  store %TokenInfo* %_ti, %TokenInfo** %ti
+
+;stmt0:
+  %1 = call %Str () @parse_id ()
+
+;stmt1:
+  %2 = bitcast %Str %1 to %Unit*
+  %3 = inttoptr %Nat32 0 to %Unit*
+  %4 = icmp eq %Unit* %2, %3
+  br i1 %4, label %then_0, label %else_0
+then_0:
+
+;stmt2:
+
+;stmt3:
+  %5 = bitcast [15 x %Nat8]* @func285_str1 to %Str
+  %6 = inttoptr %Nat32 0 to %Unit*
+  %7 = bitcast %Unit* %6 to %TokenInfo*
+  call void (%Str, %TokenInfo*) @error (%Str %5, %TokenInfo* %7)
+
+;stmt4:
+  %8 = inttoptr %Nat32 0 to %Unit*
+  %9 = bitcast %Unit* %8 to %Stmt*
+  ret %Stmt* %9
+  br label %endif_0
+else_0:
+  br label %endif_0
+endif_0:
+
+;stmt5:
+  %11 = call %Stmt* (%StmtKind) @stmt_new (%StmtKind 10)
+
+;stmt6:
+  %12 = getelementptr inbounds %Stmt, %Stmt* %11, i32 0, i32 6 ; eval_access
+  store %Str %1, %Str* %12
+
+;stmt7:
+  %13 = getelementptr inbounds %Stmt, %Stmt* %11, i32 0, i32 7 ; eval_access
+  %14 = load %TokenInfo*, %TokenInfo** %ti
+  store %TokenInfo* %14, %TokenInfo** %13
+
+;stmt8:
+  ret %Stmt* %11
+}
+
 define void @stmtCheck (%Stmt* %_s) {
   %s = alloca %Stmt*
   store %Stmt* %_s, %Stmt** %s
@@ -17264,7 +17311,7 @@ define %Stmt* @stmt () {
   %2 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 1 ; eval_access
 
 ;stmt1:
-  %3 = bitcast [4 x %Nat8]* @func286_str1 to %Str
+  %3 = bitcast [4 x %Nat8]* @func287_str1 to %Str
   %4 = call %Bool (%Str) @match (%Str %3)
   br i1 %4, label %then_0, label %else_0
 then_0:
@@ -17281,7 +17328,7 @@ then_0:
 else_0:
 
 ;stmt5:
-  %8 = bitcast [2 x %Nat8]* @func286_str2 to %Str
+  %8 = bitcast [2 x %Nat8]* @func287_str2 to %Str
   %9 = call %Bool (%Str) @match (%Str %8)
   br i1 %9, label %then_1, label %else_1
 then_1:
@@ -17295,7 +17342,7 @@ then_1:
 else_1:
 
 ;stmt8:
-  %12 = bitcast [3 x %Nat8]* @func286_str3 to %Str
+  %12 = bitcast [3 x %Nat8]* @func287_str3 to %Str
   %13 = call %Bool (%Str) @match (%Str %12)
   br i1 %13, label %then_2, label %else_2
 then_2:
@@ -17309,7 +17356,7 @@ then_2:
 else_2:
 
 ;stmt11:
-  %16 = bitcast [6 x %Nat8]* @func286_str4 to %Str
+  %16 = bitcast [6 x %Nat8]* @func287_str4 to %Str
   %17 = call %Bool (%Str) @match (%Str %16)
   br i1 %17, label %then_3, label %else_3
 then_3:
@@ -17323,7 +17370,7 @@ then_3:
 else_3:
 
 ;stmt14:
-  %20 = bitcast [7 x %Nat8]* @func286_str5 to %Str
+  %20 = bitcast [7 x %Nat8]* @func287_str5 to %Str
   %21 = call %Bool (%Str) @match (%Str %20)
   br i1 %21, label %then_4, label %else_4
 then_4:
@@ -17337,7 +17384,7 @@ then_4:
 else_4:
 
 ;stmt17:
-  %24 = bitcast [6 x %Nat8]* @func286_str6 to %Str
+  %24 = bitcast [6 x %Nat8]* @func287_str6 to %Str
   %25 = call %Bool (%Str) @match (%Str %24)
   br i1 %25, label %then_5, label %else_5
 then_5:
@@ -17351,7 +17398,7 @@ then_5:
 else_5:
 
 ;stmt20:
-  %28 = bitcast [9 x %Nat8]* @func286_str7 to %Str
+  %28 = bitcast [9 x %Nat8]* @func287_str7 to %Str
   %29 = call %Bool (%Str) @match (%Str %28)
   br i1 %29, label %then_6, label %else_6
 then_6:
@@ -17365,7 +17412,7 @@ then_6:
 else_6:
 
 ;stmt23:
-  %32 = bitcast [4 x %Nat8]* @func286_str8 to %Str
+  %32 = bitcast [4 x %Nat8]* @func287_str8 to %Str
   %33 = call %Bool (%Str) @match (%Str %32)
   br i1 %33, label %then_7, label %else_7
 then_7:
@@ -17386,7 +17433,7 @@ then_7:
 else_7:
 
 ;stmt28:
-  %38 = bitcast [5 x %Nat8]* @func286_str9 to %Str
+  %38 = bitcast [5 x %Nat8]* @func287_str9 to %Str
   %39 = call %Bool (%Str) @match (%Str %38)
   br i1 %39, label %then_8, label %else_8
 then_8:
@@ -17407,7 +17454,7 @@ then_8:
 else_8:
 
 ;stmt33:
-  %44 = bitcast [5 x %Nat8]* @func286_str10 to %Str
+  %44 = bitcast [5 x %Nat8]* @func287_str10 to %Str
   %45 = call %Bool (%Str) @match (%Str %44)
   br i1 %45, label %then_9, label %else_9
 then_9:
@@ -17461,7 +17508,7 @@ then_10:
   %55 = getelementptr inbounds %Token, %Token* %54, i32 0, i32 1 ; eval_access
 
 ;stmt41:
-  %56 = bitcast [2 x %Nat8]* @func286_str11 to %Str
+  %56 = bitcast [2 x %Nat8]* @func287_str11 to %Str
   %57 = call %Bool (%Str) @match (%Str %56)
   br i1 %57, label %then_11, label %else_11
 then_11:
@@ -17541,53 +17588,6 @@ define void @setlab (%Str %_lab, %TokenInfo* %_ti) {
 ;stmt3:
   call void (%Stmt*) @add_stmt (%Stmt* %1)
   ret void
-}
-
-define %Stmt* @stmtGoto (%TokenInfo* %_ti) {
-  %ti = alloca %TokenInfo*
-  store %TokenInfo* %_ti, %TokenInfo** %ti
-
-;stmt0:
-  %1 = call %Str () @parse_id ()
-
-;stmt1:
-  %2 = bitcast %Str %1 to %Unit*
-  %3 = inttoptr %Nat32 0 to %Unit*
-  %4 = icmp eq %Unit* %2, %3
-  br i1 %4, label %then_0, label %else_0
-then_0:
-
-;stmt2:
-
-;stmt3:
-  %5 = bitcast [15 x %Nat8]* @func289_str1 to %Str
-  %6 = inttoptr %Nat32 0 to %Unit*
-  %7 = bitcast %Unit* %6 to %TokenInfo*
-  call void (%Str, %TokenInfo*) @error (%Str %5, %TokenInfo* %7)
-
-;stmt4:
-  %8 = inttoptr %Nat32 0 to %Unit*
-  %9 = bitcast %Unit* %8 to %Stmt*
-  ret %Stmt* %9
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt5:
-  %11 = call %Stmt* (%StmtKind) @stmt_new (%StmtKind 10)
-
-;stmt6:
-  %12 = getelementptr inbounds %Stmt, %Stmt* %11, i32 0, i32 6 ; eval_access
-  store %Str %1, %Str* %12
-
-;stmt7:
-  %13 = getelementptr inbounds %Stmt, %Stmt* %11, i32 0, i32 7 ; eval_access
-  %14 = load %TokenInfo*, %TokenInfo** %ti
-  store %TokenInfo* %14, %TokenInfo** %13
-
-;stmt8:
-  ret %Stmt* %11
 }
 
 define void @lab_reset () {

@@ -352,42 +352,6 @@ let doextern = func () -> Unit {
 }
 
 
-let doblock = func () -> *Block {
-  let slist = list_new()
-
-  let b = malloc(sizeof Block) to *Block
-  b.stmts = list_new()
-
-  b.local_functions = list_new()
-
-  map_init(&b.type_index)
-  map_init(&b.value_index)
-
-  b.parent = fctx.cblock
-  fctx.cblock = b
-
-  while not match("}") {
-    skip_nl()
-
-    if eof() {
-      fatal("unexpected end-of-file")
-      break
-    }
-
-    if match("}") {break}
-
-    let s = stmt()
-    if s != Nil {
-      sep()
-      add_stmt(s)
-    }
-  }
-
-  // restore cblock
-  fctx.cblock = b.parent
-  return b
-}
-
 
 // returns Str or Nil
 let parse_id = func () -> Str {
