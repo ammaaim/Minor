@@ -1,6 +1,9 @@
 // parser/parser
 
 
+type StmtParser = (ti : *TokenInfo) -> *Stmt
+
+
 type ModuleContext = record {
   src : *Source      // current source
 
@@ -107,7 +110,7 @@ let checkFunc = func (f : *Value) -> Unit {
   let b = f.block
   // extern function cannot have the block
   if b != Nil {
-    checkBlock(b)
+    stmtBlockCheck(b)
   }
 
   // reset context

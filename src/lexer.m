@@ -187,7 +187,6 @@ again:
 }
 
 
-
 /* xslash вернет False в том случае если он обработал C-style comment
    и ему нечего вернуть. => нам нужно опять сходить за токеном */
 let xslash = func () -> Bool {
@@ -309,8 +308,6 @@ let skipto = func (s : Str) -> Unit {
 }
 
 
-
-
 // токенизируем файл в список (включая TokenEOF)
 let tokenize = func (filename : Str) -> *List /*of Token*/ {
 
@@ -341,7 +338,6 @@ let tokenize = func (filename : Str) -> *List /*of Token*/ {
 
 
 
-
 let isalpha = func (c : Nat8) -> Bool {
   return ((c >= "A"[0]) and (c <= "Z"[0])) or
          ((c >= "a"[0]) and (c <= "z"[0]))
@@ -349,6 +345,5 @@ let isalpha = func (c : Nat8) -> Bool {
 
 let isdigit = func (c : Nat8) -> Bool {return (c >= "0"[0]) and (c <= "9"[0])}
 let isalnum = func (c : Nat8) -> Bool {return isalpha(c) or isdigit(c)}
-
 
 
