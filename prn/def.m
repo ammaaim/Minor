@@ -2,21 +2,21 @@
 
 
 let typedef = func (id : Str, t : *Type) -> Unit {
-  fprintf(fout, "\n%%%s = type ", id); print_type(t, False, True);
+  fprintf(fout, "\n%%%s = type ", id); printType(t, False, True);
 }
 
 
 let arraydef = func (id : Str, t : *Type, items : *List) -> Unit {
   //@arr = global [4 x i32] [i32 1, i32 2, i32 3, i32 4], align 16
   fprintf(fout, "\n@%s = private unnamed_addr constant [%d x ", id, items.volume)
-  print_type(t, True, True)
+  printType(t, True, True)
   fprintf(fout, "] [")
 
   need_comma = False
   let print_array_item = func ListForeachHandler {
     let v = data to *Value
     if need_comma {comma()}
-    print_type(v.type, True, True)
+    printType(v.type, True, True)
     space()
     print_value(v)
     need_comma = True
@@ -57,7 +57,7 @@ let stringdef = func (id : Str, len : Nat32, s : Str) -> Unit {
 
 let vardef = func (id : Str, t : *Type, v : *Value) -> Unit {
   fprintf(fout, "\n@%s = global ", id)
-  print_type(t, True, True); space();
+  printType(t, True, True); space();
   if v != Nil {print_value(v)} else {o("zeroinitializer")}
 }
 
@@ -75,14 +75,14 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
   if isvoid {
     o("void")
   } else {
-    print_type(t.function.to, True, True)
+    printType(t.function.to, True, True)
   }
 
   fprintf(fout, " @%s (", id)
   need_comma = False
   let vf_print_param = func ListForeachHandler {
     if need_comma {fprintf(fout, ", ")}
-    print_type((data to *Field).type, True, True)
+    printType((data to *Field).type, True, True)
     fprintf(fout, " %%_%s", (data to *Field).id)
     need_comma = True
   }
@@ -101,13 +101,13 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
     let print_param_loc = func ListForeachHandler {
       let p = data to *Field
       fprintf(fout, "\n  %%%s = alloca ", p.id)
-      print_type(p.type, True, True)
+      printType(p.type, True, True)
 
       fprintf(fout, "\n  store ")
-      print_type(p.type, True, True)
+      printType(p.type, True, True)
       space()
       fprintf(fout, "%%_%s, ", p.id)
-      print_type(p.type, True, True)
+      printType(p.type, True, True)
       o("* ")
       fprintf(fout, "%%%s", p.id)
     }

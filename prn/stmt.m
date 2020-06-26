@@ -66,7 +66,7 @@ type Eval = (v : *Value) -> *Value
 
 let print_stmt_var = func (v : *VarDef) -> Unit {
   fprintf(fout, "\n  %%%s = alloca ", v.id)
-  print_type(v.type, True, True)
+  printType(v.type, True, True)
 }
 
 
@@ -127,7 +127,7 @@ let print_stmt_return = func (rv : *Value) -> Unit {
   }
   let v = load(eval(rv))
   fprintf(fout, "\n  ret ")
-  print_type(v.type, True, True)
+  printType(v.type, True, True)
   space()
   print_value(v)
   lab_get()  // for LLVM

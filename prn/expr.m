@@ -5,9 +5,9 @@
 let print_getelementptr_inline = func (v : *Value, ino : Nat32) -> Unit {
   // getelementptr inbounds ([5 x i8], [5 x i8]* @.str, i32 0, i32 0)
   fprintf(fout, "getelementptr inbounds (")
-  print_type(v.type.pointer.to, True, True)
+  printType(v.type.pointer.to, True, True)
   comma()
-  print_type(v.type, True, True)
+  printType(v.type, True, True)
   space()
   print_value(v)
   fprintf(fout, ", i32 0, i32 %d)", ino)
@@ -69,9 +69,9 @@ let load = func Eval {
 
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = load ", reg)
-  print_type(v.type, True, True)
+  printType(v.type, True, True)
   comma()
-  print_type(v.type, True, True)
+  printType(v.type, True, True)
   o("* ")
 
   print_value(v)
@@ -102,7 +102,7 @@ let eval_call = func Eval {
     fprintf(fout, "\n  %%%d = call ", retval_reg)
   }
 
-  print_type(f.type, False, False)
+  printType(f.type, False, False)
   space()
 
   print_value(f)
@@ -127,10 +127,10 @@ let eval_call = func Eval {
     // это сделано изза того что аргумент может оказаться Intager
     // (см. выведение типа функции из контекста вызова)
     if *param_ln != Nil {
-      print_type(((*param_ln).data to *Field).type, True, True)
+      printType(((*param_ln).data to *Field).type, True, True)
       *param_ln = (*param_ln).next
     } else {
-      print_type(a.type, True, True)
+      printType(a.type, True, True)
     }
 
     space()
@@ -161,13 +161,13 @@ let eval_index = func Eval {
   fprintf(fout, "\n  %%%d = getelementptr inbounds ", reg)
 
   if a.type.array.undefined {
-    print_type(v.type, True, True)
+    printType(v.type, True, True)
   } else {
-    print_type(a.type, True, True)
+    printType(a.type, True, True)
   }
 
   comma()
-  print_type(a.type, True, True)
+  printType(a.type, True, True)
 
   if a.type.array.undefined {
     space()
@@ -180,7 +180,7 @@ let eval_index = func Eval {
     o(", i32 0")
   }
   comma()
-  print_type(i.type, True, True)
+  printType(i.type, True, True)
   space()
   print_value(i)
   o(" ; eval_index")
@@ -208,9 +208,9 @@ let eval_access = func Eval {
   // todo: совмести это с index - там в сущность такой же алгоритм
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = getelementptr inbounds ", reg)
-  print_type(record_type, True, True)
+  printType(record_type, True, True)
   comma()
-  print_type(record_type, True, True)
+  printType(record_type, True, True)
   o("* ")
   print_value(s)
   fprintf(fout, ", i32 0, i32 %u ; eval_access", fieldno)
@@ -229,9 +229,9 @@ let eval_ref = func Eval {
   //%7 = getelementptr inbounds %Int32, %Int32* @a, i32 0
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = getelementptr inbounds ", reg)
-  print_type(vx.type, True, True)
+  printType(vx.type, True, True)
   comma()
-  print_type(vx.type, True, True)
+  printType(vx.type, True, True)
   o("* ")
   print_value(vx)
   comma()
@@ -255,7 +255,7 @@ let eval_not = func Eval {
   //"%s = xor %s, -1"
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = xor ", reg)
-  print_type(vx.type, True, True)
+  printType(vx.type, True, True)
   space()
   print_value(vx)
 
@@ -273,7 +273,7 @@ let eval_minus = func Eval {
   let vx = load(eval(v.a[0]))
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = sub nsw ", reg)
-  print_type(vx.type, True, True)
+  printType(vx.type, True, True)
   fprintf(fout, " 0")
   comma()
   print_value(vx)
@@ -372,11 +372,11 @@ let eval_cast = func Eval {
     }
   }
 
-  print_type(ee.type, True, True)
+  printType(ee.type, True, True)
   space()
   print_value(ee)
   o(" to ")
-  print_type(to, True, True)
+  printType(to, True, True)
 
   return nv(v.type, StorageRegister, reg)
 }
@@ -429,7 +429,7 @@ let eval_bin = func Eval {
 
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = %s ", reg, o)
-  print_type(l.type, True, True)
+  printType(l.type, True, True)
   space()
   print_value(l)
   comma()
@@ -443,11 +443,11 @@ let print_st = func (l, r : *Value) -> Unit {
   let lx = eval(l)
   let rx = load(eval(r))
   fprintf(fout, "\n  store ")
-  print_type(rx.type, True, True)
+  printType(rx.type, True, True)
   space()
   print_value(rx)
   comma()
-  print_type(rx.type, True, True)
+  printType(rx.type, True, True)
   o("* ")
   print_value(lx)
 }
