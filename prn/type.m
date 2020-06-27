@@ -28,15 +28,18 @@ let printType = func (t : *Type, print_alias, func_as_ptr : Bool) -> Unit {
 
 let printTypeRecord = func (r : *TypeRecord) -> Unit {
   fprintf(fout, "{")
+  var need_comma : Bool
   need_comma = False
   let print_struct_field = func ListForeachHandler {
-    if need_comma {
+    let f = data to *Field
+    let need_comma = ctx to *Bool
+    if *need_comma {
       fprintf(fout, ", ")
     }
-    printType((data to *Field).type, True, True)
-    need_comma = True
+    printType(f.type, True, True)
+    *need_comma = True
   }
-  list_foreach(r.fields, print_struct_field, Nil)
+  list_foreach(r.fields, print_struct_field, &need_comma)
   fprintf(fout, "}")
 }
 
@@ -66,15 +69,17 @@ let printTypeFunc = func (f : *TypeFunc, func_as_ptr : Bool) -> Unit {
     printType(f.to, True, True);
   }
   fprintf(fout, " (")
+  var need_comma : Bool
   need_comma = False
   let pt_print_param = func ListForeachHandler {
-    if need_comma {
+    let need_comma = ctx to *Bool
+    if *need_comma {
       fprintf(fout, ", ")
     }
     printType((data to *Field).type, True, True)
-    need_comma = True
+    *need_comma = True
   }
-  list_foreach(f.params, pt_print_param, Nil)
+  list_foreach(f.params, pt_print_param, &need_comma)
   if f.arghack {o(", ...")}
   fprintf(fout, ")");
   if func_as_ptr {

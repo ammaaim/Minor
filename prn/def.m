@@ -12,16 +12,19 @@ let arraydef = func (id : Str, t : *Type, items : *List) -> Unit {
   printType(t, True, True)
   fprintf(fout, "] [")
 
+  var need_comma : Bool
   need_comma = False
   let print_array_item = func ListForeachHandler {
     let v = data to *Value
-    if need_comma {comma()}
+    let need_comma = ctx to *Bool
+
+    if *need_comma {comma()}
     printType(v.type, True, True)
     space()
     print_value(v)
-    need_comma = True
+    *need_comma = True
   }
-  list_foreach(items, print_array_item, Nil)
+  list_foreach(items, print_array_item, &need_comma)
 
   fprintf(fout, "], align 16")
 }
@@ -79,14 +82,17 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
   }
 
   fprintf(fout, " @%s (", id)
+  var need_comma : Bool
   need_comma = False
   let vf_print_param = func ListForeachHandler {
-    if need_comma {fprintf(fout, ", ")}
-    printType((data to *Field).type, True, True)
+    let f = data to *Field
+    let need_comma = ctx to *Bool
+    if *need_comma {fprintf(fout, ", ")}
+    printType(f.type, True, True)
     fprintf(fout, " %%_%s", (data to *Field).id)
-    need_comma = True
+    *need_comma = True
   }
-  list_foreach(t.function.params, vf_print_param, Nil)
+  list_foreach(t.function.params, vf_print_param, &need_comma)
   if t.function.arghack {o(", ...")}
   o(")")
   if b != Nil {

@@ -3,8 +3,6 @@
 
 var fout : *FILE       // output file
 
-var need_comma : Bool  // used by print_type, etc.
-
 var clab : Nat32       // current label (lab_get, lab_reset)
 
 let lab_reset = func () -> Unit {clab = 0}

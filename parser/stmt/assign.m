@@ -3,6 +3,12 @@
 
 let assign = func (l, r : *Value, ti : *TokenInfo) -> *Stmt {
   if l == Nil or r == Nil {return Nil}
+
+  if not storageIsMutable(&l.storage) {
+    error("invalid lval", l.ti)
+    return Nil
+  }
+
   return stmt_new_assign(l, r, ti)
 }
 
@@ -15,11 +21,6 @@ let stmtAssignCheck = func (s : *Stmt) -> Unit {
   let rt = getType(rv)
 
   //if lt == Nil or rt == Nil {return}
-
-  if not storageIsMutable(&lv.storage) {
-    error("invalid lval", lv.ti)
-    return
-  }
 
   let r = nat(rv, lv.type)
 

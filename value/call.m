@@ -2,7 +2,7 @@
 
 
 let call = func (f : *Value, a : *List, ti : *TokenInfo) -> *Value {
-  if f == Nil or a == Nil {return Nil}
+  if f == Nil or a == Nil {goto fail}
 
   let ret_type = Nil
 

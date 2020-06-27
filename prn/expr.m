@@ -109,35 +109,42 @@ let eval_call = func Eval {
 
   /* печатаем список аргументов */
   o(" (")
-  need_comma = False
+
 
   // типы аргументов будем брать из параметров
   // тк тип некоторых аргументов может оказаться Intager
-  var param_ln : *Node
-  param_ln = f.type.function.params.first
+
+  type PrintArgsCtx = record {
+    need_comma : Bool
+    param_ln : *Node
+  }
+
+  var pac : PrintArgsCtx
+  pac.need_comma = False
+  pac.param_ln = f.type.function.params.first
 
   let print_args = func ListForeachHandler {
-    if need_comma {comma()}
-
     let a = data to *Value
-    let param_ln = ctx to **Node
+    let pac = ctx to *PrintArgsCtx
+
+    if pac.need_comma {comma()}
 
     // пока есть параметры типы даем из параметров
     // когда параметры кончатся пойдут типы аргументов
     // это сделано изза того что аргумент может оказаться Intager
     // (см. выведение типа функции из контекста вызова)
-    if *param_ln != Nil {
-      printType(((*param_ln).data to *Field).type, True, True)
-      *param_ln = (*param_ln).next
+    if pac.param_ln != Nil {
+      printType((pac.param_ln.data to *Field).type, True, True)
+      pac.param_ln = pac.param_ln.next
     } else {
       printType(a.type, True, True)
     }
 
     space()
     print_value(a)
-    need_comma = True
+    pac.need_comma = True
   }
-  list_foreach(args, print_args, &param_ln)
+  list_foreach(args, print_args, &pac)
   o(")")
 
   /* возвращаем результат (регистр) */
