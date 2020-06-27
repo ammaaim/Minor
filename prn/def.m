@@ -82,6 +82,7 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
   }
 
   fprintf(fout, " @%s (", id)
+
   var need_comma : Bool
   need_comma = False
   let vf_print_param = func ListForeachHandler {
@@ -93,12 +94,14 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
     *need_comma = True
   }
   list_foreach(t.function.params, vf_print_param, &need_comma)
+
   if t.function.arghack {o(", ...")}
+
   o(")")
   if b != Nil {
     o(" {")
 
-    // печатеем локальные переменные для параметров
+    // печатаем локальные переменные для параметров
     /* Выделяем память локально и
     загружаем в нее параметры функции,
     после чего они будут доступны нам уже по указателю
@@ -121,7 +124,6 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
 
     reset_local_labels()
 
-    // print_value_index(&b.ctx.value_index)
     print_block(b)
     if isvoid {o("\n  ret void")}
     o("\n}")

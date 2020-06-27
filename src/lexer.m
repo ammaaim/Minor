@@ -2,6 +2,7 @@
 
 
 import "token"
+import "lib/ascii"
 
 
 let EOF = 0  // getcc returns EOF when file is over
@@ -31,12 +32,11 @@ type State = record {
 var lstate : State
 
 
+
 // счетчик количества отсканированных строк
 // (!) для всех ресурсов сборки
 var lines : Nat
 
-
-let linecnt = func () -> Unit {lstate.line = lstate.line + 1}
 
 
 let lex_init = func (fname : Str) -> Unit {
@@ -72,9 +72,6 @@ let getcc = func () -> Nat8 {
 
   return c
 }
-
-
-let lex_putback = func (c : Nat8) -> Unit {lstate.ch = c}
 
 
 type Rule = (c : Nat8) -> Bool
@@ -279,38 +276,8 @@ let string = func () -> Unit {
 }
 
 
-let need = func (s : Str) -> Bool {
-  let rc = match(s)
-  if rc == False {
-    /*if t[0] == "\n"[0] {
-      t = "NL";
-    }*/
-
-    var t : *Token
-    t = ctok()
-    error("unexpected symbol", &t.ti)
-    printf("expected %s instead %s\n", s, &t.text[0])  //
-    printf("ctok.type = %d\n", t.type)
-    exit(0)
-  }
-  return rc
-}
-
-
-let skip_nl = func () -> Unit {while match("\n") {/* skip */}}
-
-
-let skipto = func (s : Str) -> Unit {
-  error("lex::skipto not implemented\n", Nil)
-  printf("tok = '%s'\n", &ctok().text)
-  printf("skip_target = %s\n", s)
-  exit(1)
-}
-
-
 // токенизируем файл в список (включая TokenEOF)
 let tokenize = func (filename : Str) -> *List /*of Token*/ {
-
   let tokens = list_new()
   lex_init(filename)
 
@@ -325,9 +292,7 @@ let tokenize = func (filename : Str) -> *List /*of Token*/ {
     t.ti.start = lstate.start
     memcpy(&t.text, &lstate.token, len to Size_T)
     t.text[len + 1] = 0
-
     list_append(tokens, t)
-
     if tt == TokenEOF {break}
   }
 
@@ -337,13 +302,6 @@ let tokenize = func (filename : Str) -> *List /*of Token*/ {
 }
 
 
-
-let isalpha = func (c : Nat8) -> Bool {
-  return ((c >= "A"[0]) and (c <= "Z"[0])) or
-         ((c >= "a"[0]) and (c <= "z"[0]))
-}
-
-let isdigit = func (c : Nat8) -> Bool {return (c >= "0"[0]) and (c <= "9"[0])}
-let isalnum = func (c : Nat8) -> Bool {return isalpha(c) or isdigit(c)}
-
+let linecnt = func () -> Unit {lstate.line = lstate.line + 1}
+let lex_putback = func (c : Nat8) -> Unit {lstate.ch = c}
 

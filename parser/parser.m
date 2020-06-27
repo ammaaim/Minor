@@ -449,6 +449,17 @@ let separator = func () -> Bool {
 // skip current token
 let skip = func () -> Unit {mctx.src.token_node = mctx.src.token_node.next}
 
+// skip while NL
+let skip_nl = func () -> Unit {while match("\n") {/* skip */}}
+
+
+let skipto = func (s : Str) -> Unit {
+  error("lex::skipto not implemented\n", Nil)
+  printf("tok = '%s'\n", &ctok().text)
+  printf("skip_target = %s\n", s)
+  exit(1)
+}
+
 
 let match = func (s : Str) -> Bool {
   let tok = ctok()
@@ -461,6 +472,24 @@ let match = func (s : Str) -> Bool {
 
   if rc {skip()}
 
+  return rc
+}
+
+
+let need = func (s : Str) -> Bool {
+  let rc = match(s)
+  if rc == False {
+    /*if t[0] == "\n"[0] {
+      t = "NL";
+    }*/
+
+    var t : *Token
+    t = ctok()
+    error("unexpected symbol", &t.ti)
+    printf("expected %s instead %s\n", s, &t.text[0])  //
+    printf("ctok.type = %d\n", t.type)
+    exit(0)
+  }
   return rc
 }
 
