@@ -21,6 +21,11 @@ let getTypeCall = func (v : *Value) -> *Type {
 
   let tf = getType(f)
 
+  if tf == Nil {
+    error("undefined function", f.ti)
+    return Nil
+  }
+
   if tf.kind != TypeFunction {
     error("expected function", v.ti)
     return Nil
@@ -59,31 +64,25 @@ let checkParams = func (f : *Value, a : *List, ti : *TokenInfo) -> Bool {
 
     getType(arg)
 
-    let new_a = nat(arg, par.type)
-
-    //printf("YU2: %p, %p\n", par.type, arg.type)
+    let new_arg = nat(arg, par.type)
 
     // проверяем соответствие типа аргумента типу параметра
-    if not type_eq(par.type, new_a.type) {
+    if not type_eq(par.type, new_arg.type) {
       error("argument type not match param type: ", ti)//, f.storage.id)
-      printf("arg = "); prttype(new_a.type); printf("\n")
+      printf("arg = "); prttype(new_arg.type); printf("\n")
       printf("par = "); prttype(par.type); printf("\n")
       goto nextarg
     }
 
-    // добавляем runtime каст аргумента к параметру
-    //let new_arg = value_new(ValueCast, par.type, a, Nil)
-    list_subst(a, arg, new_a)
-
+    list_subst(a, arg, new_arg)
 
   nextarg:
-    // проверяем дальше
     aln = aln.next
     pln = pln.next
   }
 
 
-  // параметров больше нет, но есть еще аргументы
+  // параметров больше нет, но возможно есть еще аргументы
   while aln != Nil {
     // тк у нас кончились параметры, мы мало что можем сделать
     // но мы должны преобразовать Generic:Numeric аргументы к typeBaseInt
@@ -91,12 +90,12 @@ let checkParams = func (f : *Value, a : *List, ti : *TokenInfo) -> Bool {
 
     getType(arg)
 
-    let new_a = castIfNumericTo(arg, typeBaseInt)
+    let new_arg = castIfNumericTo(arg, typeBaseInt)
 
     // заменяем аргумент в списке на приведенный
-    list_subst(a, arg, new_a)
+    list_subst(a, arg, new_arg)
 
-    aln = aln.next  // we carry on
+    aln = aln.next
   }
 
   return True

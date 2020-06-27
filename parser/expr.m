@@ -431,10 +431,7 @@ let term_arr = func ValueParser {
     var item : *Value
     item = cexpr()
     if item == Nil {match(","); continue}
-    //item = nat(item, of)  // try to natural casting
-    /*if not check(item.type, of) {
-      error("literal array type error", ti)
-    }*/
+    item = castIfNumericTo(item, typeBaseInt)
     len = len + 1
     list_append(data, item)
     match(",")
@@ -490,8 +487,7 @@ let term_func = func ValueParser {
     goto fail
   }
 
-
-  // создаем значение функции (аватар)
+  // создаем значение функции
   let fv = value_new(ValueId, t, Nil, Nil)
 
   if parent_block != Nil {
@@ -499,7 +495,6 @@ let term_func = func ValueParser {
   }
 
   fctx.cfunc = fv
-  //fv.listOfCalls = list_new()
   fv.storage.class = StorageFunction
   fv.storage.id = id
   fv.defined_at = ti
@@ -508,13 +503,9 @@ let term_func = func ValueParser {
   fctx.cfunc = fv
 
   need("{")
-
   let block = doblock()
-
   fv.block = block  // для чека сохраняем сссылку на блок в самом значении
-
   asm_funcdef_add(&asm0, id, t, block)
-
   fctx = old_fctx
 
   return fv
@@ -533,12 +524,11 @@ let term_id = func ValueParser {
   v = get_value(id)
 
   if v == Nil {
-    /*error("unknown id", ti)*/
-    // встретили неизвестный id, создаем Value c Nil типом
     v = value_new(ValueId, Nil, Nil, Nil)
+    v.storage.class = StorageUndefined
     v.storage.id = id
     v.declared_at = ti
-    bind_value_global(id, v)  // НО НЕ связываем его!
+    bind_value_global(id, v)
   }
 
   v.storage.id = id  // !
