@@ -1,6 +1,7 @@
 // parser/main
 
-
+import "static"
+import "check"
 import "parser"
 import "define"
 import "data"

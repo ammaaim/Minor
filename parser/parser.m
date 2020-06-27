@@ -1,73 +1,10 @@
 // parser/parser
 
 
-type ModuleContext = record {
-  src : *Source      // current source
-
-  type_index,
-  value_index : Map  // индексы модуля
-}
-
-
-// parsing function context
-type FuncContext = record {
-  cfunc  : *Value  // current function
-  cblock : *Block  // current block
-  loop   : Nat32   // `we're in cycle` semaphore (used by break/continue)
-
-  // генераторы уникальных имен идентификаторов
-  locno,           // for local var
-  strno,           // for local string
-  arrno,           // for local literal array
-  recno  : Nat32   // for local literal record
-}
-
-
-var asm0 : Assembly          // сущности идущие на печать попадают сюда
-
-var mctx : ModuleContext     // current module context
-var fctx : FuncContext       // current function context
-
-
-
 let PATH_BUF_LEN = 512
 
 
 
-let checkMain = func () -> Unit {
-  let chk = func MapForeachHandler {
-
-    let val = v to *Value
-
-    getType(val)
-
-    // проверяем все функции
-    if val.type.kind == TypeFunction {
-      checkFunc(val)
-    }
-  }
-  map_foreach(&mctx.value_index, chk, Nil)
-}
-
-
-let checkFunc = func (f : *Value) -> Unit {
-  // set context
-  let old_cfunc = fctx.cfunc
-  fctx.cfunc = f
-
-  let b = f.block
-  // extern function doesn't have the block
-  if b != Nil {
-    stmtBlockCheck(b)
-  }
-
-  // reset context
-  fctx.cfunc = old_cfunc
-}
-
-
-
-// парсит модуль
 let parse = func (src : *Source) -> Unit {
   // save module context
   let old_src = mctx.src
