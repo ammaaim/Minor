@@ -9,16 +9,6 @@ import "value/init"
 let MINOR_LIB_ENV_VAR = "MINOR_LIB"
 
 
-type Settings = record {
-  cpuBitDepth,
-  dataAlignment,
-  charSize,
-  enumSize,
-  integerSize,
-  pointerSize : Nat32
-}
-
-
 
 let init = func () -> Unit {
   // set project directory
@@ -41,14 +31,21 @@ let init = func () -> Unit {
   settings = map_new()
 
   // default values (64-bit target)
-  set("cpuBitDepth", 64)
+  cfg.cpuBitDepth = 64
+  cfg.dataAlignment = 8
+  cfg.charSize = 1
+  cfg.enumSize = 2
+  cfg.integerSize = 8
+  cfg.pointerSize = 8
+
+  //set("cpuBitDepth", 64)
   set("dataAlignment", 8)
   set("charSize", 1)
   set("enumSize", 2)
   set("integerSize", 8)
   set("pointerSize", 8)
 
-  set("flagArghack", 0)
+  //set("flagArghack", 0)
 
   //handle_ini("cfg/sys64.cfg")
 

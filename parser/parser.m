@@ -54,9 +54,7 @@ let showTypes = func () -> Unit {
     }
 
     let t = v to *Type
-
     prttype(t)
-    //prttype(getType(v to *Value))
     printf("\n")
   }
   map_foreach(&mctx.type_index, shwt, Nil)

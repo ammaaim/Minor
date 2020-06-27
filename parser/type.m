@@ -36,7 +36,7 @@ let parse_type = func (add_new_type : Bool) -> *Type {
     error("expected type", ti)
     printf("tok=%s\n", ctok().text)
   } else {
-    t.size = alignment(t.size, get("dataAlignment") to Nat8)
+    t.size = alignment(t.size, cfg.dataAlignment to Nat8)
     t.defined_at = ti
     t.ti = ti
   }

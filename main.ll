@@ -48,6 +48,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %List = type {%Node*, %Node*, %Nat64}
 %Map = type {%Node*, %Node*, %Nat64}
 %MapForeachHandler = type void (%Unit*, %Unit*, %Unit*)*
+%Settings = type {%Nat32, %Nat32, %Nat32, %Nat32, %Nat32, %Nat32}
 %TokenType = type %Int16
 %TokenInfo = type {%Str, %Nat32, %Nat16, %Nat16}
 %Token = type {%TokenType, %TokenInfo, [0 x %Nat8]}
@@ -89,7 +90,6 @@ target triple = "x86_64-apple-macosx10.14.0"
 %Eval = type %Value* (%Value*)*
 %PrintArgsCtx = type {%Bool, %Node*}
 %Arch = type %Int16
-%Settings = type {%Nat32, %Nat32, %Nat32, %Nat32, %Nat32, %Nat32}
 
 ;consts:
 
@@ -333,7 +333,6 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func219_str5 = private unnamed_addr constant [2 x i8] c"(\00", align 1
 @func219_str6 = private unnamed_addr constant [14 x i8] c"expected type\00", align 1
 @func219_str7 = private unnamed_addr constant [8 x i8] c"tok=%s\0A\00", align 1
-@func219_str8 = private unnamed_addr constant [14 x i8] c"dataAlignment\00", align 1
 @func220_str1 = private unnamed_addr constant [12 x i8] c"expected id\00", align 1
 @func221_str1 = private unnamed_addr constant [14 x i8] c"dofield error\00", align 1
 @func221_str2 = private unnamed_addr constant [2 x i8] c",\00", align 1
@@ -687,13 +686,11 @@ target triple = "x86_64-apple-macosx10.14.0"
 @MINOR_LIB_ENV_VAR = private unnamed_addr constant [10 x i8] c"MINOR_LIB\00", align 1
 @func359_str1 = private unnamed_addr constant [42 x i8] c"enviroment variable MINOR_LIB not defined\00", align 1
 @func359_str2 = private unnamed_addr constant [7 x i8] c"<asm0>\00", align 1
-@func359_str3 = private unnamed_addr constant [12 x i8] c"cpuBitDepth\00", align 1
-@func359_str4 = private unnamed_addr constant [14 x i8] c"dataAlignment\00", align 1
-@func359_str5 = private unnamed_addr constant [9 x i8] c"charSize\00", align 1
-@func359_str6 = private unnamed_addr constant [9 x i8] c"enumSize\00", align 1
-@func359_str7 = private unnamed_addr constant [12 x i8] c"integerSize\00", align 1
-@func359_str8 = private unnamed_addr constant [12 x i8] c"pointerSize\00", align 1
-@func359_str9 = private unnamed_addr constant [12 x i8] c"flagArghack\00", align 1
+@func359_str3 = private unnamed_addr constant [14 x i8] c"dataAlignment\00", align 1
+@func359_str4 = private unnamed_addr constant [9 x i8] c"charSize\00", align 1
+@func359_str5 = private unnamed_addr constant [9 x i8] c"enumSize\00", align 1
+@func359_str6 = private unnamed_addr constant [12 x i8] c"integerSize\00", align 1
+@func359_str7 = private unnamed_addr constant [12 x i8] c"pointerSize\00", align 1
 @func360_str1 = private unnamed_addr constant [12 x i8] c"parsing ini\00", align 1
 @func360_str2 = private unnamed_addr constant [2 x i8] c"=\00", align 1
 @func360_str3 = private unnamed_addr constant [5 x i8] c"%lld\00", align 1
@@ -710,6 +707,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 
 ;vars:
 
+@cfg = global %Settings zeroinitializer
 @lstate = global %State zeroinitializer
 @lines = global %Nat32 zeroinitializer
 @pdir = global %Str zeroinitializer
@@ -11576,9 +11574,9 @@ else_7:
   %44 = load %Type*, %Type** %t
   %45 = getelementptr inbounds %Type, %Type* %44, i32 0, i32 2 ; eval_access
   %46 = load %Nat32, %Nat32* %45
-  %47 = bitcast [14 x %Nat8]* @func219_str8 to %Str
-  %48 = call %Nat64 (%Str) @get (%Str %47)
-  %49 = trunc %Nat64 %48 to %Nat8
+  %47 = getelementptr inbounds %Settings, %Settings* @cfg, i32 0, i32 1 ; eval_access
+  %48 = load %Nat32, %Nat32* %47
+  %49 = trunc %Nat32 %48 to %Nat8
   %50 = call %Nat32 (%Nat32, %Nat8) @alignment (%Nat32 %46, %Nat8 %49)
   store %Nat32 %50, %Nat32* %43
 
@@ -22055,37 +22053,53 @@ endif_0:
   store %List* %16, %List** @settings
 
 ;stmt12:
-  %17 = bitcast [12 x %Nat8]* @func359_str3 to %Str
-  call void (%Str, %Nat64) @set (%Str %17, %Nat64 64)
+  %17 = getelementptr inbounds %Settings, %Settings* @cfg, i32 0, i32 0 ; eval_access
+  store %Nat32 64, %Nat32* %17
 
 ;stmt13:
-  %18 = bitcast [14 x %Nat8]* @func359_str4 to %Str
-  call void (%Str, %Nat64) @set (%Str %18, %Nat64 8)
+  %18 = getelementptr inbounds %Settings, %Settings* @cfg, i32 0, i32 1 ; eval_access
+  store %Nat32 8, %Nat32* %18
 
 ;stmt14:
-  %19 = bitcast [9 x %Nat8]* @func359_str5 to %Str
-  call void (%Str, %Nat64) @set (%Str %19, %Nat64 1)
+  %19 = getelementptr inbounds %Settings, %Settings* @cfg, i32 0, i32 2 ; eval_access
+  store %Nat32 1, %Nat32* %19
 
 ;stmt15:
-  %20 = bitcast [9 x %Nat8]* @func359_str6 to %Str
-  call void (%Str, %Nat64) @set (%Str %20, %Nat64 2)
+  %20 = getelementptr inbounds %Settings, %Settings* @cfg, i32 0, i32 3 ; eval_access
+  store %Nat32 2, %Nat32* %20
 
 ;stmt16:
-  %21 = bitcast [12 x %Nat8]* @func359_str7 to %Str
-  call void (%Str, %Nat64) @set (%Str %21, %Nat64 8)
+  %21 = getelementptr inbounds %Settings, %Settings* @cfg, i32 0, i32 4 ; eval_access
+  store %Nat32 8, %Nat32* %21
 
 ;stmt17:
-  %22 = bitcast [12 x %Nat8]* @func359_str8 to %Str
-  call void (%Str, %Nat64) @set (%Str %22, %Nat64 8)
+  %22 = getelementptr inbounds %Settings, %Settings* @cfg, i32 0, i32 5 ; eval_access
+  store %Nat32 8, %Nat32* %22
 
 ;stmt18:
-  %23 = bitcast [12 x %Nat8]* @func359_str9 to %Str
-  call void (%Str, %Nat64) @set (%Str %23, %Nat64 0)
+  %23 = bitcast [14 x %Nat8]* @func359_str3 to %Str
+  call void (%Str, %Nat64) @set (%Str %23, %Nat64 8)
 
 ;stmt19:
-  call void () @type_init ()
+  %24 = bitcast [9 x %Nat8]* @func359_str4 to %Str
+  call void (%Str, %Nat64) @set (%Str %24, %Nat64 1)
 
 ;stmt20:
+  %25 = bitcast [9 x %Nat8]* @func359_str5 to %Str
+  call void (%Str, %Nat64) @set (%Str %25, %Nat64 2)
+
+;stmt21:
+  %26 = bitcast [12 x %Nat8]* @func359_str6 to %Str
+  call void (%Str, %Nat64) @set (%Str %26, %Nat64 8)
+
+;stmt22:
+  %27 = bitcast [12 x %Nat8]* @func359_str7 to %Str
+  call void (%Str, %Nat64) @set (%Str %27, %Nat64 8)
+
+;stmt23:
+  call void () @type_init ()
+
+;stmt24:
   call void () @value_init ()
   ret void
 }
