@@ -2,7 +2,7 @@
 
 
 let stmtGoto = func StmtParser {
-  let lab = parse_id()
+  let lab = parseId()
   if lab == Nil {
     error("expected label", Nil)
     return Nil

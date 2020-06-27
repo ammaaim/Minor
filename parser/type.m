@@ -47,7 +47,7 @@ let parse_type = func (add_new_type : Bool) -> *Type {
 
 let parse_type_base = func TypeParser {
   let ti = &ctok().ti
-  let id = parse_id()
+  let id = parseId()
 
   if id == Nil {
     error("expected id", ti)
@@ -70,7 +70,7 @@ let parse_fields = func (term : Str) -> *List {
   while not match(term) {
     skip_nl()
     let ti = &ctok().ti
-    let fl2 = parse_field()
+    let fl2 = parseField()
     if fl2 == Nil {
       error("dofield error", ti)
       goto fail
@@ -108,7 +108,7 @@ let parse_type_enum = func TypeParser {
 
     let ec = malloc(sizeof EnumConstructor) to *EnumConstructor
 
-    ec.id = parse_id()
+    ec.id = parseId()
     ec.d = num
 
     list_append(constructors, ec)

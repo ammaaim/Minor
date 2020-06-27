@@ -308,7 +308,7 @@ let hier11 = func ValueParser {
       match("]")
       v = indx(v, i, ti)
     } else if match(".") {
-      let field_id = parse_id()
+      let field_id = parseId()
       v = access(v, field_id, ti)
     } else {
       break
@@ -517,7 +517,7 @@ fail:
 
 let term_id = func ValueParser {
   let ti = &ctok().ti
-  let id = parse_id()
+  let id = parseId()
   if id == Nil {return Nil}
 
   var v : *Value

@@ -1,8 +1,10 @@
 // parser/data
 
 
+// base indexes (for builtin entities)
 var globalTypeIndex,
-    globalValueIndex : Map  // base indexes (for builtin entities)
+    globalValueIndex : Map
+
 
 
 let bind_type_local = func (id : Str, t : *Type) -> Unit {

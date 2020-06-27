@@ -146,7 +146,7 @@ let parse = func (src : *Source) -> Unit {
   while True {
     skip_nl()
     if match("import") {
-      doimport()
+      parseImport()
     } else {
       break
     }
@@ -159,13 +159,13 @@ let parse = func (src : *Source) -> Unit {
     let tk = ctok()
 
     if match("let") {
-      dolet(False)
+      parseLet(False)
     } else if match("type") {
-      dotypedef()
+      parseTypedef()
     } else if match("extern") {
-      doextern()
+      parseExtern()
     } else if match("var") {
-      dovardef()
+      parseVardef()
     } else {
       /* check flags */
       if match("arghack") {set("flagArghack", 1); continue}
@@ -200,7 +200,7 @@ let parse = func (src : *Source) -> Unit {
 }
 
 
-let doimport = func () -> Unit {
+let parseImport = func () -> Unit {
   if ctok().type != TokenString {
     error("expected import string", &ctok().ti)
     skip()
@@ -237,8 +237,8 @@ fail:
 
 
 // syntax: type <Id> = <Type>
-let dotypedef = func () -> Unit {
-  let id = parse_id()
+let parseTypedef = func () -> Unit {
+  let id = parseId()
   if id == Nil {return}
 
   need("=")
@@ -272,27 +272,9 @@ let dotypedef = func () -> Unit {
   asm_typedef_add(&asm0, id, t)
 }
 
-
-let dovardef = func () -> Unit {
-  let fieldlist = parse_field()
-
-  let handle_fields = func ListForeachHandler {
-    let f = data to *Field
-    let id = f.id
-    let type = f.type
-    if fctx.cfunc != Nil {
-      create_local_var(id, type, Nil)
-    } else {
-      create_global_var(id, type, Nil)
-    }
-  }
-  list_foreach(fieldlist, handle_fields, Nil)
-}
-
-
-let dolet = func (local : Bool) -> *Stmt {
+let parseLet = func (local : Bool) -> *Stmt {
   let ti = &ctok().ti
-  let id = parse_id()
+  let id = parseId()
 
   need("=")
   let v = expr()
@@ -338,8 +320,25 @@ let dolet = func (local : Bool) -> *Stmt {
 }
 
 
-let doextern = func () -> Unit {
-  let fl = parse_field()
+let parseVardef = func () -> Unit {
+  let fieldlist = parseField()
+
+  let handle_fields = func ListForeachHandler {
+    let f = data to *Field
+    let id = f.id
+    let type = f.type
+    if fctx.cfunc != Nil {
+      create_local_var(id, type, Nil)
+    } else {
+      create_global_var(id, type, Nil)
+    }
+  }
+  list_foreach(fieldlist, handle_fields, Nil)
+}
+
+
+let parseExtern = func () -> Unit {
+  let fl = parseField()
   let extern_decl = func ListForeachHandler {
     let f = data to *Field
     declare(f.id, f.type, f.ti)  // False = not local
@@ -348,9 +347,8 @@ let doextern = func () -> Unit {
 }
 
 
-
 // returns Str or Nil
-let parse_id = func () -> Str {
+let parseId = func () -> Str {
   let t = ctok()
   if t.type != TokenId {
     error("expected id", &t.ti)
@@ -370,12 +368,12 @@ let parse_id = func () -> Str {
 
 
 // returns List of Field
-// syntax: <id> ':' <type>
-let parse_field = func () -> *List {
+// syntax: <id> [,<id>] ':' <type>
+let parseField = func () -> *List {
   let fieldlist = list_new()
   while True {
     let ti = &ctok().ti
-    let id = parse_id()
+    let id = parseId()
     let f = field_new(id, Nil, ti)
     list_append(fieldlist, f)
     if not match(",") {break}
@@ -399,94 +397,6 @@ let parse_field = func () -> *List {
 
 fail:
   return Nil
-}
-
-
-// возвращает ноду текущего токена
-let gett = func () -> *Node {return mctx.src.token_node}
-// устанавливает ноду текущего токена
-let sett = func (tn : *Node) -> Unit {mctx.src.token_node = tn}
-let ctok = func () -> *Token {return gett().data to *Token}
-let eof = func () -> Bool {return ctok().type == TokenEOF}
-/*let nextok = func () -> *Token {
-  if gett().next != Nil {
-    return gett().next.data to *Token
-  }
-  return Nil
-}*/
-
-
-/*
- * Вызывается тогда, когда ожидаем обнаружить символ-разделитель.
- * Если все ок и разделитель присутствует - возвращает 1
- * Если разделителя нет - выводит ошибку и возвращает 0
- */
-let sep = func () -> Bool {
-  let ct = ctok()
-  let s = separator()
-
-  if s == False {
-    error("expected separator", &ct.ti)
-  }
-
-  return s
-}
-
-
-let separator = func () -> Bool {
-  let ct = ctok().text[0]
-  if ct == "\n"[0] or ct == ";"[0] {skip(); return True}
-  // если за нами закрывается скобка - сепаратор не нужен
-  if ct == "}"[0] or ct == ")"[0] {return True}
-  return False
-}
-
-
-// skip current token
-let skip = func () -> Unit {mctx.src.token_node = mctx.src.token_node.next}
-
-// skip while NL
-let skip_nl = func () -> Unit {while match("\n") {/* skip */}}
-
-
-let skipto = func (s : Str) -> Unit {
-  error("lex::skipto not implemented\n", Nil)
-  printf("tok = '%s'\n", &ctok().text)
-  printf("skip_target = %s\n", s)
-  exit(1)
-}
-
-
-let match = func (s : Str) -> Bool {
-  let tok = ctok()
-  let tt = tok.type
-  if tt == TokenString or tt == TokenEOF {
-    return False
-  }
-
-  let rc = strcmp(s, &tok.text to Str) == 0
-
-  if rc {skip()}
-
-  return rc
-}
-
-
-let need = func (s : Str) -> Bool {
-  let rc = match(s)
-  if rc == False {
-    /*if t[0] == "\n"[0] {
-      t = "NL";
-    }*/
-
-    var t : *Token
-    t = ctok()
-    error("unexpected symbol", &t.ti)
-    printf("expected %s instead %s\n", s, &t.text[0])  //
-    printf("ctok.type = %d\n", t.type)
-    exit(0)
-  }
-  return rc
 }
 
 

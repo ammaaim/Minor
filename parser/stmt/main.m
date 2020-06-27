@@ -39,7 +39,7 @@ let stmtCheck = func (s : *Stmt) -> Unit {
 let stmt = func () -> *Stmt {
   let ti = &ctok().ti
   if match("let") {
-    return dolet(True); sep()
+    return parseLet(True); sep()
   } else if match("{") {
     return stmtBlock(ti)
   } else if match("if") {
@@ -53,10 +53,10 @@ let stmt = func () -> *Stmt {
   } else if match("continue") {
     return stmtContinue(ti)
   } else if match("var") {
-    dovardef(); sep()
+    parseVardef(); sep()
     return Nil
   } else if match("type") {
-    dotypedef(); sep()
+    parseTypedef(); sep()
     return Nil
   } else if match("goto") {
     return stmtGoto(ti)
@@ -68,7 +68,7 @@ let stmt = func () -> *Stmt {
   // пытаясь понять не label ли это
   let tkn = gett()
   if ctok().type == TokenId {
-    let id = parse_id()
+    let id = parseId()
     let ti = &ctok().ti
     if match(":") {
       // yes, it's label

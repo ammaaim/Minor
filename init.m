@@ -74,7 +74,7 @@ let handle_ini = func (fname : Str) -> Unit {
 
     if eof() {break}
 
-    let key = parse_id()
+    let key = parseId()
 
     need("=")
 
