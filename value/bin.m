@@ -40,6 +40,8 @@ let bin = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
     v = binImm(k, l, r)  // const folding
   } else {
     v = value_new_register(k, t, l, r)
+    v.bin.l = l
+    v.bin.r = r
   }
 
   v.ti = ti
@@ -99,8 +101,8 @@ let binImm = func (k : ValueKind, l, r : *Value) -> *Value {
 
 
 let getTypeBinary = func (v : *Value) -> *Type {
-  let lv = v.a[0]
-  let rv = v.a[1]
+  let lv = v.bin.l
+  let rv = v.bin.r
 
   let lt0 = getType(lv)
   let rt0 = getType(rv)
@@ -127,8 +129,8 @@ let getTypeBinary = func (v : *Value) -> *Type {
     return Nil
   }
 
-  v.a[0] = l
-  v.a[1] = r
+  v.bin.l = l
+  v.bin.r = r
 
   if isReletionOpKind(op_kind) {
     return typeBool

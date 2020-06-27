@@ -10,8 +10,6 @@ let value_new = func (k : ValueKind, t : *Type, l, r : *Value) -> *Value {
   assert(v != Nil, "value_new")
   memset(v, 0, sizeof Value)
   v.kind = k
-  v.a[0] = l
-  v.a[1] = r
   v.type = t
   v.storage.class = StorageUndefined
   return v
@@ -27,13 +25,16 @@ let value_is_const = func (v : *Value) -> Bool {
 let valueFreePtr2 = func () -> *Value {
   let nat0 = value_new_imm_const(typeBaseNat, 0)
   let nil = value_new_register(ValueCast, typeFreePtr, nat0, Nil)
-  nil.cast.to = typeFreePtr  //!
+  nil.cast.value = nat0
+  nil.cast.to = typeFreePtr
   return nil
 }
 
 
 let value_new_register = func (k : ValueKind, t : *Type, l, r : *Value) -> *Value {
   let v = value_new(k, t, l, r)
+  v.bin.l = l
+  v.bin.r = r
   v.storage.class = StorageRegister
   return v
 }
@@ -41,6 +42,8 @@ let value_new_register = func (k : ValueKind, t : *Type, l, r : *Value) -> *Valu
 
 let value_new_address = func (k : ValueKind, t : *Type, l, r : *Value) -> *Value {
   let v = value_new(k, t, l, r)
+  v.bin.l = l
+  v.bin.r = r
   v.storage.class = StorageAddress
   return v
 }

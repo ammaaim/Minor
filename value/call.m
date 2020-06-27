@@ -7,6 +7,7 @@ let call = func (f : *Value, a : *List, ti : *TokenInfo) -> *Value {
   let ret_type = Nil
 
   let v = value_new_register(ValueCall, ret_type, f, Nil)
+  v.call.function = f
   v.call.arguments = a
 
   return v
@@ -17,7 +18,7 @@ fail:
 
 
 let getTypeCall = func (v : *Value) -> *Type {
-  let f = v.a[0]
+  let f = v.call.function
 
   let tf = getType(f)
 

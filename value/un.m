@@ -28,6 +28,7 @@ let un_minus = func (v : *Value, ti : *TokenInfo) -> *Value {
   }
 
   vx = value_new_register(ValueMinus, /*v.type*/Nil, v, Nil)
+  vx.un.x = v
   vx.ti = ti
   return vx
 }
@@ -39,6 +40,7 @@ let un_not = func (v : *Value, ti : *TokenInfo) -> *Value {
     return value_new_imm_const(v.type, not v.storage.val)
   }
   vx = value_new_register(ValueNot, /*v.type*/ Nil, v, Nil)
+  vx.un.x = v
   vx.ti = ti
   return vx
 }
@@ -50,6 +52,7 @@ let un_ref = func (v : *Value, ti : *TokenInfo) -> *Value {
   }*/
 
   let vx = value_new_register(ValueRef, Nil, v, Nil)
+  vx.un.x = v
   vx.ti = ti
   return vx
 }
@@ -57,13 +60,14 @@ let un_ref = func (v : *Value, ti : *TokenInfo) -> *Value {
 
 let un_deref = func (v : *Value, ti : *TokenInfo) -> *Value {
   let vx = value_new_address(ValueDeref, Nil, v, Nil)
+  vx.un.x = v
   vx.ti = ti
   return vx
 }
 
 
 let getTypeUnary = func (v : *Value) -> *Type {
-  let a = v.a[0]
+  let a = v.un.x
 
   let t0 = getType(a)
 

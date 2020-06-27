@@ -34,6 +34,7 @@ let cast = func (v : *Value, t : *Type, ti : *TokenInfo) -> *Value {
 
   // во всех остальных случаях выполняем runtime приведение
   let vc = value_new_register(ValueCast, Nil, v, Nil)
+  vc.cast.value = v
   vc.cast.to = t
   return vc
 
@@ -43,7 +44,7 @@ fail:
 
 
 let getTypeCast = func (v : *Value) -> *Type {
-  let a = v.a[0]
+  let a = v.cast.value
   let t = getType(a)
   let rt = v.cast.to
   return rt

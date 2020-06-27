@@ -25,7 +25,6 @@ let type_function_eq = func (a, b : *TypeFunc) -> Bool {
   if not type_eq(a.to, b.to) {return False}
 
   // ok, now we need to check param lists
-
   let check_param = func ListCompareHandler {
     let f1 = data1 to *Field
     let f2 = data2 to *Field

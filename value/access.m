@@ -7,6 +7,7 @@ let access = func (r : *Value, fid : Str, ti : *TokenInfo) -> *Value {
   let field_type = Nil
 
   let v = value_new_address(ValueAccess, field_type, r, Nil)
+  v.access.value = r
   v.access.field = fid
   return v
 
@@ -16,7 +17,7 @@ fail:
 
 
 let getTypeAccess = func (v : *Value) -> *Type {
-  let a = v.a[0]
+  let a = v.access.value
   let tx = getType(a)
 
   var record_type : *Type

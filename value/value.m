@@ -45,15 +45,13 @@ type Value = record {
   block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
 
 
-  /*
-   * Ссылка на операнд(ы) для un, bin,
-   */
-  a : [2]*Value
-
 //union{
-  access : record {field : Str}
-  call   : record {arguments : *List}
-  cast   : record {to : *Type}
+  un     : record {x : *Value}
+  bin    : record {l, r : *Value}
+  index  : record {array, index : *Value}
+  access : record {value : *Value, field : Str}
+  cast   : record {value : *Value, to : *Type}
+  call   : record {function : *Value, arguments : *List}
 //}
 
   // ti - место упоминания значения в конкретном случае

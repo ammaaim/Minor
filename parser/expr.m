@@ -23,7 +23,7 @@ let cexpr = func ValueParser {
 
   // ссылка на глобальную переменную - тоже константа
   if v.kind == ValueRef {
-    let sc = v.a[0].storage.class
+    let sc = v.un.x.storage.class
     if sc == StorageGlobal {
       //printf("CAT!\n")
       return v  // it's ok to be Ref to global
@@ -401,6 +401,7 @@ let term_str = func ValueParser {
   // возвращаем операцию приведения указателя на массив к Str
   // это хак с костылем но что поделаешь - LLVM...
   let vs = value_new(ValueCast, typeStr, v, Nil)
+  vs.cast.value = v
   vs.cast.to = typeStr  // !
   vs.storage.class = StorageString
   vs.defined_at = ti

@@ -81,7 +81,7 @@ let load = func Eval {
 
 let eval_call = func Eval {
   /*"%retval = call i32 @test(i32 %argc)"*/
-  let ee = eval(v.a[0])
+  let ee = eval(v.call.function)
   let f = load(ee)
 
   /* вычисляем аргументы перед печатью вызова */
@@ -154,9 +154,9 @@ let eval_call = func Eval {
 
 let eval_index = func Eval {
   var a : *Value
-  a = eval(v.a[0])
+  a = eval(v.index.array)
 
-  let i = load(eval(v.a[1]))
+  let i = load(eval(v.index.index))
 
   if a.type.array.undefined {
     a = load(a)
@@ -199,7 +199,7 @@ let eval_access = func Eval {
   var s : *Value
   var record_type : *Type
 
-  s = eval(v.a[0])
+  s = eval(v.access.value)
 
   if s.type.kind == TypePointer {
     record_type = s.type.pointer.to
@@ -227,7 +227,7 @@ let eval_access = func Eval {
 
 
 let eval_ref = func Eval {
-  let vx = eval(v.a[0])
+  let vx = eval(v.un.x)
   if vx.storage.class == StorageAddress {
     // если это адрес - вернем его в регистре, а тип обернем в указатель
     return nv(v.type, StorageRegister, vx.storage.reg)
@@ -249,7 +249,7 @@ let eval_ref = func Eval {
 
 
 let eval_deref = func Eval {
-  let vx = load(eval(v.a[0]))  // загружаем указатель
+  let vx = load(eval(v.un.x))  // загружаем указатель
 
   // возвращаем загруженный указатель как #Address
   return nv(v.type, StorageAddress, vx.storage.reg)
@@ -257,7 +257,7 @@ let eval_deref = func Eval {
 
 
 let eval_not = func Eval {
-  let vx = load(eval(v.a[0]))
+  let vx = load(eval(v.un.x))
 
   //"%s = xor %s, -1"
   let reg = lab_get()
@@ -277,7 +277,7 @@ let eval_minus = func Eval {
   //nuw and nsw stand for "No Unsigned Wrap" and "No Signed Wrap", respectively. If the nuw and/or
   //nsw keywords are present, the result value of the add is undefined if unsigned and/or signed
   //overflow, respectively, occurs.
-  let vx = load(eval(v.a[0]))
+  let vx = load(eval(v.un.x))
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = sub nsw ", reg)
   printType(vx.type, True, True)
@@ -303,7 +303,7 @@ let eval_cast = func Eval {
   var xx : Nat32
   xx = 0
   let to = v.cast.to
-  let eee = eval(v.a[0])
+  let eee = eval(v.cast.value)
 
   let ee = load(eee)
 
@@ -394,7 +394,7 @@ let eval_bin = func Eval {
   o = "<oper>"
 
   // берем тип левого а не тип v тк у v может быть Bool тип!
-  let signed = v.a[0].type.basic.s
+  let signed = v.bin.l.type.basic.s
 
   let k = v.kind
   if k == ValueAdd {
@@ -431,8 +431,8 @@ let eval_bin = func Eval {
     if signed {o = "ashr"} else {o = "lshr"}
   }
 
-  let l = load(eval(v.a[0]))
-  let r = load(eval(v.a[1]))
+  let l = load(eval(v.bin.l))
+  let r = load(eval(v.bin.r))
 
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = %s ", reg, o)

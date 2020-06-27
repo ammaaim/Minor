@@ -24,6 +24,8 @@ let shift_op = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
     retv = value_new_imm_const(ltype, v)
   } else {
     retv = value_new_register(k, ltype, l, r)
+    retv.bin.l = l
+    retv.bin.r = r
   }
 
   retv.ti = ti
@@ -36,8 +38,8 @@ fail:
 
 
 let getTypeShift = func (v : *Value) -> *Type {
-  let a = v.a[0]
-  let r = v.a[1]
+  let a = v.bin.l
+  let r = v.bin.r
   getType(a)
   getType(r)
 

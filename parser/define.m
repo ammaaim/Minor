@@ -79,9 +79,9 @@ let rename = func (v : *Value, id : Str) -> Unit {
     // в приведение к типу Str
     // поэтому тут мы залазим в строку через (жопу) операцию приведения
 
-    let default_name = v.a[0].storage.id
+    let default_name = v.cast.value.storage.id
     // переименовываем само значение
-    v.a[0].storage.id = real_id
+    v.cast.value.storage.id = real_id
     // и константу в сборке
     asm_const_rename(&asm0, default_name, real_id)
   }
