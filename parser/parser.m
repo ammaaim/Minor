@@ -12,23 +12,21 @@ type ModuleContext = record {
 }
 
 
+// parsing function context
 type FuncContext = record {
   cfunc  : *Value  // current function
   cblock : *Block  // current block
-  loop   : Nat32   // `we're in cycle` semaphore (for break/continue)
+  loop   : Nat32   // `we're in cycle` semaphore (used by break/continue)
 
-  // генераторы идентификаторов
-  locno,           // для локальной переменной
-  strno,           // для локальной строки
-  arrno,           // для локального массива
-  recno  : Nat32   // для локальной записи
+  // генераторы уникальных имен идентификаторов
+  locno,           // for local var
+  strno,           // for local string
+  arrno,           // for local literal array
+  recno  : Nat32   // for local literal record
 }
 
 
 var asm0 : Assembly          // сущности идущие на печать попадают сюда
-
-var globalTypeIndex,
-    globalValueIndex : *Map  // base indexes (for builtin entities)
 
 var mctx : ModuleContext     // current module context
 var fctx : FuncContext       // current function context
@@ -463,8 +461,8 @@ let skipto = func (s : Str) -> Unit {
 
 let match = func (s : Str) -> Bool {
   let tok = ctok()
-
-  if tok.type == TokenString or tok.type == TokenEOF {
+  let tt = tok.type
+  if tt == TokenString or tt == TokenEOF {
     return False
   }
 

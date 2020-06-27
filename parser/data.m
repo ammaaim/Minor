@@ -1,6 +1,10 @@
 // parser/data
 
 
+var globalTypeIndex,
+    globalValueIndex : Map  // base indexes (for builtin entities)
+
+
 let bind_type_local = func (id : Str, t : *Type) -> Unit {
   add_type(&fctx.cblock.type_index, id, t)
 }
@@ -12,7 +16,7 @@ let bind_type_global = func (id : Str, t : *Type) -> Unit {
 
 
 let bind_type_builtin = func (id : Str, t : *Type) -> Unit {
-  map_append(globalTypeIndex, id, t)
+  map_append(&globalTypeIndex, id, t)
 }
 
 
@@ -28,7 +32,7 @@ let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
 let get_type = func (id : Str) -> *Type {
   // firstly search in globalTypeIndex тк наибольшая вероятность что тип там
   // тк встроенные типы чаще всего встречаются в коде
-  let builtin_t = map_get(globalTypeIndex, id)
+  let builtin_t = map_get(&globalTypeIndex, id)
   if builtin_t != Nil {return builtin_t}
 
   // local searching
@@ -85,7 +89,7 @@ let add_value = func (index : *Map, id : Str, v : *Value) -> Unit {
 
 
 let bind_value_builtin = func (id : Str, v : *Value) -> Unit {
-  map_append(globalValueIndex, id, v)
+  map_append(&globalValueIndex, id, v)
 }
 
 
@@ -133,7 +137,7 @@ let get_value_global = func (id : Str) -> *Value {
 
 let get_value_builtin = func (id : Str) -> *Value {
   if strcmp("Nil", id) == 0 {return valueFreePtr2()}
-  let x = map_get(globalValueIndex, id)
+  let x = map_get(&globalValueIndex, id)
   if x == Nil {
     if strcmp(id, "self") == 0 {
       return fctx.cfunc

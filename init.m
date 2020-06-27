@@ -35,8 +35,8 @@ let init = func () -> Unit {
 
   asm_init(&asm0, "<asm0>")
 
-  globalTypeIndex = map_new()
-  globalValueIndex = map_new()
+  map_init(&globalTypeIndex)
+  map_init(&globalValueIndex)
 
   settings = map_new()
 

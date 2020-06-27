@@ -729,11 +729,11 @@ target triple = "x86_64-apple-macosx10.14.0"
 @x_uid = global %Nat32 zeroinitializer
 @needs = global %Bool zeroinitializer
 @asm0 = global %Assembly zeroinitializer
-@globalTypeIndex = global %List* zeroinitializer
-@globalValueIndex = global %List* zeroinitializer
 @mctx = global %ModuleContext zeroinitializer
 @fctx = global %FuncContext zeroinitializer
 @settings = global %List* zeroinitializer
+@globalTypeIndex = global %List zeroinitializer
+@globalValueIndex = global %List zeroinitializer
 @func_uid = global %Nat32 zeroinitializer
 @str_uid = global %Nat32 zeroinitializer
 @arr_uid = global %Nat32 zeroinitializer
@@ -10029,45 +10029,45 @@ define %Bool @match (%Str %_s) {
 ;stmt1:
   %2 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 0 ; eval_access
   %3 = load %TokenType, %TokenType* %2
-  %4 = icmp eq %TokenType %3, 4
-  %5 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 0 ; eval_access
-  %6 = load %TokenType, %TokenType* %5
-  %7 = icmp eq %TokenType %6, 0
-  %8 = or %Bool %4, %7
-  br i1 %8, label %then_0, label %else_0
-then_0:
 
 ;stmt2:
+  %4 = icmp eq %TokenType %3, 4
+  %5 = icmp eq %TokenType %3, 0
+  %6 = or %Bool %4, %5
+  br i1 %6, label %then_0, label %else_0
+then_0:
 
 ;stmt3:
+
+;stmt4:
   ret %Bool 0
   br label %endif_0
 else_0:
   br label %endif_0
 endif_0:
 
-;stmt4:
-  %10 = load %Str, %Str* %s
-  %11 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 2 ; eval_access
-  %12 = bitcast [0 x %Nat8]* %11 to %Str
-  %13 = call %Int32 (%Str, %Str) @strcmp (%Str %10, %Str %12)
-  %14 = icmp eq %Int32 %13, 0
-
 ;stmt5:
-  br i1 %14, label %then_1, label %else_1
-then_1:
+  %8 = load %Str, %Str* %s
+  %9 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 2 ; eval_access
+  %10 = bitcast [0 x %Nat8]* %9 to %Str
+  %11 = call %Int32 (%Str, %Str) @strcmp (%Str %8, %Str %10)
+  %12 = icmp eq %Int32 %11, 0
 
 ;stmt6:
+  br i1 %12, label %then_1, label %else_1
+then_1:
 
 ;stmt7:
+
+;stmt8:
   call void () @skip ()
   br label %endif_1
 else_1:
   br label %endif_1
 endif_1:
 
-;stmt8:
-  ret %Bool %14
+;stmt9:
+  ret %Bool %12
 }
 
 define %Bool @need (%Str %_s) {
@@ -10466,7 +10466,7 @@ define void @bind_type_builtin (%Str %_id, %Type* %_t) {
   store %Type* %_t, %Type** %t
 
 ;stmt0:
-  %1 = load %List*, %List** @globalTypeIndex
+  %1 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0 ; ref
   %2 = load %Str, %Str* %id
   %3 = load %Type*, %Type** %t
   %4 = bitcast %Type* %3 to %Unit*
@@ -10521,7 +10521,7 @@ define %Type* @get_type (%Str %_id) {
   store %Str %_id, %Str* %id
 
 ;stmt0:
-  %1 = load %List*, %List** @globalTypeIndex
+  %1 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0 ; ref
   %2 = load %Str, %Str* %id
   %3 = call %Unit* (%List*, %Str) @map_get (%List* %1, %Str %2)
 
@@ -10735,7 +10735,7 @@ define void @bind_value_builtin (%Str %_id, %Value* %_v) {
   store %Value* %_v, %Value** %v
 
 ;stmt0:
-  %1 = load %List*, %List** @globalValueIndex
+  %1 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0 ; ref
   %2 = load %Str, %Str* %id
   %3 = load %Value*, %Value** %v
   %4 = bitcast %Value* %3 to %Unit*
@@ -10934,7 +10934,7 @@ else_0:
 endif_0:
 
 ;stmt3:
-  %7 = load %List*, %List** @globalValueIndex
+  %7 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0 ; ref
   %8 = load %Str, %Str* %id
   %9 = call %Unit* (%List*, %Str) @map_get (%List* %7, %Str %8)
 
@@ -21776,7 +21776,7 @@ endif_0:
   %26 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %24, %Str %25)
 
 ;stmt11:
-  %27 = load %List*, %List** @globalTypeIndex
+  %27 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0 ; ref
   %28 = inttoptr %Nat32 0 to %Unit*
   call void (%List*, %MapForeachHandler, %Unit*) @map_foreach (%List* %27, %MapForeachHandler @prt_itype, %Unit* %28)
 
@@ -22043,12 +22043,12 @@ endif_0:
   call void (%Assembly*, %Str) @asm_init (%Assembly* %12, %Str %13)
 
 ;stmt9:
-  %14 = call %List* () @map_new ()
-  store %List* %14, %List** @globalTypeIndex
+  %14 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0 ; ref
+  call void (%List*) @map_init (%List* %14)
 
 ;stmt10:
-  %15 = call %List* () @map_new ()
-  store %List* %15, %List** @globalValueIndex
+  %15 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0 ; ref
+  call void (%List*) @map_init (%List* %15)
 
 ;stmt11:
   %16 = call %List* () @map_new ()
