@@ -15,7 +15,7 @@ let init = func () -> Unit {
   pdir = malloc(PATH_BUF_LEN)
   getcwd(pdir, PATH_BUF_LEN)
 
-  liblist = list_new()
+  list_init(&liblist)
 
   let syslib_path = getenv(MINOR_LIB_ENV_VAR)
   if syslib_path to *Unit == Nil {

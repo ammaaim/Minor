@@ -711,7 +711,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 @lstate = global %State zeroinitializer
 @lines = global %Nat32 zeroinitializer
 @pdir = global %Str zeroinitializer
-@liblist = global %List* zeroinitializer
+@liblist = global %List zeroinitializer
 @warncnt = global %Nat32 zeroinitializer
 @errcnt = global %Nat32 zeroinitializer
 @typeUnit = global %Type* zeroinitializer
@@ -4143,7 +4143,7 @@ define void @liblist_add (%Str %_path) {
   store %Str %_path, %Str* %path
 
 ;stmt0:
-  %1 = load %List*, %List** @liblist
+  %1 = getelementptr inbounds %List, %List* @liblist, i32 0 ; ref
   %2 = load %Str, %Str* %path
   %3 = bitcast %Str %2 to %Unit*
   %4 = call %Bool (%List*, %Unit*) @list_append (%List* %1, %Unit* %3)
@@ -4478,7 +4478,7 @@ else_1:
 endif_1:
 
 ;stmt8:
-  %15 = load %List*, %List** @liblist
+  %15 = getelementptr inbounds %List, %List* @liblist, i32 0 ; ref
   %16 = load %Str, %Str* %import_string
   %17 = bitcast %Str %16 to %Unit*
   %18 = call %Unit* (%List*, %ListSearchHandler, %Unit*) @list_search (%List* %15, %ListSearchHandler @search_in_lib, %Unit* %17)
@@ -22008,8 +22008,8 @@ define void @init () {
   %4 = call %Str (%Str, %Nat32) @getcwd (%Str %3, %Nat32 512)
 
 ;stmt2:
-  %5 = call %List* () @map_new ()
-  store %List* %5, %List** @liblist
+  %5 = getelementptr inbounds %List, %List* @liblist, i32 0 ; ref
+  call void (%List*) @map_init (%List* %5)
 
 ;stmt3:
   %6 = bitcast [10 x %Nat8]* @MINOR_LIB_ENV_VAR to %Str

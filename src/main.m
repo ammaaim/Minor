@@ -16,9 +16,9 @@ type Source = record {
 
 
 
-var pdir : Str       // current, project & lib dir paths
+var pdir : Str      // current, project & lib dir paths
 
-var liblist : *List  // list of additional libraries paths
+var liblist : List  // list of additional libraries paths
 
 
 let cwd = func () -> Str {
@@ -29,14 +29,13 @@ let cwd = func () -> Str {
 
 
 let liblist_add = func (path : Str) -> Unit {
-  list_append(liblist, path)
+  list_append(&liblist, path)
 }
 
 
 let domain = func (path : Str) -> Str {
   var i, j : Nat
-  i = 0
-  j = 0
+  i = 0; j = 0
   let s = malloc(512) to Str
   while path[i] != 0 {
     if path[i] != pdir[i] {
@@ -118,7 +117,7 @@ let source_open = func (import_string : Str) -> *Source {
     let import_string = ctx to Str
     return src_open(lib_path, import_string)
   }
-  let lsrc = list_search(liblist, search_in_lib, import_string) to *Source
+  let lsrc = list_search(&liblist, search_in_lib, import_string) to *Source
 
   return lsrc
 }
