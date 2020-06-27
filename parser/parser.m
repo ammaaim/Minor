@@ -1,9 +1,6 @@
 // parser/parser
 
 
-type StmtParser = (ti : *TokenInfo) -> *Stmt
-
-
 type ModuleContext = record {
   src : *Source      // current source
 
@@ -35,49 +32,6 @@ var fctx : FuncContext       // current function context
 
 let PATH_BUF_LEN = 512
 
-
-
-let showTypes = func () -> Unit {
-  let shwt = func MapForeachHandler {
-    let len = strlen(k)
-    printf("* %s", k)
-
-    let maxnamelen = 40
-
-    var i : Nat32
-    i = 0
-    while i < (maxnamelen - len) {
-      printf(" ")
-      i = i + 1
-    }
-
-    let t = v to *Type
-    prttype(t)
-    printf("\n")
-  }
-  map_foreach(&mctx.type_index, shwt, Nil)
-}
-
-
-let showValues = func () -> Unit {
-  let shwv = func MapForeachHandler {
-    let len = strlen(k)
-    printf("VAL: %s", k)
-
-    let maxnamelen = 40
-
-    var i : Nat32
-    i = 0
-    while i < (maxnamelen - len) {
-      printf(" ")
-      i = i + 1
-    }
-
-    prttype((v to *Value).type)
-    printf("\n")
-  }
-  map_foreach(&mctx.value_index, shwv, Nil)
-}
 
 
 let checkMain = func () -> Unit {
@@ -250,6 +204,7 @@ let parseTypedef = func () -> Unit {
   asm_typedef_add(&asm0, id, t)
 }
 
+
 let parseLet = func (local : Bool) -> *Stmt {
   let ti = &ctok().ti
   let id = parseId()
@@ -269,8 +224,6 @@ let parseLet = func (local : Bool) -> *Stmt {
   rename(v, id)
 
   v.defined_at = ti
-
-  ///getType(v)  // САНЯ ТЫ ДУРАК????? ЧТоЭТО ТУТ ДЕЛАеТ!!???
 
   if not local {
     def_global(id, v, ti)
@@ -363,7 +316,7 @@ let parseField = func () -> *List {
   let t = parse_type(True)
   if t == Nil {goto fail}
 
-  // set #type field for all Field object in fieldlist list
+  // set #type field for all Field object in fieldlist
   let set_type = func ListForeachHandler {
     let f = data to *Field
     let t = ctx to *Type
@@ -375,12 +328,6 @@ let parseField = func () -> *List {
 
 fail:
   return Nil
-}
-
-
-let module_context_init = func (ctx : *ModuleContext) -> Unit {
-  map_init(&mctx.type_index)
-  map_init(&mctx.value_index)
 }
 
 

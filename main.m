@@ -82,4 +82,48 @@ let usage = func () -> Unit {
 
 
 
+let showTypes = func () -> Unit {
+  let shwt = func MapForeachHandler {
+    let len = strlen(k)
+    printf("* %s", k)
+
+    let maxnamelen = 40
+
+    var i : Nat32
+    i = 0
+    while i < (maxnamelen - len) {
+      printf(" ")
+      i = i + 1
+    }
+
+    let t = v to *Type
+    prttype(t)
+    printf("\n")
+  }
+  map_foreach(&mctx.type_index, shwt, Nil)
+}
+
+
+let showValues = func () -> Unit {
+  let shwv = func MapForeachHandler {
+    let len = strlen(k)
+    printf("VAL: %s", k)
+
+    let maxnamelen = 40
+
+    var i : Nat32
+    i = 0
+    while i < (maxnamelen - len) {
+      printf(" ")
+      i = i + 1
+    }
+
+    prttype((v to *Value).type)
+    printf("\n")
+  }
+  map_foreach(&mctx.value_index, shwv, Nil)
+}
+
+
+
 /* m2 Minor Compiler */

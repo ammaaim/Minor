@@ -1,6 +1,6 @@
 // parser/stmt
 
-
+import "type"
 import "let"
 import "block"
 import "expr"
