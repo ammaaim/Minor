@@ -401,7 +401,7 @@ let term_str = func ValueParser {
   // возвращаем операцию приведения указателя на массив к Str
   // это хак с костылем но что поделаешь - LLVM...
   let vs = value_new(ValueCast, typeStr, v, Nil)
-  vs.cast_to = typeStr  // !
+  vs.cast.to = typeStr  // !
   vs.storage.class = StorageString
   vs.defined_at = ti
   return vs

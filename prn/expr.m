@@ -91,7 +91,7 @@ let eval_call = func Eval {
     let evaluated_args = ctx to *List
     list_append(evaluated_args, load(eval(arg)))
   }
-  list_foreach(v.arguments, eval_args, args)
+  list_foreach(v.call.arguments, eval_args, args)
 
   /* печатаем вызов */
   var retval_reg : Nat32
@@ -208,9 +208,9 @@ let eval_access = func Eval {
     record_type = s.type
   }
 
-  assert(v.field != Nil, "print/expr:: v.field == Nil\n")
+  assert(v.access.field != Nil, "print/expr:: v.field == Nil\n")
 
-  let fieldno = type_record_get_field(record_type, v.field).offset
+  let fieldno = type_record_get_field(record_type, v.access.field).offset
 
   // todo: совмести это с index - там в сущность такой же алгоритм
   let reg = lab_get()
@@ -302,7 +302,7 @@ let eval_cast = func Eval {
 
   var xx : Nat32
   xx = 0
-  let to = v.cast_to
+  let to = v.cast.to
   let eee = eval(v.a[0])
 
   let ee = load(eee)

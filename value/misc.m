@@ -27,7 +27,7 @@ let value_is_const = func (v : *Value) -> Bool {
 let valueFreePtr2 = func () -> *Value {
   let nat0 = value_new_imm_const(typeBaseNat, 0)
   let nil = value_new_register(ValueCast, typeFreePtr, nat0, Nil)
-  nil.cast_to = typeFreePtr  //!
+  nil.cast.to = typeFreePtr  //!
   return nil
 }
 

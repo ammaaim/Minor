@@ -7,7 +7,7 @@ let access = func (r : *Value, fid : Str, ti : *TokenInfo) -> *Value {
   let field_type = Nil
 
   let v = value_new_address(ValueAccess, field_type, r, Nil)
-  v.field = fid
+  v.access.field = fid
   return v
 
 fail:
@@ -31,7 +31,7 @@ let getTypeAccess = func (v : *Value) -> *Type {
     return Nil
   }
 
-  let field = type_record_get_field(record_type, v.field)
+  let field = type_record_get_field(record_type, v.access.field)
 
   if field == Nil {
     error("undefined field", v.ti)

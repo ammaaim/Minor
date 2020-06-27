@@ -41,26 +41,20 @@ type Value = record {
   storage : Storage
 
 
+  // ссылка на блок, если это функция
+  block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
+
+
   /*
-   * Ссылка на операнд(ы)
+   * Ссылка на операнд(ы) для un, bin,
    */
   a : [2]*Value
 
-  /*
-   * ValueAccess property
-   */
-  field : Str
-
-  /*
-   * ValueCall property
-   */
-  arguments : *List  // список *Value для ValueCall
-  block : *Block     // ссылка на блок функции - при чеке он будет обработан отсюда
-
-  /*
-   * ValueCast property
-   */
-  cast_to : *Type
+//union{
+  access : record {field : Str}
+  call   : record {arguments : *List}
+  cast   : record {to : *Type}
+//}
 
   // ti - место упоминания значения в конкретном случае
   // declared_at - место декларации
