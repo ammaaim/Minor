@@ -32,8 +32,6 @@ var mctx : ModuleContext     // current module context
 var fctx : FuncContext       // current function context
 
 
-var settings : *Map
-
 
 let PATH_BUF_LEN = 512
 
@@ -101,36 +99,16 @@ let checkMain = func () -> Unit {
 let checkFunc = func (f : *Value) -> Unit {
   // set context
   let old_cfunc = fctx.cfunc
-  fctx.cfunc = f  // for get_value
+  fctx.cfunc = f
 
   let b = f.block
-  // extern function cannot have the block
+  // extern function doesn't have the block
   if b != Nil {
     stmtBlockCheck(b)
   }
 
   // reset context
   fctx.cfunc = old_cfunc
-}
-
-
-
-let set = func (id : Str, v : Nat64) -> Unit {
-  let vx = malloc(sizeof Nat64) to *Nat64
-  *vx = v
-
-  let oldv = map_get(settings, id)
-  if oldv == Nil {
-    free(oldv)
-    map_append(settings, id, vx)
-  } else {
-    map_reset(settings, id, vx)
-  }
-}
-
-let get = func (id : Str) -> Nat64 {
-  let vx = map_get(settings, id) to *Nat64
-  return *vx
 }
 
 
