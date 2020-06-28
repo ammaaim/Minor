@@ -36,7 +36,6 @@ fail:
 
 
 let getTypeShift = func (v : *Value) -> *Type {
-  printf("A\n")
   let a = v.bin.l
   let r = v.bin.r
   getType(a)
@@ -45,7 +44,6 @@ let getTypeShift = func (v : *Value) -> *Type {
   // приводим GenericTypeInt к typeBaseInt если надо
   let t = castIfNumericTo(a, typeBaseInt).type
   castIfNumericTo(r, typeBaseInt)
-  printf("B\n")
   return t
 }
 
