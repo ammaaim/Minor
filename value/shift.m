@@ -5,8 +5,6 @@
 let shift_op = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   if l == Nil or r == Nil {goto fail}
 
-  let ltype = Nil
-
   var retv : *Value
   retv = Nil
 
@@ -20,10 +18,10 @@ let shift_op = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
     } else if k == ValueShr {
       v = l.storage.val >> r.storage.val
     }
-
-    retv = value_new_imm_const(ltype, v)
+    // возвращаем константу с Numeric типом (!)
+    retv = value_new_imm_const(l.type, v)
   } else {
-    retv = value_new_register(k, ltype, l, r)
+    retv = value_new_register(k, Nil, l, r)
     retv.bin.l = l
     retv.bin.r = r
   }
@@ -38,6 +36,7 @@ fail:
 
 
 let getTypeShift = func (v : *Value) -> *Type {
+  printf("A\n")
   let a = v.bin.l
   let r = v.bin.r
   getType(a)
@@ -46,7 +45,7 @@ let getTypeShift = func (v : *Value) -> *Type {
   // приводим GenericTypeInt к typeBaseInt если надо
   let t = castIfNumericTo(a, typeBaseInt).type
   castIfNumericTo(r, typeBaseInt)
-
+  printf("B\n")
   return t
 }
 

@@ -275,6 +275,8 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func167_str4 = private unnamed_addr constant [9 x i8] c"RTYPE = \00", align 1
 @func167_str5 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 @func167_str6 = private unnamed_addr constant [18 x i8] c"binary type error\00", align 1
+@func169_str1 = private unnamed_addr constant [3 x i8] c"A\0A\00", align 1
+@func169_str2 = private unnamed_addr constant [3 x i8] c"B\0A\00", align 1
 @func173_str1 = private unnamed_addr constant [41 x i8] c"expected record / pointer to record type\00", align 1
 @func173_str2 = private unnamed_addr constant [16 x i8] c"undefined field\00", align 1
 @func175_str1 = private unnamed_addr constant [19 x i8] c"undefined function\00", align 1
@@ -9856,77 +9858,74 @@ else_0:
 endif_0:
 
 ;stmt3:
-  %11 = inttoptr %Nat32 0 to %Unit*
-
-;stmt4:
   %retv = alloca %Value*
 
-;stmt5:
-  %12 = inttoptr %Nat32 0 to %Unit*
-  %13 = bitcast %Unit* %12 to %Value*
-  store %Value* %13, %Value** %retv
+;stmt4:
+  %11 = inttoptr %Nat32 0 to %Unit*
+  %12 = bitcast %Unit* %11 to %Value*
+  store %Value* %12, %Value** %retv
 
-;stmt6:
-  %14 = load %Value*, %Value** %l
-  %15 = getelementptr inbounds %Value, %Value* %14, i32 0, i32 2 ; eval_access
-  %16 = getelementptr inbounds %Storage, %Storage* %15, i32 0, i32 0 ; eval_access
-  %17 = load %StorageClass, %StorageClass* %16
-  %18 = icmp eq %StorageClass %17, 1
-  %19 = load %Value*, %Value** %r
-  %20 = getelementptr inbounds %Value, %Value* %19, i32 0, i32 2 ; eval_access
-  %21 = getelementptr inbounds %Storage, %Storage* %20, i32 0, i32 0 ; eval_access
-  %22 = load %StorageClass, %StorageClass* %21
-  %23 = icmp eq %StorageClass %22, 1
-  %24 = and %Bool %18, %23
-  br i1 %24, label %then_1, label %else_1
+;stmt5:
+  %13 = load %Value*, %Value** %l
+  %14 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 2 ; eval_access
+  %15 = getelementptr inbounds %Storage, %Storage* %14, i32 0, i32 0 ; eval_access
+  %16 = load %StorageClass, %StorageClass* %15
+  %17 = icmp eq %StorageClass %16, 1
+  %18 = load %Value*, %Value** %r
+  %19 = getelementptr inbounds %Value, %Value* %18, i32 0, i32 2 ; eval_access
+  %20 = getelementptr inbounds %Storage, %Storage* %19, i32 0, i32 0 ; eval_access
+  %21 = load %StorageClass, %StorageClass* %20
+  %22 = icmp eq %StorageClass %21, 1
+  %23 = and %Bool %17, %22
+  br i1 %23, label %then_1, label %else_1
 then_1:
 
-;stmt7:
+;stmt6:
 
-;stmt8:
+;stmt7:
   %v = alloca %Int64
 
-;stmt9:
-  %25 = load %ValueKind, %ValueKind* %k
-  %26 = icmp eq %ValueKind %25, 20
-  br i1 %26, label %then_2, label %else_2
+;stmt8:
+  %24 = load %ValueKind, %ValueKind* %k
+  %25 = icmp eq %ValueKind %24, 20
+  br i1 %25, label %then_2, label %else_2
 then_2:
 
-;stmt10:
+;stmt9:
 
-;stmt11:
-  %27 = load %Value*, %Value** %l
-  %28 = getelementptr inbounds %Value, %Value* %27, i32 0, i32 2 ; eval_access
-  %29 = getelementptr inbounds %Storage, %Storage* %28, i32 0, i32 1 ; eval_access
-  %30 = load %Int64, %Int64* %29
-  %31 = load %Value*, %Value** %r
-  %32 = getelementptr inbounds %Value, %Value* %31, i32 0, i32 2 ; eval_access
-  %33 = getelementptr inbounds %Storage, %Storage* %32, i32 0, i32 1 ; eval_access
-  %34 = load %Int64, %Int64* %33
-  %35 = shl %Int64 %30, %34
-  store %Int64 %35, %Int64* %v
+;stmt10:
+  %26 = load %Value*, %Value** %l
+  %27 = getelementptr inbounds %Value, %Value* %26, i32 0, i32 2 ; eval_access
+  %28 = getelementptr inbounds %Storage, %Storage* %27, i32 0, i32 1 ; eval_access
+  %29 = load %Int64, %Int64* %28
+  %30 = load %Value*, %Value** %r
+  %31 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 2 ; eval_access
+  %32 = getelementptr inbounds %Storage, %Storage* %31, i32 0, i32 1 ; eval_access
+  %33 = load %Int64, %Int64* %32
+  %34 = shl %Int64 %29, %33
+  store %Int64 %34, %Int64* %v
   br label %endif_2
 else_2:
 
-;stmt12:
-  %36 = load %ValueKind, %ValueKind* %k
-  %37 = icmp eq %ValueKind %36, 21
-  br i1 %37, label %then_3, label %else_3
+;stmt11:
+  %35 = load %ValueKind, %ValueKind* %k
+  %36 = icmp eq %ValueKind %35, 21
+  br i1 %36, label %then_3, label %else_3
 then_3:
 
-;stmt13:
+;stmt12:
 
-;stmt14:
-  %38 = load %Value*, %Value** %l
-  %39 = getelementptr inbounds %Value, %Value* %38, i32 0, i32 2 ; eval_access
-  %40 = getelementptr inbounds %Storage, %Storage* %39, i32 0, i32 1 ; eval_access
-  %41 = load %Int64, %Int64* %40
-  %42 = load %Value*, %Value** %r
-  %43 = getelementptr inbounds %Value, %Value* %42, i32 0, i32 2 ; eval_access
-  %44 = getelementptr inbounds %Storage, %Storage* %43, i32 0, i32 1 ; eval_access
-  %45 = load %Int64, %Int64* %44
-  %46 = ashr %Int64 %41, %45
-  store %Int64 %46, %Int64* %v
+;stmt13:
+  %37 = load %Value*, %Value** %l
+  %38 = getelementptr inbounds %Value, %Value* %37, i32 0, i32 2 ; eval_access
+  %39 = getelementptr inbounds %Storage, %Storage* %38, i32 0, i32 1 ; eval_access
+  %40 = load %Int64, %Int64* %39
+  %41 = load %Value*, %Value** %r
+  %42 = getelementptr inbounds %Value, %Value* %41, i32 0, i32 2 ; eval_access
+  %43 = getelementptr inbounds %Storage, %Storage* %42, i32 0, i32 1 ; eval_access
+  %44 = load %Int64, %Int64* %43
+  %45 = ashr %Int64 %40, %44
+  store %Int64 %45, %Int64* %v
   br label %endif_3
 else_3:
   br label %endif_3
@@ -9934,58 +9933,61 @@ endif_3:
   br label %endif_2
 endif_2:
 
-;stmt15:
-  %47 = bitcast %Unit* %11 to %Type*
-  %48 = load %Int64, %Int64* %v
-  %49 = call %Value* (%Type*, %Int64) @value_new_imm_const (%Type* %47, %Int64 %48)
-  store %Value* %49, %Value** %retv
+;stmt14:
+  %46 = load %Value*, %Value** %l
+  %47 = getelementptr inbounds %Value, %Value* %46, i32 0, i32 1 ; eval_access
+  %48 = load %Type*, %Type** %47
+  %49 = load %Int64, %Int64* %v
+  %50 = call %Value* (%Type*, %Int64) @value_new_imm_const (%Type* %48, %Int64 %49)
+  store %Value* %50, %Value** %retv
   br label %endif_1
 else_1:
 
+;stmt15:
+
 ;stmt16:
+  %51 = load %ValueKind, %ValueKind* %k
+  %52 = inttoptr %Nat32 0 to %Unit*
+  %53 = bitcast %Unit* %52 to %Type*
+  %54 = load %Value*, %Value** %l
+  %55 = load %Value*, %Value** %r
+  %56 = call %Value* (%ValueKind, %Type*, %Value*, %Value*) @value_new_register (%ValueKind %51, %Type* %53, %Value* %54, %Value* %55)
+  store %Value* %56, %Value** %retv
 
 ;stmt17:
-  %50 = load %ValueKind, %ValueKind* %k
-  %51 = bitcast %Unit* %11 to %Type*
-  %52 = load %Value*, %Value** %l
-  %53 = load %Value*, %Value** %r
-  %54 = call %Value* (%ValueKind, %Type*, %Value*, %Value*) @value_new_register (%ValueKind %50, %Type* %51, %Value* %52, %Value* %53)
-  store %Value* %54, %Value** %retv
+  %57 = load %Value*, %Value** %retv
+  %58 = getelementptr inbounds %Value, %Value* %57, i32 0, i32 5 ; eval_access
+  %59 = getelementptr inbounds {%Value*, %Value*}, {%Value*, %Value*}* %58, i32 0, i32 0 ; eval_access
+  %60 = load %Value*, %Value** %l
+  store %Value* %60, %Value** %59
 
 ;stmt18:
-  %55 = load %Value*, %Value** %retv
-  %56 = getelementptr inbounds %Value, %Value* %55, i32 0, i32 5 ; eval_access
-  %57 = getelementptr inbounds {%Value*, %Value*}, {%Value*, %Value*}* %56, i32 0, i32 0 ; eval_access
-  %58 = load %Value*, %Value** %l
-  store %Value* %58, %Value** %57
-
-;stmt19:
-  %59 = load %Value*, %Value** %retv
-  %60 = getelementptr inbounds %Value, %Value* %59, i32 0, i32 5 ; eval_access
-  %61 = getelementptr inbounds {%Value*, %Value*}, {%Value*, %Value*}* %60, i32 0, i32 1 ; eval_access
-  %62 = load %Value*, %Value** %r
-  store %Value* %62, %Value** %61
+  %61 = load %Value*, %Value** %retv
+  %62 = getelementptr inbounds %Value, %Value* %61, i32 0, i32 5 ; eval_access
+  %63 = getelementptr inbounds {%Value*, %Value*}, {%Value*, %Value*}* %62, i32 0, i32 1 ; eval_access
+  %64 = load %Value*, %Value** %r
+  store %Value* %64, %Value** %63
   br label %endif_1
 endif_1:
 
+;stmt19:
+  %65 = load %Value*, %Value** %retv
+  %66 = getelementptr inbounds %Value, %Value* %65, i32 0, i32 10 ; eval_access
+  %67 = load %TokenInfo*, %TokenInfo** %ti
+  store %TokenInfo* %67, %TokenInfo** %66
+
 ;stmt20:
-  %63 = load %Value*, %Value** %retv
-  %64 = getelementptr inbounds %Value, %Value* %63, i32 0, i32 10 ; eval_access
-  %65 = load %TokenInfo*, %TokenInfo** %ti
-  store %TokenInfo* %65, %TokenInfo** %64
+  %68 = load %Value*, %Value** %retv
+  ret %Value* %68
 
 ;stmt21:
-  %66 = load %Value*, %Value** %retv
-  ret %Value* %66
-
-;stmt22:
   br label %fail
 fail:
 
-;stmt23:
-  %68 = inttoptr %Nat32 0 to %Unit*
-  %69 = bitcast %Unit* %68 to %Value*
-  ret %Value* %69
+;stmt22:
+  %70 = inttoptr %Nat32 0 to %Unit*
+  %71 = bitcast %Unit* %70 to %Value*
+  ret %Value* %71
 }
 
 define %Type* @getTypeShift (%Value* %_v) {
@@ -9993,35 +9995,43 @@ define %Type* @getTypeShift (%Value* %_v) {
   store %Value* %_v, %Value** %v
 
 ;stmt0:
-  %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 5 ; eval_access
-  %3 = getelementptr inbounds {%Value*, %Value*}, {%Value*, %Value*}* %2, i32 0, i32 0 ; eval_access
-  %4 = load %Value*, %Value** %3
+  %1 = bitcast [3 x %Nat8]* @func169_str1 to %Str
+  %2 = call %Int32 (%Str, ...) @printf (%Str %1)
 
 ;stmt1:
-  %5 = load %Value*, %Value** %v
-  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 5 ; eval_access
-  %7 = getelementptr inbounds {%Value*, %Value*}, {%Value*, %Value*}* %6, i32 0, i32 1 ; eval_access
-  %8 = load %Value*, %Value** %7
+  %3 = load %Value*, %Value** %v
+  %4 = getelementptr inbounds %Value, %Value* %3, i32 0, i32 5 ; eval_access
+  %5 = getelementptr inbounds {%Value*, %Value*}, {%Value*, %Value*}* %4, i32 0, i32 0 ; eval_access
+  %6 = load %Value*, %Value** %5
 
 ;stmt2:
-  %9 = call %Type* (%Value*) @getType (%Value* %4)
+  %7 = load %Value*, %Value** %v
+  %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 5 ; eval_access
+  %9 = getelementptr inbounds {%Value*, %Value*}, {%Value*, %Value*}* %8, i32 0, i32 1 ; eval_access
+  %10 = load %Value*, %Value** %9
 
 ;stmt3:
-  %10 = call %Type* (%Value*) @getType (%Value* %8)
+  %11 = call %Type* (%Value*) @getType (%Value* %6)
 
 ;stmt4:
-  %11 = load %Type*, %Type** @typeBaseInt
-  %12 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %4, %Type* %11)
-  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 1 ; eval_access
-  %14 = load %Type*, %Type** %13
+  %12 = call %Type* (%Value*) @getType (%Value* %10)
 
 ;stmt5:
-  %15 = load %Type*, %Type** @typeBaseInt
-  %16 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %8, %Type* %15)
+  %13 = load %Type*, %Type** @typeBaseInt
+  %14 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %6, %Type* %13)
+  %15 = getelementptr inbounds %Value, %Value* %14, i32 0, i32 1 ; eval_access
+  %16 = load %Type*, %Type** %15
 
 ;stmt6:
-  ret %Type* %14
+  %17 = load %Type*, %Type** @typeBaseInt
+  %18 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %10, %Type* %17)
+
+;stmt7:
+  %19 = bitcast [3 x %Nat8]* @func169_str2 to %Str
+  %20 = call %Int32 (%Str, ...) @printf (%Str %19)
+
+;stmt8:
+  ret %Type* %16
 }
 
 define %Value* @indx (%Value* %_a, %Value* %_i, %TokenInfo* %_ti) {
