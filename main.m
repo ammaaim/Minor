@@ -26,7 +26,7 @@ import "init"
 
 
 
-let ARCH_DEFAULT = Arch_x64
+let ARCH_DEFAULT_VALUE = Arch_x64
 
 
 let VERSION_MAJOR = 0
@@ -43,6 +43,36 @@ let main = func (argc : Int, argv : []Str) -> Int {
 
   init()
 
+
+  var arch : Arch
+  arch = ARCH_DEFAULT_VALUE  // set default architecture
+
+  let n = argc
+  var argp : Int
+  argp = 1
+  while argp < n {
+    let arg = argv[argp]
+    printf("parse arg: %s\n", arg)
+    if strncmp(arg, "arch=", 5) == 0 {
+      if strcmp(&arg[5] to Str, "cortex-m3") == 0 {
+        printf("arch=cortex-m3\n")
+        arch = Arch_ARM_CM3
+      } else if strcmp(&arg[5] to Str, "x64") == 0 {
+        printf("arch=x64\n")
+        arch = Arch_x64
+      }
+    }
+
+    if strncmp(arg, "lib=", 4) == 0 {
+      printf("add lib\n")
+      liblist_add(&arg[4] to Str)
+    }
+
+    argp = argp + 1
+  }
+
+
+
   // let's start!
   parse(source_open("main"))
 
@@ -56,16 +86,6 @@ let main = func (argc : Int, argv : []Str) -> Int {
   if errcnt > 0 {
     printf("error : %d\n", errcnt)
     return errcnt to Int
-  }
-
-  var arch : Arch
-  arch = ARCH_DEFAULT  // set default architecture
-
-  if argc > 1 {
-    if strcmp(argv[1], "arch=cortex-m3") == 0 {
-      printf("arch=cortex-m3\n")
-      arch = Arch_ARM_CM3
-    }
   }
 
   printer_init(arch, "main.ll")
