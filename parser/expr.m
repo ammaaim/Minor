@@ -1,14 +1,6 @@
 // parser/expr
 
 
-import "value/un"
-import "value/bin"
-import "value/shift"
-import "value/index"
-import "value/access"
-import "value/call"
-import "value/cast"
-
 
 type ValueParser = () -> *Value
 

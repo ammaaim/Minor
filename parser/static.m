@@ -1,5 +1,7 @@
 
 
+import "value/main"
+
 
 type ModuleContext = record {
   src : *Source      // current source
