@@ -45,7 +45,7 @@ type Value = record {
   block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
 
 
-//union{
+//union {
   un     : record {x : *Value}
   bin    : record {l, r : *Value}
   index  : record {array, index : *Value}

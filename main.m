@@ -14,7 +14,6 @@ import "src"
 import "error"
 import "type"
 import "value/misc"
-//import "value/nat"
 import "stmt"
 import "prn/assembly"
 import "value/2str"
@@ -26,12 +25,14 @@ import "init"
 
 
 
-let ARCH_DEFAULT_VALUE = Arch_x64
+let ARCH_DEFAULT = Arch_x64
 
 
 let VERSION_MAJOR = 0
 let VERSION_MINOR = 5
 
+
+var arch : Arch
 
 
 let main = func (argc : Int, argv : []Str) -> Int {
@@ -43,35 +44,9 @@ let main = func (argc : Int, argv : []Str) -> Int {
 
   init()
 
+  arch = ARCH_DEFAULT  // set default architecture
 
-  var arch : Arch
-  arch = ARCH_DEFAULT_VALUE  // set default architecture
-
-  let n = argc
-  var argp : Int
-  argp = 1
-  while argp < n {
-    let arg = argv[argp]
-    printf("parse arg: %s\n", arg)
-    if strncmp(arg, "arch=", 5) == 0 {
-      if strcmp(&arg[5] to Str, "cortex-m3") == 0 {
-        printf("arch=cortex-m3\n")
-        arch = Arch_ARM_CM3
-      } else if strcmp(&arg[5] to Str, "x64") == 0 {
-        printf("arch=x64\n")
-        arch = Arch_x64
-      }
-    }
-
-    if strncmp(arg, "lib=", 4) == 0 {
-      printf("add lib\n")
-      liblist_add(&arg[4] to Str)
-    }
-
-    argp = argp + 1
-  }
-
-
+  parseArgs(argc, argv)
 
   // let's start!
   parse(source_open("main"))
@@ -92,6 +67,32 @@ let main = func (argc : Int, argv : []Str) -> Int {
   print_assembly(&asm0)
 
   return (errcnt != 0) to Int
+}
+
+
+let parseArgs = func (argc : Int, argv : []Str) -> Unit {
+  var argp : Int
+  argp = 1
+  while argp < argc {
+    let arg = argv[argp]
+    printf("parse arg: %s\n", arg)
+    if strncmp(arg, "arch=", 5) == 0 {
+      if strcmp(&arg[5] to Str, "cortex-m3") == 0 {
+        printf("arch=cortex-m3\n")
+        arch = Arch_ARM_CM3
+      } else if strcmp(&arg[5] to Str, "x64") == 0 {
+        printf("arch=x64\n")
+        arch = Arch_x64
+      }
+    }
+
+    if strncmp(arg, "lib=", 4) == 0 {
+      printf("add lib\n")
+      liblist_add(&arg[4] to Str)
+    }
+
+    argp = argp + 1
+  }
 }
 
 
