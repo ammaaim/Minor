@@ -17,9 +17,10 @@ nodecorate extern free   : (mem : *Unit) -> Unit
 
 nodecorate extern putchar : (char : Int8) -> Int32
 
-nodecorate extern strcmp : (s1, s2 : Str) -> Int
-nodecorate extern strcpy : (dst, src : Str) -> *Nat8
-nodecorate extern strlen : (s : Str) -> Size_T
+nodecorate extern strcmp  : (s1, s2 : Str) -> Int
+nodecorate extern strncmp : (s1, s2 : Str, n : Size_T) -> Int
+nodecorate extern strcpy  : (dst, src : Str) -> *Nat8
+nodecorate extern strlen  : (s : Str) -> Size_T
 
 
 let SEEK_SET = 0
