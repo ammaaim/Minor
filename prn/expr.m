@@ -63,7 +63,8 @@ let eval = func Eval {
 
 
 
-let xxxx = func (v : *Value, t : *Type) -> *Value {
+let loadImmPtr = func (v : *Value) -> *Value {
+  let t = v.type
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = inttoptr i64 ", reg)
   print_value(v)
@@ -79,7 +80,7 @@ let load = func Eval {
   // то его нужно будет загрузить в регистр функцией inttoptr
   if v.storage.class == StorageImmediate {
     if typeIsReference(v.type) {
-      return xxxx(v, v.type)
+      return loadImmPtr(v)
     }
   }
 
