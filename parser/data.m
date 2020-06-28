@@ -138,7 +138,6 @@ let get_value_global = func (id : Str) -> *Value {
 
 
 let get_value_builtin = func (id : Str) -> *Value {
-  if strcmp("Nil", id) == 0 {return valueFreePtr2()}
   let x = map_get(&globalValueIndex, id)
   if x == Nil {
     if strcmp(id, "self") == 0 {

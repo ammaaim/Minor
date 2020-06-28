@@ -23,6 +23,15 @@ let type_new_undefined = func (id : Str) -> *Type {
 }
 
 
+// Это ссылка или ссылка на массив?
+let typeIsReference = func (t : *Type) -> Bool {
+  let k = t.kind
+  if k == TypePointer {return True}
+  if k == TypeArray {return t.array.undefined}
+  return False
+}
+
+
 let type_is_basic = func (t : *Type) -> Bool {return t.kind == TypeBasic}
 let type_is_function = func (t : *Type) -> Bool {return t.kind == TypeFunction}
 let type_is_record = func (t : *Type) -> Bool {return t.kind == TypeRecord}

@@ -59,7 +59,30 @@ let eval = func Eval {
 }
 
 
+
+
+
+
+let xxxx = func (v : *Value, t : *Type) -> *Value {
+  let reg = lab_get()
+  fprintf(fout, "\n  %%%d = inttoptr i64 ", reg)
+  print_value(v)
+  o(" to ")
+  printType(t, True, True)
+  return nv(t, StorageRegister, reg)
+}
+
+
 let load = func Eval {
+  // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
+  // явной операцией inttoptr. Поэтому если нам попался указатель с классом StorageImmediate
+  // то его нужно будет загрузить в регистр функцией inttoptr
+  if v.storage.class == StorageImmediate {
+    if typeIsReference(v.type) {
+      return xxxx(v, v.type)
+    }
+  }
+
   // в загрузке нуждаются только значения с изменяемым классом памяти
   // это StorageGlobal, StorageLocal & StorageAddress;
   // остальные вернем просто так
@@ -286,6 +309,8 @@ let eval_minus = func Eval {
   print_value(vx)
   return nv(vx.type, StorageRegister, reg)
 }
+
+
 
 
 let eval_cast = func Eval {
