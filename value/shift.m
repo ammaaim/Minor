@@ -36,15 +36,15 @@ fail:
 
 
 let getTypeShift = func (v : *Value) -> *Type {
-  let a = v.bin.l
+  let l = v.bin.l
   let r = v.bin.r
-  getType(a)
+  getType(l)
   getType(r)
 
   // приводим GenericTypeInt к typeBaseInt если надо
-  let t = castIfNumericTo(a, typeBaseInt).type
+  let t = castIfNumericTo(l, typeBaseInt).type
   castIfNumericTo(r, typeBaseInt)
-  return t
+  return l.type
 }
 
 

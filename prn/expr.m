@@ -303,10 +303,8 @@ let eval_cast = func Eval {
   var xx : Nat32
   xx = 0
   let to = v.cast.to
-  let eee = eval(v.cast.value)
 
-  let ee = load(eee)
-
+  let ee = load(eval(v.cast.value))
 
   // преиведение значения к собственному типу бессмыслено
   // поэтому просто возвращаем загруженное значение
@@ -334,9 +332,8 @@ let eval_cast = func Eval {
     }
   } else if to.kind == TypeBasic {
     /* X -> Basic */
-    if k == TypeBasic {
-      /* Basic -> Basic */
-
+      if k == TypeBasic {
+        /* Basic -> Basic */
       if ee.type.basic.p > to.basic.p {
         /* power(v) > power(t) */
         fprintf(fout, "trunc ")

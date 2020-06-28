@@ -59,7 +59,9 @@ let binImm = func (k : ValueKind, l, r : *Value) -> *Value {
   let lv = l.storage.val
   let rv = r.storage.val
 
-  t = type_new(TypeNumeric)
+  // у левого может быть TypeNumeric, а может быть любо другой Int тип
+  // то что он имеет StorageImmediate не значит что он не мог быть типизирован!
+  t = l.type
 
   if k == ValueAdd {
     v = lv + rv
@@ -135,7 +137,7 @@ let getTypeBinary = func (v : *Value) -> *Type {
   if isReletionOpKind(op_kind) {
     return typeBool
   } else {
-    return lt
+    return l.type
   }
 
 fail:
