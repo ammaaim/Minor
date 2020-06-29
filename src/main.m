@@ -77,22 +77,20 @@ let src_open = func (dir, resource : Str) -> *Source {
   var fname : Str
 
   let path_mod = cat(path, ".m")
-  //printf("path_mod=%s\n", path_mod)
   if exists(path_mod) {
     // it's module
     chdir(getprefix(path_mod))
     tokens = tokenize(get_last(path_mod))
     fname = path_mod
   } else {
-    let path_main = cat(path, "/main.m")
-    //printf("path_main=%s\n", path_main)
-    if exists(path_main) {
+    let path_pkg = cat(path, "/main.m")
+    if exists(path_pkg) {
       // it's package
-      chdir(getprefix(path_main))
+      chdir(getprefix(path_pkg))
       tokens = tokenize("main.m")
-      fname = path_main
+      fname = path_pkg
     } else {
-      free(path_main)
+      free(path_pkg)
     }
   }
 
