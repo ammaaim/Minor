@@ -1,4 +1,4 @@
-// main
+// m2/main
 
 
 import "C"
@@ -33,14 +33,8 @@ let VERSION_MINOR = 5
 
 
 
-
-
 let main = func (argc : Int, argv : []Str) -> Int {
   printf("m2 v%d.%d\n", VERSION_MAJOR, VERSION_MINOR)
-  /*if argv[1] == Nil {
-    usage()
-    exit(1)
-  }*/
 
   init()
 

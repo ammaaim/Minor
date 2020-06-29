@@ -1,4 +1,4 @@
-// stmt/main
+// m2/stmt
 
 
 // Compound Statement

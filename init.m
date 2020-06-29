@@ -1,4 +1,4 @@
-// init
+// m2/init
 
 
 import "type/init"
