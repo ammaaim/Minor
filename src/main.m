@@ -29,6 +29,7 @@ let cwd = func () -> Str {
 
 
 let liblist_add = func (path : Str) -> Unit {
+  //printf("+lib=%s\n", path)
   list_append(&liblist, path)
 }
 
@@ -70,13 +71,15 @@ let src_new = func (name : Str, tokens : *List) -> *Source {
 let src_open = func (dir, resource : Str) -> *Source {
   let path = cat3(dir, "/", resource)
 
-  let path_mod = cat(path, ".m")
 
   var tokens : *List
   tokens = Nil
 
   var fname : Str
 
+
+  let path_mod = cat(path, ".m")
+  //printf("path_mod=%s\n", path_mod)
   if exists(path_mod) {
     // it's module
     chdir(getprefix(path_mod))
@@ -84,9 +87,10 @@ let src_open = func (dir, resource : Str) -> *Source {
     fname = path_mod
   } else {
     let path_main = cat(path, "/main.m")
+    //printf("path_main=%s\n", path_main)
     if exists(path_main) {
       // it's package
-      chdir(resource)
+      chdir(getprefix(path_main))
       tokens = tokenize("main.m")
       fname = path_main
     } else {

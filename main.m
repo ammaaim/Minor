@@ -75,20 +75,22 @@ let parseArgs = func (argc : Int, argv : []Str) -> Unit {
   argp = 1
   while argp < argc {
     let arg = argv[argp]
-    printf("parse arg: %s\n", arg)
-    if strncmp(arg, "arch=", 5) == 0 {
-      if strcmp(&arg[5] to Str, "cortex-m3") == 0 {
-        printf("arch=cortex-m3\n")
+    //printf("parse arg: %s\n", arg)
+    if strncmp(arg, "-arch=", 6) == 0 {
+      if strcmp(&arg[6] to Str, "cortex-m3") == 0 {
+        //printf("arch=cortex-m3\n")
         arch = Arch_ARM_CM3
-      } else if strcmp(&arg[5] to Str, "x64") == 0 {
-        printf("arch=x64\n")
+      } else if strcmp(&arg[6] to Str, "x64") == 0 {
+        //printf("arch=x64\n")
         arch = Arch_x64
+      } else {
+        fatal("unknown architecture")
       }
     }
 
-    if strncmp(arg, "lib=", 4) == 0 {
-      printf("add lib\n")
-      liblist_add(&arg[4] to Str)
+    if strncmp(arg, "-lib=", 5) == 0 {
+      //printf("add lib\n")
+      liblist_add(&arg[5] to Str)
     }
 
     argp = argp + 1
