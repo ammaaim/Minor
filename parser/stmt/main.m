@@ -75,7 +75,7 @@ let stmt = func () -> *Stmt {
       setlab(id, ti)
       return Nil
     } else {
-      sett(tkn)  // put token back
+      sett(tkn)  // `put token back`
     }
   }
 

@@ -85,6 +85,11 @@ let parseArgs = func (argc : Int, argv : []Str) -> Unit {
       liblist_add(&arg[5] to Str)
     }
 
+    if strncmp(arg, "-conf=", 6) == 0 {
+
+      readConfig(&arg[6] to Str)
+    }
+
     argp = argp + 1
   }
 }

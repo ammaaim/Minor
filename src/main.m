@@ -71,12 +71,10 @@ let src_new = func (name : Str, tokens : *List) -> *Source {
 let src_open = func (dir, resource : Str) -> *Source {
   let path = cat3(dir, "/", resource)
 
-
   var tokens : *List
   tokens = Nil
 
   var fname : Str
-
 
   let path_mod = cat(path, ".m")
   //printf("path_mod=%s\n", path_mod)

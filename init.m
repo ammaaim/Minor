@@ -60,14 +60,14 @@ let init = func () -> Unit {
 
 
 // not used
-let handle_ini = func (fname : Str) -> Unit {
-  let tokens = tokenize(fname)
-  sett(tokens.first)
+let readConfig = func (fname : Str) -> Unit {
+  printf("readConfig = %s\n", fname)
 
-  if tokens == Nil {
-    error("parsing ini", Nil)
-    return
-  }
+  let tokens = tokenize(fname)
+  let config_source = src_new("config", tokens)
+
+  let old_src = mctx.src
+  mctx.src = config_source
 
   while True {
     var d : Nat64
@@ -91,6 +91,8 @@ let handle_ini = func (fname : Str) -> Unit {
 
     set(key, d)
   }
+
+  mctx.src = old_src
 }
 
 
