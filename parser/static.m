@@ -1,6 +1,6 @@
 
 
-import "value/main"
+import "value"
 
 
 type ModuleContext = record {
