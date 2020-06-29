@@ -714,6 +714,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 ;vars:
 
 @cfg = global %Settings zeroinitializer
+@arch = global %Arch zeroinitializer
 @settings = global %List* zeroinitializer
 @lstate = global %State zeroinitializer
 @lines = global %Nat32 zeroinitializer
@@ -750,7 +751,6 @@ target triple = "x86_64-apple-macosx10.14.0"
 @while_id = global %Nat32 zeroinitializer
 @blockno = global %Nat32 zeroinitializer
 @stmtno = global %Nat32 zeroinitializer
-@arch = global %Arch zeroinitializer
 
 ;funcs:
 
@@ -22079,6 +22079,9 @@ endif_0:
 
 ;stmt24:
   call void () @value_init ()
+
+;stmt25:
+  store %Arch 0, %Arch* @arch
   ret void
 }
 
@@ -22204,40 +22207,37 @@ define %Int32 @main (%Int32 %_argc, %Str* %_argv) {
   call void () @init ()
 
 ;stmt2:
-  store %Arch 0, %Arch* @arch
-
-;stmt3:
   %3 = load %Int32, %Int32* %argc
   %4 = load %Str*, %Str** %argv
   call void (%Int32, %Str*) @parseArgs (%Int32 %3, %Str* %4)
 
-;stmt4:
+;stmt3:
   %5 = bitcast [5 x %Nat8]* @func358_str2 to %Str
   %6 = call %Source* (%Str) @source_open (%Str %5)
   call void (%Source*) @parse (%Source* %6)
 
-;stmt5:
+;stmt4:
   %7 = bitcast [11 x %Nat8]* @func358_str3 to %Str
   %8 = load %Nat32, %Nat32* @lines
   %9 = call %Int32 (%Str, ...) @printf (%Str %7, %Nat32 %8)
 
-;stmt6:
+;stmt5:
   call void () @checkMain ()
 
-;stmt7:
+;stmt6:
   %10 = load %Nat32, %Nat32* @errcnt
   %11 = icmp ugt %Nat32 %10, 0
   br i1 %11, label %then_0, label %else_0
 then_0:
 
-;stmt8:
+;stmt7:
 
-;stmt9:
+;stmt8:
   %12 = bitcast [12 x %Nat8]* @func358_str4 to %Str
   %13 = load %Nat32, %Nat32* @errcnt
   %14 = call %Int32 (%Str, ...) @printf (%Str %12, %Nat32 %13)
 
-;stmt10:
+;stmt9:
   %15 = load %Nat32, %Nat32* @errcnt
   %16 = bitcast %Nat32 %15 to %Int32
   ret %Int32 %16
@@ -22246,16 +22246,16 @@ else_0:
   br label %endif_0
 endif_0:
 
-;stmt11:
+;stmt10:
   %18 = load %Arch, %Arch* @arch
   %19 = bitcast [8 x %Nat8]* @func358_str5 to %Str
   call void (%Arch, %Str) @printer_init (%Arch %18, %Str %19)
 
-;stmt12:
+;stmt11:
   %20 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0 ; ref
   call void (%Assembly*) @print_assembly (%Assembly* %20)
 
-;stmt13:
+;stmt12:
   %21 = load %Nat32, %Nat32* @errcnt
   %22 = icmp ne %Nat32 %21, 0
   %23 = sext %Bool %22 to %Int32

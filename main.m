@@ -32,7 +32,7 @@ let VERSION_MAJOR = 0
 let VERSION_MINOR = 5
 
 
-var arch : Arch
+
 
 
 let main = func (argc : Int, argv : []Str) -> Int {
@@ -43,8 +43,6 @@ let main = func (argc : Int, argv : []Str) -> Int {
   }*/
 
   init()
-
-  arch = ARCH_DEFAULT  // set default architecture
 
   parseArgs(argc, argv)
 

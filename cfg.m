@@ -15,3 +15,5 @@ type Settings = record {
 var cfg : Settings
 
 
+var arch : Arch
+

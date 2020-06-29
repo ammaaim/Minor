@@ -54,6 +54,8 @@ let init = func () -> Unit {
 
   // create built-in values (True, False, Nil)
   value_init()
+
+  arch = ARCH_DEFAULT
 }
 
 
