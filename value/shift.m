@@ -2,7 +2,7 @@
 
 
 // shl, shr слишком отличны чтобы входить в bin
-let shift_op = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
+let shift = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   if l == Nil or r == Nil {goto fail}
 
   var retv : *Value

@@ -147,12 +147,12 @@ let hier6 = func ValueParser {
       skip_nl()
       let l = v
       let r = hier7()
-      v = shift_op(ValueShl, l, r, ti)
+      v = shift(ValueShl, l, r, ti)
     } else if match(">>") {
       skip_nl()
       let l = v
       let r = hier7()
-      v = shift_op(ValueShr, l, r, ti)
+      v = shift(ValueShr, l, r, ti)
     } else {
       break
     }

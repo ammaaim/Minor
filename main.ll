@@ -8986,7 +8986,7 @@ endif_0:
   ret %Type* %26
 }
 
-define %Bool @binTypeOk (%ValueKind %_k, %Type* %_t) {
+define %Bool @binTypeValid (%ValueKind %_k, %Type* %_t) {
   %k = alloca %ValueKind
   store %ValueKind %_k, %ValueKind* %k
   %t = alloca %Type*
@@ -9602,7 +9602,7 @@ endif_1:
   %46 = load %ValueKind, %ValueKind* %45
 
 ;stmt22:
-  %47 = call %Bool (%ValueKind, %Type*) @binTypeOk (%ValueKind %46, %Type* %26)
+  %47 = call %Bool (%ValueKind, %Type*) @binTypeValid (%ValueKind %46, %Type* %26)
   %48 = xor %Bool %47, 1
   br i1 %48, label %then_2, label %else_2
 then_2:
@@ -9667,7 +9667,7 @@ fail:
   ret %Type* %67
 }
 
-define %Value* @shift_op (%ValueKind %_k, %Value* %_l, %Value* %_r, %TokenInfo* %_ti) {
+define %Value* @shift (%ValueKind %_k, %Value* %_l, %Value* %_r, %TokenInfo* %_ti) {
   %k = alloca %ValueKind
   store %ValueKind %_k, %ValueKind* %k
   %l = alloca %Value*
@@ -10523,7 +10523,7 @@ break_1:
   ret %Bool 1
 }
 
-define %Bool @can_imm_cast (%Value* %_v, %Type* %_t) {
+define %Bool @immCastIsPossible (%Value* %_v, %Type* %_t) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
   %t = alloca %Type*
@@ -10584,7 +10584,7 @@ endif_0:
 ;stmt3:
   %11 = load %Value*, %Value** %v
   %12 = load %Type*, %Type** %t
-  %13 = call %Bool (%Value*, %Type*) @can_imm_cast (%Value* %11, %Type* %12)
+  %13 = call %Bool (%Value*, %Type*) @immCastIsPossible (%Value* %11, %Type* %12)
   br i1 %13, label %then_1, label %else_1
 then_1:
 
@@ -10639,17 +10639,15 @@ define %Type* @getTypeCast (%Value* %_v) {
   %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 8 ; eval_access
   %3 = getelementptr inbounds {%Value*, %Type*}, {%Value*, %Type*}* %2, i32 0, i32 0 ; eval_access
   %4 = load %Value*, %Value** %3
-
-;stmt1:
   %5 = call %Type* (%Value*) @getType (%Value* %4)
 
-;stmt2:
+;stmt1:
   %6 = load %Value*, %Value** %v
   %7 = getelementptr inbounds %Value, %Value* %6, i32 0, i32 8 ; eval_access
   %8 = getelementptr inbounds {%Value*, %Type*}, {%Value*, %Type*}* %7, i32 0, i32 1 ; eval_access
   %9 = load %Type*, %Type** %8
 
-;stmt3:
+;stmt2:
   ret %Type* %9
 }
 
@@ -14002,7 +14000,7 @@ then_1:
   %13 = call %Value* () @hier7 ()
 
 ;stmt13:
-  %14 = call %Value* (%ValueKind, %Value*, %Value*, %TokenInfo*) @shift_op (%ValueKind 20, %Value* %12, %Value* %13, %TokenInfo* %9)
+  %14 = call %Value* (%ValueKind, %Value*, %Value*, %TokenInfo*) @shift (%ValueKind 20, %Value* %12, %Value* %13, %TokenInfo* %9)
   store %Value* %14, %Value** %v
   br label %endif_1
 else_1:
@@ -14025,7 +14023,7 @@ then_2:
   %18 = call %Value* () @hier7 ()
 
 ;stmt19:
-  %19 = call %Value* (%ValueKind, %Value*, %Value*, %TokenInfo*) @shift_op (%ValueKind 21, %Value* %17, %Value* %18, %TokenInfo* %9)
+  %19 = call %Value* (%ValueKind, %Value*, %Value*, %TokenInfo*) @shift (%ValueKind 21, %Value* %17, %Value* %18, %TokenInfo* %9)
   store %Value* %19, %Value** %v
   br label %endif_2
 else_2:

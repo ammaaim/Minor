@@ -2,7 +2,7 @@
 
 
 // тип пригоден для бинарной операции?
-let binTypeOk = func (k : ValueKind, t : *Type) -> Bool {
+let binTypeValid = func (k : ValueKind, t : *Type) -> Bool {
   if k == ValueEq or k == ValueNe {return True}
 
   if type_is_basic_integer(t) or t.kind == TypeNumeric {return True}
@@ -124,7 +124,7 @@ let getTypeBinary = func (v : *Value) -> *Type {
 
   let op_kind = v.kind
 
-  if not binTypeOk(op_kind, lt) {
+  if not binTypeValid(op_kind, lt) {
     error("binary type error", v.ti)
     return Nil
   }
