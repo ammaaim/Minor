@@ -1,6 +1,9 @@
 // prn/def
 
 
+
+
+
 let typedef = func (id : Str, t : *Type) -> Unit {
   fprintf(fout, "\n%%%s = type ", id); printType(t, False, True);
 }
@@ -62,6 +65,7 @@ let vardef = func (id : Str, t : *Type, v : *Value) -> Unit {
   fprintf(fout, "\n@%s = global ", id)
   printType(t, True, True); space();
   if v != Nil {print_value(v)} else {o("zeroinitializer")}
+  //if DEBUG {comma(); dbg(0)}
 }
 
 
@@ -71,7 +75,14 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
 
   assert(t != Nil, "prn/funcdef t = Nil")
 
-  if b == Nil {o("\ndeclare ")} else {o("\n\ndefine ")}
+  if b == Nil {
+    o("\ndeclare")
+    //if DEBUG {dbg(0)}
+  } else {
+    o("\n\ndefine")
+  }
+
+  space()
 
   let isvoid = type_eq(t.function.to, typeUnit)
 
@@ -98,6 +109,11 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
   if t.function.arghack {o(", ...")}
 
   o(")")
+
+  if b != Nil {
+    //if DEBUG {dbg(0); space()}
+  }
+
   if b != Nil {
     o(" {")
 

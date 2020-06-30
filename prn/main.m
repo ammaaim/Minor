@@ -2,6 +2,7 @@
 
 
 import "common"
+import "debug"
 import "type"
 import "stmt"
 import "expr"

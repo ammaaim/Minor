@@ -592,8 +592,8 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func338_str1 = private unnamed_addr constant [15 x i8] c"\0A@%s = global \00", align 1
 @func338_str2 = private unnamed_addr constant [16 x i8] c"zeroinitializer\00", align 1
 @func339_str1 = private unnamed_addr constant [20 x i8] c"prn/funcdef t = Nil\00", align 1
-@func339_str2 = private unnamed_addr constant [10 x i8] c"\0Adeclare \00", align 1
-@func339_str3 = private unnamed_addr constant [10 x i8] c"\0A\0Adefine \00", align 1
+@func339_str2 = private unnamed_addr constant [9 x i8] c"\0Adeclare\00", align 1
+@func339_str3 = private unnamed_addr constant [9 x i8] c"\0A\0Adefine\00", align 1
 @func339_str4 = private unnamed_addr constant [5 x i8] c"void\00", align 1
 @func339_str5 = private unnamed_addr constant [7 x i8] c" @%s (\00", align 1
 @func340_str1 = private unnamed_addr constant [3 x i8] c", \00", align 1
@@ -21115,7 +21115,7 @@ then_0:
 ;stmt4:
 
 ;stmt5:
-  %11 = bitcast [10 x %Nat8]* @func339_str2 to %Str
+  %11 = bitcast [9 x %Nat8]* @func339_str2 to %Str
   call void (%Str) @o (%Str %11)
   br label %endif_0
 else_0:
@@ -21123,12 +21123,15 @@ else_0:
 ;stmt6:
 
 ;stmt7:
-  %12 = bitcast [10 x %Nat8]* @func339_str3 to %Str
+  %12 = bitcast [9 x %Nat8]* @func339_str3 to %Str
   call void (%Str) @o (%Str %12)
   br label %endif_0
 endif_0:
 
 ;stmt8:
+  call void () @space ()
+
+;stmt9:
   %13 = load %Type*, %Type** %t
   %14 = getelementptr inbounds %Type, %Type* %13, i32 0, i32 6 ; eval_access
   %15 = getelementptr inbounds %TypeFunc, %TypeFunc* %14, i32 0, i32 1 ; eval_access
@@ -21136,21 +21139,21 @@ endif_0:
   %17 = load %Type*, %Type** @typeUnit
   %18 = call %Bool (%Type*, %Type*) @type_eq (%Type* %16, %Type* %17)
 
-;stmt9:
+;stmt10:
   br i1 %18, label %then_1, label %else_1
 then_1:
 
-;stmt10:
-
 ;stmt11:
+
+;stmt12:
   %19 = bitcast [5 x %Nat8]* @func339_str4 to %Str
   call void (%Str) @o (%Str %19)
   br label %endif_1
 else_1:
 
-;stmt12:
-
 ;stmt13:
+
+;stmt14:
   %20 = load %Type*, %Type** %t
   %21 = getelementptr inbounds %Type, %Type* %20, i32 0, i32 6 ; eval_access
   %22 = getelementptr inbounds %TypeFunc, %TypeFunc* %21, i32 0, i32 1 ; eval_access
@@ -21159,19 +21162,19 @@ else_1:
   br label %endif_1
 endif_1:
 
-;stmt14:
+;stmt15:
   %24 = load %Unit*, %Unit** @fout
   %25 = bitcast [7 x %Nat8]* @func339_str5 to %Str
   %26 = load %Str, %Str* %id
   %27 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %24, %Str %25, %Str %26)
 
-;stmt15:
+;stmt16:
   %need_comma = alloca %Bool
 
-;stmt16:
+;stmt17:
   store %Bool 0, %Bool* %need_comma
 
-;stmt17:
+;stmt18:
   %28 = load %Type*, %Type** %t
   %29 = getelementptr inbounds %Type, %Type* %28, i32 0, i32 6 ; eval_access
   %30 = getelementptr inbounds %TypeFunc, %TypeFunc* %29, i32 0, i32 0 ; eval_access
@@ -21180,7 +21183,7 @@ endif_1:
   %33 = bitcast %Bool* %32 to %Unit*
   call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %31, %ListForeachHandler @vf_print_param, %Unit* %33)
 
-;stmt18:
+;stmt19:
   %34 = load %Type*, %Type** %t
   %35 = getelementptr inbounds %Type, %Type* %34, i32 0, i32 6 ; eval_access
   %36 = getelementptr inbounds %TypeFunc, %TypeFunc* %35, i32 0, i32 2 ; eval_access
@@ -21188,9 +21191,9 @@ endif_1:
   br i1 %37, label %then_2, label %else_2
 then_2:
 
-;stmt19:
-
 ;stmt20:
+
+;stmt21:
   %38 = bitcast [6 x %Nat8]* @func339_str6 to %Str
   call void (%Str) @o (%Str %38)
   br label %endif_2
@@ -21198,11 +21201,11 @@ else_2:
   br label %endif_2
 endif_2:
 
-;stmt21:
+;stmt22:
   %39 = bitcast [2 x %Nat8]* @func339_str7 to %Str
   call void (%Str) @o (%Str %39)
 
-;stmt22:
+;stmt23:
   %40 = load %Block*, %Block** %b
   %41 = bitcast %Block* %40 to %Unit*
   %42 = inttoptr i64 0 to %Unit*
@@ -21210,48 +21213,62 @@ endif_2:
   br i1 %43, label %then_3, label %else_3
 then_3:
 
-;stmt23:
-
 ;stmt24:
-  %44 = bitcast [3 x %Nat8]* @func339_str8 to %Str
-  call void (%Str) @o (%Str %44)
-
-;stmt25:
-  %45 = load %Type*, %Type** %t
-  %46 = getelementptr inbounds %Type, %Type* %45, i32 0, i32 6 ; eval_access
-  %47 = getelementptr inbounds %TypeFunc, %TypeFunc* %46, i32 0, i32 0 ; eval_access
-  %48 = load %List*, %List** %47
-  %49 = inttoptr i64 0 to %Unit*
-  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %48, %ListForeachHandler @print_param_loc, %Unit* %49)
-
-;stmt26:
-  call void () @reset_local_labels ()
-
-;stmt27:
-  %50 = load %Block*, %Block** %b
-  call void (%Block*) @print_block (%Block* %50)
-
-;stmt28:
-  br i1 %18, label %then_4, label %else_4
-then_4:
-
-;stmt29:
-
-;stmt30:
-  %51 = bitcast [12 x %Nat8]* @func339_str9 to %Str
-  call void (%Str) @o (%Str %51)
-  br label %endif_4
-else_4:
-  br label %endif_4
-endif_4:
-
-;stmt31:
-  %52 = bitcast [3 x %Nat8]* @func339_str10 to %Str
-  call void (%Str) @o (%Str %52)
   br label %endif_3
 else_3:
   br label %endif_3
 endif_3:
+
+;stmt25:
+  %44 = load %Block*, %Block** %b
+  %45 = bitcast %Block* %44 to %Unit*
+  %46 = inttoptr i64 0 to %Unit*
+  %47 = icmp ne %Unit* %45, %46
+  br i1 %47, label %then_4, label %else_4
+then_4:
+
+;stmt26:
+
+;stmt27:
+  %48 = bitcast [3 x %Nat8]* @func339_str8 to %Str
+  call void (%Str) @o (%Str %48)
+
+;stmt28:
+  %49 = load %Type*, %Type** %t
+  %50 = getelementptr inbounds %Type, %Type* %49, i32 0, i32 6 ; eval_access
+  %51 = getelementptr inbounds %TypeFunc, %TypeFunc* %50, i32 0, i32 0 ; eval_access
+  %52 = load %List*, %List** %51
+  %53 = inttoptr i64 0 to %Unit*
+  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %52, %ListForeachHandler @print_param_loc, %Unit* %53)
+
+;stmt29:
+  call void () @reset_local_labels ()
+
+;stmt30:
+  %54 = load %Block*, %Block** %b
+  call void (%Block*) @print_block (%Block* %54)
+
+;stmt31:
+  br i1 %18, label %then_5, label %else_5
+then_5:
+
+;stmt32:
+
+;stmt33:
+  %55 = bitcast [12 x %Nat8]* @func339_str9 to %Str
+  call void (%Str) @o (%Str %55)
+  br label %endif_5
+else_5:
+  br label %endif_5
+endif_5:
+
+;stmt34:
+  %56 = bitcast [3 x %Nat8]* @func339_str10 to %Str
+  call void (%Str) @o (%Str %56)
+  br label %endif_4
+else_4:
+  br label %endif_4
+endif_4:
   ret void
 }
 
