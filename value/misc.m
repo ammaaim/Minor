@@ -5,26 +5,27 @@ import "storage"
 import "value"
 
 
-let valueNew = func (k : ValueKind, t : *Type, sc : StorageClass) -> *Value {
+let valueNew = func (k : ValueKind, sc : StorageClass) -> *Value {
   let v = malloc(sizeof Value) to *Value
   assert(v != Nil, "value_new")
   memset(v, 0, sizeof Value)
   v.kind = k
-  v.type = t
   v.storage.class = sc
   return v
 }
 
 
-let value_is_const = func (v : *Value) -> Bool {
-  return storage_is_const(&v.storage)
+let valueNewImm = func (t : *Type, dx : Int64) -> *Value {
+  let v = valueNew(ValueId, StorageImmediate)
+  v.type = t
+  v.storage.val = dx
+  return v
 }
 
 
-let valueNewImm = func (t : *Type, dx : Int64) -> *Value {
-  let v = valueNew(ValueId, t, StorageImmediate)
-  v.storage.val = dx
-  return v
+
+let valueIsConst = func (v : *Value) -> Bool {
+  return storage_is_const(&v.storage)
 }
 
 

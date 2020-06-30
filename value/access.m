@@ -4,7 +4,7 @@
 let access = func (r : *Value, fid : Str, ti : *TokenInfo) -> *Value {
   if r == Nil or fid == Nil {goto fail}
 
-  let v = valueNew(ValueAccess, Nil, StorageAddress)
+  let v = valueNew(ValueAccess, StorageAddress)
 
   v.access.value = r
   v.access.field = fid

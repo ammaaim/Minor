@@ -375,7 +375,8 @@ let term_str = func ValueParser {
 
   // Создаем значение с типом [x]Char для принтера
   // он напечатает его как массив
-  let v_asm = valueNew(ValueId, t, StorageString)
+  let v_asm = valueNew(ValueId, StorageString)
+  v_asm.type = t
   v_asm.storage.id = id
   v_asm.storage.str.data = s
   v_asm.storage.str.length = len
@@ -383,14 +384,16 @@ let term_str = func ValueParser {
 
   // Создаем значение с типом *[x]Char, тк LLVM трактует массивы
   // упоминаемые по имени, именно как указатели на массивы
-  let v = valueNew(ValueId, type_pointer_new(t), StorageString)
+  let v = valueNew(ValueId, StorageString)
+  v.type = type_pointer_new(t)
   v.storage.id = id
   v.storage.str.data = s
   v.storage.str.length = len
 
   // возвращаем операцию приведения указателя на массив к Str
   // это хак с костылем но что поделаешь - LLVM...
-  let vs = valueNew(ValueCast, typeStr, StorageString)
+  let vs = valueNew(ValueCast, StorageString)
+  vs.type = typeStr
   vs.cast.value = v
   vs.cast.to = typeStr  // !
   vs.defined_at = ti
@@ -429,7 +432,8 @@ let term_arr = func ValueParser {
 
   let id = get_name_arr()
   let t = type_array_new(of, len, False)
-  let v = valueNew(ValueId, t, StorageArray)
+  let v = valueNew(ValueId, StorageArray)
+  v.type = t
   v.storage.id = id
   v.storage.arr_data = data
   v.defined_at = ti
@@ -477,7 +481,8 @@ let term_func = func ValueParser {
   }
 
   // создаем значение функции
-  let fv = valueNew(ValueId, t, StorageFunction)
+  let fv = valueNew(ValueId, StorageFunction)
+  fv.type = t
 
   if parent_block != Nil {
     list_append(parent_block.local_functions, fv)
@@ -512,7 +517,7 @@ let term_id = func ValueParser {
   v = get_value(id)
 
   if v == Nil {
-    v = valueNew(ValueId, Nil, StorageUndefined)
+    v = valueNew(ValueId, StorageUndefined)
     v.storage.id = id
     v.declared_at = ti
     bind_value_global(id, v)

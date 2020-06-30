@@ -25,7 +25,7 @@ let un_minus = func (v : *Value, ti : *TokenInfo) -> *Value {
     return valueNewImm(v.type, -v.storage.val)
   }
 
-  let vx = valueNew(ValueMinus, Nil, StorageRegister)
+  let vx = valueNew(ValueMinus, StorageRegister)
   vx.un.x = v
   vx.ti = ti
   return vx
@@ -37,7 +37,7 @@ let un_not = func (v : *Value, ti : *TokenInfo) -> *Value {
     return valueNewImm(v.type, not v.storage.val)
   }
 
-  let vx = valueNew(ValueNot, Nil, StorageRegister)
+  let vx = valueNew(ValueNot, StorageRegister)
   vx.un.x = v
   vx.ti = ti
   return vx
@@ -49,7 +49,7 @@ let un_ref = func (v : *Value, ti : *TokenInfo) -> *Value {
     error("cannot ref constant value", v.ti)
   }
 
-  let vx = valueNew(ValueRef, Nil, StorageRegister)
+  let vx = valueNew(ValueRef, StorageRegister)
   vx.un.x = v
   vx.ti = ti
   return vx
@@ -57,7 +57,7 @@ let un_ref = func (v : *Value, ti : *TokenInfo) -> *Value {
 
 
 let un_deref = func (v : *Value, ti : *TokenInfo) -> *Value {
-  let vx = valueNew(ValueDeref, Nil, StorageAddress)
+  let vx = valueNew(ValueDeref, StorageAddress)
   vx.un.x = v
   vx.ti = ti
   return vx

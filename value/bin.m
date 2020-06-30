@@ -32,14 +32,12 @@ let isLogicNumericOperation = func (k : ValueKind) -> Bool {
 let bin = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   if l == Nil or r == Nil {goto fail}
 
-  let t = Nil
-
   var v : *Value
   if l.storage.class == StorageImmediate and
      r.storage.class == StorageImmediate {
     v = binImm(k, l, r)  // const folding
   } else {
-    v = valueNew(k, t, StorageRegister)
+    v = valueNew(k, StorageRegister)
     v.bin.l = l
     v.bin.r = r
   }

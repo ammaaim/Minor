@@ -161,7 +161,8 @@ let get_value_from_params = func (params : *List, id : Str) -> *Value {
 
   // нашли параметр с таким именем
   // создадим для него 'Value' и вернем его
-  let v = valueNew(ValueId, param.type, StorageLocal)
+  let v = valueNew(ValueId, StorageLocal)
+  v.type = param.type
   v.ti = param.ti
   v.storage.id = param.id
   return v
@@ -251,7 +252,8 @@ let get_name_type = func () -> Str {return get_name("Type", &type_uid)}
 let create_local_var = func (id : Str, t : *Type, init_value : *Value) -> *Value {
   // создадим фейковый value который будет занесен в индекс
   // и будет ссылаться на переменную (просто нести тот же id)
-  let v = valueNew(ValueId, t, StorageLocal)
+  let v = valueNew(ValueId, StorageLocal)
+  v.type = t
   v.storage.id = id
   bind_value_local(id, v)
 
@@ -273,7 +275,8 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value) -> Unit 
 
   // создадим фейковый value который будет занесен в индекс
   // и будет ссылаться на переменную (просто нести тот же id)
-  let v = valueNew(ValueId, t, StorageGlobal)
+  let v = valueNew(ValueId, StorageGlobal)
+  v.type = t
   v.storage.id = id
   bind_value_global(id, v)
 }

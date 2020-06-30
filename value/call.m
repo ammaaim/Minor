@@ -4,7 +4,7 @@
 let call = func (f : *Value, a : *List, ti : *TokenInfo) -> *Value {
   if f == Nil or a == Nil {goto fail}
 
-  let v = valueNew(ValueCall, Nil, StorageRegister)
+  let v = valueNew(ValueCall, StorageRegister)
   v.call.function = f
   v.call.arguments = a
   v.ti = ti

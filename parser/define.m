@@ -8,7 +8,6 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
 
   // already exist?
   let ae = get_value_global(id)
-
   if ae != Nil {
     error("attempt to redeclaration", ti)
     rem("declared at: ", ae.declared_at)
@@ -16,7 +15,8 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
   }
 
   // Создаем знчение и добавляем его в индекс
-  let v = valueNew(ValueId, type, StorageUndefined)
+  let v = valueNew(ValueId, StorageUndefined)
+  v.type = type
   v.storage.id = decorate(id)
   v.type = type
   v.declared_at = ti
