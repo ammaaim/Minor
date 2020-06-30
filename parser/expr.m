@@ -9,6 +9,7 @@ type ValueParser = () -> *Value
 let expr = func ValueParser {return hier1()}  // let expr = hier1  // not worked!
 
 
+// parse constant expression
 let cexpr = func ValueParser {
   let v = expr()
   if v == Nil {goto fail}
@@ -22,7 +23,7 @@ let cexpr = func ValueParser {
     }
   }
 
-  if not storage_is_const(&v.storage) {
+  if not valueIsConst(v) {
     error("expected constant value", v.ti)
     goto fail
   }

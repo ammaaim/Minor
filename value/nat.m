@@ -8,10 +8,10 @@
 // 3. *Unit -> [] && [] -> *Unit
 
 
-let isArrayReference = func (t : *Type) -> Bool {
+/*let isArrayReference = func (t : *Type) -> Bool {
   if t.kind != TypeArray {return False}
   return t.array.undefined
-}
+}*/
 
 
 // даем тип t значению v с типом #TypeNumeric (index, shift, call)
@@ -41,7 +41,7 @@ let nat = func (v : *Value, t : *Type) -> *Value {
     // поскольку этот каст производится в фазе вывода/проверки типов
     // мы должны его вывести через getType
     let res = cast(v, t, v.ti)
-    getType(res)  //!
+    getType(res)
     return res
   }
 

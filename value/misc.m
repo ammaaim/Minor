@@ -24,14 +24,8 @@ let valueNewImm = func (t : *Type, dx : Int64) -> *Value {
 
 
 
-let valueIsConst = func (v : *Value) -> Bool {
-  return storage_is_const(&v.storage)
-}
-
-
-let valueIsReadonly = func (v : *Value) -> Bool {
-  return not storageIsMutable(&v.storage)
-}
+let valueIsConst = func (v : *Value) -> Bool {return storageIsConst(&v.storage)}
+let valueIsReadonly = func (v : *Value) -> Bool {return not storageIsMutable(&v.storage)}
 
 
 

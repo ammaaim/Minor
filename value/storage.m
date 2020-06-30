@@ -42,8 +42,7 @@ type Storage = record {
 }
 
 
-
-let storage_is_const = func (s : *Storage) -> Bool {
+let storageIsConst = func (s : *Storage) -> Bool {
   let cl = s.class
   let is_const = cl == StorageImmediate or
                  cl == StorageFunction or
