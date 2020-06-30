@@ -248,7 +248,7 @@ let hier10 = func ValueParser {
       error("sizeof expected <type>", ti_sizeof)
       return Nil
     }
-    v = value_new_imm_const(typeSizeof, t.size to Int64)
+    v = valueNewImm(typeSizeof, t.size to Int64)
     v.ti = ti
   } else if match("alignof") {
     let ti_alignof = &ctok().ti
@@ -257,7 +257,7 @@ let hier10 = func ValueParser {
       error("alignof expected <type>", ti_alignof)
       return Nil
     }
-    v = value_new_imm_const(typeAlignof, t.align to Int64)
+    v = valueNewImm(typeAlignof, t.align to Int64)
     v.ti = ti
   } else {
     v = hier11()
@@ -375,8 +375,7 @@ let term_str = func ValueParser {
 
   // Создаем значение с типом [x]Char для принтера
   // он напечатает его как массив
-  let v_asm = value_new(ValueId, t)
-  v_asm.storage.class = StorageString
+  let v_asm = valueNew(ValueId, t, StorageString)
   v_asm.storage.id = id
   v_asm.storage.str.data = s
   v_asm.storage.str.length = len
@@ -384,25 +383,23 @@ let term_str = func ValueParser {
 
   // Создаем значение с типом *[x]Char, тк LLVM трактует массивы
   // упоминаемые по имени, именно как указатели на массивы
-  let v = value_new(ValueId, type_pointer_new(t))
-  v.storage.class = StorageString
+  let v = valueNew(ValueId, type_pointer_new(t), StorageString)
   v.storage.id = id
   v.storage.str.data = s
   v.storage.str.length = len
 
   // возвращаем операцию приведения указателя на массив к Str
   // это хак с костылем но что поделаешь - LLVM...
-  let vs = value_new(ValueCast, typeStr)
+  let vs = valueNew(ValueCast, typeStr, StorageString)
   vs.cast.value = v
   vs.cast.to = typeStr  // !
-  vs.storage.class = StorageString
   vs.defined_at = ti
   return vs
 
   /*
   // не могу делать так как gcc тк у меня Str это []Nat8 а не *Nat8!
   var v2 : *Value
-  v2 = value_new(ValueIndex, typeChar, v_asm, value_new_imm_const(typeInteger, 0))
+  v2 = valueNew(ValueIndex, typeChar, v_asm, valueNewImm(typeInteger, 0))
   return un(ValueRef, v2)
   */
 
@@ -432,8 +429,7 @@ let term_arr = func ValueParser {
 
   let id = get_name_arr()
   let t = type_array_new(of, len, False)
-  let v = value_new(ValueId, t)
-  v.storage.class = StorageArray
+  let v = valueNew(ValueId, t, StorageArray)
   v.storage.id = id
   v.storage.arr_data = data
   v.defined_at = ti
@@ -481,14 +477,13 @@ let term_func = func ValueParser {
   }
 
   // создаем значение функции
-  let fv = value_new(ValueId, t)
+  let fv = valueNew(ValueId, t, StorageFunction)
 
   if parent_block != Nil {
     list_append(parent_block.local_functions, fv)
   }
 
   fctx.cfunc = fv
-  fv.storage.class = StorageFunction
   fv.storage.id = id
   fv.defined_at = ti
 
@@ -517,8 +512,7 @@ let term_id = func ValueParser {
   v = get_value(id)
 
   if v == Nil {
-    v = value_new(ValueId, Nil)
-    v.storage.class = StorageUndefined
+    v = valueNew(ValueId, Nil, StorageUndefined)
     v.storage.id = id
     v.declared_at = ti
     bind_value_global(id, v)
@@ -546,7 +540,7 @@ let term_num = func ValueParser {
 
   let t = type_new(TypeNumeric)
   t.declared_at = ti
-  let v = value_new_imm_const(t, d)
+  let v = valueNewImm(t, d)
   v.defined_at = ti
   return v
 }

@@ -39,7 +39,7 @@ let bin = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
      r.storage.class == StorageImmediate {
     v = binImm(k, l, r)  // const folding
   } else {
-    v = value_new_register(k, t, l, r)
+    v = valueNew(k, t, StorageRegister)
     v.bin.l = l
     v.bin.r = r
   }
@@ -98,7 +98,7 @@ let binImm = func (k : ValueKind, l, r : *Value) -> *Value {
     }
   }
 
-  return value_new_imm_const(t, v)
+  return valueNewImm(t, v)
 }
 
 

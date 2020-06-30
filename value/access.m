@@ -4,9 +4,8 @@
 let access = func (r : *Value, fid : Str, ti : *TokenInfo) -> *Value {
   if r == Nil or fid == Nil {goto fail}
 
-  let field_type = Nil
+  let v = valueNew(ValueAccess, Nil, StorageAddress)
 
-  let v = value_new_address(ValueAccess, field_type, r, Nil)
   v.access.value = r
   v.access.field = fid
   return v

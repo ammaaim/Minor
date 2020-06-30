@@ -17,7 +17,7 @@ let cast = func (v : *Value, t : *Type, ti : *TokenInfo) -> *Value {
 
   if can_imm_cast(v, t) {
     // создаем на базе v новое значение с требуемым типом
-    return value_new_imm_const(t, v.storage.val)
+    return valueNewImm(t, v.storage.val)
   }
 
   /*if v.type != Nil {
@@ -33,7 +33,7 @@ let cast = func (v : *Value, t : *Type, ti : *TokenInfo) -> *Value {
   }*/
 
   // во всех остальных случаях выполняем runtime приведение
-  let vc = value_new_register(ValueCast, Nil, Nil, Nil)
+  let vc = valueNew(ValueCast, Nil, StorageRegister)
   vc.cast.value = v
   vc.cast.to = t
   return vc

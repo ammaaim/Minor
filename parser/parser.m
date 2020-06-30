@@ -173,8 +173,7 @@ let parseLet = func (local : Bool) -> *Stmt {
     // v0 - значение сопряженное с результатом вычисления v
     // то есть он получит тот же регистр что и результат вычисления v
     // регистр он получит в принтере тк только там они проясняются
-
-    let v0 = value_new_register(ValueId, Nil, Nil, Nil)
+    let v0 = valueNew(ValueId, Nil, StorageRegister)
     v0.storage.id = id
     let s_pre = stmt_new_let(v, v0)
     s_pre.ti = ti

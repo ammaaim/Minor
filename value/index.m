@@ -3,7 +3,7 @@
 
 let indx = func (a, i : *Value, ti : *TokenInfo) -> *Value {
   if a == Nil or i == Nil {goto fail}
-  let v = value_new_address(ValueIndex, Nil, a, i)
+  let v = valueNew(ValueIndex, Nil, StorageAddress)
   v.index.array = a
   v.index.index = i
   return v

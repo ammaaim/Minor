@@ -21,7 +21,7 @@ let type_enum_new = func (constructors : *List /* of EnumConstructor */) -> *Typ
   let create_constructor = func ListForeachHandler {
     let cons = data to *EnumConstructor
     let enum_type = ctx to *Type
-    let v = value_new_imm_const(enum_type, cons.d)
+    let v = valueNewImm(enum_type, cons.d)
     bind_value(cons.id, v)
   }
   list_foreach(constructors, create_constructor, t)

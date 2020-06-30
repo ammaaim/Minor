@@ -21,13 +21,11 @@ let un = func (k : ValueKind, v : *Value, ti : *TokenInfo) -> *Value {
 
 
 let un_minus = func (v : *Value, ti : *TokenInfo) -> *Value {
-  var vx : *Value
-
   if v.storage.class == StorageImmediate {
-    return value_new_imm_const(v.type, -v.storage.val)
+    return valueNewImm(v.type, -v.storage.val)
   }
 
-  vx = value_new_register(ValueMinus, /*v.type*/Nil, v, Nil)
+  let vx = valueNew(ValueMinus, Nil, StorageRegister)
   vx.un.x = v
   vx.ti = ti
   return vx
@@ -35,11 +33,11 @@ let un_minus = func (v : *Value, ti : *TokenInfo) -> *Value {
 
 
 let un_not = func (v : *Value, ti : *TokenInfo) -> *Value {
-  var vx : *Value
   if v.storage.class == StorageImmediate {
-    return value_new_imm_const(v.type, not v.storage.val)
+    return valueNewImm(v.type, not v.storage.val)
   }
-  vx = value_new_register(ValueNot, /*v.type*/ Nil, v, Nil)
+
+  let vx = valueNew(ValueNot, Nil, StorageRegister)
   vx.un.x = v
   vx.ti = ti
   return vx
@@ -47,11 +45,11 @@ let un_not = func (v : *Value, ti : *TokenInfo) -> *Value {
 
 
 let un_ref = func (v : *Value, ti : *TokenInfo) -> *Value {
-  /*if valueIsReadonly(v) {
+  if valueIsReadonly(v) {
     error("cannot ref constant value", v.ti)
-  }*/
+  }
 
-  let vx = value_new_register(ValueRef, Nil, v, Nil)
+  let vx = valueNew(ValueRef, Nil, StorageRegister)
   vx.un.x = v
   vx.ti = ti
   return vx
@@ -59,7 +57,7 @@ let un_ref = func (v : *Value, ti : *TokenInfo) -> *Value {
 
 
 let un_deref = func (v : *Value, ti : *TokenInfo) -> *Value {
-  let vx = value_new_address(ValueDeref, Nil, v, Nil)
+  let vx = valueNew(ValueDeref, Nil, StorageAddress)
   vx.un.x = v
   vx.ti = ti
   return vx
