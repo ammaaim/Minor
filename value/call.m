@@ -9,7 +9,7 @@ let call = func (f : *Value, a : *List, ti : *TokenInfo) -> *Value {
   let v = value_new_register(ValueCall, ret_type, f, Nil)
   v.call.function = f
   v.call.arguments = a
-
+  v.ti = ti
   return v
 
 fail:
