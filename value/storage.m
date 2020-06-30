@@ -22,7 +22,6 @@ type StorageClass = enum {
 }
 
 
-// String - один из видов Entity
 type String = record {
   data   : Str
   length : Nat32
@@ -32,11 +31,11 @@ type String = record {
 type Storage = record {
   class : StorageClass
 
-  //union {
+//union {
   val : Int64  // StorageImmediate
   reg : Nat32  // StorageRegister, StorageAddress
   id  : Str    // StorageLocal, StorageGlobal, StorageString, StorageArray, StorageFunc
-  //}
+//}
 
   str      : String  // StorageString
   arr_data : *List   // StorageArray

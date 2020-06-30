@@ -16,7 +16,7 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
   }
 
   // Создаем знчение и добавляем его в индекс
-  let v = value_new(ValueId, type, Nil, Nil)
+  let v = value_new(ValueId, type)
   v.storage.id = decorate(id)
   v.type = type
   v.declared_at = ti
