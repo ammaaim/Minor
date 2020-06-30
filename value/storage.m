@@ -42,6 +42,7 @@ type Storage = record {
 }
 
 
+
 let storageIsConst = func (s : *Storage) -> Bool {
   let cl = s.class
   let is_const = cl == StorageImmediate or
@@ -53,14 +54,14 @@ let storageIsConst = func (s : *Storage) -> Bool {
 }
 
 
-let storageIsRegister = func (s : *Storage) -> Bool {
-  return s.class == StorageRegister
-}
-
-
 let storageIsMutable = func (s : *Storage) -> Bool {
   let cl = s.class
   return cl == StorageLocal or cl == StorageGlobal or cl == StorageAddress
+}
+
+
+let storageIsRegister = func (s : *Storage) -> Bool {
+  return s.class == StorageRegister
 }
 
 
