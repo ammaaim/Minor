@@ -21,16 +21,6 @@ let value_is_const = func (v : *Value) -> Bool {
 }
 
 
-// Create new Nil constant
-let valueFreePtr2 = func () -> *Value {
-  let nat0 = value_new_imm_const(typeBaseNat, 0)
-  let nil = value_new_register(ValueCast, typeFreePtr, nat0, Nil)
-  nil.cast.value = nat0
-  nil.cast.to = typeFreePtr
-  return nil
-}
-
-
 let value_new_register = func (k : ValueKind, t : *Type, l, r : *Value) -> *Value {
   let v = value_new(k, t, l, r)
   v.bin.l = l
@@ -100,7 +90,6 @@ let getType = func (v : *Value) -> *Type {
 
   // если тип уже известен - просто вернем его
   let t0 = v.type
-
   if t0 != Nil {
     return t0
   }
@@ -111,14 +100,7 @@ let getType = func (v : *Value) -> *Type {
   let k = v.kind
 
   if k == ValueId {
-    let id = v.storage.id
-    var vx : *Value
-    vx = get_value(id)
-    if vx == Nil {
-      error("unknown value", v.ti)
-      return Nil
-    }
-    t = vx.type
+    error("unknown value", v.ti)
   } else if isBinaryOpKind(k) {
     t = getTypeBinary(v)
   } else if isUnaryOpKind(k) {
