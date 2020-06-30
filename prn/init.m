@@ -1,4 +1,4 @@
-// prn/init
+// m2/prn/init
 
 
 let printer_init = func (a : Arch, fname : Str) -> Unit {
