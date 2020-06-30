@@ -3,11 +3,11 @@
 
 /* create global values: True, False, Nil */
 let value_init = func () -> Unit {
-  // Create False constant
+  // False
   let false = valueNewImm(typeBool, 0)
   bind_value_builtin("False", false)
 
-  // Create True constant
+  // True
   let true = valueNewImm(typeBool, 1)
   bind_value_builtin("True", true)
 
@@ -15,7 +15,7 @@ let value_init = func () -> Unit {
   let unit = valueNewImm(typeUnit, 1)
   bind_value_builtin("Unit", unit)
 
-  // Nil reference
+  // Nil
   let nil = valueNewImm(typeFreePtr, 0)
   bind_value_builtin("Nil", nil)
 }

@@ -1,4 +1,4 @@
-// src/main
+// m2/src/main
 
 
 import "lexer"

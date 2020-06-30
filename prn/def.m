@@ -1,7 +1,4 @@
-// prn/def
-
-
-
+// m2/prn/def
 
 
 let typedef = func (id : Str, t : *Type) -> Unit {

@@ -1,4 +1,4 @@
-// type/type
+// m2/type/type
 
 
 type TypeUndefined = record {

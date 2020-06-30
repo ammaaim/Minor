@@ -1,9 +1,7 @@
-// type/main
+// m2/type/main
 
 
 import "type"
-import "new"
-import "std"
 import "basic"
 import "record"
 import "enum"
@@ -12,7 +10,18 @@ import "pointer"
 import "func"
 import "undefined"
 import "eq"
+import "std"
 
+
+let type_new = func (k : TypeKind) -> *Type {
+  let t = malloc(sizeof Type) to *Type
+  assert(t != Nil, "type_new")
+  memset(t, 0, sizeof Type)
+
+  t.kind = k
+  t.align = get("dataAlignment") to Nat8
+  return t
+}
 
 
 let type_new_undefined = func (id : Str) -> *Type {

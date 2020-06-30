@@ -1,4 +1,4 @@
-// src/lexer
+// m2/src/lexer
 
 
 import "token"

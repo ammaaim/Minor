@@ -1,4 +1,4 @@
-// type/eq
+// m2/type/eq
 
 
 let type_eq = func (a, b : *Type) -> Bool {

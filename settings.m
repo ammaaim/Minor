@@ -1,4 +1,4 @@
-// settings
+// m2/settings
 
 
 var settings : *Map

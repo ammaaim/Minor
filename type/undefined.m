@@ -1,4 +1,4 @@
-// type/undefined
+// m2/type/undefined
 
 // здесь есть проблема с бесконечной рекурсией, см typeUndefinedCheckRecord
 

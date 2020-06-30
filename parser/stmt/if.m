@@ -1,4 +1,4 @@
-// parser/stmt/if
+// m2/parser/stmt/if
 
 
 let stmtIf = func StmtParser {

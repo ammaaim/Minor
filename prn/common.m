@@ -1,4 +1,4 @@
-// prn/common
+// m2/prn/common
 
 
 var fout : *FILE       // output file

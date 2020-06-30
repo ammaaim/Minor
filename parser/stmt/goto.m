@@ -1,4 +1,4 @@
-// parser/stmt/goto
+// m2/parser/stmt/goto
 
 
 let stmtGoto = func StmtParser {

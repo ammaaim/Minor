@@ -1,4 +1,4 @@
-// prn/main
+// m2/prn/main
 
 
 import "common"

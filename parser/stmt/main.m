@@ -1,4 +1,4 @@
-// parser/stmt
+// m2/parser/stmt
 
 import "type"
 import "let"

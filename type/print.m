@@ -1,4 +1,4 @@
-// type/print
+// m2/type/print
 
 
 let prttype = func (t : *Type) -> Unit {

@@ -1,4 +1,4 @@
-// src/token
+// m2/src/token
 
 
 type TokenType = enum {

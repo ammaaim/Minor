@@ -1,4 +1,4 @@
-// parser/stmt/continue
+// m2/parser/stmt/continue
 
 
 let stmtContinue = func StmtParser {

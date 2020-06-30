@@ -1,4 +1,4 @@
-// type/pointer
+// m2/type/pointer
 
 
 /*type TypePointer = record {to : *Type}*/

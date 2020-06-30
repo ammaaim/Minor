@@ -1,4 +1,4 @@
-// parser/type
+// m2/parser/type
 
 
 type TypeParser = () -> *Type

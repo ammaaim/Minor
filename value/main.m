@@ -1,4 +1,4 @@
-// value/main
+// m2/value/main
 
 
 import "nat"

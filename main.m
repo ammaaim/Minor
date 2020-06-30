@@ -70,10 +70,8 @@ let parseArgs = func (argc : Int, argv : []Str) -> Unit {
     //printf("parse arg: %s\n", arg)
     if strncmp(arg, "-arch=", 6) == 0 {
       if strcmp(&arg[6] to Str, "cortex-m3") == 0 {
-        //printf("arch=cortex-m3\n")
         arch = Arch_ARM_CM3
       } else if strcmp(&arg[6] to Str, "x64") == 0 {
-        //printf("arch=x64\n")
         arch = Arch_x64
       } else {
         fatal("unknown architecture")
@@ -81,7 +79,6 @@ let parseArgs = func (argc : Int, argv : []Str) -> Unit {
     }
 
     if strncmp(arg, "-lib=", 5) == 0 {
-      //printf("add lib\n")
       liblist_add(&arg[5] to Str)
     }
 
@@ -97,6 +94,8 @@ let parseArgs = func (argc : Int, argv : []Str) -> Unit {
 
 let usage = func () -> Unit {
   printf("usage:\n")
+  printf("  -lib=/path/to/lib/dir\n")
+  printf("  -arch=x86, cortex-m3\n")
   printf("  m2 <target>\n\n")
 }
 

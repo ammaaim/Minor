@@ -1,4 +1,4 @@
-// parser/data
+// m2/parser/data
 
 
 // base indexes (for builtin entities)

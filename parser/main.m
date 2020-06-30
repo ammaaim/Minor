@@ -1,4 +1,4 @@
-// parser/main
+// m2/parser/main
 
 import "static"
 import "check"

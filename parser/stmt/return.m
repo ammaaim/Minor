@@ -1,4 +1,4 @@
-// parser/stmt/return
+// m2/parser/stmt/return
 
 
 let stmtReturn = func StmtParser {

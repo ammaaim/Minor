@@ -1,4 +1,4 @@
-// parser/stmt/while
+// m2/parser/stmt/while
 
 
 let stmtWhile = func StmtParser {

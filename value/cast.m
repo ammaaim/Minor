@@ -7,7 +7,6 @@ let WARNING0 = False  // "casting bigger to smaller"
 // можем ли мы приводить непосредственно значение v к типу t ?
 let can_imm_cast = func (v : *Value, t : *Type) -> Bool {
   if v.storage.class == StorageImmediate {return True}
-
   return False
 }
 
@@ -16,7 +15,6 @@ let cast = func (v : *Value, t : *Type, ti : *TokenInfo) -> *Value {
   if v == Nil or t == Nil {goto fail}
 
   if can_imm_cast(v, t) {
-    // создаем на базе v новое значение с требуемым типом
     return valueNewImm(t, v.storage.val)
   }
 

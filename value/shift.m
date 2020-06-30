@@ -1,4 +1,4 @@
-// value/shift
+// m2/value/shift
 
 
 // shl, shr слишком отличны чтобы входить в bin

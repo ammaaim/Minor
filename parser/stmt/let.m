@@ -1,4 +1,4 @@
-// parser/stmt/let
+// m2/parser/stmt/let
 
 
 let stmtLetCheck = func (s : *Stmt) -> Unit {

@@ -1,4 +1,4 @@
-// type/array
+// m2/type/array
 
 
 let type_array_new = func (of : *Type, volume : Nat32, undefined : Bool) -> *Type {
