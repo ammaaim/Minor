@@ -3,6 +3,12 @@
 
 let PATH_BUF_LEN = 512
 
+var comments : Bool
+
+
+let comment = func (c : Str) -> Unit {
+  printf("COM: %s\n", c)
+}
 
 
 let parse = func (src : *Source) -> Unit {
@@ -11,18 +17,29 @@ let parse = func (src : *Source) -> Unit {
 
   mctx.src = src
 
+  comments = True
+
   // do imports
   while True {
     skip_nl()
-    if match("import") {
+
+    let tk = ctok()
+    if tk.type == TokenComment {
+      comment(&tk.text[0] to Str)
+      skip()
+    } else if match("import") {
       parseImport()
     } else {
       break
     }
   }
 
+  comments = False
+
+
   // do definitions
   while True {
+
     skip_nl()
 
     let tk = ctok()
@@ -36,6 +53,8 @@ let parse = func (src : *Source) -> Unit {
     } else if match("var") {
       parseVardef()
     } else {
+
+
       /* check flags */
       if match("arghack") {set("flagArghack", 1); continue}
       if match("nodecorate") {/*set("flagNoDecorate", 1);*/ continue}

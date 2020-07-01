@@ -211,6 +211,7 @@ let xslash = func () -> Unit {
   var c : Nat8
   let nextok = getcc()  // maybe '/' or '*' ?
   if nextok == "/"[0] {
+    lex_putback(nextok)
     fill(cpp_com)
     lstate.type = TokenComment
 
@@ -226,6 +227,7 @@ let xslash = func () -> Unit {
     printf("COM = %s\n", &lstate.token[0])
 */
     lstate.type = TokenComment
+    lstate.token[0] = 0
     while True {
       c = getcc()
 
@@ -243,7 +245,10 @@ let xslash = func () -> Unit {
       } else if c == "\n"[0] {
         linecnt()
       }
-      printf("%c", c)
+      // эти комментарии бывают ООЧЕНь большими
+      // и размещать их в токене просто так не получится.
+      // нужно писать в буфер
+      //printf("%c", c)
       //lstate.token[lstate.length] = c
       //lstate.length = lstate.length + 1
     }

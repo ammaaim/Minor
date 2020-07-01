@@ -10,7 +10,7 @@ import "expr"
 import "stmt"
 
 
-var comments : Bool
+
 
 // возвращает ноду текущего токена
 let gett = func () -> *Node {return mctx.src.token_node}
@@ -39,12 +39,14 @@ let ctok = func () -> *Token {
 
 
 let eof = func () -> Bool {return ctok().type == TokenEOF}
-/*let nextok = func () -> *Token {
+
+// дает ссылку на следующий токен НЕ сдвигая курсор с текущего
+let nextok = func () -> *Token {
   if gett().next != Nil {
     return gett().next.data to *Token
   }
   return Nil
-}*/
+}
 
 
 /*
