@@ -7,7 +7,7 @@ var comments : Bool
 
 
 let comment = func (c : Str) -> Unit {
-  printf("COM: %s\n", c)
+  //printf("COM: %s\n", c)
 }
 
 
