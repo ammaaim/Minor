@@ -19,7 +19,7 @@ let type_new = func (k : TypeKind) -> *Type {
   memset(t, 0, sizeof Type)
 
   t.kind = k
-  t.align = get("dataAlignment") to Nat8
+  t.align = cfg.dataAlignment to Nat8
   return t
 }
 

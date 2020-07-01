@@ -30,22 +30,13 @@ let init = func () -> Unit {
 
   settings = map_new()
 
-  // default values (64-bit target)
+  // default values (for 64-bit target)
   cfg.cpuBitDepth = 64
   cfg.dataAlignment = 8
   cfg.charSize = 1
   cfg.enumSize = 2
   cfg.integerSize = 8
   cfg.pointerSize = 8
-
-  //set("cpuBitDepth", 64)
-  set("dataAlignment", 8)
-  set("charSize", 1)
-  set("enumSize", 2)
-  set("integerSize", 8)
-  set("pointerSize", 8)
-
-  //set("flagArghack", 0)
 
   //handle_ini("cfg/sys64.cfg")
 

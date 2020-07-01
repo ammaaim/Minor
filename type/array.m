@@ -8,7 +8,7 @@ let type_array_new = func (of : *Type, volume : Nat32, undefined : Bool) -> *Typ
   t.array.undefined = undefined
 
   if undefined {
-    t.size = get("pointerSize") to Nat32
+    t.size = cfg.pointerSize to Nat32
   } else {
     t.size = volume * of.size
   }
