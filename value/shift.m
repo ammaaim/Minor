@@ -26,7 +26,6 @@ let shift = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
     retv.bin.r = r
   }
 
-  retv.ti = ti
   return retv
 
 fail:

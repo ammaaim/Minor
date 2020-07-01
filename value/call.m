@@ -7,7 +7,6 @@ let call = func (f : *Value, a : *List, ti : *TokenInfo) -> *Value {
   let v = valueNew(ValueCall, StorageRegister, ti)
   v.call.function = f
   v.call.arguments = a
-  v.ti = ti
   return v
 
 fail:

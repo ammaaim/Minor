@@ -162,7 +162,6 @@ let get_value_from_params = func (params : *List, id : Str) -> *Value {
   // создадим для него 'Value' и вернем его
   let v = valueNew(ValueId, StorageLocal, param.ti)
   v.type = param.type
-  v.ti = param.ti
   v.storage.id = param.id
   return v
 }
@@ -277,7 +276,6 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *To
   let v = valueNew(ValueId, StorageGlobal, ti)
   v.type = t
   v.storage.id = id
-  v.ti = ti
   bind_value_global(id, v)
 }
 
