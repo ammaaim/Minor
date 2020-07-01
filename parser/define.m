@@ -56,34 +56,16 @@ let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
 // получает значение имя которого выданное генератором
 // и меняет его на норм id (и в Value и в сборке)
 let rename = func (v : *Value, id : Str) -> Unit {
-  // патчим имена
-
   let real_id = decorate(id)
 
-  // если v - функция, то она как все функции поначалу получила default_name.
-  // но тк мы располагаем id с которым она будет связана,
-  // заменим ее default_name на нормальный идентификатор
-  //if v.type.kind == TypeFunction {
-  let cl = v.storage.class
-  if cl == StorageFunction {
-    // получаем то имя что значение получило от генератора
-    let default_name = v.storage.id
-    // переименовываем само значение
-    v.storage.id = real_id
-    // и функцию в сборке
-    asm_func_rename(&asm0, default_name, real_id)
-  } else if cl == StorageString {
-    // v - строковой литерал
-    // на самом деле нет - справа приведение типа включающее в себя строку
-    // это связано с LLVM, пришлось каждое строковое значение упаковать
-    // в приведение к типу Str
-    // поэтому тут мы залазим в строку через (жопу) операцию приведения
+  // получаем то имя что значение получило от генератора
+  let default_name = v.storage.id
 
-    let default_name = v.cast.value.storage.id
-    // переименовываем само значение
-    v.cast.value.storage.id = real_id
-    // и константу в сборке
-    asm_const_rename(&asm0, default_name, real_id)
+  if default_name != Nil {
+    // переименовываем как само значение
+    v.storage.id = real_id
+    // так и соответствующую ему сущность в сборке
+    asm_rename(&asm0, default_name, real_id)
   }
 }
 

@@ -75,7 +75,13 @@ let asm_funcdef_add = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *
 }
 
 
-// rename function in assembly
+// rename entity in assembly
+let asm_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
+  asm_rename2(a.funcs, id_from, id_to)
+  asm_rename2(a.consts, id_from, id_to)
+}
+
+/*// rename function in assembly
 let asm_func_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
   asm_rename(a.funcs, id_from, id_to)
 }
@@ -84,20 +90,22 @@ let asm_func_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
 // rename const (string, array, struct) in assembly
 let asm_const_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
   asm_rename(a.consts, id_from, id_to)
-}
+}*/
 
 
 // rename any entity (string, array, struct) in assembly
-let asm_rename = func (list : *List, id_from, id_to : Str) -> Unit {
+let asm_rename2 = func (list : *List, id_from, id_to : Str) -> Unit {
   let search = func ListSearchHandler {
     let id = data to *Str
-    if strcmp(*id, ctx to Str) == 0 {return data}
+    let id_from = ctx to Str
+    if strcmp(*id, id_from) == 0 {return data}
     return Nil
   }
   let c = list_search(list, search, id_from) to *ConstDef
-  assert(c != Nil, "asm_rename: target not found")
 
-  c.id = id_to
+  if c != Nil {
+    c.id = id_to
+  }
 }
 
 

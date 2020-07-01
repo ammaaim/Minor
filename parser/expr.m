@@ -383,29 +383,11 @@ let term_str = func ValueParser {
   v_asm.storage.str.length = len
   asm_constdef_add(&asm0, id, v_asm)
 
-  // Создаем значение с типом *[x]Char, тк LLVM трактует массивы
-  // упоминаемые по имени, именно как указатели на массивы
-  let v = valueNew(ValueId, StorageString)
-  v.type = type_pointer_new(t)
+  // создаем значение для строки
+  let v = valueNew(ValueId, StorageGlobal)
+  v.type = typeStr
   v.storage.id = id
-  v.storage.str.data = s
-  v.storage.str.length = len
-
-  // возвращаем операцию приведения указателя на массив к Str
-  // это хак с костылем но что поделаешь - LLVM...
-  let vs = valueNew(ValueCast, StorageString)
-  vs.type = typeStr
-  vs.cast.value = v
-  vs.cast.to = typeStr  // !
-  vs.defined_at = ti
-  return vs
-
-  /*
-  // не могу делать так как gcc тк у меня Str это []Nat8 а не *Nat8!
-  var v2 : *Value
-  v2 = valueNew(ValueIndex, typeChar, v_asm, valueNewImm(typeInteger, 0))
-  return un(ValueRef, v2)
-  */
+  return v
 
 fail:
   return Nil
