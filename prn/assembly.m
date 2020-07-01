@@ -14,10 +14,11 @@ type ArrayDef = record {id : Str, type : *Type, len : Nat, values : *List}
 type FuncDef  = record {id : Str, type : *Type, block : *Block}
 type VarDef   = record {id : Str, type : *Type, init_value : *Value}
 
-// структура описывающая модуль для принтера
+
 type Assembly = record {
   name : Str
 
+  // sections
   types,         // of *TypeDef
   arrays,        // of *ArrayDef
   strings,       // of *StringDef
@@ -26,23 +27,23 @@ type Assembly = record {
 }
 
 
-let asm_init = func (a : *Assembly, name : Str) -> Unit {
+let asmInit = func (a : *Assembly, name : Str) -> Unit {
   a.name = name
+
   a.types = list_new()
   a.arrays = list_new()
-  a.vars = list_new()
-  a.funcs = list_new()
   a.strings = list_new()
+  a.funcs = list_new()
+  a.vars = list_new()
 }
 
 
-let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *TypeDef {
-  let td = malloc(sizeof TypeDef) to *TypeDef
-  assert(td != Nil, "asmTypedefAdd")
-  td.id = id
-  td.type = t
-  list_append(a.types, td)
-  return td
+let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> Unit {
+  let x = malloc(sizeof TypeDef) to *TypeDef
+  assert(x != Nil, "asmTypedefAdd")
+  x.id = id
+  x.type = t
+  list_append(a.types, x)
 }
 
 
@@ -67,23 +68,22 @@ let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> U
 
 
 let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> Unit {
-  let fd = malloc(sizeof FuncDef) to *FuncDef
-  assert(fd != Nil, "asmFuncAdd")
-  fd.id = id
-  fd.type = t
-  fd.block = b
-  list_append(a.funcs, fd)
+  let x = malloc(sizeof FuncDef) to *FuncDef
+  assert(x != Nil, "asmFuncAdd")
+  x.id = id
+  x.type = t
+  x.block = b
+  list_append(a.funcs, x)
 }
 
 
-let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *VarDef {
-  let va = malloc(sizeof VarDef) to *VarDef
-  assert(va != Nil, "asmVarAdd")
-  va.id = id
-  va.init_value = init_value
-  va.type = t
-  list_append(a.vars, va)
-  return va
+let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> Unit {
+  let x = malloc(sizeof VarDef) to *VarDef
+  assert(x != Nil, "asmVarAdd")
+  x.id = id
+  x.init_value = init_value
+  x.type = t
+  list_append(a.vars, x)
 }
 
 

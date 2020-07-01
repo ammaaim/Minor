@@ -23,7 +23,7 @@ let init = func () -> Unit {
   }
   liblist_add(syslib_path)
 
-  asm_init(&asm0, "<asm0>")
+  asmInit(&asm0, "<asm0>")
 
   map_init(&globalTypeIndex)
   map_init(&globalValueIndex)
