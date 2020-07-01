@@ -8,7 +8,7 @@ let stmtGoto = func StmtParser {
     return Nil
   }
 
-  let s = stmt_new(StmtGoto)
+  let s = stmtNew(StmtGoto, ti)
   s.l = lab
   s.ti = ti
   return s

@@ -132,8 +132,7 @@ let parseTypedef = func () -> Unit {
 
   need("=")
 
-  var t : *Type
-  t = parse_type(True)
+  let t = parse_type(True)
   if t == Nil {return}
 
   if t.kind != TypeBasic {
@@ -143,8 +142,7 @@ let parseTypedef = func () -> Unit {
     }
   }
 
-  var tt : *Type
-  tt = get_type(id)
+  let tt = get_type(id)
   if tt != Nil {
     // define already declared type (TypeUndefined)
     if tt.kind == TypeUndefined {
@@ -195,10 +193,8 @@ let parseLet = func (local : Bool) -> *Stmt {
     // регистр он получит в принтере тк только там они проясняются
     let v0 = valueNew(ValueId, StorageRegister)
     v0.storage.id = id
-    let s_pre = stmt_new_let(v, v0)
-    s_pre.ti = ti
     bind_value_local(id, v0)
-    return s_pre
+    return stmt_new_let(v, v0, ti)
   }
 
   bind_value_in_block(fctx.cblock, id, v)

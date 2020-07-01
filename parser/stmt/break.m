@@ -6,7 +6,7 @@ let stmtBreak = func StmtParser {
   if fctx.loop == 0 {
     error("`break` outside any loop operator", Nil)
   }
-  return stmt_new(StmtBreak)
+  return stmtNew(StmtBreak, ti)
 }
 
 

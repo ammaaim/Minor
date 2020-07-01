@@ -391,12 +391,11 @@ let term_arr = func ValueParser {
   var len : Nat32
   len = 0
   while not match("}") {
-    var item : *Value
-    item = cexpr()
+    let item = cexpr()
     if item == Nil {match(","); continue}
-    item = castIfNumericTo(item, typeBaseInt)
+    let item2 = castIfNumericTo(item, typeBaseInt)
     len = len + 1
-    list_append(data, item)
+    list_append(data, item2)
     match(",")
   }
 
@@ -483,18 +482,18 @@ let term_id = func ValueParser {
   let id = parseId()
   if id == Nil {return Nil}
 
-  var v : *Value
-  v = get_value(id)
+
+  let v = get_value(id)
 
   if v == Nil {
-    v = valueNew(ValueId, StorageUndefined)
-    v.storage.id = id
-    v.declared_at = ti
-    bind_value_global(id, v)
+    let new_v = valueNew(ValueId, StorageUndefined)
+    new_v.storage.id = id
+    new_v.declared_at = ti
+    bind_value_global(id, new_v)
+    return new_v
   }
 
-  v.storage.id = id  // !
-
+  v.storage.id = id
   return v
 
 fail:

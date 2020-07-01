@@ -5,9 +5,8 @@
 let stmtBlock = func StmtParser {
   let b = doblock()
   if b == Nil {return Nil}
-  let s = stmt_new(StmtBlock)
+  let s = stmtNew(StmtBlock, ti)
   s.b = b
-  s.ti = ti
   return s
 }
 
@@ -39,7 +38,7 @@ let doblock = func () -> *Block {
     let s = stmt()
     if s != Nil {
       sep()
-      add_stmt(s)
+      stmtAdd(s)
     }
   }
 

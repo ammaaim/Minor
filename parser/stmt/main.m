@@ -94,10 +94,9 @@ let stmt_restore = func () -> Unit {
 
 
 let setlab = func (lab : Str, ti : *TokenInfo) -> Unit {
-  let st = stmt_new(StmtLabel)
+  let st = stmtNew(StmtLabel, ti)
   st.l = lab
-  st.ti = ti
-  add_stmt(st)
+  stmtAdd(st)
 }
 
 

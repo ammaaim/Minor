@@ -67,11 +67,12 @@ type Stmt = record {
 
 
 
-let stmt_new = func (kind : StmtKind) -> *Stmt {
+let stmtNew = func (kind : StmtKind, ti : *TokenInfo) -> *Stmt {
   let s = malloc(sizeof Stmt) to *Stmt
   assert(s != Nil, "stmt_new")
   memset(s, 0, sizeof Stmt)
   s.kind = kind
+  s.ti = ti
   return s
 }
 
@@ -82,7 +83,7 @@ let stmt_new_vardef = func (id : Str, t : *Type, init_value : *Value, ti : *Toke
   va.init_value = init_value
   va.type = t
 
-  let s = stmt_new(StmtVarDef)
+  let s = stmtNew(StmtVarDef, ti)
   s.v = va
   s.ti = ti
   return s
@@ -95,8 +96,8 @@ let stmt_new_vardef = func (id : Str, t : *Type, init_value : *Value, ti : *Toke
 // и выражение ValueId - vx у кторого класс Register и номер регистра = номеру
 // регистра v. Сделано это так чтобы компилятор не печатал выражение снова
 // а просто ставил регистр.
-let stmt_new_let = func (v, xv : *Value) -> *Stmt {
-  let s = stmt_new(StmtLet)
+let stmt_new_let = func (v, xv : *Value, ti : *TokenInfo) -> *Stmt {
+  let s = stmtNew(StmtLet, ti)
   s.a[0] = v
   s.a[1] = xv
   return s
@@ -104,7 +105,7 @@ let stmt_new_let = func (v, xv : *Value) -> *Stmt {
 
 
 let stmt_new_assign = func (l, r : *Value, ti : *TokenInfo) -> *Stmt {
-  let s = stmt_new(StmtAssign)
+  let s = stmtNew(StmtAssign, ti)
   s.a[0] = l
   s.a[1] = r
   s.ti = ti

@@ -2,20 +2,21 @@
 
 
 let stmtReturn = func StmtParser {
-  var v : *Value
+  let s = stmtNew(StmtReturn, ti)
+  s.ti = ti
+
   if separator() {
-    v = Nil
-  } else {
-    let ti = &ctok().ti
-    v = expr()
-    if v == Nil {
-      error("expected return expression", ti)
-    }
+    return s
   }
 
-  let s = stmt_new(StmtReturn)
+
+  let ti = &ctok().ti
+  let v = expr()
+  if v == Nil {
+    error("expected return expression", ti)
+  }
   s.a[0] = v
-  s.ti = ti
+
   return s
 
 fail:

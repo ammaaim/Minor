@@ -105,8 +105,7 @@ let need = func (s : Str) -> Bool {
       t = "NL";
     }*/
 
-    var t : *Token
-    t = ctok()
+    let t = ctok()
     error("unexpected symbol", &t.ti)
     printf("expected %s instead %s\n", s, &t.text[0])  //
     printf("ctok.type = %d\n", t.type)

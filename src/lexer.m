@@ -80,8 +80,7 @@ type Rule = (c : Nat8) -> Bool
 // fill token while `rule` is true
 let fill = func (rule : Rule) -> Unit {
   while True {
-    var c : Nat8
-    c = getcc()
+    let c = getcc()
     if c == EOF {
       fatal("unexpected end-of-file")
       exit(1)

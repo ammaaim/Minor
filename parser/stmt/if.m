@@ -23,7 +23,7 @@ let stmtIf = func StmtParser {
 
   if i.cond == Nil or i.then == Nil {goto fail}
 
-  let s = stmt_new(StmtIf)
+  let s = stmtNew(StmtIf, ti)
   s.i = i
   s.ti = ti
   return s

@@ -258,12 +258,12 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *Tok
   bind_value_local(id, v)
 
   // добавляем в код функции стейтмент с определением этой переменной
-  add_stmt(stmt_new_vardef(id, t, init_value, Nil))
+  stmtAdd(stmt_new_vardef(id, t, init_value, Nil))
 
   if init_value != Nil {
     // добавляем в код функции стейтмент
     // с инициализацией этой переменной
-    add_stmt(stmt_new_assign(v, init_value, Nil))
+    stmtAdd(stmt_new_assign(v, init_value, Nil))
   }
 
   return v
@@ -284,7 +284,7 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *To
 
 
 // add statement to current block
-let add_stmt = func (s : *Stmt) -> Unit {
+let stmtAdd = func (s : *Stmt) -> Unit {
   if s != Nil {
     list_append(fctx.cblock.stmts, s)
   }

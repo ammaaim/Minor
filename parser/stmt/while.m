@@ -13,7 +13,7 @@ let stmtWhile = func StmtParser {
 
   if w.cond == Nil or w.stmt == Nil {goto fail}
 
-  let s = stmt_new(StmtWhile)
+  let s = stmtNew(StmtWhile, ti)
   s.w = w
   s.ti = ti
   return s
