@@ -1,6 +1,6 @@
 // m2/prn/debug
 
-/*
+
 let DEBUG = False
 
 var meta : Nat
@@ -11,7 +11,8 @@ let get_metadata = func () -> Nat {
 }
 
 // список записей метаданных
-var md_list : *List
+var md_list : List
+
 
 
 type MetadataClass = enum {
@@ -21,13 +22,31 @@ type MetadataClass = enum {
   DISubroutineType
 }
 
+type Metadata = record {
+  class : MetadataClass
+}
+
 
 
 // добавляет в код ссылку на отлдочную метадату
 let dbg = func (md : Nat) -> Unit {fprintf(fout, " !dbg !%u", md)}
 
 
+let print_metadata_list = func (md_list : *List) -> Unit {
+  let print_md = func ListForeachHandler {
+    let md = data to *Metadata
+    print_metadata(md)
+  }
+  list_foreach(md_list, print_md, Nil)
+}
 
+
+let print_metadata = func (md : *Metadata) -> Unit {
+
+}
+
+
+/*
 let debugPrintDICompileUnit = func () -> Unit {
 "!2 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3, producer: "clang version 7.0.0 (tags/RELEASE_700/final)", isOptimized: true, runtimeVersion: 0, emissionKind: FullDebug, enums: !4, retainedTypes: !5, globals: !33)"
 }
@@ -60,6 +79,7 @@ let debugPrintDISubprogram = func () -> Unit {
 }
 
 */
+
 
 
 

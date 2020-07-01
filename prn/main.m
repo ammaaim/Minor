@@ -47,6 +47,8 @@ let foreach_funcdef = func ListForeachHandler {
 let print_assembly = func (a: *Assembly) -> Unit {
   printf("print_assembly: %s\n", a.name)
 
+  list_init(&md_list)
+
   fprintf(fout, "\n; assembly: %s\n", a.name)
 
   o("\n\n;types:\n")
@@ -57,6 +59,9 @@ let print_assembly = func (a: *Assembly) -> Unit {
   list_foreach(a.vars, foreach_vardef, Nil)
   o("\n\n;funcs:\n")
   list_foreach(a.funcs, foreach_funcdef, Nil)
+
+  o("\n\n;metadata:\n")
+  print_metadata_list(&md_list)
 }
 
 
