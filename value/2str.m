@@ -67,8 +67,6 @@ let print_storage_class = func (c : StorageClass) -> Str {
     return "StorageImmediate"
   } else if c == StorageGlobalConst {
     return "StorageGlobalConst"
-  /*} else if c == StorageFunction {
-    return "StorageFunction"*/
   } else if c == StorageRegister {
     return "StorageRegister"
   } else if c == StorageAddress {
