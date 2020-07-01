@@ -31,7 +31,7 @@ type Storage = record {
 //union {
   val : Int64  // StorageImmediate
   reg : Nat32  // StorageRegister, StorageAddress
-  id  : Str    // StorageLocal, StorageGlobal, StorageString, StorageArray, StorageFunc
+  id  : Str    // StorageLocal, StorageGlobal, StorageGlobalConst
 //}
 }
 
