@@ -25,7 +25,7 @@ let print_value = func (v : *Value) -> Unit {
     fprintf(fout, "@%s", v.storage.id)
   } else if cl == StorageLocal {
     fprintf(fout, "%%%s", v.storage.id)
-  } else if cl == StorageFunction /*or cl == StorageArray*/ {
+  } else if cl == StorageGlobalConst {
     fprintf(fout, "@%s", v.storage.id)
   } else if cl == StorageUndefined {
     fprintf(fout, "<StorageUndefined>")

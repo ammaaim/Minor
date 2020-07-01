@@ -22,7 +22,7 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
   v.declared_at = ti
 
   if type.kind == TypeFunction {
-    v.storage.class = StorageFunction
+    v.storage.class = StorageGlobalConst
     asmFuncAdd(&asm0, id, type, Nil)
   }
 

@@ -453,7 +453,7 @@ let term_func = func ValueParser {
   }
 
   // создаем значение функции
-  let fv = valueNew(ValueId, StorageFunction)
+  let fv = valueNew(ValueId, StorageGlobalConst)
   fv.type = t
 
   if parent_block != Nil {

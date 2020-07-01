@@ -5,13 +5,15 @@ type StorageClass = enum {
   // default value
   StorageUndefined,  // used by undefined value
 
-  // consants, use is_const_storage
+  // Immediate consants, use is_const_storage
   StorageImmediate,  // integer const (in storage#val)
 
-  StorageFunction,   // literal func
 
-  StorageGlobalConst,  // глобальный неизменяемый объект (строка, массив, запись)
-
+  /*
+   * Global Immutable Object used by name
+   * such as funcs, strings, literal arrays & records
+   */
+  StorageGlobalConst,
 
   // variables
   StorageLocal,      // local var
@@ -23,12 +25,6 @@ type StorageClass = enum {
 }
 
 
-type String = record {
-  data   : Str
-  length : Nat32
-}
-
-
 type Storage = record {
   class : StorageClass
 
@@ -37,19 +33,13 @@ type Storage = record {
   reg : Nat32  // StorageRegister, StorageAddress
   id  : Str    // StorageLocal, StorageGlobal, StorageString, StorageArray, StorageFunc
 //}
-
-  str      : String  // StorageString
-  arr_data : *List   // StorageArray
 }
 
 
 
 let storageIsConst = func (s : *Storage) -> Bool {
   let cl = s.class
-  let is_const = cl == StorageImmediate or
-                 cl == StorageFunction or
-                 cl == StorageGlobalConst
-  return is_const
+  return cl == StorageImmediate or cl == StorageGlobalConst
 }
 
 
