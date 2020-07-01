@@ -212,7 +212,7 @@ let eval_index = func Eval {
   printType(i.type, True, True)
   space()
   print_value(i)
-  o(" ; eval_index")
+  //o(" ; eval_index")
   return nv(v.type, StorageAddress, reg)
 }
 
@@ -242,7 +242,8 @@ let eval_access = func Eval {
   printType(record_type, True, True)
   o("* ")
   print_value(s)
-  fprintf(fout, ", i32 0, i32 %u ; eval_access", fieldno)
+  fprintf(fout, ", i32 0, i32 %u", fieldno)
+  //o("; eval_access")
 
   return nv(v.type, StorageAddress, reg)
 }
@@ -264,14 +265,16 @@ let eval_ref = func Eval {
   o("* ")
   print_value(vx)
   comma()
-  o("i32 0 ; ref")
+  o("i32 0")
+  //o("; ref")
 
   return nv(v.type, StorageRegister, reg)
 }
 
 
 let eval_deref = func Eval {
-  let vx = load(eval(v.un.x))  // загружаем указатель
+  // загружаем указатель
+  let vx = load(eval(v.un.x))
 
   // возвращаем загруженный указатель как #Address
   return nv(v.type, StorageAddress, vx.storage.reg)
@@ -287,9 +290,7 @@ let eval_not = func Eval {
   printType(vx.type, True, True)
   space()
   print_value(vx)
-
   if (type_eq(vx.type, typeBool)) {o(", 1")} else {o(", -1")}
-
   return nv(vx.type, StorageRegister, reg)
 }
 
@@ -308,8 +309,6 @@ let eval_minus = func Eval {
   print_value(vx)
   return nv(vx.type, StorageRegister, reg)
 }
-
-
 
 
 let eval_cast = func Eval {

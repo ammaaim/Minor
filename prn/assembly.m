@@ -89,7 +89,7 @@ let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -
 
 // rename entity in assembly
 let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
-  // rename any entity (string, array, struct) in assembly
+  // rename entity in assembly section list
   let ren = func (list : *List, id_from, id_to : Str) -> Bool {
     let search = func ListSearchHandler {
       let id = data to *Str

@@ -2,7 +2,7 @@
 
 
 let typedef = func (id : Str, t : *Type) -> Unit {
-  fprintf(fout, "\n%%%s = type ", id); printType(t, False, True);
+  fprintf(fout, "\n%%%s = type ", id); printType(t, False, True)
 }
 
 
@@ -32,9 +32,6 @@ let arraydef = func (ad : *ArrayDef) -> Unit {
   fprintf(fout, "], align 16")
 }
 
-
-
-//type StringDef = record {id : Str, data : Str, len : Nat}
 
 /*
 @.str = private unnamed_addr constant [4 x i8] c"XXX\00", align 1
@@ -76,7 +73,7 @@ let stringdef = func (sd : *StringDef) -> Unit {
 
 let vardef = func (id : Str, t : *Type, v : *Value) -> Unit {
   fprintf(fout, "\n@%s = global ", id)
-  printType(t, True, True); space();
+  printType(t, True, True); space()
   if v != Nil {print_value(v)} else {o("zeroinitializer")}
   //if DEBUG {comma(); dbg(0)}
 }
