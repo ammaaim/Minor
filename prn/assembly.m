@@ -20,7 +20,6 @@ type Assembly = record {
   name : Str
 
   types,         // of *TypeDef
-  consts,        // of *ConstDef
   arrays,        // of *ArrayDef
   strings,       // of *StringDef
   vars,          // of *VarDef
@@ -31,7 +30,6 @@ type Assembly = record {
 let asm_init = func (a : *Assembly, name : Str) -> Unit {
   a.name = name
   a.types = list_new()
-  a.consts = list_new()
   a.arrays = list_new()
   a.vars = list_new()
   a.funcs = list_new()
@@ -41,7 +39,7 @@ let asm_init = func (a : *Assembly, name : Str) -> Unit {
 
 let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *TypeDef {
   let td = malloc(sizeof TypeDef) to *TypeDef
-  assert(td != Nil, "asm_typedef_add")
+  assert(td != Nil, "asmTypedefAdd")
   td.id = id
   td.type = t
   list_append(a.types, td)
@@ -71,7 +69,7 @@ let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> U
 
 let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> Unit {
   let fd = malloc(sizeof FuncDef) to *FuncDef
-  assert(fd != Nil, "asm_funcdef_add")
+  assert(fd != Nil, "asmFuncAdd")
   fd.id = id
   fd.type = t
   fd.block = b
@@ -81,7 +79,7 @@ let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> Unit {
 
 let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *VarDef {
   let va = malloc(sizeof VarDef) to *VarDef
-  assert(va != Nil, "asm_vardef_add")
+  assert(va != Nil, "asmVarAdd")
   va.id = id
   va.init_value = init_value
   va.type = t
@@ -93,7 +91,7 @@ let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -
 // rename entity in assembly
 let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
   // rename any entity (string, array, struct) in assembly
-  let xrename = func (list : *List, id_from, id_to : Str) -> Unit {
+  let ren = func (list : *List, id_from, id_to : Str) -> Bool {
     let search = func ListSearchHandler {
       let id = data to *Str
       let id_from = ctx to Str
@@ -104,12 +102,14 @@ let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
 
     if c != Nil {
       c.id = id_to
+      return True
     }
+    return False
   }
 
-  xrename(a.funcs, id_from, id_to)
-  xrename(a.consts, id_from, id_to)
-  xrename(a.strings, id_from, id_to)
+  if ren(a.funcs, id_from, id_to) {return}
+  if ren(a.strings, id_from, id_to) {return}
+  if ren(a.arrays, id_from, id_to) {return}
 }
 
 
