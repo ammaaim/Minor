@@ -37,14 +37,14 @@ let type_record_new = func (fields : *List) -> *Type {
 
   type FieldHandleContext = record {
     offset : Nat16  // смещение (порядковый номер) поля в структуре
-    size   : Nat32  // размер структуры
-    talign : Nat8   // выравнивание заданное для структуры
+    align  : Nat8   // выравнивание заданное для структуры
+    size   : Nat32  // полученный в результате размер структуры
   }
 
   var fhc : FieldHandleContext
   fhc.size = 0
   fhc.offset = 0
-  fhc.talign = t.align
+  fhc.align = t.align
 
   let fpost = func ListForeachHandler {
     let f = data to *Field
@@ -53,7 +53,7 @@ let type_record_new = func (fields : *List) -> *Type {
     typeUndefinedCheck(t)
     f.offset = fhc.offset
     fhc.offset = fhc.offset + 1
-    fhc.size = fhc.size + alignment(t.size, fhc.talign)
+    fhc.size = fhc.size + alignment(t.size, fhc.align)
   }
   list_foreach(t.record.fields, fpost, &fhc)
 

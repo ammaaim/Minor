@@ -8,7 +8,6 @@ type StorageClass = enum {
   // Immediate consants, use is_const_storage
   StorageImmediate,  // integer const (in storage#val)
 
-
   /*
    * Global Immutable Object used by name
    * such as funcs, strings, literal arrays & records
@@ -21,7 +20,7 @@ type StorageClass = enum {
 
   // register
   StorageAddress,    // address of value in register
-  StorageRegister    // value in register
+  StorageRegister    // value in LLVM register
 }
 
 
