@@ -100,8 +100,7 @@ let get_value = func (id : Str) -> *Value {
   let local = get_value_local(id)
   if local != Nil {return local}
 
-  var global : *Value  // need let
-  global = get_value_global(id)
+  let global = get_value_global(id)
   if global != Nil {return global}
 
   return get_value_builtin(id)
@@ -187,20 +186,20 @@ let get_suid = func (prefix : Str, uid : Nat32) -> Str {
 
 // функция возвращает строку-префикс
 let get_prefix = func () -> Str {
-  var s : Str
-  s = ""
+
   if fctx.cfunc != Nil {
     // мы работаем в контексте функции -> добавим ее префикс
     // (а он УЖЕ содержит в себе глобальный префикс - namespace)
-    s = malloc(strlen(fctx.cfunc.storage.id) + 2) /* 2 = "%s_\0" */
+    let s = malloc(strlen(fctx.cfunc.storage.id) + 2) /* 2 = "%s_\0" */
     sprintf(s, "%s_\0", fctx.cfunc.storage.id)
+    return s
   } else {
 // временно вырубил декорацию
 //    s = malloc(strlen(mctx.src.name) + 2) /* 2 = "%s_\0" */
 //    sprintf(s, "%s_\0", mctx.src.name)
   }
 
-  return s
+  return ""
 }
 
 

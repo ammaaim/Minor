@@ -22,8 +22,8 @@ let checkFunc = func (f : *Value) -> Unit {
   let old_cfunc = fctx.cfunc
   fctx.cfunc = f
 
-  let b = f.block
   // extern function doesn't have the block
+  let b = f.block
   if b != Nil {
     stmtBlockCheck(b)
   }
