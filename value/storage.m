@@ -7,8 +7,11 @@ type StorageClass = enum {
 
   // consants, use is_const_storage
   StorageImmediate,  // integer const (in storage#val)
+
   StorageFunction,   // literal func
-  StorageString,     // literal string
+
+  StorageGlobalConst,  // глобальный неизменяемый объект (строка, массив, запись)
+
   StorageArray,      // literal array
   StorageRecord,     // literal record
 
@@ -47,7 +50,7 @@ let storageIsConst = func (s : *Storage) -> Bool {
   let cl = s.class
   let is_const = cl == StorageImmediate or
                  cl == StorageFunction or
-                 cl == StorageString or
+                 cl == StorageGlobalConst or
                  cl == StorageArray or
                  cl == StorageRecord
   return is_const

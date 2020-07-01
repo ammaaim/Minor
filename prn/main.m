@@ -22,9 +22,7 @@ let foreach_constdef = func ListForeachHandler {
   // It can be StorageString or StorageArray or StorageRecord
   let storageClass = cd.value.storage.class
 
-  if storageClass == StorageString {
-    stringdef(cd.id, cd.value.storage.str.length, cd.value.storage.str.data)
-  } else if storageClass == StorageArray {
+  if storageClass == StorageArray {
     arraydef(cd.id, cd.value.type.array.of, cd.value.storage.arr_data)
   } else if storageClass == StorageRecord {
     error("print::StorageRecord not implemented", Nil)
@@ -44,6 +42,12 @@ let foreach_funcdef = func ListForeachHandler {
 }
 
 
+let foreach_stringdef = func ListForeachHandler {
+  let sd = data to *StringDef
+  stringdef(sd)
+}
+
+
 let print_assembly = func (a: *Assembly) -> Unit {
   printf("print_assembly: %s\n", a.name)
 
@@ -53,6 +57,8 @@ let print_assembly = func (a: *Assembly) -> Unit {
 
   o("\n\n;types:\n")
   list_foreach(a.types, foreach_typedef, Nil)
+  o("\n\n;strings:\n")
+  list_foreach(a.strings, foreach_stringdef, Nil)
   o("\n\n;consts:\n")
   list_foreach(a.consts, foreach_constdef, Nil)
   o("\n\n;vars:\n")

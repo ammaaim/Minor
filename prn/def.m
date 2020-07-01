@@ -30,12 +30,17 @@ let arraydef = func (id : Str, t : *Type, items : *List) -> Unit {
 }
 
 
+
+//type StringDef = record {id : Str, data : Str, len : Nat}
+
 /*
 @.str = private unnamed_addr constant [4 x i8] c"XXX\00", align 1
 @s = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0), align 8, !dbg !0
 */
-var strInternalId : Nat
-let stringdef = func (id : Str, len : Nat32, s : Str) -> Unit {
+let stringdef = func (sd : *StringDef) -> Unit {
+  let id = sd.id
+  let len = sd.len
+  let s = sd.data
   //@str_108 = private unnamed_addr constant [7 x i8] c"Nat32\00", align 1
   fprintf(fout, "\n@.str.%s = private unnamed_addr constant [%d x i8] c\"", id, len)
 
@@ -61,6 +66,7 @@ let stringdef = func (id : Str, len : Nat32, s : Str) -> Unit {
   }
   fprintf(fout, "\\%02d\", align 1", 0)
 
+  //@s = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0)
   fprintf(fout, "\n@%s = constant i8* getelementptr inbounds ([%d x i8], [%d x i8]* @.str.%s, i32 0, i32 0), align 8", id, len, len, id)
 }
 

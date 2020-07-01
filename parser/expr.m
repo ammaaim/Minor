@@ -370,13 +370,7 @@ let term_str = func ValueParser {
 
   let id = get_name_str()
 
-  // Создаем значение с типом [x]Char ДЛЯ ПРИНТЕРА
-  let v_asm = valueNew(ValueId, StorageString)
-  v_asm.type = type_array_new(typeChar, len, False)
-  v_asm.storage.id = id
-  v_asm.storage.str.data = s
-  v_asm.storage.str.length = len
-  asm_constdef_add(&asm0, id, v_asm)
+  asmStringAdd(&asm0, id, s, len)
 
   // создаем значение для строки
   let v = valueNew(ValueId, StorageGlobal)

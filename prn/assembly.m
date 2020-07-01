@@ -6,11 +6,13 @@
   и три типа машинных сущностей (константы переменные и функции)
 */
 
-
+// id должно идти первым полем! Грязный хак для asm_rename2!
 type TypeDef  = record {id : Str, type : *Type}
 type ConstDef = record {id : Str, value : *Value}
 type VarDef   = record {id : Str, type : *Type, init_value : *Value}
 type FuncDef  = record {id : Str, type : *Type, block : *Block}
+
+type StringDef = record {id : Str, data : Str, len : Nat}
 
 // структура описывающая модуль для принтера
 type Assembly = record {
@@ -19,6 +21,7 @@ type Assembly = record {
   types,         // of *TypeDef
   consts,        // of *ConstDef
   vars,          // of *VarDef
+  strings,       // of *StringDef
   funcs : *List  // of *FuncDef
 }
 
@@ -30,6 +33,7 @@ let asm_init = func (a : *Assembly, name : Str) -> Unit {
   a.consts = list_new()
   a.vars = list_new()
   a.funcs = list_new()
+  a.strings = list_new()
 }
 
 
@@ -51,6 +55,19 @@ let asm_constdef_add = func (a : *Assembly, id : Str, v : *Value) -> *ConstDef {
   list_append(a.consts, cd)
   return cd
 }
+
+
+
+
+let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> Unit {
+  let x = malloc(sizeof StringDef) to *StringDef
+  assert(x != Nil, "asm_constdef_add")
+  x.id = id
+  x.data = s
+  x.len = len
+  list_append(a.strings, x)
+}
+
 
 
 let asm_vardef_add = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *VarDef {
@@ -79,18 +96,8 @@ let asm_funcdef_add = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *
 let asm_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
   asm_rename2(a.funcs, id_from, id_to)
   asm_rename2(a.consts, id_from, id_to)
+  asm_rename2(a.strings, id_from, id_to)
 }
-
-/*// rename function in assembly
-let asm_func_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
-  asm_rename(a.funcs, id_from, id_to)
-}
-
-
-// rename const (string, array, struct) in assembly
-let asm_const_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
-  asm_rename(a.consts, id_from, id_to)
-}*/
 
 
 // rename any entity (string, array, struct) in assembly
