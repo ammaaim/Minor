@@ -76,7 +76,7 @@ let stmt_new = func (kind : StmtKind) -> *Stmt {
 }
 
 
-let stmt_new_vardef = func (id : Str, t : *Type, init_value : *Value) -> *Stmt {
+let stmt_new_vardef = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> *Stmt {
   let va = malloc(sizeof VarDef) to *VarDef
   va.id = id
   va.init_value = init_value
@@ -84,7 +84,7 @@ let stmt_new_vardef = func (id : Str, t : *Type, init_value : *Value) -> *Stmt {
 
   let s = stmt_new(StmtVarDef)
   s.v = va
-//  s.ti = ti
+  s.ti = ti
   return s
 }
 

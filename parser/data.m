@@ -249,7 +249,7 @@ let get_name_type = func () -> Str {return get_name("Type", &type_uid)}
 
 
 
-let create_local_var = func (id : Str, t : *Type, init_value : *Value) -> *Value {
+let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> *Value {
   // создадим фейковый value который будет занесен в индекс
   // и будет ссылаться на переменную (просто нести тот же id)
   let v = valueNew(ValueId, StorageLocal)
@@ -258,7 +258,7 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value) -> *Value
   bind_value_local(id, v)
 
   // добавляем в код функции стейтмент с определением этой переменной
-  add_stmt(stmt_new_vardef(id, t, init_value))
+  add_stmt(stmt_new_vardef(id, t, init_value, Nil))
 
   if init_value != Nil {
     // добавляем в код функции стейтмент
@@ -270,7 +270,7 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value) -> *Value
 }
 
 
-let create_global_var = func (id : Str, t : *Type, init_value : *Value) -> Unit {
+let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> Unit {
   asmVarAdd(&asm0, id, t, init_value)
 
   // создадим фейковый value который будет занесен в индекс
@@ -278,6 +278,7 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value) -> Unit 
   let v = valueNew(ValueId, StorageGlobal)
   v.type = t
   v.storage.id = id
+  v.ti = ti
   bind_value_global(id, v)
 }
 

@@ -215,9 +215,9 @@ let parseVardef = func () -> Unit {
     let id = f.id
     let type = f.type
     if fctx.cfunc != Nil {
-      create_local_var(id, type, Nil)
+      create_local_var(id, type, Nil, f.ti)
     } else {
-      create_global_var(id, type, Nil)
+      create_global_var(id, type, Nil, f.ti)
     }
   }
   list_foreach(fieldlist, handle_fields, Nil)
