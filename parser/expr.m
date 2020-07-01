@@ -401,12 +401,15 @@ let term_arr = func ValueParser {
 
   let id = get_name_arr()
   let t = type_array_new(of, len, False)
-  let v = valueNew(ValueId, StorageArray)
+
+  asmArrayAdd(&asm0, id, t, 0, data)
+
+  let v = valueNew(ValueId, StorageGlobalConst)
   v.type = t
   v.storage.id = id
-  v.storage.arr_data = data
+  //v.storage.arr_data = data
   v.defined_at = ti
-  asm_constdef_add(&asm0, id, v)
+  //asm_constdef_add(&asm0, id, v)
 
   return v
 }

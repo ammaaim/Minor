@@ -13,6 +13,7 @@ type VarDef   = record {id : Str, type : *Type, init_value : *Value}
 type FuncDef  = record {id : Str, type : *Type, block : *Block}
 
 type StringDef = record {id : Str, data : Str, len : Nat}
+type ArrayDef = record {id : Str, type : *Type, len : Nat, values : *List}
 
 // структура описывающая модуль для принтера
 type Assembly = record {
@@ -20,17 +21,18 @@ type Assembly = record {
 
   types,         // of *TypeDef
   consts,        // of *ConstDef
-  vars,          // of *VarDef
+  arrays,        // of *ArrayDef
   strings,       // of *StringDef
+  vars,          // of *VarDef
   funcs : *List  // of *FuncDef
 }
-
 
 
 let asm_init = func (a : *Assembly, name : Str) -> Unit {
   a.name = name
   a.types = list_new()
   a.consts = list_new()
+  a.arrays = list_new()
   a.vars = list_new()
   a.funcs = list_new()
   a.strings = list_new()
@@ -61,13 +63,23 @@ let asm_constdef_add = func (a : *Assembly, id : Str, v : *Value) -> *ConstDef {
 
 let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> Unit {
   let x = malloc(sizeof StringDef) to *StringDef
-  assert(x != Nil, "asm_constdef_add")
+  assert(x != Nil, "asmStringAdd")
   x.id = id
   x.data = s
   x.len = len
   list_append(a.strings, x)
 }
 
+
+let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, len : Nat, values : *List) -> Unit {
+  let x = malloc(sizeof ArrayDef) to *ArrayDef
+  assert(x != Nil, "asmArrayAdd")
+  x.id = id
+  x.type = t
+  x.len = len
+  x.values = values
+  list_append(a.arrays, x)
+}
 
 
 let asm_vardef_add = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *VarDef {

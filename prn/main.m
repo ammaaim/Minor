@@ -10,44 +10,6 @@ import "def"
 
 
 
-let foreach_typedef = func ListForeachHandler {
-  let td = data to *TypeDef
-  typedef(td.id, td.type)
-}
-
-
-let foreach_constdef = func ListForeachHandler {
-  let cd = data to *ConstDef
-
-  // It can be StorageString or StorageArray or StorageRecord
-  let storageClass = cd.value.storage.class
-
-  if storageClass == StorageArray {
-    arraydef(cd.id, cd.value.type.array.of, cd.value.storage.arr_data)
-  } else if storageClass == StorageRecord {
-    error("print::StorageRecord not implemented", Nil)
-  }
-}
-
-
-let foreach_vardef = func ListForeachHandler {
-  let vd = data to *VarDef
-  vardef(vd.id, vd.type, vd.init_value)
-}
-
-
-let foreach_funcdef = func ListForeachHandler {
-  let fd = data to *FuncDef
-  funcdef(fd.id, fd.type, fd.block)
-}
-
-
-let foreach_stringdef = func ListForeachHandler {
-  let sd = data to *StringDef
-  stringdef(sd)
-}
-
-
 let print_assembly = func (a: *Assembly) -> Unit {
   printf("print_assembly: %s\n", a.name)
 
@@ -55,17 +17,47 @@ let print_assembly = func (a: *Assembly) -> Unit {
 
   fprintf(fout, "\n; assembly: %s\n", a.name)
 
+  // print Types
   o("\n\n;types:\n")
+  let foreach_typedef = func ListForeachHandler {
+    let td = data to *TypeDef
+    typedef(td.id, td.type)
+  }
   list_foreach(a.types, foreach_typedef, Nil)
+
+  // print Strings
   o("\n\n;strings:\n")
+  let foreach_stringdef = func ListForeachHandler {
+    let sd = data to *StringDef
+    stringdef(sd)
+  }
   list_foreach(a.strings, foreach_stringdef, Nil)
-  o("\n\n;consts:\n")
-  list_foreach(a.consts, foreach_constdef, Nil)
+
+  // print Arrays
+  o("\n\n;arrays:\n")
+  let foreach_arraydef = func ListForeachHandler {
+    let ad = data to *ArrayDef
+    arraydef(ad)
+  }
+  list_foreach(a.arrays, foreach_arraydef, Nil)
+
+  // print Variables
   o("\n\n;vars:\n")
+  let foreach_vardef = func ListForeachHandler {
+    let vd = data to *VarDef
+    vardef(vd.id, vd.type, vd.init_value)
+  }
   list_foreach(a.vars, foreach_vardef, Nil)
+
+  // print Functions
   o("\n\n;funcs:\n")
+  let foreach_funcdef = func ListForeachHandler {
+    let fd = data to *FuncDef
+    funcdef(fd.id, fd.type, fd.block)
+  }
   list_foreach(a.funcs, foreach_funcdef, Nil)
 
+  // print Metadata
   o("\n\n;metadata:\n")
   print_metadata_list(&md_list)
 }

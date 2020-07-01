@@ -6,7 +6,10 @@ let typedef = func (id : Str, t : *Type) -> Unit {
 }
 
 
-let arraydef = func (id : Str, t : *Type, items : *List) -> Unit {
+let arraydef = func (ad : *ArrayDef) -> Unit {
+  let id = ad.id
+  let t = ad.type
+  let items = ad.values
   //@arr = global [4 x i32] [i32 1, i32 2, i32 3, i32 4], align 16
   fprintf(fout, "\n@%s = private unnamed_addr constant [%d x ", id, items.volume)
   printType(t, True, True)
