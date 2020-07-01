@@ -39,7 +39,7 @@ let asm_init = func (a : *Assembly, name : Str) -> Unit {
 }
 
 
-let asm_typedef_add = func (a : *Assembly, id : Str, t : *Type) -> *TypeDef {
+let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *TypeDef {
   let td = malloc(sizeof TypeDef) to *TypeDef
   assert(td != Nil, "asm_typedef_add")
   td.id = id
@@ -47,18 +47,6 @@ let asm_typedef_add = func (a : *Assembly, id : Str, t : *Type) -> *TypeDef {
   list_append(a.types, td)
   return td
 }
-
-
-let asm_constdef_add = func (a : *Assembly, id : Str, v : *Value) -> *ConstDef {
-  let cd = malloc(sizeof ConstDef) to *ConstDef
-  assert(cd != Nil, "asm_constdef_add")
-  cd.id = id
-  cd.value = v
-  list_append(a.consts, cd)
-  return cd
-}
-
-
 
 
 let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> Unit {
@@ -71,18 +59,27 @@ let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> Unit {
 }
 
 
-let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, len : Nat, values : *List) -> Unit {
+let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> Unit {
   let x = malloc(sizeof ArrayDef) to *ArrayDef
   assert(x != Nil, "asmArrayAdd")
   x.id = id
   x.type = t
-  x.len = len
   x.values = values
   list_append(a.arrays, x)
 }
 
 
-let asm_vardef_add = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *VarDef {
+let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> Unit {
+  let fd = malloc(sizeof FuncDef) to *FuncDef
+  assert(fd != Nil, "asm_funcdef_add")
+  fd.id = id
+  fd.type = t
+  fd.block = b
+  list_append(a.funcs, fd)
+}
+
+
+let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *VarDef {
   let va = malloc(sizeof VarDef) to *VarDef
   assert(va != Nil, "asm_vardef_add")
   va.id = id
@@ -93,38 +90,26 @@ let asm_vardef_add = func (a : *Assembly, id : Str, t : *Type, init_value : *Val
 }
 
 
-let asm_funcdef_add = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *FuncDef {
-  let fd = malloc(sizeof FuncDef) to *FuncDef
-  assert(fd != Nil, "asm_funcdef_add")
-  fd.id = id
-  fd.type = t
-  fd.block = b
-  list_append(a.funcs, fd)
-  return fd
-}
-
-
 // rename entity in assembly
-let asm_rename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
-  asm_rename2(a.funcs, id_from, id_to)
-  asm_rename2(a.consts, id_from, id_to)
-  asm_rename2(a.strings, id_from, id_to)
-}
+let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
+  // rename any entity (string, array, struct) in assembly
+  let xrename = func (list : *List, id_from, id_to : Str) -> Unit {
+    let search = func ListSearchHandler {
+      let id = data to *Str
+      let id_from = ctx to Str
+      if strcmp(*id, id_from) == 0 {return data}
+      return Nil
+    }
+    let c = list_search(list, search, id_from) to *ConstDef
 
-
-// rename any entity (string, array, struct) in assembly
-let asm_rename2 = func (list : *List, id_from, id_to : Str) -> Unit {
-  let search = func ListSearchHandler {
-    let id = data to *Str
-    let id_from = ctx to Str
-    if strcmp(*id, id_from) == 0 {return data}
-    return Nil
+    if c != Nil {
+      c.id = id_to
+    }
   }
-  let c = list_search(list, search, id_from) to *ConstDef
 
-  if c != Nil {
-    c.id = id_to
-  }
+  xrename(a.funcs, id_from, id_to)
+  xrename(a.consts, id_from, id_to)
+  xrename(a.strings, id_from, id_to)
 }
 
 

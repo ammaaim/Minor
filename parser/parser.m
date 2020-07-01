@@ -129,7 +129,7 @@ let parseTypedef = func () -> Unit {
     // define already declared type (TypeUndefined)
     if tt.kind == TypeUndefined {
       memcpy(tt, t, sizeof Type)
-      asm_typedef_add(&asm0, id, t)
+      asmTypedefAdd(&asm0, id, t)
       return
     }
   }
@@ -138,7 +138,7 @@ let parseTypedef = func () -> Unit {
   bind_type_global(id, t)
 
   // creating data for printer
-  asm_typedef_add(&asm0, id, t)
+  asmTypedefAdd(&asm0, id, t)
 }
 
 

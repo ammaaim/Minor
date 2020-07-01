@@ -402,7 +402,7 @@ let term_arr = func ValueParser {
   let id = get_name_arr()
   let t = type_array_new(of, len, False)
 
-  asmArrayAdd(&asm0, id, t, 0, data)
+  asmArrayAdd(&asm0, id, t, data)
 
   let v = valueNew(ValueId, StorageGlobalConst)
   v.type = t
@@ -470,7 +470,7 @@ let term_func = func ValueParser {
   need("{")
   let block = doblock()
   fv.block = block  // для чека сохраняем сссылку на блок в самом значении
-  asm_funcdef_add(&asm0, id, t, block)
+  asmFuncAdd(&asm0, id, t, block)
   fctx = old_fctx
 
   return fv

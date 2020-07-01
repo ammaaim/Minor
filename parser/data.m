@@ -271,7 +271,7 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value) -> *Value
 
 
 let create_global_var = func (id : Str, t : *Type, init_value : *Value) -> Unit {
-  asm_vardef_add(&asm0, id, t, init_value)
+  asmVarAdd(&asm0, id, t, init_value)
 
   // создадим фейковый value который будет занесен в индекс
   // и будет ссылаться на переменную (просто нести тот же id)

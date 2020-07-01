@@ -23,7 +23,7 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
 
   if type.kind == TypeFunction {
     v.storage.class = StorageFunction
-    asm_funcdef_add(&asm0, id, type, Nil)
+    asmFuncAdd(&asm0, id, type, Nil)
   }
 
   bind_value_global(id, v)
@@ -65,7 +65,7 @@ let rename = func (v : *Value, id : Str) -> Unit {
     // переименовываем как само значение
     v.storage.id = real_id
     // так и соответствующую ему сущность в сборке
-    asm_rename(&asm0, default_name, real_id)
+    asmRename(&asm0, default_name, real_id)
   }
 }
 
