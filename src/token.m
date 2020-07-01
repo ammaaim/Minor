@@ -8,6 +8,7 @@ type TokenType = enum {
   TokenSym,
   TokenString,
   TokenHash,
+  TokenComment,
   TokenNL
 }
 

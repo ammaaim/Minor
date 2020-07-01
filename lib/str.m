@@ -17,20 +17,6 @@ let dup = func (s : Str) -> Str {
   return new_s
 }
 
-
-// содает копию строки
-// n - размер результирующей строки
-// 0-терминатор гарантированно будет скопирован
-/*
-let dupn = func (s0 : Str, n : Nat) -> Str {
-  if n == 0 {return Nil}
-  let s1 = str_new(n)
-  memcpy(s1, s0, )
-  return s1
-}
-*/
-
-
 // склеивает две строки формируя на выходе новую
 let cat = func (s1, s2 : Str) -> Str {
   let len1 = strlen(s1)

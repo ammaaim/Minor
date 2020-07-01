@@ -1,8 +1,8 @@
 // m2/src/lexer
 
 
-import "token"
 import "lib/ascii"
+import "token"
 
 
 let EOF = 0  // getcc returns EOF when file is over
@@ -95,12 +95,14 @@ let fill = func (rule : Rule) -> Unit {
       lstate.length = lstate.length + 1
     } else {
       lex_putback(c)
+      lstate.token[lstate.length] = 0
       break
     }
   }
 }
 
 
+// Rules
 let blank = func Rule {return c == " "[0] or c == "\t"[0]}
 let minus = func Rule {return c == ">"[0]}
 let slash = func Rule {return c == "/"[0] or c == "*"[0]}
@@ -110,7 +112,27 @@ let eq = func Rule {return c == "="[0]}
 let bang = func Rule {return c == "="[0]}
 let id = func Rule {return isalnum(c) or c == "_"[0]}
 let digit = func Rule {return isalnum(c)}
+let cpp_com = func Rule {return c != "\n"[0]}
 
+let c_com = func Rule {
+  printf("%c", c)
+  if c == "*"[0] {
+    c = getcc()
+    if c == "/"[0] {
+      //c = getcc()
+      return False
+    }
+    lex_putback(c)
+  }
+  return True
+}
+
+
+/*
+  Здесь я всегда выдаю комментарии
+  а уже парсер при парсинге в телах включает skip_comment
+  а так - комментарии это токены!
+*/
 
 let gettoken = func () -> TokenType {
   var c : Nat8
@@ -151,13 +173,12 @@ again:
     lstate.type = TokenSym
     if c == "\n"[0] {
       lstate.type = TokenNL
-
     } else if c == "="[0] {
       fill(eq)
     } else if c == "-"[0] {
       fill(minus)
     } else if c == "/"[0] {
-      if not xslash() {goto again}
+      xslash()
     } else if c == ">"[0] {
       fill(rarrow)
     } else if c == "<"[0] {
@@ -186,46 +207,50 @@ again:
 
 /* xslash вернет False в том случае если он обработал C-style comment
    и ему нечего вернуть. => нам нужно опять сходить за токеном */
-let xslash = func () -> Bool {
+let xslash = func () -> Unit {
   var c : Nat8
-  let nextok = getcc() /* maybe '/' or '*' ? */
+  let nextok = getcc()  // maybe '/' or '*' ?
   if nextok == "/"[0] {
-    while True {
-      c = getcc()
-      if c == EOF {
-        lex_putback(c)
-        break
-      } else if c == "\n"[0] {
-        lstate.type = TokenNL
-        lstate.token[0] = "\n"[0]
-        lstate.token[1] = 0
-        lstate.length = 1
-        break
-      }
-    }
+    fill(cpp_com)
+    lstate.type = TokenComment
+
   } else if nextok == "*"[0] {
+    /*c = getcc()
+    //printf("T_C: %c\n", c)
+    printf(">>\n")
+    lstate.length = 0
+    fill(c_com)
+    lstate.type = TokenComment
+    printf("<<\n")
+    //printf("ET_C: %c\n", c)
+    printf("COM = %s\n", &lstate.token[0])
+*/
+    lstate.type = TokenComment
     while True {
       c = getcc()
+
       if c == EOF {
         fatal("unexpected end-of-file")
       } else if c == "*"[0] {
         c = getcc()
         if c == "/"[0] {
-          /* C-style comment ended */
-          return False
+          // C-style comment ended
+          lstate.token[lstate.length] = 0
+          return
         } else {
           lex_putback(c)
         }
       } else if c == "\n"[0] {
         linecnt()
       }
+      printf("%c", c)
+      //lstate.token[lstate.length] = c
+      //lstate.length = lstate.length + 1
     }
   } else {
     lex_putback(nextok)  // this is not a comment
     fill(slash)
   }
-
-  return True
 }
 
 

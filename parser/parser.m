@@ -41,7 +41,8 @@ let parse = func (src : *Source) -> Unit {
       if match("nodecorate") {/*set("flagNoDecorate", 1);*/ continue}
       if eof() {break}
 
-      error("unexpected token", &ctok().ti)
+      error("unexpected token2", &ctok().ti)
+      printf("+++ %d\n", ctok().type)
 
       // top-level sync strategy
       while True {

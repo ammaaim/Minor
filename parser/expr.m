@@ -349,7 +349,8 @@ let term = func ValueParser {
     v = term_hash()
   } else {
     error("term: unexpected token\n", &token.ti)
-    printf("token = %s\n", ctok().text)
+    printf("tt=%d\n", token.type)
+    printf("token = %s\n", &token.text[0])
   }
 
   if v != Nil {

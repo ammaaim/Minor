@@ -10,12 +10,34 @@ import "expr"
 import "stmt"
 
 
+var comments : Bool
 
 // возвращает ноду текущего токена
 let gett = func () -> *Node {return mctx.src.token_node}
 // устанавливает ноду текущего токена
 let sett = func (tn : *Node) -> Unit {mctx.src.token_node = tn}
-let ctok = func () -> *Token {return gett().data to *Token}
+
+// skip current token
+let skip = func () -> Unit {mctx.src.token_node = mctx.src.token_node.next}
+
+// skip while NL
+let skip_nl = func () -> Unit {while match("\n") {/* skip */}}
+
+
+
+
+let ctok = func () -> *Token {
+  let token = gett().data to *Token
+  if not comments {
+    if token.type == TokenComment {
+      skip()
+      return ctok()
+    }
+  }
+  return token
+}
+
+
 let eof = func () -> Bool {return ctok().type == TokenEOF}
 /*let nextok = func () -> *Token {
   if gett().next != Nil {
@@ -49,13 +71,6 @@ let separator = func () -> Bool {
   if ct == "}"[0] or ct == ")"[0] {return True}
   return False
 }
-
-
-// skip current token
-let skip = func () -> Unit {mctx.src.token_node = mctx.src.token_node.next}
-
-// skip while NL
-let skip_nl = func () -> Unit {while match("\n") {/* skip */}}
 
 
 let skipto = func (s : Str) -> Unit {
