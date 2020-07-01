@@ -367,17 +367,12 @@ let term_str = func ValueParser {
   let s = dup(text)
   skip()
 
-  let t = type_array_new(typeChar, len, False)
-
-  // Есть какая то хрень в том что LLVM считает что у строки тип [X x i8]
-  // Но ссылась на константу мы используем ее как [X x i8]*
 
   let id = get_name_str()
 
-  // Создаем значение с типом [x]Char для принтера
-  // он напечатает его как массив
+  // Создаем значение с типом [x]Char ДЛЯ ПРИНТЕРА
   let v_asm = valueNew(ValueId, StorageString)
-  v_asm.type = t
+  v_asm.type = type_array_new(typeChar, len, False)
   v_asm.storage.id = id
   v_asm.storage.str.data = s
   v_asm.storage.str.length = len
@@ -388,9 +383,6 @@ let term_str = func ValueParser {
   v.type = typeStr
   v.storage.id = id
   return v
-
-fail:
-  return Nil
 }
 
 
