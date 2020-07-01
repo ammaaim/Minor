@@ -249,8 +249,7 @@ let hier10 = func ValueParser {
       error("sizeof expected <type>", ti_sizeof)
       return Nil
     }
-    v = valueNewImm(typeSizeof, t.size to Int64)
-    v.ti = ti
+    v = valueNewImm(typeSizeof, t.size to Int64, ti)
   } else if match("alignof") {
     let ti_alignof = &ctok().ti
     let t = parse_type(False)
@@ -258,8 +257,7 @@ let hier10 = func ValueParser {
       error("alignof expected <type>", ti_alignof)
       return Nil
     }
-    v = valueNewImm(typeAlignof, t.align to Int64)
-    v.ti = ti
+    v = valueNewImm(typeAlignof, t.align to Int64, ti)
   } else {
     v = hier11()
   }
@@ -374,7 +372,7 @@ let term_str = func ValueParser {
   asmStringAdd(&asm0, id, s, len)
 
   // создаем значение для строки
-  let v = valueNew(ValueId, StorageGlobal)
+  let v = valueNew(ValueId, StorageGlobal, ti)
   v.type = typeStr
   v.storage.id = id
   return v
@@ -404,7 +402,7 @@ let term_arr = func ValueParser {
 
   asmArrayAdd(&asm0, id, t, data)
 
-  let v = valueNew(ValueId, StorageGlobalConst)
+  let v = valueNew(ValueId, StorageGlobalConst, ti)
   v.type = t
   v.storage.id = id
   v.defined_at = ti
@@ -450,7 +448,7 @@ let term_func = func ValueParser {
   }
 
   // создаем значение функции
-  let fv = valueNew(ValueId, StorageGlobalConst)
+  let fv = valueNew(ValueId, StorageGlobalConst, ti)
   fv.type = t
 
   if parent_block != Nil {
@@ -486,7 +484,7 @@ let term_id = func ValueParser {
   let v = get_value(id)
 
   if v == Nil {
-    let new_v = valueNew(ValueId, StorageUndefined)
+    let new_v = valueNew(ValueId, StorageUndefined, ti)
     new_v.storage.id = id
     new_v.declared_at = ti
     bind_value_global(id, new_v)
@@ -514,7 +512,7 @@ let term_num = func ValueParser {
 
   let t = type_new(TypeNumeric)
   t.declared_at = ti
-  let v = valueNewImm(t, d)
+  let v = valueNewImm(t, d, ti)
   v.defined_at = ti
   return v
 }

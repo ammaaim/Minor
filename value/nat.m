@@ -33,7 +33,7 @@ let nat = func (v : *Value, t : *Type) -> *Value {
   // TypeNumeric -> Basic:Integer
   if vtype.kind == TypeNumeric {
     if type_is_basic_integer(t) {
-      return valueNewImm(t, v.storage.val)
+      return valueNewImm(t, v.storage.val, v.ti)
     }
   }
 

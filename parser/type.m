@@ -108,8 +108,10 @@ let parse_type_enum = func TypeParser {
 
     let ec = malloc(sizeof EnumConstructor) to *EnumConstructor
 
+    let ti = &ctok().ti
     ec.id = parseId()
     ec.d = num
+    ec.ti = ti
 
     list_append(constructors, ec)
 

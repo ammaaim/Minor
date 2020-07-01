@@ -9,7 +9,7 @@ type TypeEnum = record {
 */
 
 
-type EnumConstructor = record {id : Str, d : Int64}
+type EnumConstructor = record {id : Str, d : Int64, ti : *TokenInfo}
 
 
 
@@ -21,7 +21,7 @@ let type_enum_new = func (constructors : *List /* of EnumConstructor */) -> *Typ
   let create_constructor = func ListForeachHandler {
     let cons = data to *EnumConstructor
     let enum_type = ctx to *Type
-    let v = valueNewImm(enum_type, cons.d)
+    let v = valueNewImm(enum_type, cons.d, cons.ti)
     bind_value(cons.id, v)
   }
   list_foreach(constructors, create_constructor, t)

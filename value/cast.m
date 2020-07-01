@@ -15,7 +15,7 @@ let cast = func (v : *Value, t : *Type, ti : *TokenInfo) -> *Value {
   if v == Nil or t == Nil {goto fail}
 
   if immCastIsPossible(v, t) {
-    return valueNewImm(t, v.storage.val)
+    return valueNewImm(t, v.storage.val, ti)
   }
 
   /*if v.type != Nil {
@@ -31,7 +31,7 @@ let cast = func (v : *Value, t : *Type, ti : *TokenInfo) -> *Value {
   }*/
 
   // во всех остальных случаях выполняем runtime приведение
-  let vc = valueNew(ValueCast, StorageRegister)
+  let vc = valueNew(ValueCast, StorageRegister, ti)
   vc.cast.value = v
   vc.cast.to = t
   return vc

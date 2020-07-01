@@ -5,18 +5,19 @@ import "storage"
 import "value"
 
 
-let valueNew = func (k : ValueKind, sc : StorageClass) -> *Value {
+let valueNew = func (k : ValueKind, sc : StorageClass, ti : *TokenInfo) -> *Value {
   let v = malloc(sizeof Value) to *Value
   assert(v != Nil, "value_new")
   memset(v, 0, sizeof Value)
   v.kind = k
   v.storage.class = sc
+  v.ti = ti
   return v
 }
 
 
-let valueNewImm = func (t : *Type, dx : Int64) -> *Value {
-  let v = valueNew(ValueId, StorageImmediate)
+let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
+  let v = valueNew(ValueId, StorageImmediate, ti)
   v.type = t
   v.storage.val = dx
   return v

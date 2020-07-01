@@ -35,9 +35,9 @@ let bin = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   var v : *Value
   if l.storage.class == StorageImmediate and
      r.storage.class == StorageImmediate {
-    v = binImm(k, l, r)  // const folding
+    v = binImm(k, l, r, ti)  // const folding
   } else {
-    v = valueNew(k, StorageRegister)
+    v = valueNew(k, StorageRegister, ti)
     v.bin.l = l
     v.bin.r = r
   }
@@ -50,7 +50,7 @@ fail:
 }
 
 
-let binImm = func (k : ValueKind, l, r : *Value) -> *Value {
+let binImm = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   var v : Int64
   var t : *Type
 
@@ -96,7 +96,7 @@ let binImm = func (k : ValueKind, l, r : *Value) -> *Value {
     }
   }
 
-  return valueNewImm(t, v)
+  return valueNewImm(t, v, ti)
 }
 
 
