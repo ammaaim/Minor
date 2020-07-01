@@ -9,11 +9,10 @@
 // id должно идти первым полем! Грязный хак для asm_rename2!
 type TypeDef  = record {id : Str, type : *Type}
 type ConstDef = record {id : Str, value : *Value}
-type VarDef   = record {id : Str, type : *Type, init_value : *Value}
-type FuncDef  = record {id : Str, type : *Type, block : *Block}
-
 type StringDef = record {id : Str, data : Str, len : Nat}
 type ArrayDef = record {id : Str, type : *Type, len : Nat, values : *List}
+type FuncDef  = record {id : Str, type : *Type, block : *Block}
+type VarDef   = record {id : Str, type : *Type, init_value : *Value}
 
 // структура описывающая модуль для принтера
 type Assembly = record {
