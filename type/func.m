@@ -1,13 +1,12 @@
 // m2/type/func
 
 
-/*
 type TypeFunc = record {
-  params  : *List  // of Field
+  params  : *List  // List of Field
   to      : *Type  // return type
   arghack : Bool   // , ...
 }
-*/
+
 
 
 let type_func_new = func (params : *List, rettype : *Type, arghack : Bool) -> *Type {

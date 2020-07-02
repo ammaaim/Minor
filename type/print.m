@@ -20,8 +20,8 @@ let prttype = func (t : *Type) -> Unit {
     print_type_enum(t)
   } else if k == TypeFunction {
     print_type_func(&t.function)
-  } else if k == TypeUndefined {
-    printf("%s", t.undefined.id)
+  } else if k == TypeUnknown {
+    printf("<TypeUnknown>")
   } else if k == TypeNumeric {
     printf("<TypeNumeric>")
   } else {

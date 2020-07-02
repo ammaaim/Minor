@@ -1,7 +1,8 @@
 // m2/type/pointer
 
 
-/*type TypePointer = record {to : *Type}*/
+type TypePointer = record {to : *Type}
+
 
 
 let type_pointer_new = func (to : *Type) -> *Type {

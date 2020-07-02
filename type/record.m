@@ -1,12 +1,11 @@
 // m2/type/record
 
 
-/*
 type TypeRecord = record {
-  fields : *List  // of Field
-  uid    : Nat32  //
+  fields : *List  // of *Field
+  uid    : Nat32  // unical id
 }
-*/
+
 
 type Field = record {
   id     : Str
@@ -50,7 +49,6 @@ let type_record_new = func (fields : *List) -> *Type {
     let f = data to *Field
     let t = f.type
     let fhc = ctx to *FieldHandleContext
-    typeUndefinedCheck(t)
     f.offset = fhc.offset
     fhc.offset = fhc.offset + 1
     fhc.size = fhc.size + alignment(t.size, fhc.align)
@@ -64,13 +62,13 @@ let type_record_new = func (fields : *List) -> *Type {
 
 
 let type_record_get_field = func (t : *Type, field_id : Str) -> *Field {
-  let fsearch2 = func ListSearchHandler {
+  let fsearch = func ListSearchHandler {
     let field = data to *Field
     let id = ctx to Str
     if strcmp(field.id, id) == 0 {return field}
     return Nil
   }
-  return list_search(t.record.fields, fsearch2, field_id to *Unit) to *Field
+  return list_search(t.record.fields, fsearch, field_id to *Unit) to *Field
 }
 
 

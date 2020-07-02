@@ -1,17 +1,59 @@
 // m2/type/main
 
 
-import "type"
 import "basic"
 import "record"
 import "enum"
 import "array"
 import "pointer"
 import "func"
-import "undefined"
 import "eq"
 import "print"
 import "init"
+
+
+
+/*
+ * Type Kind
+ */
+type TypeKind = enum {
+  TypeInvalid,   // Forbidden kind; used ony for debug
+  TypeUnknown,   //
+  TypeNumeric,   // Any number without specific type
+  TypeBasic,     // Any builtin type (Unit, Bool, IntXX, NatXX)
+  TypeFunction,  // Callable type
+  TypeEnum,      // Type sum
+  TypeRecord,    // Composite type
+  TypePointer,   // Just Pointer
+  TypeArray      // Defined & Undefined array type
+}
+
+
+/*
+ * Type Structure
+ */
+type Type = record {
+  kind  : TypeKind
+
+  aka   : Str    // type alias (!need for printer)
+
+  size  : Nat32  // размер типа в байтах (с учетом выравнивания)
+  align : Nat8   // заданное значение выравнивания [ЭТО АТТРИБУТ НЕ ТИПА А ЗНАЧЕНИЯ!]
+
+//union {
+    basic     : TypeBasic
+    function  : TypeFunc
+    pointer   : TypePointer
+    array     : TypeArray
+    record    : TypeRecord
+    enum      : TypeEnum
+//}
+
+  declared_at,     // place in code where type was mentioned first time
+  defined_at,      // place in code where type was defined
+  ti : *TokenInfo  // place in code where type was mentioned
+}
+
 
 
 // global links to builtin types
@@ -38,14 +80,6 @@ let type_new = func (k : TypeKind) -> *Type {
 
   t.kind = k
   t.align = cfg.dataAlignment to Nat8
-  return t
-}
-
-
-let type_new_undefined = func (id : Str) -> *Type {
-  let t = type_new(TypeUndefined)
-  t.undefined.id = id
-  add_type(&mctx.type_index, id, t)
   return t
 }
 

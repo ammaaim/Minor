@@ -1,12 +1,10 @@
 // m2/type/enum
 
 
-/*
 type TypeEnum = record {
   cons : *List  // of Entity (EntityConst)
-  uid  : Nat32  //
+  uid  : Nat32  // unical id
 }
-*/
 
 
 type EnumConstructor = record {id : Str, d : Int64, ti : *TokenInfo}

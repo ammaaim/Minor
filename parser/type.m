@@ -56,7 +56,12 @@ let parse_type_base = func TypeParser {
 
   let t = get_type(id)
   if t != Nil {return t}
-  return type_new_undefined(id)
+
+  let type_unknown = type_new(TypeUnknown)
+  type_unknown.ti = ti
+  type_unknown.declared_at = ti
+  add_type(&mctx.type_index, id, type_unknown)
+  return type_unknown
 }
 
 

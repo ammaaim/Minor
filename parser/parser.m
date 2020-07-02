@@ -142,11 +142,12 @@ let parseTypedef = func () -> Unit {
     }
   }
 
-  let tt = get_type(id)
-  if tt != Nil {
+  let ae = get_type(id)
+  if ae != Nil {
     // define already declared type (TypeUndefined)
-    if tt.kind == TypeUndefined {
-      memcpy(tt, t, sizeof Type)
+    if ae.kind == TypeUnknown {
+      printf("def unk: %s\n", id)
+      memcpy(ae, t, sizeof Type)
       asmTypedefAdd(&asm0, id, t)
       return
     }
