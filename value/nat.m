@@ -1,17 +1,11 @@
 // m2/value/nat
 
 
-// Натуральное преобразование
+// Естественное преобразование
 // Вызывается в фазе проверки типов
 // 1. [0] -> []
 // 2. *Unit -> * && * -> *Unit
 // 3. *Unit -> [] && [] -> *Unit
-
-
-/*let isArrayReference = func (t : *Type) -> Bool {
-  if t.kind != TypeArray {return False}
-  return t.array.undefined
-}*/
 
 
 // даем тип t значению v с типом #TypeNumeric (index, shift, call)
@@ -24,7 +18,7 @@ let castIfNumericTo = func (v : *Value, t : *Type) -> *Value {
 
 
 // производит натуральное преобразование значения к заданному типу
-// или полсто возвращает значение без преобразования (если оно невозможно)
+// или просто возвращает значение без преобразования (когда оно невозможно)
 let nat = func (v : *Value, t : *Type) -> *Value {
   let vtype = v.type
   assert(vtype != Nil, "nat:: v.type == Nil")
@@ -39,6 +33,7 @@ let nat = func (v : *Value, t : *Type) -> *Value {
 
   if naturalConversionIsPossible(v.type, t) {
     // поскольку этот каст производится в фазе вывода/проверки типов
+    // (в отличие от каста в операции `to`)
     // мы должны его вывести через checkValue
     let res = cast(v, t, v.ti)
     checkValue(res)

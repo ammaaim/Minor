@@ -35,10 +35,8 @@ let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
 }
 
 
-
 let valueIsConst = func (v : *Value) -> Bool {return storageIsConst(&v.storage)}
 let valueIsReadonly = func (v : *Value) -> Bool {return not storageIsMutable(&v.storage)}
-
 
 
 let isUnaryOpKind = func (k : ValueKind) -> Bool {
