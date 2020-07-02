@@ -1,11 +1,6 @@
 // m2/init
 
 
-import "type/init"
-import "value/init"
-
-
-
 let MINOR_LIB_ENV_VAR = "MINOR_LIB"
 
 

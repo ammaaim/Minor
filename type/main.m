@@ -10,6 +10,9 @@ import "pointer"
 import "func"
 import "undefined"
 import "eq"
+import "print"
+import "init"
+
 
 // global links to builtin types
 var typeUnit,
@@ -25,7 +28,6 @@ var typeUnit,
 
     typeBaseInt,
     typeBaseNat : *Type
-
 
 
 

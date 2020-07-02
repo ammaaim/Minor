@@ -9,7 +9,7 @@ import "data"
 import "type"
 import "expr"
 import "stmt"
-
+import "prn/assembly"
 
 
 

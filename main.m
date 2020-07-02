@@ -8,20 +8,16 @@ import "sys/path"
 import "sys/fs"
 import "data/list"
 import "data/map"
+
 import "cfg"
 import "settings"
 import "src"
 import "error"
 import "type"
 import "stmt"
-import "prn/assembly"
-import "value/2str"
-import "type/print"
 import "parser"
 import "prn"
-import "prn/init"
 import "init"
-
 
 
 let ARCH_DEFAULT = Arch_x64

@@ -38,13 +38,13 @@ type Storage = record {
 
 let storageIsConst = func (s : *Storage) -> Bool {
   let cl = s.class
-  return cl == StorageImmediate or cl == StorageGlobalConst
+  return cl == StorageImmediate or cl == StorageGlobalConst or cl == StorageUndefined
 }
 
 
 let storageIsMutable = func (s : *Storage) -> Bool {
   let cl = s.class
-  return cl == StorageLocal or cl == StorageGlobal or cl == StorageAddress
+  return cl == StorageLocal or cl == StorageGlobal or cl == StorageAddress or cl == StorageUndefined
 }
 
 

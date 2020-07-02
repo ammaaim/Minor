@@ -7,6 +7,7 @@ import "type"
 import "stmt"
 import "expr"
 import "def"
+import "init"
 
 
 
