@@ -1,7 +1,5 @@
 // m2/value/main
 
-
-import "check"
 import "nat"
 import "un"
 import "bin"

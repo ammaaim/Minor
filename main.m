@@ -18,7 +18,7 @@ import "stmt"
 import "parser"
 import "prn"
 import "init"
-
+import "check"
 
 let ARCH_DEFAULT = Arch_x64
 
@@ -137,7 +137,6 @@ let showValues = func () -> Unit {
   }
   map_foreach(&mctx.value_index, shwv, Nil)
 }
-
 
 
 /* m2 Minor Compiler */

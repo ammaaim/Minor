@@ -2,7 +2,6 @@
 
 import "index"
 import "static"
-import "check"
 import "parser"
 import "define"
 import "data"
