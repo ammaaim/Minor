@@ -10,7 +10,23 @@ import "pointer"
 import "func"
 import "undefined"
 import "eq"
-import "std"
+
+// global links to builtin types
+var typeUnit,
+    typeBool,
+    typeChar,
+    typeStr,
+    typeEnum,
+
+    typeSizeof,
+    typeAlignof,
+
+    typeFreePtr,
+
+    typeBaseInt,
+    typeBaseNat : *Type
+
+
 
 
 let type_new = func (k : TypeKind) -> *Type {
