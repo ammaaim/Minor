@@ -5,19 +5,19 @@
 let value_init = func () -> Unit {
   // False
   let false = valueNewImm(typeBool, 0, Nil)
-  bind_value_builtin("False", false)
+  map_append(&globalValueIndex, "False", false)
 
   // True
   let true = valueNewImm(typeBool, 1, Nil)
-  bind_value_builtin("True", true)
+  map_append(&globalValueIndex, "True", true)
 
   // Unit value. What for?
   let unit = valueNewImm(typeUnit, 1, Nil)
-  bind_value_builtin("Unit", unit)
+  map_append(&globalValueIndex, "Unit", unit)
 
   // Nil
   let nil = valueNewImm(typeFreePtr, 0, Nil)
-  bind_value_builtin("Nil", nil)
+  map_append(&globalValueIndex, "Nil", nil)
 }
 
 

@@ -17,7 +17,7 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
   // Создаем знчение и добавляем его в индекс
   let v = valueNew(ValueId, StorageUndefined, ti)
   v.type = type
-  v.storage.id = decorate(id)
+  v.storage.id = id
   v.type = type
   v.declared_at = ti
 
@@ -56,16 +56,14 @@ let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
 // получает значение имя которого выданное генератором
 // и меняет его на норм id (и в Value и в сборке)
 let rename = func (v : *Value, id : Str) -> Unit {
-  let real_id = decorate(id)
-
-  // получаем то имя что значение получило от генератора
+  // имя которое значение получило от автоматического генератора
   let default_name = v.storage.id
 
   if default_name != Nil {
     // переименовываем как само значение
-    v.storage.id = real_id
+    v.storage.id = id
     // так и соответствующую ему сущность в сборке
-    asmRename(&asm0, default_name, real_id)
+    asmRename(&asm0, default_name, id)
   }
 }
 

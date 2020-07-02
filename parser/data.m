@@ -82,12 +82,6 @@ let add_value = func (index : *Map, id : Str, v : *Value) -> Unit {
 }
 
 
-let bind_value_builtin = func (id : Str, v : *Value) -> Unit {
-  map_append(&globalValueIndex, id, v)
-}
-
-
-
 let get_value = func (id : Str) -> *Value {
   let local = get_value_local(id)
   if local != Nil {return local}
@@ -99,18 +93,13 @@ let get_value = func (id : Str) -> *Value {
 }
 
 
-// Ищем значение в индексе указанного блока
-let get_value_from_block = func (b : *Block, id : Str) -> *Value {
-  return map_get(&b.value_index, id) to *Value
-}
-
-
 let get_value_local = func (id : Str) -> *Value {
   // ищем сперва во всех блоках, затем в параметрах
   var b : *Block
   b = fctx.cblock
   while b != Nil {
-    let v = get_value_from_block(b, id)
+    // ищем значение в индексе блока b
+    let v = map_get(&b.value_index, id) to *Value
     if v != Nil {return v}
     b = b.parent
 
@@ -131,9 +120,7 @@ let get_value_global = func (id : Str) -> *Value {
 let get_value_builtin = func (id : Str) -> *Value {
   let x = map_get(&globalValueIndex, id)
   if x == Nil {
-    if strcmp(id, "self") == 0 {
-      return fctx.cfunc
-    }
+    if strcmp(id, "self") == 0 {return fctx.cfunc}
   }
   return x
 }
@@ -156,12 +143,6 @@ let get_value_from_params = func (params : *List, id : Str) -> *Value {
   v.type = param.type
   v.storage.id = param.id
   return v
-}
-
-
-let decorate = func (id : Str) -> Str {
-  return id
-  //return cat3(mctx.src.abs_path, "_", id)
 }
 
 
