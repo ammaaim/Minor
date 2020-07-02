@@ -39,9 +39,9 @@ let nat = func (v : *Value, t : *Type) -> *Value {
 
   if naturalConversionIsPossible(v.type, t) {
     // поскольку этот каст производится в фазе вывода/проверки типов
-    // мы должны его вывести через getType
+    // мы должны его вывести через checkValue
     let res = cast(v, t, v.ti)
-    getType(res)
+    checkValue(res)
     return res
   }
 

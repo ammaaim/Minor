@@ -14,10 +14,10 @@ fail:
 }
 
 
-let getTypeCall = func (v : *Value) -> *Type {
+let checkValueCall = func (v : *Value) -> *Type {
   let f = v.call.function
 
-  let tf = getType(f)
+  let tf = checkValue(f)
 
   if tf == Nil {
     error("undefined function", f.ti)
@@ -60,7 +60,7 @@ let checkParams = func (f : *Value, a : *List, ti : *TokenInfo) -> Bool {
     let par = pln.data to *Field
     let arg = aln.data to *Value
 
-    getType(arg)
+    checkValue(arg)
 
     let new_arg = nat(arg, par.type)
 
@@ -86,7 +86,7 @@ let checkParams = func (f : *Value, a : *List, ti : *TokenInfo) -> Bool {
     // но мы должны преобразовать Generic:Numeric аргументы к typeBaseInt
     let arg = aln.data to *Value
 
-    getType(arg)
+    checkValue(arg)
 
     let new_arg = castIfNumericTo(arg, typeBaseInt)
 

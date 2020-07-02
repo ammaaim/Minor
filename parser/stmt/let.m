@@ -7,7 +7,7 @@ let stmtLetCheck = func (s : *Stmt) -> Unit {
 
   let value_id = vx.storage.id
 
-  let t = getType(v)
+  let t = checkValue(v)
   vx.type = t
 }
 

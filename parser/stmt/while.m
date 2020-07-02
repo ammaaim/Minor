@@ -26,7 +26,7 @@ fail:
 
 let stmtWhileCheck = func (s : *Stmt) -> Unit {
   let w = s.w
-  let ct = getType(w.cond)
+  let ct = checkValue(w.cond)
   if ct != Nil {
     if not type_eq(ct, typeBool) {
       error("expected Bool expression", ct.ti)

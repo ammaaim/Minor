@@ -288,8 +288,8 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func120_str1 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str.func120_str1, i32 0, i32 0), align 8
 @.str.func127_str1 = private unnamed_addr constant [14 x i8] c"unknown value\00", align 1
 @func127_str1 = constant i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str.func127_str1, i32 0, i32 0), align 8
-@.str.func127_str2 = private unnamed_addr constant [25 x i8] c"getType:: unknown v.kind\00", align 1
-@func127_str2 = constant i8* getelementptr inbounds ([25 x i8], [25 x i8]* @.str.func127_str2, i32 0, i32 0), align 8
+@.str.func127_str2 = private unnamed_addr constant [28 x i8] c"checkValue:: unknown v.kind\00", align 1
+@func127_str2 = constant i8* getelementptr inbounds ([28 x i8], [28 x i8]* @.str.func127_str2, i32 0, i32 0), align 8
 @.str.func128_str1 = private unnamed_addr constant [9 x i8] c"stmt_new\00", align 1
 @func128_str1 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str.func128_str1, i32 0, i32 0), align 8
 @.str.func133_str1 = private unnamed_addr constant [14 x i8] c"asmTypedefAdd\00", align 1
@@ -7253,7 +7253,7 @@ define %Bool @isReletionOpKind (%ValueKind %_k) {
   ret %Bool %17
 }
 
-define %Type* @getType (%Value* %_v) {
+define %Type* @checkValue (%Value* %_v) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
 
@@ -7332,7 +7332,7 @@ then_3:
 
 ;stmt15:
   %23 = load %Value*, %Value** %v
-  %24 = call %Type* (%Value*) @getTypeBinary (%Value* %23)
+  %24 = call %Type* (%Value*) @checkValueBinary (%Value* %23)
   store %Type* %24, %Type** %t
   br label %endif_3
 else_3:
@@ -7346,7 +7346,7 @@ then_4:
 
 ;stmt18:
   %26 = load %Value*, %Value** %v
-  %27 = call %Type* (%Value*) @getTypeUnary (%Value* %26)
+  %27 = call %Type* (%Value*) @checkValueUnary (%Value* %26)
   store %Type* %27, %Type** %t
   br label %endif_4
 else_4:
@@ -7360,7 +7360,7 @@ then_5:
 
 ;stmt21:
   %29 = load %Value*, %Value** %v
-  %30 = call %Type* (%Value*) @getTypeCall (%Value* %29)
+  %30 = call %Type* (%Value*) @checkValueCall (%Value* %29)
   store %Type* %30, %Type** %t
   br label %endif_5
 else_5:
@@ -7374,7 +7374,7 @@ then_6:
 
 ;stmt24:
   %32 = load %Value*, %Value** %v
-  %33 = call %Type* (%Value*) @getTypeIndex (%Value* %32)
+  %33 = call %Type* (%Value*) @checkValueIndex (%Value* %32)
   store %Type* %33, %Type** %t
   br label %endif_6
 else_6:
@@ -7388,7 +7388,7 @@ then_7:
 
 ;stmt27:
   %35 = load %Value*, %Value** %v
-  %36 = call %Type* (%Value*) @getTypeAccess (%Value* %35)
+  %36 = call %Type* (%Value*) @checkValueAccess (%Value* %35)
   store %Type* %36, %Type** %t
   br label %endif_7
 else_7:
@@ -7402,7 +7402,7 @@ then_8:
 
 ;stmt30:
   %38 = load %Value*, %Value** %v
-  %39 = call %Type* (%Value*) @getTypeCast (%Value* %38)
+  %39 = call %Type* (%Value*) @checkValueCast (%Value* %38)
   store %Type* %39, %Type** %t
   br label %endif_8
 else_8:
@@ -7418,7 +7418,7 @@ then_9:
 
 ;stmt33:
   %43 = load %Value*, %Value** %v
-  %44 = call %Type* (%Value*) @getTypeShift (%Value* %43)
+  %44 = call %Type* (%Value*) @checkValueShift (%Value* %43)
   store %Type* %44, %Type** %t
   br label %endif_9
 else_9:
@@ -9141,7 +9141,7 @@ then_2:
   %38 = call %Value* (%Value*, %Type*, %TokenInfo*) @cast (%Value* %33, %Type* %34, %TokenInfo* %37)
 
 ;stmt11:
-  %39 = call %Type* (%Value*) @getType (%Value* %38)
+  %39 = call %Type* (%Value*) @checkValue (%Value* %38)
 
 ;stmt12:
   ret %Value* %38
@@ -9588,7 +9588,7 @@ define %Value* @un_deref (%Value* %_v, %TokenInfo* %_ti) {
   ret %Value* %2
 }
 
-define %Type* @getTypeUnary (%Value* %_v) {
+define %Type* @checkValueUnary (%Value* %_v) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
 
@@ -9599,7 +9599,7 @@ define %Type* @getTypeUnary (%Value* %_v) {
   %4 = load %Value*, %Value** %3
 
 ;stmt1:
-  %5 = call %Type* (%Value*) @getType (%Value* %4)
+  %5 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt2:
   %t = alloca %Type*
@@ -10209,7 +10209,7 @@ endif_0:
   ret %Value* %65
 }
 
-define %Type* @getTypeBinary (%Value* %_v) {
+define %Type* @checkValueBinary (%Value* %_v) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
 
@@ -10226,10 +10226,10 @@ define %Type* @getTypeBinary (%Value* %_v) {
   %8 = load %Value*, %Value** %7
 
 ;stmt2:
-  %9 = call %Type* (%Value*) @getType (%Value* %4)
+  %9 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt3:
-  %10 = call %Type* (%Value*) @getType (%Value* %8)
+  %10 = call %Type* (%Value*) @checkValue (%Value* %8)
 
 ;stmt4:
   %11 = bitcast %Type* %9 to %Unit*
@@ -10539,7 +10539,7 @@ fail:
   ret %Value* %64
 }
 
-define %Type* @getTypeShift (%Value* %_v) {
+define %Type* @checkValueShift (%Value* %_v) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
 
@@ -10556,10 +10556,10 @@ define %Type* @getTypeShift (%Value* %_v) {
   %8 = load %Value*, %Value** %7
 
 ;stmt2:
-  %9 = call %Type* (%Value*) @getType (%Value* %4)
+  %9 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt3:
-  %10 = call %Type* (%Value*) @getType (%Value* %8)
+  %10 = call %Type* (%Value*) @checkValue (%Value* %8)
 
 ;stmt4:
   %11 = load %Value*, %Value** %v
@@ -10579,7 +10579,7 @@ define %Type* @getTypeShift (%Value* %_v) {
   %22 = load %Value*, %Value** %21
 
 ;stmt6:
-  %23 = call %Type* (%Value*) @getType (%Value* %22)
+  %23 = call %Type* (%Value*) @checkValue (%Value* %22)
 
 ;stmt7:
   %24 = load %Type*, %Type** @typeBaseInt
@@ -10653,7 +10653,7 @@ fail:
   ret %Value* %20
 }
 
-define %Type* @getTypeIndex (%Value* %_v) {
+define %Type* @checkValueIndex (%Value* %_v) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
 
@@ -10670,10 +10670,10 @@ define %Type* @getTypeIndex (%Value* %_v) {
   %8 = load %Value*, %Value** %7
 
 ;stmt2:
-  %9 = call %Type* (%Value*) @getType (%Value* %4)
+  %9 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt3:
-  %10 = call %Type* (%Value*) @getType (%Value* %8)
+  %10 = call %Type* (%Value*) @checkValue (%Value* %8)
 
 ;stmt4:
   %11 = load %Type*, %Type** @typeBaseInt
@@ -10750,7 +10750,7 @@ fail:
   ret %Value* %20
 }
 
-define %Type* @getTypeAccess (%Value* %_v) {
+define %Type* @checkValueAccess (%Value* %_v) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
 
@@ -10761,7 +10761,7 @@ define %Type* @getTypeAccess (%Value* %_v) {
   %4 = load %Value*, %Value** %3
 
 ;stmt1:
-  %5 = call %Type* (%Value*) @getType (%Value* %4)
+  %5 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt2:
   %record_type = alloca %Type*
@@ -10911,7 +10911,7 @@ fail:
   ret %Value* %20
 }
 
-define %Type* @getTypeCall (%Value* %_v) {
+define %Type* @checkValueCall (%Value* %_v) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
 
@@ -10922,7 +10922,7 @@ define %Type* @getTypeCall (%Value* %_v) {
   %4 = load %Value*, %Value** %3
 
 ;stmt1:
-  %5 = call %Type* (%Value*) @getType (%Value* %4)
+  %5 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt2:
   %6 = bitcast %Type* %5 to %Unit*
@@ -11110,7 +11110,7 @@ body_0:
   %47 = bitcast %Unit* %46 to %Value*
 
 ;stmt18:
-  %48 = call %Type* (%Value*) @getType (%Value* %47)
+  %48 = call %Type* (%Value*) @checkValue (%Value* %47)
 
 ;stmt19:
   %49 = getelementptr inbounds %Field, %Field* %43, i32 0, i32 1
@@ -11210,7 +11210,7 @@ body_1:
   %90 = bitcast %Unit* %89 to %Value*
 
 ;stmt37:
-  %91 = call %Type* (%Value*) @getType (%Value* %90)
+  %91 = call %Type* (%Value*) @checkValue (%Value* %90)
 
 ;stmt38:
   %92 = load %Type*, %Type** @typeBaseInt
@@ -11343,7 +11343,7 @@ fail:
   ret %Value* %31
 }
 
-define %Type* @getTypeCast (%Value* %_v) {
+define %Type* @checkValueCast (%Value* %_v) {
   %v = alloca %Value*
   store %Value* %_v, %Value** %v
 
@@ -11352,7 +11352,7 @@ define %Type* @getTypeCast (%Value* %_v) {
   %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 8
   %3 = getelementptr inbounds {%Value*, %Type*}, {%Value*, %Type*}* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
-  %5 = call %Type* (%Value*) @getType (%Value* %4)
+  %5 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt1:
   %6 = load %Value*, %Value** %v
@@ -11377,7 +11377,7 @@ define void @chk (%Unit* %_k, %Unit* %_v, %Unit* %_ctx) {
   %2 = bitcast %Unit* %1 to %Value*
 
 ;stmt1:
-  %3 = call %Type* (%Value*) @getType (%Value* %2)
+  %3 = call %Type* (%Value*) @checkValue (%Value* %2)
 
 ;stmt2:
   %4 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 1
@@ -16085,7 +16085,7 @@ define void @stmtLetCheck (%Stmt* %_s) {
   %11 = load %Str, %Str* %10
 
 ;stmt3:
-  %12 = call %Type* (%Value*) @getType (%Value* %4)
+  %12 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt4:
   %13 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 1
@@ -16464,10 +16464,10 @@ define void @stmtAssignCheck (%Stmt* %_s) {
   %8 = load %Value*, %Value** %7
 
 ;stmt2:
-  %9 = call %Type* (%Value*) @getType (%Value* %4)
+  %9 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt3:
-  %10 = call %Type* (%Value*) @getType (%Value* %8)
+  %10 = call %Type* (%Value*) @checkValue (%Value* %8)
 
 ;stmt4:
   %11 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 2
@@ -16695,7 +16695,7 @@ define void @stmtIfCheck (%Stmt* %_s) {
 ;stmt1:
   %4 = getelementptr inbounds %If, %If* %3, i32 0, i32 0
   %5 = load %Value*, %Value** %4
-  %6 = call %Type* (%Value*) @getType (%Value* %5)
+  %6 = call %Type* (%Value*) @checkValue (%Value* %5)
 
 ;stmt2:
   %7 = bitcast %Type* %6 to %Unit*
@@ -16853,7 +16853,7 @@ define void @stmtWhileCheck (%Stmt* %_s) {
 ;stmt1:
   %4 = getelementptr inbounds %While, %While* %3, i32 0, i32 0
   %5 = load %Value*, %Value** %4
-  %6 = call %Type* (%Value*) @getType (%Value* %5)
+  %6 = call %Type* (%Value*) @checkValue (%Value* %5)
 
 ;stmt2:
   %7 = bitcast %Type* %6 to %Unit*
@@ -16982,7 +16982,7 @@ then_0:
 ;stmt2:
 
 ;stmt3:
-  %8 = call %Type* (%Value*) @getType (%Value* %4)
+  %8 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt4:
   %9 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 0
@@ -17165,7 +17165,7 @@ then_2:
   %13 = getelementptr inbounds %Stmt, %Stmt* %12, i32 0, i32 1
   %14 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %13, i32 0, %Int32 0
   %15 = load %Value*, %Value** %14
-  %16 = call %Type* (%Value*) @getType (%Value* %15)
+  %16 = call %Type* (%Value*) @checkValue (%Value* %15)
   br label %endif_2
 else_2:
 

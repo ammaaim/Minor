@@ -6,7 +6,7 @@ let checkMain = func () -> Unit {
 
     let val = v to *Value
 
-    getType(val)
+    checkValue(val)
 
     // проверяем все функции
     if val.type.kind == TypeFunction {

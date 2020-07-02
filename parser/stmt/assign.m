@@ -11,8 +11,8 @@ let stmtAssignCheck = func (s : *Stmt) -> Unit {
   let lv = s.a[0]
   let rv = s.a[1]
 
-  let lt = getType(lv)
-  let rt = getType(rv)
+  let lt = checkValue(lv)
+  let rt = checkValue(rv)
 
   if not storageIsMutable(&lv.storage) {
     error("invalid lval", lv.ti)

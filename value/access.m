@@ -15,9 +15,9 @@ fail:
 }
 
 
-let getTypeAccess = func (v : *Value) -> *Type {
+let checkValueAccess = func (v : *Value) -> *Type {
   let a = v.access.value
-  let tx = getType(a)
+  let tx = checkValue(a)
 
   var record_type : *Type
   if tx.kind == TypePointer {

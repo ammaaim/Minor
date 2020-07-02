@@ -13,11 +13,11 @@ fail:
 }
 
 
-let getTypeIndex = func (v : *Value) -> *Type {
+let checkValueIndex = func (v : *Value) -> *Type {
   let a = v.index.array
   let i = v.index.index
-  getType(a)
-  getType(i)
+  checkValue(a)
+  checkValue(i)
 
   // приводим GenericTypeInt к typeBaseInt если надо
   castIfNumericTo(a, typeBaseInt)

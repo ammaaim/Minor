@@ -62,7 +62,7 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
 // вычисляем тип для значения и всех его субзначений
 // Если возникает ошибка она выводится и возвращается Nil
 // возвращает тип значения
-let getType = func (v : *Value) -> *Type {
+let checkValue = func (v : *Value) -> *Type {
   if v == Nil {goto fail}
 
   // если тип уже известен - просто вернем его
@@ -79,26 +79,26 @@ let getType = func (v : *Value) -> *Type {
   if k == ValueId {
     error("unknown value", v.ti)
   } else if isBinaryOpKind(k) {
-    t = getTypeBinary(v)
+    t = checkValueBinary(v)
   } else if isUnaryOpKind(k) {
-    t = getTypeUnary(v)
+    t = checkValueUnary(v)
   } else if k == ValueCall {
-    t = getTypeCall(v)
+    t = checkValueCall(v)
   } else if k == ValueIndex {
-    t = getTypeIndex(v)
+    t = checkValueIndex(v)
   } else if k == ValueAccess {
-    t = getTypeAccess(v)
+    t = checkValueAccess(v)
   } else if k == ValueCast {
-    t = getTypeCast(v)
+    t = checkValueCast(v)
   } else if k == ValueShl or k == ValueShr {
-    t = getTypeShift(v)
+    t = checkValueShift(v)
   }
 
   v.type = t
   return t
 
 fail:
-  assert(False, "getType:: unknown v.kind")
+  assert(False, "checkValue:: unknown v.kind")
   return Nil
 }
 

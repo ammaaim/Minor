@@ -41,8 +41,8 @@ fail:
 }
 
 
-let getTypeCast = func (v : *Value) -> *Type {
-  let t = getType(v.cast.value)
+let checkValueCast = func (v : *Value) -> *Type {
+  let t = checkValue(v.cast.value)
   let rt = v.cast.to
   return rt
 }

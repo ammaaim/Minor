@@ -34,17 +34,17 @@ fail:
 
 
 
-let getTypeShift = func (v : *Value) -> *Type {
+let checkValueShift = func (v : *Value) -> *Type {
   let l = v.bin.l
   let r = v.bin.r
-  getType(l)
-  getType(r)
+  checkValue(l)
+  checkValue(r)
 
   // (!) LLVM требует чтобы типы левого и правого в шифтах были одинаковы, что глупо но..
   // поэтому приводим правое к левому
   v.bin.r = cast(r, l.type, r.ti)
   let r2 = v.bin.r
-  getType(r2)
+  checkValue(r2)
 
   // приводим GenericTypeInt к typeBaseInt если надо
   castIfNumericTo(l, typeBaseInt)

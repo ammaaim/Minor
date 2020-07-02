@@ -60,10 +60,10 @@ let un_deref = func (v : *Value, ti : *TokenInfo) -> *Value {
 }
 
 
-let getTypeUnary = func (v : *Value) -> *Type {
+let checkValueUnary = func (v : *Value) -> *Type {
   let a = v.un.x
 
-  let t0 = getType(a)
+  let t0 = checkValue(a)
 
   var t : *Type
   let k = v.kind

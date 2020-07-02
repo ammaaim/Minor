@@ -100,12 +100,12 @@ let binImm = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
 }
 
 
-let getTypeBinary = func (v : *Value) -> *Type {
+let checkValueBinary = func (v : *Value) -> *Type {
   let lv = v.bin.l
   let rv = v.bin.r
 
-  let lt0 = getType(lv)
-  let rt0 = getType(rv)
+  let lt0 = checkValue(lv)
+  let rt0 = checkValue(rv)
 
   if lt0 == Nil or rt0 == Nil {goto fail}
 

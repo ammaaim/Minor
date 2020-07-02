@@ -21,7 +21,7 @@ let stmtCheck = func (s : *Stmt) -> Unit {
   if k == StmtLet {
     stmtLetCheck(s)
   } else if k == StmtExpr {
-    getType(s.a[0])
+    checkValue(s.a[0])
   } else if k == StmtAssign {
     stmtAssignCheck(s)
   } else if k == StmtBlock {

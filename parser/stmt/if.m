@@ -35,7 +35,7 @@ fail:
 
 let stmtIfCheck = func (s : *Stmt) -> Unit {
   let i = s.i
-  let ct = getType(i.cond)
+  let ct = checkValue(i.cond)
 
   if ct != Nil {
     if not type_eq(ct, typeBool) {
