@@ -1,5 +1,6 @@
 // m2/type/main
 
+
 import "2str"
 import "basic"
 import "record"
@@ -11,13 +12,11 @@ import "eq"
 import "init"
 
 
-
 /*
  * Type Kind
  */
 type TypeKind = enum {
-  TypeInvalid,   // Forbidden kind; used ony for debug
-  TypeUnknown,   //
+  TypeUnknown,   // We don't know anything about this type
   TypeNumeric,   // Any number without specific type
   TypeBasic,     // Any builtin type (Unit, Bool, IntXX, NatXX)
   TypeFunction,  // Callable type
@@ -83,7 +82,6 @@ let type_new = func (k : TypeKind) -> *Type {
 }
 
 
-// Это ссылка или ссылка на массив?
 let typeIsReference = func (t : *Type) -> Bool {
   let k = t.kind
   if k == TypePointer {return True}

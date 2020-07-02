@@ -1,5 +1,7 @@
 // m2/value/main
 
+
+import "2str"
 import "nat"
 import "un"
 import "bin"
@@ -8,8 +10,8 @@ import "index"
 import "access"
 import "call"
 import "cast"
+import "sizeof"
 import "storage"
-import "2str"
 import "init"
 
 
@@ -42,7 +44,9 @@ type ValueKind = enum {
   ValueCall,
   ValueIndex,
   ValueAccess,
-  ValueCast
+  ValueCast,
+  ValueSizeof,
+  ValueAlignof
 }
 
 type Value = record {
@@ -64,12 +68,12 @@ type Value = record {
   access : ValueAccess
   cast   : ValueCast
   call   : ValueCall
+  szof   : *Type
 //}
 
-  // ti - место упоминания значения в конкретном случае
-  // declared_at - место декларации
-  // defined_at - место определения
-  ti, declared_at, defined_at : *TokenInfo
+  declared_at,     // place in code where value was mentioned first time
+  defined_at,      // place in code where value was defined
+  ti : *TokenInfo  // place in code where value was mentioned
 }
 
 

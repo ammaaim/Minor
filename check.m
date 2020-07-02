@@ -65,6 +65,8 @@ let checkValue = func (v : *Value) -> *Type {
     t = checkValueCast(v)
   } else if k == ValueShl or k == ValueShr {
     t = checkValueShift(v)
+  } else if k == ValueSizeof {
+    t = checkValueSizeof(v)
   }
 
   v.type = t

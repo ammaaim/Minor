@@ -7,10 +7,25 @@ var globalTypeIndex,
 
 
 let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
-  if map_get(index, id) != Nil {
+  /*if map_get(index, id) != Nil {
     error("type bind error: attempt to id redefinition", t.ti)
     return
+  }*/
+
+  let ae = get_type(id)
+  if ae != Nil {
+    // define already declared type (TypeUndefined)
+    if ae.kind != TypeUnknown {
+      error("type bind error: attempt to id redefinition", t.ti)
+      return
+    }
+
+    //printf("add_type unk: %s\n", id)
+    memcpy(ae, t, sizeof Type)
+    return
   }
+
+  //printf("add_type: %s\n", id)
   map_append(index, id, t)
 }
 
@@ -38,9 +53,8 @@ let get_type = func (id : Str) -> *Type {
 
 // used by type/enum тк тип может быть и глобальным и локальным
 let bind_value = func (id : Str, v : *Value) -> Unit {
-  let cblock = fctx.cblock
-  if cblock != Nil {
-    bind_value_in_block(cblock, id, v)  // bind local
+  if fctx.cblock != Nil {
+    bind_value_in_block(fctx.cblock, id, v)  // bind local
   } else {
     bind_value_global(id, v)  // bind global
   }
@@ -49,7 +63,7 @@ let bind_value = func (id : Str, v : *Value) -> Unit {
 
 // Add bind into a block
 let bind_value_in_block = func (b : *Block, id : Str, v : *Value) -> Unit {
-  map_append(&b.value_index, id, v) to *Value
+  add_value(&b.value_index, id, v)
 }
 
 
@@ -69,13 +83,13 @@ let add_value = func (index : *Map, id : Str, v : *Value) -> Unit {
   let ae = map_get(index, id) to *Value
   if ae != Nil {
     // если значение уже есть но не определено
-    if ae.storage.class == StorageUndefined {
-      // это позволяет юзать глобальные переменные до того как они будут объявлены
-      memcpy(ae, v, sizeof Value)
+    if ae.storage.class != StorageUndefined {
+      error("value bind error: attempt to id redefinition", v.ti)
       return
     }
 
-    error("value bind error: attempt to id redefinition", v.ti)
+    // это позволяет юзать глобальные значения до того как они будут объявлены
+    memcpy(ae, v, sizeof Value)
     return
   }
   map_append(index, id, v)

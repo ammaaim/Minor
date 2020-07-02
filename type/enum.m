@@ -10,7 +10,6 @@ type TypeEnum = record {
 type EnumConstructor = record {id : Str, d : Int64, ti : *TokenInfo}
 
 
-
 let type_enum_new = func (constructors : *List /* of EnumConstructor */) -> *Type {
   let t = type_new(TypeEnum)
   t.enum.uid = get_uid()  // UID чтобы отличать enum от другого enum'а на этапе трансляции

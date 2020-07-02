@@ -249,7 +249,16 @@ let hier10 = func ValueParser {
       error("sizeof expected <type>", ti_sizeof)
       return Nil
     }
+    v = size_of(t, ti)
+
+    /*let ti_sizeof = &ctok().ti
+    let t = parse_type(False)
+    if t == Nil {
+      error("sizeof expected <type>", ti_sizeof)
+      return Nil
+    }
     v = valueNewImm(typeSizeof, t.size to Int64, ti)
+    */
   } else if match("alignof") {
     let ti_alignof = &ctok().ti
     let t = parse_type(False)
@@ -410,6 +419,7 @@ let term_arr = func ValueParser {
 
 
 let term_func = func ValueParser {
+//  printf("parse func\n")
   // сохраняем контекст
   let old_fctx = fctx
 
@@ -464,6 +474,7 @@ let term_func = func ValueParser {
   need("{")
   let block = doblock()
   fv.block = block  // для чека сохраняем сссылку на блок в самом значении
+
   asmFuncAdd(&asm0, id, t, block)
   fctx = old_fctx
 
@@ -483,11 +494,11 @@ let term_id = func ValueParser {
   let v = get_value(id)
 
   if v == Nil {
-    let new_v = valueNew(ValueId, StorageUndefined, ti)
-    new_v.storage.id = id
-    new_v.declared_at = ti
-    bind_value_global(id, new_v)
-    return new_v
+    let nv = valueNew(ValueId, StorageUndefined, ti)
+    nv.storage.id = id
+    nv.declared_at = ti
+    bind_value_global(id, nv)
+    return nv
   }
 
   v.storage.id = id
