@@ -1,6 +1,13 @@
 // m2/type/type
 
 
+// встретили неизвестный тип
+// создали TypeUnknown
+// встретили typedef - проверили если ae то copy
+// check сперва проверяет типы если есть TypeUnknown - ошибка
+// еще check должен рекурсивно проверить типы на внутреннюю рекурсию но это потом
+
+
 type TypeUndefined = record {
   id : Str  // We know only identifier
 }
