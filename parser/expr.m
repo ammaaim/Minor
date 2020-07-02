@@ -315,7 +315,6 @@ let hier12 = func ValueParser {
   let ti = &ctok().ti
   if match("(") {
     v = expr()
-    v.ti = ti
     need(")")
   } else {
     v = term()

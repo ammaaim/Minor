@@ -1,5 +1,6 @@
 // m2/parser/main
 
+import "index"
 import "static"
 import "check"
 import "parser"

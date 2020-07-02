@@ -6,22 +6,6 @@ var globalTypeIndex,
     globalValueIndex : Map
 
 
-
-let bind_type_local = func (id : Str, t : *Type) -> Unit {
-  add_type(&fctx.cblock.type_index, id, t)
-}
-
-
-let bind_type_global = func (id : Str, t : *Type) -> Unit {
-  add_type(&mctx.type_index, id, t)
-}
-
-
-let bind_type_builtin = func (id : Str, t : *Type) -> Unit {
-  map_append(&globalTypeIndex, id, t)
-}
-
-
 let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
   if map_get(index, id) != Nil {
     error("type bind error: attempt to id redefinition", t.ti)
@@ -82,7 +66,15 @@ let bind_value_global = func (id : Str, v : *Value) -> Unit {
 
 
 let add_value = func (index : *Map, id : Str, v : *Value) -> Unit {
-  if map_get(index, id) != Nil {
+  let ae = map_get(index, id) to *Value
+  if ae != Nil {
+    // если значение уже есть но не определено
+    if ae.storage.class == StorageUndefined {
+      // это позволяет юзать глобальные переменные до того как они будут объявлены
+      memcpy(ae, v, sizeof Value)
+      return
+    }
+
     error("value bind error: attempt to id redefinition", v.ti)
     return
   }

@@ -27,7 +27,7 @@ let type_new = func (k : TypeKind) -> *Type {
 let type_new_undefined = func (id : Str) -> *Type {
   let t = type_new(TypeUndefined)
   t.undefined.id = id
-  bind_type_global(id, t)
+  add_type(&mctx.type_index, id, t)
   return t
 }
 

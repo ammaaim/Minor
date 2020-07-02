@@ -153,7 +153,7 @@ let parseTypedef = func () -> Unit {
   }
 
   // bind type пока не умеет local
-  bind_type_global(id, t)
+  add_type(&mctx.type_index, id, t)
 
   // creating data for printer
   asmTypedefAdd(&asm0, id, t)
