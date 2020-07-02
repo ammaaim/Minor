@@ -1,6 +1,6 @@
 // m2/type/main
 
-
+import "2str"
 import "basic"
 import "record"
 import "enum"
@@ -8,7 +8,6 @@ import "array"
 import "pointer"
 import "func"
 import "eq"
-import "print"
 import "init"
 
 

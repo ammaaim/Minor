@@ -1,6 +1,10 @@
 // value/cast
 
 
+type ValueCast = record {value : *Value, to : *Type}
+
+
+
 let WARNING0 = False  // "casting bigger to smaller"
 
 

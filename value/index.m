@@ -1,6 +1,10 @@
 // m2/value/index
 
 
+type ValueIndex = record {array, index : *Value}
+
+
+
 let indx = func (a, i : *Value, ti : *TokenInfo) -> *Value {
   if a == Nil or i == Nil {goto fail}
   let v = valueNew(ValueIndex, StorageAddress, ti)

@@ -45,7 +45,6 @@ type ValueKind = enum {
   ValueCast
 }
 
-
 type Value = record {
   kind : ValueKind
 
@@ -59,12 +58,12 @@ type Value = record {
 
 
 //union {
-  un     : record {x : *Value}
-  bin    : record {l, r : *Value}
-  index  : record {array, index : *Value}
-  access : record {value : *Value, field : Str}
-  cast   : record {value : *Value, to : *Type}
-  call   : record {function : *Value, arguments : *List}
+  un     : ValueUn
+  bin    : ValueBin
+  index  : ValueIndex
+  access : ValueAccess
+  cast   : ValueCast
+  call   : ValueCall
 //}
 
   // ti - место упоминания значения в конкретном случае

@@ -1,6 +1,10 @@
 // m2/value/call
 
 
+type ValueCall = record {function : *Value, arguments : *List}
+
+
+
 let call = func (f : *Value, a : *List, ti : *TokenInfo) -> *Value {
   if f == Nil or a == Nil {goto fail}
 

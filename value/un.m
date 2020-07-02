@@ -1,6 +1,10 @@
 // m2/value/un
 
 
+type ValueUn = record {x : *Value}
+
+
+
 let un = func (k : ValueKind, v : *Value, ti : *TokenInfo) -> *Value {
   if v == Nil {return Nil}
 

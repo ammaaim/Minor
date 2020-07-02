@@ -1,6 +1,10 @@
 // m2/value/bin
 
 
+type ValueBin = record {l, r : *Value}
+
+
+
 // тип пригоден для бинарной операции?
 let binTypeValid = func (k : ValueKind, t : *Type) -> Bool {
   if k == ValueEq or k == ValueNe {return True}

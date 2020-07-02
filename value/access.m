@@ -1,6 +1,10 @@
 // m2/value/access
 
 
+type ValueAccess = record {value : *Value, field : Str}
+
+
+
 let access = func (r : *Value, fid : Str, ti : *TokenInfo) -> *Value {
   if r == Nil or fid == Nil {goto fail}
 
