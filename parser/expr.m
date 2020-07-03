@@ -366,7 +366,6 @@ let term_str = func ValueParser {
   let s = dup(text)
   skip()
 
-
   let id = get_name_str()
 
   asmStringAdd(&asm0, id, s, len)

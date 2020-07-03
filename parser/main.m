@@ -78,6 +78,8 @@ let parse = func (src : *Source) -> Unit {
 
   comments = False
 
+  // parse_type_func needs this attributes!
+  set("flagArghack", 0)
 
   // do definitions
   while True {
@@ -95,7 +97,6 @@ let parse = func (src : *Source) -> Unit {
     } else if match("var") {
       parseVardef()
     } else {
-
 
       /* check flags */
       if match("arghack") {set("flagArghack", 1); continue}
@@ -195,6 +196,7 @@ let parseLet = func () -> *Stmt {
   let id = parseId()
 
   need("=")
+
   let v = expr()
 
   if id == Nil or v == Nil {return Nil}
