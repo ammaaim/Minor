@@ -15,15 +15,11 @@ let get_suid = func (prefix : Str, uid : Nat32) -> Str {
 let get_prefix = func () -> Str {
 
   if fctx.cfunc != Nil {
-    // мы работаем в контексте функции -> добавим ее префикс
-    // (а он УЖЕ содержит в себе глобальный префикс - namespace)
-    let s = malloc(strlen(fctx.cfunc.storage.id) + 2) /* 2 = "%s_\0" */
-    sprintf(s, "%s_\0", fctx.cfunc.storage.id)
-    return s
+    // мы работаем в контексте функции -> ее id будет префиксом
+    return dup(fctx.cfunc.storage.id)
   } else {
-// временно вырубил декорацию
-//    s = malloc(strlen(mctx.src.name) + 2) /* 2 = "%s_\0" */
-//    sprintf(s, "%s_\0", mctx.src.name)
+    // временно вырубил декорацию
+    //return mctx.src.name
   }
 
   return ""
@@ -43,9 +39,7 @@ let get_name = func (res : Str, uid : *Nat32) -> Str {
     id = get_suid(res, *uid)
   //}
 
-  let s = malloc(strlen(pre) + strlen(id) + 1) to Str
-  sprintf(s, "%s%s\0", pre, id)
-  return s
+  return cat3(pre, "_", id)
 }
 
 
@@ -74,45 +68,5 @@ var type_uid : Nat32
 let get_name_type = func () -> Str {return get_name("Type", &type_uid)}
 
 
-
-let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> *Value {
-  // создадим фейковый value который будет занесен в индекс
-  // и будет ссылаться на переменную (просто нести тот же id)
-  let v = valueNew(ValueId, StorageLocal, ti)
-  v.type = t
-  v.storage.id = id
-  bind_value_local(id, v)
-
-  // добавляем в код функции стейтмент с определением этой переменной
-  stmtAdd(stmt_new_vardef(id, t, init_value, Nil))
-
-  if init_value != Nil {
-    // добавляем в код функции стейтмент
-    // с инициализацией этой переменной
-    stmtAdd(stmt_new_assign(v, init_value, Nil))
-  }
-
-  return v
-}
-
-
-let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> Unit {
-  asmVarAdd(&asm0, id, t, init_value)
-
-  // создадим фейковый value который будет занесен в индекс
-  // и будет ссылаться на переменную (просто нести тот же id)
-  let v = valueNew(ValueId, StorageGlobal, ti)
-  v.type = t
-  v.storage.id = id
-  bind_value_global(id, v)
-}
-
-
-// add statement to current block
-let stmtAdd = func (s : *Stmt) -> Unit {
-  if s != Nil {
-    list_append(fctx.cblock.stmts, s)
-  }
-}
 
 

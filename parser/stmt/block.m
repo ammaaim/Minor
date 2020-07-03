@@ -48,7 +48,8 @@ let doblock = func () -> *Block {
 
     if match("}") {break}
 
-    let s = stmt()
+    let s = stmtParse()
+
     if s != Nil {
       sep()
       stmtAdd(s)

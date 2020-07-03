@@ -441,10 +441,10 @@ let term_func = func ValueParser {
     goto fail
   }
 
-  if t.kind != TypeFunction {
+  /*if t.kind != TypeFunction {
     error("expected func type", t.ti)
     goto fail
-  }
+  }*/
 
   // создаем значение функции
   let fv = valueNew(ValueId, StorageGlobalConst, ti)

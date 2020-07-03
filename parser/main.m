@@ -4,14 +4,11 @@
 import "index"
 import "define"
 import "data"
-import "type"
-
 import "expr"
 import "stmt"
 import "prn/assembly"
-
+import "type"
 import "value"
-
 
 
 
@@ -35,6 +32,7 @@ type FuncContext = record {
   arrno,           // for local literal array
   recno  : Nat32   // for local literal record
 }
+
 
 
 var mctx : ModuleContext     // current module context
@@ -312,6 +310,40 @@ fail:
 
 
 
+
+
+
+let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> *Value {
+  // создадим фейковый value который будет занесен в индекс
+  // и будет ссылаться на переменную (просто нести тот же id)
+  let v = valueNew(ValueId, StorageLocal, ti)
+  v.type = t
+  v.storage.id = id
+  bind_value_local(id, v)
+
+  // добавляем в код функции стейтмент с определением этой переменной
+  stmtAdd(stmt_new_vardef(id, t, init_value, Nil))
+
+  if init_value != Nil {
+    // добавляем в код функции стейтмент
+    // с инициализацией этой переменной
+    stmtAdd(stmt_new_assign(v, init_value, Nil))
+  }
+
+  return v
+}
+
+
+let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> Unit {
+  asmVarAdd(&asm0, id, t, init_value)
+
+  // создадим фейковый value который будет занесен в индекс
+  // и будет ссылаться на переменную (просто нести тот же id)
+  let v = valueNew(ValueId, StorageGlobal, ti)
+  v.type = t
+  v.storage.id = id
+  bind_value_global(id, v)
+}
 
 
 
