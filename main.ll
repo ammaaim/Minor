@@ -587,6 +587,8 @@ target triple = "x86_64-apple-macosx10.14.0"
 @func172_str3 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.func172_str3, i32 0, i32 0), align 8
 @.str.func172_str4 = private unnamed_addr constant [5 x i8] c"%lld\00", align 1
 @func172_str4 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str.func172_str4, i32 0, i32 0), align 8
+@.str.func174_str1 = private unnamed_addr constant [3 x i8] c"xx\00", align 1
+@func174_str1 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str.func174_str1, i32 0, i32 0), align 8
 @.str.func176_str1 = private unnamed_addr constant [2 x i8] c"}\00", align 1
 @func176_str1 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str.func176_str1, i32 0, i32 0), align 8
 @.str.func176_str2 = private unnamed_addr constant [23 x i8] c"unexpected end-of-file\00", align 1
@@ -11179,11 +11181,31 @@ define void @stmtLetCheck (%Stmt* %_s) {
   %11 = load %Str, %Str* %10
 
 ;stmt3:
-  %12 = call %Type* (%Value*) @checkValue (%Value* %4)
+  %12 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 2
+  %13 = getelementptr inbounds %Storage, %Storage* %12, i32 0, i32 0
+  %14 = load %StorageClass, %StorageClass* %13
+  %15 = icmp eq %StorageClass %14, 0
+  br i1 %15, label %then_0, label %else_0
+then_0:
 
 ;stmt4:
-  %13 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 1
-  store %Type* %12, %Type** %13
+
+;stmt5:
+  %16 = load %Str, %Str* @func174_str1
+  %17 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 13
+  %18 = load %TokenInfo*, %TokenInfo** %17
+  call void (%Str, %TokenInfo*) @warning (%Str %16, %TokenInfo* %18)
+  br label %endif_0
+else_0:
+  br label %endif_0
+endif_0:
+
+;stmt6:
+  %19 = call %Type* (%Value*) @checkValue (%Value* %4)
+
+;stmt7:
+  %20 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 1
+  store %Type* %19, %Type** %20
   ret void
 }
 
