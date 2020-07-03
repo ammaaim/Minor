@@ -56,7 +56,7 @@ let print_stmt = func (s : *Stmt) -> Unit {
 
 
 // Печать значения происходит в два этапа
-// 1. eval - распечатывается алгоритм получения значения (вычисление значения)
+// 1. eval - распечатывается алгоритм вычисления значения
 // 2. print_value - печатается регистр в котором находится значение (уже вычисленное)
 //                  или непосредственная константа (которая никак не вычисляется в LLVM)
 
@@ -73,9 +73,6 @@ let print_stmt_var = func (v : *VarDef) -> Unit {
 let print_stmt_expr = func (e : *Value) -> Unit {eval(e)}
 
 
-// кароч название пока не придумал суть такова -
-// значение e - выражение которое надо вычислсить
-// значение x имеет класс Pre что значит что оно в регистре
 let print_stmt_let = func (e, x : *Value) -> Unit {
   let ee = load(eval(e))
   // сопрягаем
@@ -97,7 +94,6 @@ let print_stmt_if = func (i : *If) -> Unit {
   if i.else != Nil {print_stmt(i.else)}
   fprintf(fout, "\n  br label %%endif_%d", if_id)
   fprintf(fout, "\nendif_%d:", if_id)
-
 }
 
 

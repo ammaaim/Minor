@@ -3,14 +3,10 @@
 
 import "index"
 import "define"
-
-import "parser"
 import "data"
-
 import "type"
+
 import "expr"
-
-
 import "stmt"
 import "prn/assembly"
 
@@ -40,7 +36,7 @@ type FuncContext = record {
 
 
 var mctx : ModuleContext     // current module context
-
+var fctx : FuncContext       // current function context
 
 var asm0 : Assembly          // сущности идущие на печать попадают сюда
 
@@ -213,19 +209,21 @@ let parseLet = func (local : Bool) -> *Stmt {
   }
 
   // let Local
-
-  if not valueIsConst(v) {
+  // важно чтобы undef переменные попадали сюда так как иначе
+  // происходит просто связывание id с переменной а не с ее значением по месту
+  // это слабое место, Саня, придумай как переделать let
+  if not valueIsConst(v) or v.storage.class == StorageUndefined {
     // v0 - значение сопряженное с результатом вычисления v
     // то есть он получит тот же регистр что и результат вычисления v
     // регистр он получит в принтере тк только там они проясняются
     let v0 = valueNew(ValueId, StorageRegister, ti)
     v0.storage.id = id
     bind_value_local(id, v0)
-    return stmt_new_let(v, v0, ti)
+    let xxx = stmt_new_let(v, v0, ti)
+    return xxx
   }
 
   bind_value_in_block(fctx.cblock, id, v)
-
   return Nil
 }
 

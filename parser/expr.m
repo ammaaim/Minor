@@ -419,7 +419,6 @@ let term_arr = func ValueParser {
 
 
 let term_func = func ValueParser {
-//  printf("parse func\n")
   // сохраняем контекст
   let old_fctx = fctx
 
@@ -489,7 +488,6 @@ let term_id = func ValueParser {
   let ti = &ctok().ti
   let id = parseId()
   if id == Nil {return Nil}
-
 
   let v = get_value(id)
 
