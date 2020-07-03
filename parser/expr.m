@@ -220,7 +220,7 @@ let hier9 = func ValueParser {
   if v == Nil {return Nil}
   let ti = &ctok().ti
   if match("to") {
-    let t = parse_type(False)
+    let t = parse_type()
     v = cast(v, t, ti)
   }
   return v
@@ -244,7 +244,7 @@ let hier10 = func ValueParser {
     v = un(ValueMinus, r, ti)
   } else if match("sizeof") {
     let ti_sizeof = &ctok().ti
-    let t = parse_type(False)
+    let t = parse_type()
     if t == Nil {
       error("sizeof expected <type>", ti_sizeof)
       return Nil
@@ -252,7 +252,7 @@ let hier10 = func ValueParser {
     v = size_of(t, ti)
 
     /*let ti_sizeof = &ctok().ti
-    let t = parse_type(False)
+    let t = parse_type()
     if t == Nil {
       error("sizeof expected <type>", ti_sizeof)
       return Nil
@@ -261,7 +261,7 @@ let hier10 = func ValueParser {
     */
   } else if match("alignof") {
     let ti_alignof = &ctok().ti
-    let t = parse_type(False)
+    let t = parse_type()
     if t == Nil {
       error("alignof expected <type>", ti_alignof)
       return Nil
@@ -389,7 +389,7 @@ let term_str = func ValueParser {
 
 let term_arr = func ValueParser {
   let ti = &ctok().ti
-  let of = parse_type(False)
+  let of = parse_type()
   need("{")
 
   let data = list_new()  // of *Value
@@ -443,7 +443,7 @@ let term_func = func ValueParser {
     goto fail
   }
 
-  let t = parse_type(False)
+  let t = parse_type()
 
   if t == Nil {
     printf("funcdef type fail")

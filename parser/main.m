@@ -174,7 +174,7 @@ let parseTypedef = func () -> Unit {
 
   need("=")
 
-  let t = parse_type(True)
+  let t = parse_type()
   if t == Nil {return}
 
   if t.kind != TypeBasic {
@@ -293,7 +293,7 @@ let parseField = func () -> *List {
 
   need(":")
 
-  let t = parse_type(True)
+  let t = parse_type()
   if t == Nil {goto fail}
 
   // set #type field for all Field object in fieldlist

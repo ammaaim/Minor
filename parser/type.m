@@ -5,7 +5,7 @@ type TypeParser = () -> *Type
 
 
 
-let parse_type = func (add_new_type : Bool) -> *Type {
+let parse_type = func () -> *Type {
   var t : *Type
   t = Nil
 
@@ -22,7 +22,7 @@ let parse_type = func (add_new_type : Bool) -> *Type {
     }
   } else {
     if match("*") {
-      let to = parse_type(True)
+      let to = parse_type()
       if to == Nil {return Nil}
       t = type_pointer_new(to)
     } else if match("[") {
@@ -139,7 +139,7 @@ let parse_type_array = func TypeParser {
 
   if match("]") {
     // Undefined Array
-    let item_type = parse_type(True)
+    let item_type = parse_type()
     if item_type == Nil {
       goto fail
     }
@@ -155,7 +155,7 @@ let parse_type_array = func TypeParser {
 
   need("]")
 
-  let item_type = parse_type(True)
+  let item_type = parse_type()
   if item_type == Nil {
     goto fail
   }
@@ -170,7 +170,7 @@ fail:
 let parse_type_func = func TypeParser {
   let params = parse_fields(")")
   need ("->")
-  let rettype = parse_type(True)
+  let rettype = parse_type()
   if params == Nil or rettype == Nil {return Nil}
   let arghack = get("flagArghack") == 1
   return type_func_new(params, rettype, arghack)

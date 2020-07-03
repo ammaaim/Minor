@@ -8570,9 +8570,7 @@ endif_0:
   ret void
 }
 
-define %Type* @parse_type (%Bool %_add_new_type) {
-  %add_new_type = alloca %Bool
-  store %Bool %_add_new_type, %Bool* %add_new_type
+define %Type* @parse_type () {
 
 ;stmt0:
   %t = alloca %Type*
@@ -8648,7 +8646,7 @@ then_3:
 ;stmt16:
 
 ;stmt17:
-  %17 = call %Type* (%Bool) @parse_type (%Bool 1)
+  %17 = call %Type* () @parse_type ()
 
 ;stmt18:
   %18 = bitcast %Type* %17 to %Unit*
@@ -9028,7 +9026,7 @@ then_0:
 ;stmt1:
 
 ;stmt2:
-  %3 = call %Type* (%Bool) @parse_type (%Bool 1)
+  %3 = call %Type* () @parse_type ()
 
 ;stmt3:
   %4 = bitcast %Type* %3 to %Unit*
@@ -9078,7 +9076,7 @@ endif_2:
   %16 = call %Bool (%Str) @need (%Str %15)
 
 ;stmt12:
-  %17 = call %Type* (%Bool) @parse_type (%Bool 1)
+  %17 = call %Type* () @parse_type ()
 
 ;stmt13:
   %18 = bitcast %Type* %17 to %Unit*
@@ -9124,7 +9122,7 @@ define %Type* @parse_type_func () {
   %4 = call %Bool (%Str) @need (%Str %3)
 
 ;stmt2:
-  %5 = call %Type* (%Bool) @parse_type (%Bool 1)
+  %5 = call %Type* () @parse_type ()
 
 ;stmt3:
   %6 = bitcast %List* %2 to %Unit*
@@ -10056,7 +10054,7 @@ then_1:
 ;stmt7:
 
 ;stmt8:
-  %12 = call %Type* (%Bool) @parse_type (%Bool 0)
+  %12 = call %Type* () @parse_type ()
 
 ;stmt9:
   %13 = load %Value*, %Value** %v
@@ -10162,7 +10160,7 @@ then_4:
   %22 = getelementptr inbounds %Token, %Token* %21, i32 0, i32 1
 
 ;stmt21:
-  %23 = call %Type* (%Bool) @parse_type (%Bool 0)
+  %23 = call %Type* () @parse_type ()
 
 ;stmt22:
   %24 = bitcast %Type* %23 to %Unit*
@@ -10204,7 +10202,7 @@ then_6:
   %34 = getelementptr inbounds %Token, %Token* %33, i32 0, i32 1
 
 ;stmt30:
-  %35 = call %Type* (%Bool) @parse_type (%Bool 0)
+  %35 = call %Type* () @parse_type ()
 
 ;stmt31:
   %36 = bitcast %Type* %35 to %Unit*
@@ -10716,7 +10714,7 @@ define %Value* @term_arr () {
   %2 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 1
 
 ;stmt1:
-  %3 = call %Type* (%Bool) @parse_type (%Bool 0)
+  %3 = call %Type* () @parse_type ()
 
 ;stmt2:
   %4 = load %Str, %Str* @func169_str1
@@ -10882,7 +10880,7 @@ else_0:
 endif_0:
 
 ;stmt15:
-  %22 = call %Type* (%Bool) @parse_type (%Bool 0)
+  %22 = call %Type* () @parse_type ()
 
 ;stmt16:
   %23 = bitcast %Type* %22 to %Unit*
@@ -16912,7 +16910,7 @@ endif_0:
   %7 = call %Bool (%Str) @need (%Str %6)
 
 ;stmt5:
-  %8 = call %Type* (%Bool) @parse_type (%Bool 1)
+  %8 = call %Type* () @parse_type ()
 
 ;stmt6:
   %9 = bitcast %Type* %8 to %Unit*
@@ -17319,7 +17317,7 @@ break_0:
   %14 = call %Bool (%Str) @need (%Str %13)
 
 ;stmt12:
-  %15 = call %Type* (%Bool) @parse_type (%Bool 1)
+  %15 = call %Type* () @parse_type ()
 
 ;stmt13:
   %16 = bitcast %Type* %15 to %Unit*
