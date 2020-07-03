@@ -18,7 +18,7 @@ let parse_type = func () -> *Type {
     } else if match("enum") {
       t = parse_type_enum()
     } else {
-      t = parse_type_base()
+      t = parse_type_named()
     }
   } else {
     if match("*") {
@@ -45,7 +45,7 @@ let parse_type = func () -> *Type {
 }
 
 
-let parse_type_base = func TypeParser {
+let parse_type_named = func TypeParser {
   let ti = &ctok().ti
   let id = parseId()
 
@@ -58,7 +58,6 @@ let parse_type_base = func TypeParser {
   if t != Nil {return t}
 
   let nt = type_new(TypeUnknown)
-  nt.ti = ti
   nt.declared_at = ti
   add_type(&mctx.type_index, id, nt)
   return nt
@@ -136,7 +135,6 @@ let parse_type_enum = func TypeParser {
 
 
 let parse_type_array = func TypeParser {
-
   if match("]") {
     // Undefined Array
     let item_type = parse_type()
@@ -147,20 +145,12 @@ let parse_type_array = func TypeParser {
   }
 
   // Defined Array
-
-  let xsize = cexpr()
-  if xsize == Nil {
-    goto fail
-  }
-
+  let size = cexpr()
+  if size == Nil {goto fail}
   need("]")
-
   let item_type = parse_type()
-  if item_type == Nil {
-    goto fail
-  }
-
-  return type_array_new(item_type, xsize.storage.val to Nat32, False)
+  if item_type == Nil {goto fail}
+  return type_array_new(item_type, size.storage.val to Nat32, False)
 
 fail:
   return Nil

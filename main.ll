@@ -12490,7 +12490,7 @@ else_2:
 ;stmt12:
 
 ;stmt13:
-  %14 = call %Type* () @parse_type_base ()
+  %14 = call %Type* () @parse_type_named ()
   store %Type* %14, %Type** %t
   br label %endif_2
 endif_2:
@@ -12625,7 +12625,7 @@ endif_7:
   ret %Type* %53
 }
 
-define %Type* @parse_type_base () {
+define %Type* @parse_type_named () {
 
 ;stmt0:
   %1 = call %Token* () @ctok ()
@@ -12678,18 +12678,14 @@ endif_1:
   %15 = call %Type* (%TypeKind) @type_new (%TypeKind 0)
 
 ;stmt11:
-  %16 = getelementptr inbounds %Type, %Type* %15, i32 0, i32 12
+  %16 = getelementptr inbounds %Type, %Type* %15, i32 0, i32 10
   store %TokenInfo* %2, %TokenInfo** %16
 
 ;stmt12:
-  %17 = getelementptr inbounds %Type, %Type* %15, i32 0, i32 10
-  store %TokenInfo* %2, %TokenInfo** %17
+  %17 = getelementptr inbounds %ModuleContext, %ModuleContext* @mctx, i32 0, i32 1
+  call void (%List*, %Str, %Type*) @add_type (%List* %17, %Str %3, %Type* %15)
 
 ;stmt13:
-  %18 = getelementptr inbounds %ModuleContext, %ModuleContext* @mctx, i32 0, i32 1
-  call void (%List*, %Str, %Type*) @add_type (%List* %18, %Str %3, %Type* %15)
-
-;stmt14:
   ret %Type* %15
 }
 

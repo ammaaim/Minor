@@ -6,7 +6,8 @@ type ValueParser = () -> *Value
 
 
 
-let expr = func ValueParser {return hier1()}  // let expr = hier1  // not worked!
+let expr = func ValueParser {return hier1()}
+//let expr = hier1  // не работает тк он вызывает @expr вместо @hier1
 
 
 // parse constant expression
