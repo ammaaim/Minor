@@ -1,6 +1,14 @@
 // m2/parser/stmt/while
 
 
+
+type While = record {
+  cond : *Value
+  stmt : *Stmt
+}
+
+
+
 let stmtWhile = func StmtParser {
   fctx.loop = fctx.loop + 1
   let w = malloc(sizeof While) to *While

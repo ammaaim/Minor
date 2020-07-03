@@ -1,6 +1,12 @@
 // m2/parser/stmt/if
 
 
+type If = record {
+  cond : *Value
+  then, else : *Stmt
+}
+
+
 let stmtIf = func StmtParser {
   let i = malloc(sizeof If) to *If
   i.cond = expr()

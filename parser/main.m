@@ -13,6 +13,8 @@ import "prn/assembly"
 import "value"
 
 
+
+
 type ModuleContext = record {
   src : *Source      // current source
 
@@ -41,6 +43,7 @@ var fctx : FuncContext       // current function context
 var asm0 : Assembly          // сущности идущие на печать попадают сюда
 
 let PATH_BUF_LEN = 512
+
 
 var comments : Bool
 

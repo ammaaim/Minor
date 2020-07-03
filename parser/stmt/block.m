@@ -1,6 +1,19 @@
 // m2/parser/stmt/block
 
 
+// Compound Statement
+type Block = record {
+  parent  : *Block   // block-parent or Nil
+  stmts   : *List    // list of statements
+
+  type_index,
+  value_index : Map  // local indexes
+
+  // список в который попадают все локальные функции
+  // для того чтобы их тела потом при check инге прочекать
+  local_functions : *List
+}
+
 
 let stmtBlock = func StmtParser {
   let b = doblock()
