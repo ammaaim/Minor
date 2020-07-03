@@ -67,6 +67,8 @@ let checkValue = func (v : *Value) -> *Type {
     t = checkValueShift(v)
   } else if k == ValueSizeof {
     t = checkValueSizeof(v)
+  } else if k == ValueAlignof {
+    t = checkValueAlignof(v)
   }
 
   v.type = t

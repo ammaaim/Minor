@@ -11,6 +11,7 @@ import "access"
 import "call"
 import "cast"
 import "sizeof"
+import "alignof"
 import "storage"
 import "init"
 

@@ -251,14 +251,6 @@ let hier10 = func ValueParser {
     }
     v = size_of(t, ti)
 
-    /*let ti_sizeof = &ctok().ti
-    let t = parse_type()
-    if t == Nil {
-      error("sizeof expected <type>", ti_sizeof)
-      return Nil
-    }
-    v = valueNewImm(typeSizeof, t.size to Int64, ti)
-    */
   } else if match("alignof") {
     let ti_alignof = &ctok().ti
     let t = parse_type()
@@ -266,7 +258,7 @@ let hier10 = func ValueParser {
       error("alignof expected <type>", ti_alignof)
       return Nil
     }
-    v = valueNewImm(typeAlignof, t.align to Int64, ti)
+    v = align_of(t, ti)
   } else {
     v = hier11()
   }
