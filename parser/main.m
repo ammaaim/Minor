@@ -87,7 +87,7 @@ let parse = func (src : *Source) -> Unit {
     let tk = ctok()
 
     if match("let") {
-      parseLet(False)
+      parseLet()
     } else if match("type") {
       parseTypedef()
     } else if match("extern") {
@@ -101,9 +101,6 @@ let parse = func (src : *Source) -> Unit {
       if match("arghack") {set("flagArghack", 1); continue}
       if match("nodecorate") {/*set("flagNoDecorate", 1);*/ continue}
       if eof() {break}
-
-      error("unexpected token2", &ctok().ti)
-      printf("+++ %d\n", ctok().type)
 
       // top-level sync strategy
       while True {
@@ -193,7 +190,7 @@ let parseTypedef = func () -> Unit {
 }
 
 
-let parseLet = func (local : Bool) -> *Stmt {
+let parseLet = func () -> *Stmt {
   let ti = &ctok().ti
   let id = parseId()
 
@@ -206,7 +203,8 @@ let parseLet = func (local : Bool) -> *Stmt {
 
   v.defined_at = ti
 
-  if not local {
+  // global?
+  if fctx.cfunc == Nil {
     def_global(id, v, ti)
     return Nil
   }

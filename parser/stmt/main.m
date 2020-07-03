@@ -79,7 +79,7 @@ let stmtCheck = func (s : *Stmt) -> Unit {
 let stmt = func () -> *Stmt {
   let ti = &ctok().ti
   if match("let") {
-    return parseLet(True); sep()
+    return parseLet(); sep()
   } else if match("{") {
     return stmtBlock(ti)
   } else if match("if") {
