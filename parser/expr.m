@@ -372,9 +372,11 @@ let term_str = func ValueParser {
   asmStringAdd(&asm0, id, s, len)
 
   // создаем значение для строки
-  let v = valueNew(ValueId, StorageGlobal, ti)
+  let v = valueNew(ValueId, ti)
   v.type = typeStr
+  v.storage.class = StorageGlobal
   v.storage.id = id
+  v.id = id
   return v
 }
 
@@ -402,9 +404,11 @@ let term_arr = func ValueParser {
 
   asmArrayAdd(&asm0, id, t, data)
 
-  let v = valueNew(ValueId, StorageGlobalConst, ti)
+  let v = valueNew(ValueId, ti)
   v.type = t
+  v.storage.class = StorageGlobalConst
   v.storage.id = id
+  v.id = id
   v.defined_at = ti
   return v
 }
@@ -448,7 +452,7 @@ let term_func = func ValueParser {
   }*/
 
   // создаем значение функции
-  let fv = valueNew(ValueId, StorageGlobalConst, ti)
+  let fv = valueNew(ValueId, ti)
   fv.type = t
 
   if parent_block != Nil {
@@ -456,7 +460,9 @@ let term_func = func ValueParser {
   }
 
   fctx.cfunc = fv
+  fv.storage.class = StorageGlobalConst
   fv.storage.id = id
+  fv.id = id
   fv.defined_at = ti
 
   // выставляем ссылку на текущую функцию
@@ -484,8 +490,9 @@ let term_id = func ValueParser {
   let v = get_value(id)
 
   if v == Nil {
-    let nv = valueNew(ValueId, StorageUndefined, ti)
+    let nv = valueNew(ValueId, ti)
     nv.storage.id = id
+    nv.id = id
     nv.declared_at = ti
     bind_value_global(id, nv)
     return nv

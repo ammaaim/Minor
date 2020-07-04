@@ -67,6 +67,7 @@ type Value = record {
 
 //union {
   imm    : Int64
+  id     : Str
   un     : ValueUn
   bin    : ValueBin
   index  : ValueIndex
@@ -83,19 +84,18 @@ type Value = record {
 
 
 
-let valueNew = func (k : ValueKind, sc : StorageClass, ti : *TokenInfo) -> *Value {
+let valueNew = func (k : ValueKind, ti : *TokenInfo) -> *Value {
   let v = malloc(sizeof Value) to *Value
   assert(v != Nil, "value_new")
   memset(v, 0, sizeof Value)
   v.kind = k
-  v.storage.class = sc
   v.ti = ti
   return v
 }
 
 
 let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
-  let v = valueNew(ValueImmediate, StorageUndefined, ti)
+  let v = valueNew(ValueImmediate, ti)
   v.type = t
   v.imm = dx
   return v

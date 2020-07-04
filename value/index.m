@@ -7,7 +7,7 @@ type ValueIndex = record {array, index : *Value}
 
 let indx = func (a, i : *Value, ti : *TokenInfo) -> *Value {
   if a == Nil or i == Nil {goto fail}
-  let v = valueNew(ValueIndex, StorageAddress, ti)
+  let v = valueNew(ValueIndex, ti)
   v.index.array = a
   v.index.index = i
   return v

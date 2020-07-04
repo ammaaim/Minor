@@ -6,7 +6,7 @@
 // сделай такое же для ALignof!!
 
 let size_of = func (t : *Type, ti : *TokenInfo) -> *Value {
-  let vx = valueNew(ValueSizeof, StorageUndefined, ti)
+  let vx = valueNew(ValueSizeof, ti)
   //let vx = valueNewImm(Nil, 0, ti)  // gives nat error! why nat workd in first phase?
   vx.szof = t
   return vx

@@ -21,7 +21,7 @@ let shift = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
     // возвращаем константу с Numeric типом (!)
     retv = valueNewImm(l.type, v, ti)
   } else {
-    retv = valueNew(k, StorageRegister, ti)
+    retv = valueNew(k, ti)
     retv.bin.l = l
     retv.bin.r = r
   }

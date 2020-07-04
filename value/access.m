@@ -8,7 +8,7 @@ type ValueAccess = record {value : *Value, field : Str}
 let access = func (r : *Value, fid : Str, ti : *TokenInfo) -> *Value {
   if r == Nil or fid == Nil {goto fail}
 
-  let v = valueNew(ValueAccess, StorageAddress, ti)
+  let v = valueNew(ValueAccess, ti)
 
   v.access.value = r
   v.access.field = fid

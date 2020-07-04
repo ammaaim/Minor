@@ -1,7 +1,7 @@
 
 
 let align_of = func (t : *Type, ti : *TokenInfo) -> *Value {
-  let vx = valueNew(ValueAlignof, StorageUndefined, ti)
+  let vx = valueNew(ValueAlignof, ti)
   vx.szof = t
   return vx
 }

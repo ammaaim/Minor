@@ -22,7 +22,7 @@ let binTypeValid = func (k : ValueKind, t : *Type) -> Bool {
 let bin = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   if l == Nil or r == Nil {goto fail}
 
-  let v = valueNew(k, StorageRegister, ti)
+  let v = valueNew(k, ti)
   v.bin.l = l
   v.bin.r = r
   return v
@@ -127,7 +127,6 @@ let binFold = func (vx : *Value) -> Unit {
       assert(False, "binImm :: unknown bin operation")
     }
   }
-
 
   vx.kind = ValueImmediate
   vx.imm = res

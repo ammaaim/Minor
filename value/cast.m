@@ -35,7 +35,7 @@ let cast = func (v : *Value, t : *Type, ti : *TokenInfo) -> *Value {
   }*/
 
   // во всех остальных случаях выполняем runtime приведение
-  let vc = valueNew(ValueCast, StorageRegister, ti)
+  let vc = valueNew(ValueCast, ti)
   vc.cast.value = v
   vc.cast.to = t
   return vc
