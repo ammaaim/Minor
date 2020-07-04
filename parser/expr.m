@@ -375,7 +375,6 @@ let term_str = func ValueParser {
   let v = valueNew(ValueId, ti)
   v.type = typeStr
   v.storage.class = StorageGlobal
-  v.storage.id = id
   v.id = id
   return v
 }
@@ -407,7 +406,6 @@ let term_arr = func ValueParser {
   let v = valueNew(ValueId, ti)
   v.type = t
   v.storage.class = StorageGlobalConst
-  v.storage.id = id
   v.id = id
   v.defined_at = ti
   return v
@@ -461,7 +459,6 @@ let term_func = func ValueParser {
 
   fctx.cfunc = fv
   fv.storage.class = StorageGlobalConst
-  fv.storage.id = id
   fv.id = id
   fv.defined_at = ti
 
@@ -491,14 +488,13 @@ let term_id = func ValueParser {
 
   if v == Nil {
     let nv = valueNew(ValueId, ti)
-    nv.storage.id = id
     nv.id = id
     nv.declared_at = ti
     bind_value_global(id, nv)
     return nv
   }
 
-  v.storage.id = id
+  v.id = id
   return v
 
 fail:

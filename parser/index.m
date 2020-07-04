@@ -154,8 +154,7 @@ let get_value_from_params = func (params : *List, id : Str) -> *Value {
   let v = valueNew(ValueId, param.ti)
   v.type = param.type
   v.storage.class = StorageLocal
-  v.storage.id = param.id
-  v.id = id
+  v.id = param.id
   return v
 }
 

@@ -24,10 +24,7 @@ type StorageClass = enum {
 type Storage = record {
   class : StorageClass
 
-//union {
   reg : Nat32  // StorageRegister, StorageAddress
-  id  : Str    // StorageLocal, StorageGlobal, StorageGlobalConst
-//}
 }
 
 

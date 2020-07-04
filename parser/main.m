@@ -219,7 +219,6 @@ let parseLet = func () -> *Stmt {
     // регистр он получит в принтере тк только там они проясняются
     let v0 = valueNew(ValueId, ti)
     v0.storage.class = StorageRegister
-    v0.storage.id = id
     v0.id = id
     bind_value_local(id, v0)
     let xxx = stmt_new_let(v, v0, ti)
@@ -321,7 +320,6 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *Tok
   let v = valueNew(ValueId, ti)
   v.type = t
   v.storage.class = StorageLocal
-  v.storage.id = id
   v.id = id
   bind_value_local(id, v)
 
@@ -346,7 +344,6 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *To
   let v = valueNew(ValueId, ti)
   v.type = t
   v.storage.class = StorageGlobal
-  v.storage.id = id
   v.id = id
   bind_value_global(id, v)
 }

@@ -70,7 +70,7 @@ let checkParams = func (f : *Value, a : *List, ti : *TokenInfo) -> Bool {
 
     // проверяем соответствие типа аргумента типу параметра
     if not type_eq(par.type, new_arg.type) {
-      error("argument type not match param type: ", ti)//, f.storage.id)
+      error("argument type not match param type: ", ti)//, f.id)
       printf("arg = "); prttype(new_arg.type); printf("\n")
       printf("par = "); prttype(par.type); printf("\n")
       goto nextarg

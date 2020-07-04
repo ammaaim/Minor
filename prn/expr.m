@@ -22,9 +22,9 @@ let print_value = func (v : *Value) -> Unit {
   } else if cl == StorageRegister or cl == StorageAddress {
     fprintf(fout, "%%%d", v.storage.reg)
   } else if cl == StorageGlobal or cl == StorageGlobalConst{
-    fprintf(fout, "@%s", v.storage.id)
+    fprintf(fout, "@%s", v.id)
   } else if cl == StorageLocal {
-    fprintf(fout, "%%%s", v.storage.id)
+    fprintf(fout, "%%%s", v.id)
   } else if cl == StorageUndefined {
     fprintf(fout, "<StorageUndefined>")
   }
