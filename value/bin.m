@@ -19,34 +19,12 @@ let binTypeValid = func (k : ValueKind, t : *Type) -> Bool {
 }
 
 
-// это операция требующая только #Numeric аргументов
-let isNumericOperation = func (k : ValueKind) -> Bool {
-  return k == ValueAdd or k == ValueSub or
-         k == ValueSub or k == ValueMul or k == ValueDiv or
-         k == ValueLt or k == ValueGt or k == ValueLe or k == ValueGe
-}
-
-
-// это операция требующая только #Numeric или #Logic аргументов
-let isLogicNumericOperation = func (k : ValueKind) -> Bool {
-  return k == ValueOr or k == ValueXor or k == ValueAnd
-}
-
-
 let bin = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   if l == Nil or r == Nil {goto fail}
 
-  /*var v : *Value
-  if l.storage.class == StorageImmediate and
-     r.storage.class == StorageImmediate {
-    v = binImm(k, l, r, ti)  // const folding
-  } else {*/
-    let v = valueNew(k, StorageRegister, ti)
-    v.bin.l = l
-    v.bin.r = r
-  //}
-
-  v.ti = ti
+  let v = valueNew(k, StorageRegister, ti)
+  v.bin.l = l
+  v.bin.r = r
   return v
 
 fail:
@@ -154,5 +132,19 @@ let binFold = func (vx : *Value) -> Unit {
   vx.kind = ValueImmediate
   vx.imm = res
 }
+
+
+/*// это операция требующая только #Numeric аргументов
+let isNumericOperation = func (k : ValueKind) -> Bool {
+  return k == ValueAdd or k == ValueSub or
+         k == ValueSub or k == ValueMul or k == ValueDiv or
+         k == ValueLt or k == ValueGt or k == ValueLe or k == ValueGe
+}
+
+
+// это операция требующая только #Numeric или #Logic аргументов
+let isLogicNumericOperation = func (k : ValueKind) -> Bool {
+  return k == ValueOr or k == ValueXor or k == ValueAnd
+}*/
 
 
