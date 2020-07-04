@@ -5,7 +5,7 @@
 
 // встретили неизвестный тип
 // создали TypeUnknown
-// встретили typedef - проверили если ae то copy
+// встретили typedef - проверили если ae то заполняем ae из nt
 // check сперва проверяет типы если есть TypeUnknown - ошибка
 // еще check должен рекурсивно проверить типы на внутреннюю рекурсию но это потом
 
@@ -38,8 +38,7 @@ let typeCheckPointer = func (p : *TypePointer) -> Unit {
 
 
 let typeCheckFunc = func (f : *TypeFunc) -> Unit {
-  // check return type
-  typeCheck(f.to)
+  typeCheck(f.to)  // check return type
 
   // check params
   let foreach_func_param = func ListForeachHandler {
@@ -51,7 +50,7 @@ let typeCheckFunc = func (f : *TypeFunc) -> Unit {
 
 
 let typeCheckRecord = func (r : *TypeRecord) -> Unit {
-  // чекаем поля: поле не может имет ь неопределенный тип!
+  // чекаем поля: поле не может иметь неопределенный тип!
   // (но может быть указателем или неопр массивом undef-типа)
   let foreach_struct_field = func ListForeachHandler {
     let f = data to *Field
