@@ -34,8 +34,12 @@ let main = func (argc : Int, argv : []Str) -> Int {
 
   parseArgs(argc, argv)
 
+  let src = source_open("main")
+
+  if src == Nil {return -1}
+
   // let's start!
-  parse(source_open("main"))
+  parse(src)
 
   printf("lines: %d\n", lines)
 
@@ -53,7 +57,6 @@ let main = func (argc : Int, argv : []Str) -> Int {
 
   printer_init(arch, "main.ll")
   print_assembly(&asm0)
-
   return (errcnt != 0) to Int
 }
 

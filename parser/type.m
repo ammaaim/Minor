@@ -150,7 +150,7 @@ let parse_type_array = func TypeParser {
   need("]")
   let item_type = parse_type()
   if item_type == Nil {goto fail}
-  return type_array_new(item_type, size.storage.val to Nat32, False)
+  return type_array_new(item_type, size.imm to Nat32, False)
 
 fail:
   return Nil

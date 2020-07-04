@@ -14,9 +14,9 @@ let checkValueAlignof = func (v : *Value) -> *Type {
     error("alignof unknown type", v.ti)
   }
 
+  v.kind = ValueImmediate  // turn ValueAlignof to ValueImmediate (only here!)
   v.type = type_new(TypeNumeric)
-  v.storage.class = StorageImmediate
-  v.storage.val = t.size to Int64
+  v.imm = t.size to Int64
 
   return v.type
 }

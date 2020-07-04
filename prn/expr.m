@@ -17,8 +17,8 @@ let print_getelementptr_inline = func (v : *Value, ino : Nat32) -> Unit {
 // печатает терм
 let print_value = func (v : *Value) -> Unit {
   let cl = v.storage.class
-  if cl == StorageImmediate {
-    fprintf(fout, "%d", v.storage.val)
+  if v.kind == ValueImmediate {
+    fprintf(fout, "%d", v.imm)
   } else if cl == StorageRegister or cl == StorageAddress {
     fprintf(fout, "%%%d", v.storage.reg)
   } else if cl == StorageGlobal or cl == StorageGlobalConst{
@@ -33,7 +33,7 @@ let print_value = func (v : *Value) -> Unit {
 
 let eval = func Eval {
   let k = v.kind
-  if k == ValueId {
+  if k == ValueId or k == ValueImmediate {
     return v
   } else if k == ValueCall {
     return eval_call(v)
@@ -74,12 +74,13 @@ let loadImmPtr = func (v : *Value) -> *Value {
 
 let load = func Eval {
   // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
-  // явной операцией inttoptr. Поэтому если нам попался указатель с классом StorageImmediate
+  // явной операцией inttoptr. Поэтому если нам попался указатель вида ValueImmediate
   // то его нужно будет загрузить в регистр функцией inttoptr
-  if v.storage.class == StorageImmediate {
+  if v.kind == ValueImmediate {
     if typeIsReference(v.type) {
       return loadImmPtr(v)
     }
+    return v
   }
 
   // в загрузке нуждаются только значения с изменяемым классом памяти

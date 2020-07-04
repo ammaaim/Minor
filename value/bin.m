@@ -36,15 +36,15 @@ let isLogicNumericOperation = func (k : ValueKind) -> Bool {
 let bin = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   if l == Nil or r == Nil {goto fail}
 
-  var v : *Value
+  /*var v : *Value
   if l.storage.class == StorageImmediate and
      r.storage.class == StorageImmediate {
     v = binImm(k, l, r, ti)  // const folding
-  } else {
-    v = valueNew(k, StorageRegister, ti)
+  } else {*/
+    let v = valueNew(k, StorageRegister, ti)
     v.bin.l = l
     v.bin.r = r
-  }
+  //}
 
   v.ti = ti
   return v
@@ -53,55 +53,6 @@ fail:
   return Nil
 }
 
-
-let binImm = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
-  var v : Int64
-  var t : *Type
-
-  let lv = l.storage.val
-  let rv = r.storage.val
-
-  // у левого может быть TypeNumeric, а может быть любо другой Int тип
-  // то что он имеет StorageImmediate не значит что он не мог быть типизирован!
-  t = l.type
-
-  if k == ValueAdd {
-    v = lv + rv
-  } else if k == ValueSub {
-    v = lv - rv
-  } else if k == ValueMul {
-    v = lv * rv
-  } else if k == ValueDiv {
-    v = lv / rv
-  } else if k == ValueMod {
-    v = lv % rv
-  } else if k == ValueOr {
-    v = lv or rv
-  } else if k == ValueXor {
-    v = lv xor rv
-  } else if k == ValueAnd {
-    v = lv and rv
-  } else {
-    t = typeBool
-    if k == ValueEq {
-      v = (lv == rv) to Int64
-    } else if k == ValueNe {
-      v = (lv != rv) to Int64
-    } else if k == ValueLt {
-      v = (lv < rv) to Int64
-    } else if k == ValueGt {
-      v = (lv > rv) to Int64
-    } else if k == ValueLe {
-      v = (lv <= rv) to Int64
-    } else if k == ValueGe {
-      v = (lv >= rv) to Int64
-    } else {
-      assert(False, "binImm :: unknown bin operation")
-    }
-  }
-
-  return valueNewImm(t, v, ti)
-}
 
 
 let checkValueBinary = func (v : *Value) -> *Type {
@@ -126,9 +77,9 @@ let checkValueBinary = func (v : *Value) -> *Type {
     goto fail
   }
 
-  let op_kind = v.kind
+  let k = v.kind
 
-  if not binTypeValid(op_kind, lt) {
+  if not binTypeValid(k, lt) {
     error("binary type error", v.ti)
     return Nil
   }
@@ -136,7 +87,11 @@ let checkValueBinary = func (v : *Value) -> *Type {
   v.bin.l = l
   v.bin.r = r
 
-  if isReletionOpKind(op_kind) {
+  if l.kind == ValueImmediate and r.kind == ValueImmediate {
+    binFold(v)
+  }
+
+  if isReletionOpKind(k) {
     return typeBool
   } else {
     return l.type
@@ -144,6 +99,60 @@ let checkValueBinary = func (v : *Value) -> *Type {
 
 fail:
   return Nil
+}
+
+
+let binFold = func (vx : *Value) -> Unit {
+  var res : Int64
+  var t : *Type
+
+  let lv = vx.bin.l.imm
+  let rv = vx.bin.r.imm
+
+  let k = vx.kind
+
+  // у левого может быть TypeNumeric, а может быть любо другой Int тип
+  // то что он имеет StorageImmediate не значит что он не мог быть типизирован!
+  t = vx.bin.l.type
+
+  if k == ValueAdd {
+    res = lv + rv
+  } else if k == ValueSub {
+    res = lv - rv
+  } else if k == ValueMul {
+    res = lv * rv
+  } else if k == ValueDiv {
+    res = lv / rv
+  } else if k == ValueMod {
+    res = lv % rv
+  } else if k == ValueOr {
+    res = lv or rv
+  } else if k == ValueXor {
+    res = lv xor rv
+  } else if k == ValueAnd {
+    res = lv and rv
+  } else {
+    t = typeBool
+    if k == ValueEq {
+      res = (lv == rv) to Int64
+    } else if k == ValueNe {
+      res = (lv != rv) to Int64
+    } else if k == ValueLt {
+      res = (lv < rv) to Int64
+    } else if k == ValueGt {
+      res = (lv > rv) to Int64
+    } else if k == ValueLe {
+      res = (lv <= rv) to Int64
+    } else if k == ValueGe {
+      res = (lv >= rv) to Int64
+    } else {
+      assert(False, "binImm :: unknown bin operation")
+    }
+  }
+
+
+  vx.kind = ValueImmediate
+  vx.imm = res
 }
 
 

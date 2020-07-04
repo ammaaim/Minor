@@ -25,8 +25,8 @@ let un = func (k : ValueKind, v : *Value, ti : *TokenInfo) -> *Value {
 
 
 let un_minus = func (v : *Value, ti : *TokenInfo) -> *Value {
-  if v.storage.class == StorageImmediate {
-    return valueNewImm(v.type, -v.storage.val, ti)
+  if v.kind == ValueImmediate {
+    return valueNewImm(v.type, -v.imm, ti)
   }
 
   let vx = valueNew(ValueMinus, StorageRegister, ti)
@@ -36,8 +36,8 @@ let un_minus = func (v : *Value, ti : *TokenInfo) -> *Value {
 
 
 let un_not = func (v : *Value, ti : *TokenInfo) -> *Value {
-  if v.storage.class == StorageImmediate {
-    return valueNewImm(v.type, not v.storage.val, ti)
+  if v.kind == ValueImmediate {
+    return valueNewImm(v.type, not v.imm, ti)
   }
 
   let vx = valueNew(ValueNot, StorageRegister, ti)

@@ -20,11 +20,12 @@ var pdir : Str      // current, project & lib dir paths
 
 var liblist : List  // list of additional libraries paths
 
-
+let maxlen = 512
 let cwd = func () -> Str {
-  let maxlen = 512
+
   let buf = malloc(maxlen)
-  return getcwd(buf, maxlen)
+  let x = getcwd(buf, maxlen)
+  return x
 }
 
 
@@ -77,6 +78,7 @@ let src_open = func (dir, resource : Str) -> *Source {
   var fname : Str
 
   let path_mod = cat(path, ".m")
+
   if exists(path_mod) {
     // it's module
     chdir(getprefix(path_mod))

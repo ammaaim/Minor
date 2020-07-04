@@ -8,15 +8,15 @@ let shift = func (k : ValueKind, l, r : *Value, ti : *TokenInfo) -> *Value {
   var retv : *Value
   retv = Nil
 
-  /* const folding */
-  if l.storage.class == StorageImmediate and
-     r.storage.class == StorageImmediate {
+  // const folding
+  if l.kind == ValueImmediate and
+     r.kind == ValueImmediate {
 
     var v : Int64
     if k == ValueShl {
-      v = l.storage.val << r.storage.val
+      v = l.imm << r.imm
     } else if k == ValueShr {
-      v = l.storage.val >> r.storage.val
+      v = l.imm >> r.imm
     }
     // возвращаем константу с Numeric типом (!)
     retv = valueNewImm(l.type, v, ti)

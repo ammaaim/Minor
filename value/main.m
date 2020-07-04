@@ -22,7 +22,10 @@ import "init"
 type ValueKind = enum {
   ValueInvalid,
 
-  /* id */
+
+  ValueImmediate,
+
+  /* value used by id */
   ValueId,
 
   /* unary */
@@ -63,6 +66,7 @@ type Value = record {
 
 
 //union {
+  imm    : Int64
   un     : ValueUn
   bin    : ValueBin
   index  : ValueIndex
@@ -91,9 +95,9 @@ let valueNew = func (k : ValueKind, sc : StorageClass, ti : *TokenInfo) -> *Valu
 
 
 let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
-  let v = valueNew(ValueId, StorageImmediate, ti)
+  let v = valueNew(ValueImmediate, StorageUndefined, ti)
   v.type = t
-  v.storage.val = dx
+  v.imm = dx
   return v
 }
 

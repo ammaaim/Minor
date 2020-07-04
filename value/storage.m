@@ -2,11 +2,8 @@
 
 
 type StorageClass = enum {
-  // default value
+  // default class
   StorageUndefined,  // used by undefined value
-
-  // Immediate consants, use is_const_storage
-  StorageImmediate,  // integer const (in storage#val)
 
   /*
    * Global Immutable Object used by name
@@ -28,7 +25,6 @@ type Storage = record {
   class : StorageClass
 
 //union {
-  val : Int64  // StorageImmediate
   reg : Nat32  // StorageRegister, StorageAddress
   id  : Str    // StorageLocal, StorageGlobal, StorageGlobalConst
 //}
@@ -38,7 +34,7 @@ type Storage = record {
 
 let storageIsConst = func (s : *Storage) -> Bool {
   let cl = s.class
-  return cl == StorageImmediate or cl == StorageGlobalConst or cl == StorageUndefined
+  return cl == StorageGlobalConst or cl == StorageUndefined
 }
 
 

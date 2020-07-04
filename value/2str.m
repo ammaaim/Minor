@@ -63,8 +63,6 @@ let print_value_kind = func (k : ValueKind) -> Str {
 let print_storage_class = func (c : StorageClass) -> Str {
   if c == StorageUndefined {
     return "StorageUndefined"
-  } else if c == StorageImmediate {
-    return "StorageImmediate"
   } else if c == StorageGlobalConst {
     return "StorageGlobalConst"
   } else if c == StorageRegister {
@@ -87,7 +85,7 @@ let value_show = func (v : *Value) -> Unit {
   printf("  storage.class: %s\n", print_storage_class(v.storage.class))
   printf("  storage.id: %s\n", v.storage.id)
   printf("  storage.reg: %d\n", v.storage.reg)
-  printf("  storage.val: %d\n", v.storage.val)
+  printf("  imm: %d\n", v.imm)
   printf("}\n")
 }
 
