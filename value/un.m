@@ -47,10 +47,6 @@ let un_not = func (v : *Value, ti : *TokenInfo) -> *Value {
 
 
 let un_ref = func (v : *Value, ti : *TokenInfo) -> *Value {
-  if valueIsReadonly(v) {
-    error("cannot ref constant value", v.ti)
-  }
-
   let vx = valueNew(ValueRef, ti)
   vx.un.x = v
   return vx
@@ -72,6 +68,10 @@ let checkValueUnary = func (v : *Value) -> *Type {
   var t : *Type
   let k = v.kind
   if k == ValueRef {
+    // valueIsReadonly - not worked now
+    if valueIsReadonly(v) {
+      //error("cannot ref constant value", v.ti)
+    }
     t = type_pointer_new(t0)
   } else if k == ValueDeref {
     if t0.kind != TypePointer {

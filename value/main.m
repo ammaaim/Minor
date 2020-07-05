@@ -22,11 +22,18 @@ import "init"
 type ValueKind = enum {
   ValueInvalid,
 
-
-  ValueImmediate,
-
   /* value used by id */
   ValueId,
+
+
+  ValueImmediate,
+  ValueGlobalConst,  // by id
+
+  ValueGlobalVar,    // by id
+  ValueLocalVar,     // by id
+
+  ValueRegister,     // by reg  // let a = 1
+
 
   /* unary */
   ValueRef,
@@ -102,7 +109,10 @@ let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
 }
 
 
-let valueIsConst = func (v : *Value) -> Bool {return storageIsConst(&v.storage)}
+let valueIsConst = func (v : *Value) -> Bool {
+  return storageIsConst(&v.storage) or v.kind == ValueImmediate
+}
+
 let valueIsReadonly = func (v : *Value) -> Bool {return not storageIsMutable(&v.storage)}
 
 

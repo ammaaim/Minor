@@ -14,10 +14,11 @@ let stmtAssignCheck = func (s : *Stmt) -> Unit {
   let lt = checkValue(lv)
   let rt = checkValue(rv)
 
-  if not storageIsMutable(&lv.storage) {
+  // storageIsMutable not worked now
+  /*if not storageIsMutable(&lv.storage) {
     error("invalid lval", lv.ti)
     return
-  }
+  }*/
 
   //if lt == Nil or rt == Nil {return}
 
