@@ -6,10 +6,10 @@ let typedef = func (id : Str, t : *Type) -> Unit {
 }
 
 
-let arraydef = func (ad : *ArrayDef) -> Unit {
-  let id = ad.id
+let arraydef = func (id : Str, t : *Type, items : *List) -> Unit {
+  /*let id = ad.id
   let t = ad.type
-  let items = ad.values
+  let items = ad.values*/
   //@arr = global [4 x i32] [i32 1, i32 2, i32 3, i32 4], align 16
   fprintf(fout, "\n@%s = private unnamed_addr constant [%d x ", id, items.volume)
   printType(t, True, True)
@@ -37,10 +37,10 @@ let arraydef = func (ad : *ArrayDef) -> Unit {
 @.str = private unnamed_addr constant [4 x i8] c"XXX\00", align 1
 @s = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i32 0, i32 0), align 8, !dbg !0
 */
-let stringdef = func (sd : *StringDef) -> Unit {
-  let id = sd.id
+let stringdef = func (id : Str, len : Nat, s : Str) -> Unit {
+  /*let id = sd.id
   let len = sd.len
-  let s = sd.data
+  let s = sd.data*/
   //@str_108 = private unnamed_addr constant [7 x i8] c"Nat32\00", align 1
   fprintf(fout, "\n@.str.%s = private unnamed_addr constant [%d x i8] c\"", id, len)
 

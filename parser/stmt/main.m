@@ -14,6 +14,13 @@ import "continue"
 import "goto"
 import "check"
 
+type VarDef = record {
+  id : Str
+  type : *Type
+  init_value : *Value
+  ti : *TokenInfo
+}
+
 
 /*
  * Statement Kind

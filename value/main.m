@@ -67,7 +67,7 @@ type Value = record {
 
 //union {
   imm    : Int64
-  id     : Str
+  id     : Str   // вместо id нужна ссылка на объект в сборке
   un     : ValueUn
   bin    : ValueBin
   index  : ValueIndex

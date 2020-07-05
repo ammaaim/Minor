@@ -21,40 +21,48 @@ let print_assembly = func (a: *Assembly) -> Unit {
   // print Types
   o("\n\n;types:\n")
   let foreach_typedef = func ListForeachHandler {
-    let td = data to *TypeDef
-    typedef(td.id, td.type)
+    let ai = data to *AssemblyItem
+    let td = &ai.typedef
+    typedef(ai.id, td.type)
   }
   list_foreach(a.types, foreach_typedef, Nil)
 
   // print Strings
   o("\n\n;strings:\n")
   let foreach_stringdef = func ListForeachHandler {
-    let sd = data to *StringDef
-    stringdef(sd)
+    let ai = data to *AssemblyItem
+    let sd = &ai.stringdef
+    if sd.data == Nil {
+      printf("NIL: %s\n", ai.id)
+    }
+    stringdef(ai.id, sd.len, sd.data)
   }
   list_foreach(a.strings, foreach_stringdef, Nil)
 
   // print Arrays
   o("\n\n;arrays:\n")
   let foreach_arraydef = func ListForeachHandler {
-    let ad = data to *ArrayDef
-    arraydef(ad)
+    let ai = data to *AssemblyItem
+    let ad = &ai.arraydef
+    arraydef(ai.id, ad.type, ad.values)
   }
   list_foreach(a.arrays, foreach_arraydef, Nil)
 
   // print Variables
   o("\n\n;vars:\n")
   let foreach_vardef = func ListForeachHandler {
-    let vd = data to *VarDef
-    vardef(vd.id, vd.type, vd.init_value)
+    let ai = data to *AssemblyItem
+    let vd = &ai.vardef
+    vardef(ai.id, vd.type, vd.init_value)
   }
   list_foreach(a.vars, foreach_vardef, Nil)
 
   // print Functions
   o("\n\n;funcs:\n")
   let foreach_funcdef = func ListForeachHandler {
-    let fd = data to *FuncDef
-    funcdef(fd.id, fd.type, fd.block)
+    let ai = data to *AssemblyItem
+    let fd = &ai.funcdef
+    funcdef(ai.id, fd.type, fd.block)
   }
   list_foreach(a.funcs, foreach_funcdef, Nil)
 

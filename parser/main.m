@@ -152,14 +152,14 @@ let parseImport = func () -> Unit {
   parse(src)
 
   chdir(old_cdir)  // go back
-  free(imp_str)
-  free(old_cdir)
+  //free(imp_str)
+  //free(old_cdir)
 
   return
 
 fail:
-  free(imp_str)
-  free(old_cdir)
+  //free(imp_str)
+  //free(old_cdir)
 }
 
 

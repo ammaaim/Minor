@@ -6,13 +6,49 @@
   и три типа машинных сущностей (константы переменные и функции)
 */
 
+/*
+ * Тип объекта из сборки
+ */
+type AssemblyItemKind = enum {
+  TypeDef,
+  ConstDef,
+  StringDef,
+  ArrayDef,
+  FuncDef,
+  VarDef
+}
+
+
+type Pad = [3]Nat8  //опять какая то херня с выравниванием у тебя
+
+type AssemblyItem = record {
+  kind : AssemblyItemKind
+  id   : Str  // идентификатор который идет на печать
+
+//enum {
+  _         : Pad
+  stringdef : StringDef
+  _         : Pad
+  typedef   : TypeDef
+  _         : Pad
+  constdef  : ConstDef
+  _         : Pad
+  arraydef  : ArrayDef
+  _         : Pad
+  funcdef   : FuncDef
+  _         : Pad
+  vardef    : AssemblyVarDef
+//}
+}
+
+
 // id должно идти первым полем! Грязный хак для asm_rename2!
-type TypeDef  = record {id : Str, type : *Type}
-type ConstDef = record {id : Str, value : *Value}
-type StringDef = record {id : Str, data : Str, len : Nat}
-type ArrayDef = record {id : Str, type : *Type, len : Nat, values : *List}
-type FuncDef  = record {id : Str, type : *Type, block : *Block}
-type VarDef   = record {id : Str, type : *Type, init_value : *Value}
+type TypeDef  = record {type : *Type}
+type ConstDef = record {value : *Value}
+type StringDef = record {data : Str, len : Nat}
+type ArrayDef = record {type : *Type, len : Nat, values : *List}
+type FuncDef  = record {type : *Type, block : *Block}
+type AssemblyVarDef   = record {type : *Type, init_value : *Value}
 
 
 type Assembly = record {
@@ -22,7 +58,7 @@ type Assembly = record {
   types,         // of *TypeDef
   arrays,        // of *ArrayDef
   strings,       // of *StringDef
-  vars,          // of *VarDef
+  vars,          // of *AssemblyVarDef
   funcs : *List  // of *FuncDef
 }
 
@@ -38,52 +74,66 @@ let asmInit = func (a : *Assembly, name : Str) -> Unit {
 }
 
 
-let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> Unit {
-  let x = malloc(sizeof TypeDef) to *TypeDef
+let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *AssemblyItem {
+  //printf("asmTypedefAdd\n")
+  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmTypedefAdd")
+  x.kind = TypeDef
   x.id = id
-  x.type = t
+  x.typedef.type = t
   list_append(a.types, x)
+  return x
 }
 
 
-let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> Unit {
-  let x = malloc(sizeof StringDef) to *StringDef
+let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> *AssemblyItem {
+  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmStringAdd")
+  x.kind = StringDef
   x.id = id
-  x.data = s
-  x.len = len
+  x.stringdef.data = s
+  x.stringdef.len = len
   list_append(a.strings, x)
+  return x
 }
 
 
-let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> Unit {
-  let x = malloc(sizeof ArrayDef) to *ArrayDef
+let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> *AssemblyItem {
+  //printf("asmArrayAdd\n")
+  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmArrayAdd")
+  x.kind = ArrayDef
   x.id = id
-  x.type = t
-  x.values = values
+  x.arraydef.type = t
+  x.arraydef.values = values
   list_append(a.arrays, x)
+  return x
 }
 
 
-let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> Unit {
-  let x = malloc(sizeof FuncDef) to *FuncDef
+let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *AssemblyItem {
+  //printf("asmFuncAdd\n")
+  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmFuncAdd")
+  x.kind = FuncDef
   x.id = id
-  x.type = t
-  x.block = b
+  x.funcdef.type = t
+  x.funcdef.block = b
   list_append(a.funcs, x)
+  return x
 }
 
 
-let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> Unit {
-  let x = malloc(sizeof VarDef) to *VarDef
+let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *AssemblyItem {
+  //printf("asmVarAdd\n")
+  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmVarAdd")
+  x.kind = VarDef
   x.id = id
-  x.init_value = init_value
-  x.type = t
+  x.vardef.init_value = init_value
+  x.vardef.type = t
   list_append(a.vars, x)
+  return x
 }
 
 
@@ -92,12 +142,12 @@ let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
   // rename entity in assembly section list
   let ren = func (list : *List, id_from, id_to : Str) -> Bool {
     let search = func ListSearchHandler {
-      let id = data to *Str
+      let ai = data to *AssemblyItem
       let id_from = ctx to Str
-      if strcmp(*id, id_from) == 0 {return data}
+      if strcmp(ai.id, id_from) == 0 {return data}
       return Nil
     }
-    let c = list_search(list, search, id_from) to *ConstDef
+    let c = list_search(list, search, id_from) to *AssemblyItem
 
     if c != Nil {
       c.id = id_to
