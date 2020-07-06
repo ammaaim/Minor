@@ -1,6 +1,20 @@
 // m2/prn/expr
 
 
+type ObjectClass = enum {
+  ObjImm,
+  ObjReg,
+  ObjAdr
+}
+
+// Eval must returns Object instead *Value
+type Object = record {
+  class : ObjectClass
+  value : Nat64
+}
+
+
+
 // ino = item number
 let print_getelementptr_inline = func (v : *Value, ino : Nat32) -> Unit {
   // getelementptr inbounds ([5 x i8], [5 x i8]* @.str, i32 0, i32 0)
@@ -29,6 +43,11 @@ let print_value = func (v : *Value) -> Unit {
     fprintf(fout, "<StorageUndefined>")
   }
 }
+
+
+
+type Eval = (v : *Value) -> *Value
+
 
 
 let eval = func Eval {

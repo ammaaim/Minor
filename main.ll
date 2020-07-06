@@ -94,11 +94,13 @@ target triple = "x86_64-apple-macosx10.14.0"
 %StorageClass = type %Int16
 %Storage = type {%StorageClass, %Nat32}
 %ValueKind = type %Int16
-%Value = type {%ValueKind, %Type*, %Storage, %Block*, %Int64, %Str, %ValueUn, %ValueBin, %ValueIndex, %ValueAccess, %ValueCast, %ValueCall, %Type*, %TokenInfo*, %TokenInfo*, %TokenInfo*}
+%Value = type {%ValueKind, %Type*, %Storage, %Block*, %AssemblyItem*, %Int64, %Str, %ValueUn, %ValueBin, %ValueIndex, %ValueAccess, %ValueCast, %ValueCall, %Type*, %TokenInfo*, %TokenInfo*, %TokenInfo*}
 %ModuleContext = type {%Source*, %List, %List}
 %FuncContext = type {%Value*, %Block*, %Nat32, %Nat32, %Nat32, %Nat32, %Nat32}
 %MetadataClass = type %Int16
 %Metadata = type {%MetadataClass}
+%ObjectClass = type %Int16
+%Object = type {%ObjectClass, %Nat64}
 %Eval = type %Value* (%Value*)*
 %PrintArgsCtx = type {%Bool, %Node*}
 %Arch = type %Int16
@@ -5852,7 +5854,7 @@ define void @print_cons (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
   %1 = load %Str, %Str* @_func83_str1
   %2 = load %Unit*, %Unit** %data
   %3 = bitcast %Unit* %2 to %Value*
-  %4 = getelementptr inbounds %Value, %Value* %3, i32 0, i32 5
+  %4 = getelementptr inbounds %Value, %Value* %3, i32 0, i32 6
   %5 = load %Str, %Str* %4
   %6 = call %Int32 (%Str, ...) @printf (%Str %1, %Str %5)
   ret void
@@ -7690,7 +7692,7 @@ then_1:
 ;stmt5:
   %12 = load %Str, %Str* @_func125_str1
   %13 = load %Value*, %Value** %v
-  %14 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 15
+  %14 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 16
   %15 = load %TokenInfo*, %TokenInfo** %14
   call void (%Str, %TokenInfo*) @error (%Str %12, %TokenInfo* %15)
 
@@ -7705,7 +7707,7 @@ endif_1:
   %17 = bitcast %Value* %4 to %Unit*
   %18 = load %Value*, %Value** %v
   %19 = bitcast %Value* %18 to %Unit*
-  %20 = call %Unit* (%Unit*, %Unit*, %Nat32) @memcpy (%Unit* %17, %Unit* %19, %Nat32 176)
+  %20 = call %Unit* (%Unit*, %Unit*, %Nat32) @memcpy (%Unit* %17, %Unit* %19, %Nat32 184)
 
 ;stmt8:
 ret void
@@ -8000,7 +8002,7 @@ endif_0:
   store %StorageClass 2, %StorageClass* %18
 
 ;stmt7:
-  %19 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 5
+  %19 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 6
   %20 = getelementptr inbounds %Field, %Field* %5, i32 0, i32 0
   %21 = load %Str, %Str* %20
   store %Str %21, %Str* %19
@@ -8059,7 +8061,7 @@ then_1:
 
 ;stmt7:
   %18 = load %Str, %Str* @_func132_str2
-  %19 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 13
+  %19 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 14
   %20 = load %TokenInfo*, %TokenInfo** %19
   call void (%Str, %TokenInfo*) @rem (%Str %18, %TokenInfo* %20)
 
@@ -8080,7 +8082,7 @@ endif_1:
   store %Type* %25, %Type** %24
 
 ;stmt11:
-  %26 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 5
+  %26 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 6
   %27 = load %Str, %Str* %id
   store %Str %27, %Str* %26
 
@@ -8090,7 +8092,7 @@ endif_1:
   store %Type* %29, %Type** %28
 
 ;stmt13:
-  %30 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 13
+  %30 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 14
   %31 = load %TokenInfo*, %TokenInfo** %ti
   store %TokenInfo* %31, %TokenInfo** %30
 
@@ -8152,7 +8154,7 @@ define void @def_global (%Str %_id, %Value* %_v, %TokenInfo* %_ti) {
 
 ;stmt2:
   %11 = load %Value*, %Value** %v
-  %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 14
+  %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 15
   %13 = load %TokenInfo*, %TokenInfo** %ti
   store %TokenInfo* %13, %TokenInfo** %12
 
@@ -8184,9 +8186,9 @@ then_0:
   store %Type* %26, %Type** %23
 
 ;stmt8:
-  %27 = getelementptr inbounds %Value, %Value* %15, i32 0, i32 5
+  %27 = getelementptr inbounds %Value, %Value* %15, i32 0, i32 6
   %28 = load %Value*, %Value** %v
-  %29 = getelementptr inbounds %Value, %Value* %28, i32 0, i32 5
+  %29 = getelementptr inbounds %Value, %Value* %28, i32 0, i32 6
   %30 = load %Str, %Str* %29
   store %Str %30, %Str* %27
 
@@ -8235,7 +8237,7 @@ define void @rename (%Value* %_v, %Str %_id) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 5
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 6
   %3 = load %Str, %Str* %2
 
 ;stmt1:
@@ -8249,7 +8251,7 @@ then_0:
 
 ;stmt3:
   %7 = load %Value*, %Value** %v
-  %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 5
+  %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 6
   %9 = load %Str, %Str* %id
   store %Str %9, %Str* %8
 
@@ -8305,7 +8307,7 @@ then_0:
 ;stmt2:
   %6 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 0
   %7 = load %Value*, %Value** %6
-  %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 5
+  %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 6
   %9 = load %Str, %Str* %8
   %10 = call %Str (%Str) @dup (%Str %9)
   ret %Str %10
@@ -8458,7 +8460,7 @@ then_1:
 ;stmt5:
 
 ;stmt6:
-  %9 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 6
+  %9 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
   %10 = getelementptr inbounds %ValueUn, %ValueUn* %9, i32 0, i32 0
   %11 = load %Value*, %Value** %10
   %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 2
@@ -8493,7 +8495,7 @@ then_3:
 
 ;stmt12:
   %19 = load %Str, %Str* @_func144_str1
-  %20 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 15
+  %20 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 16
   %21 = load %TokenInfo*, %TokenInfo** %20
   call void (%Str, %TokenInfo*) @error (%Str %19, %TokenInfo* %21)
 
@@ -9910,7 +9912,7 @@ then_6:
 
 ;stmt29:
   %33 = load %Value*, %Value** %v
-  %34 = getelementptr inbounds %Value, %Value* %33, i32 0, i32 15
+  %34 = getelementptr inbounds %Value, %Value* %33, i32 0, i32 16
   %35 = getelementptr inbounds %Token, %Token* %1, i32 0, i32 1
   store %TokenInfo* %35, %TokenInfo** %34
   br label %endif_6
@@ -9965,7 +9967,7 @@ define %Value* @term_str () {
   store %StorageClass 3, %StorageClass* %16
 
 ;stmt10:
-  %17 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 5
+  %17 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 6
   store %Str %9, %Str* %17
 
 ;stmt11:
@@ -10071,11 +10073,11 @@ break_0:
   store %StorageClass 1, %StorageClass* %33
 
 ;stmt23:
-  %34 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 5
+  %34 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 6
   store %Str %25, %Str* %34
 
 ;stmt24:
-  %35 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 14
+  %35 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 15
   store %TokenInfo* %2, %TokenInfo** %35
 
 ;stmt25:
@@ -10207,11 +10209,11 @@ endif_2:
   store %StorageClass 1, %StorageClass* %40
 
 ;stmt27:
-  %41 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 5
+  %41 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 6
   store %Str %15, %Str* %41
 
 ;stmt28:
-  %42 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 14
+  %42 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 15
   store %TokenInfo* %14, %TokenInfo** %42
 
 ;stmt29:
@@ -10293,11 +10295,11 @@ then_1:
   %13 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 1, %TokenInfo* %2)
 
 ;stmt9:
-  %14 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 5
+  %14 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 6
   store %Str %3, %Str* %14
 
 ;stmt10:
-  %15 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 13
+  %15 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 14
   store %TokenInfo* %2, %TokenInfo** %15
 
 ;stmt11:
@@ -10311,7 +10313,7 @@ else_1:
 endif_1:
 
 ;stmt13:
-  %17 = getelementptr inbounds %Value, %Value* %9, i32 0, i32 5
+  %17 = getelementptr inbounds %Value, %Value* %9, i32 0, i32 6
   store %Str %3, %Str* %17
 
 ;stmt14:
@@ -10396,7 +10398,7 @@ endif_0:
   %34 = call %Value* (%Type*, %Int64, %TokenInfo*) @valueNewImm (%Type* %31, %Int64 %33, %TokenInfo* %2)
 
 ;stmt12:
-  %35 = getelementptr inbounds %Value, %Value* %34, i32 0, i32 14
+  %35 = getelementptr inbounds %Value, %Value* %34, i32 0, i32 15
   store %TokenInfo* %2, %TokenInfo** %35
 
 ;stmt13:
@@ -10427,7 +10429,7 @@ define void @stmtLetCheck (%Stmt* %_s) {
   %8 = load %Value*, %Value** %7
 
 ;stmt2:
-  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 5
+  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 6
   %10 = load %Str, %Str* %9
 
 ;stmt3:
@@ -10708,7 +10710,7 @@ then_1:
 
 ;stmt10:
   %16 = getelementptr inbounds %Stmt, %Stmt* %13, i32 0, i32 7
-  %17 = getelementptr inbounds %Value, %Value* %3, i32 0, i32 15
+  %17 = getelementptr inbounds %Value, %Value* %3, i32 0, i32 16
   %18 = load %TokenInfo*, %TokenInfo** %17
   store %TokenInfo* %18, %TokenInfo** %16
 
@@ -12990,7 +12992,7 @@ else_3:
 endif_3:
 
 ;stmt16:
-  %22 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 4
+  %22 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 5
   %23 = load %Int64, %Int64* %22
   %24 = trunc %Int64 %23 to %Nat32
   %25 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %17, %Nat32 %24, %Bool 0)
@@ -13622,7 +13624,7 @@ define void @value_show (%Value* %_v) {
 ;stmt6:
   %24 = load %Str, %Str* @_func209_str6
   %25 = load %Value*, %Value** %v
-  %26 = getelementptr inbounds %Value, %Value* %25, i32 0, i32 5
+  %26 = getelementptr inbounds %Value, %Value* %25, i32 0, i32 6
   %27 = load %Str, %Str* %26
   %28 = call %Int32 (%Str, ...) @printf (%Str %24, %Str %27)
 
@@ -13637,7 +13639,7 @@ define void @value_show (%Value* %_v) {
 ;stmt8:
   %35 = load %Str, %Str* @_func209_str8
   %36 = load %Value*, %Value** %v
-  %37 = getelementptr inbounds %Value, %Value* %36, i32 0, i32 4
+  %37 = getelementptr inbounds %Value, %Value* %36, i32 0, i32 5
   %38 = load %Int64, %Int64* %37
   %39 = call %Int32 (%Str, ...) @printf (%Str %35, %Int64 %38)
 
@@ -13726,10 +13728,10 @@ then_1:
 ;stmt7:
   %18 = load %Type*, %Type** %t
   %19 = load %Value*, %Value** %v
-  %20 = getelementptr inbounds %Value, %Value* %19, i32 0, i32 4
+  %20 = getelementptr inbounds %Value, %Value* %19, i32 0, i32 5
   %21 = load %Int64, %Int64* %20
   %22 = load %Value*, %Value** %v
-  %23 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 15
+  %23 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 16
   %24 = load %TokenInfo*, %TokenInfo** %23
   %25 = call %Value* (%Type*, %Int64, %TokenInfo*) @valueNewImm (%Type* %18, %Int64 %21, %TokenInfo* %24)
   ret %Value* %25
@@ -13757,7 +13759,7 @@ then_2:
   %32 = load %Value*, %Value** %v
   %33 = load %Type*, %Type** %t
   %34 = load %Value*, %Value** %v
-  %35 = getelementptr inbounds %Value, %Value* %34, i32 0, i32 15
+  %35 = getelementptr inbounds %Value, %Value* %34, i32 0, i32 16
   %36 = load %TokenInfo*, %TokenInfo** %35
   %37 = call %Value* (%Value*, %Type*, %TokenInfo*) @cast (%Value* %32, %Type* %33, %TokenInfo* %36)
 
@@ -14075,7 +14077,7 @@ then_0:
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 1
   %7 = load %Type*, %Type** %6
   %8 = load %Value*, %Value** %v
-  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 4
+  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 5
   %10 = load %Int64, %Int64* %9
   %11 = sub nsw %Int64 0, %10
   %12 = load %TokenInfo*, %TokenInfo** %ti
@@ -14091,7 +14093,7 @@ endif_0:
   %16 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 10, %TokenInfo* %15)
 
 ;stmt4:
-  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 6
+  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 7
   %18 = getelementptr inbounds %ValueUn, %ValueUn* %17, i32 0, i32 0
   %19 = load %Value*, %Value** %v
   store %Value* %19, %Value** %18
@@ -14121,7 +14123,7 @@ then_0:
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 1
   %7 = load %Type*, %Type** %6
   %8 = load %Value*, %Value** %v
-  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 4
+  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 5
   %10 = load %Int64, %Int64* %9
   %11 = xor %Int64 %10, -1
   %12 = load %TokenInfo*, %TokenInfo** %ti
@@ -14137,7 +14139,7 @@ endif_0:
   %16 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 9, %TokenInfo* %15)
 
 ;stmt4:
-  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 6
+  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 7
   %18 = getelementptr inbounds %ValueUn, %ValueUn* %17, i32 0, i32 0
   %19 = load %Value*, %Value** %v
   store %Value* %19, %Value** %18
@@ -14157,7 +14159,7 @@ define %Value* @un_ref (%Value* %_v, %TokenInfo* %_ti) {
   %2 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 7, %TokenInfo* %1)
 
 ;stmt1:
-  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 6
+  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 7
   %4 = getelementptr inbounds %ValueUn, %ValueUn* %3, i32 0, i32 0
   %5 = load %Value*, %Value** %v
   store %Value* %5, %Value** %4
@@ -14177,7 +14179,7 @@ define %Value* @un_deref (%Value* %_v, %TokenInfo* %_ti) {
   %2 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 8, %TokenInfo* %1)
 
 ;stmt1:
-  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 6
+  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 7
   %4 = getelementptr inbounds %ValueUn, %ValueUn* %3, i32 0, i32 0
   %5 = load %Value*, %Value** %v
   store %Value* %5, %Value** %4
@@ -14192,7 +14194,7 @@ define %Type* @checkValueUnary (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 6
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
   %3 = getelementptr inbounds %ValueUn, %ValueUn* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
 
@@ -14251,7 +14253,7 @@ then_3:
 ;stmt13:
   %17 = load %Str, %Str* @_func218_str1
   %18 = load %Value*, %Value** %v
-  %19 = getelementptr inbounds %Value, %Value* %18, i32 0, i32 15
+  %19 = getelementptr inbounds %Value, %Value* %18, i32 0, i32 16
   %20 = load %TokenInfo*, %TokenInfo** %19
   call void (%Str, %TokenInfo*) @error (%Str %17, %TokenInfo* %20)
 
@@ -14418,13 +14420,13 @@ endif_0:
   %13 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind %11, %TokenInfo* %12)
 
 ;stmt4:
-  %14 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 7
+  %14 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 8
   %15 = getelementptr inbounds %ValueBin, %ValueBin* %14, i32 0, i32 0
   %16 = load %Value*, %Value** %l
   store %Value* %16, %Value** %15
 
 ;stmt5:
-  %17 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 7
+  %17 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 8
   %18 = getelementptr inbounds %ValueBin, %ValueBin* %17, i32 0, i32 1
   %19 = load %Value*, %Value** %r
   store %Value* %19, %Value** %18
@@ -14447,13 +14449,13 @@ define %Type* @checkValueBinary (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 8
   %3 = getelementptr inbounds %ValueBin, %ValueBin* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
 
 ;stmt1:
   %5 = load %Value*, %Value** %v
-  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 7
+  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 8
   %7 = getelementptr inbounds %ValueBin, %ValueBin* %6, i32 0, i32 1
   %8 = load %Value*, %Value** %7
 
@@ -14512,7 +14514,7 @@ then_1:
 ;stmt13:
   %31 = load %Str, %Str* @_func221_str1
   %32 = load %Value*, %Value** %v
-  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 15
+  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 16
   %34 = load %TokenInfo*, %TokenInfo** %33
   call void (%Str, %TokenInfo*) @error (%Str %31, %TokenInfo* %34)
 
@@ -14561,7 +14563,7 @@ then_2:
 ;stmt24:
   %49 = load %Str, %Str* @_func221_str6
   %50 = load %Value*, %Value** %v
-  %51 = getelementptr inbounds %Value, %Value* %50, i32 0, i32 15
+  %51 = getelementptr inbounds %Value, %Value* %50, i32 0, i32 16
   %52 = load %TokenInfo*, %TokenInfo** %51
   call void (%Str, %TokenInfo*) @error (%Str %49, %TokenInfo* %52)
 
@@ -14575,13 +14577,13 @@ endif_2:
 
 ;stmt26:
   %55 = load %Value*, %Value** %v
-  %56 = getelementptr inbounds %Value, %Value* %55, i32 0, i32 7
+  %56 = getelementptr inbounds %Value, %Value* %55, i32 0, i32 8
   %57 = getelementptr inbounds %ValueBin, %ValueBin* %56, i32 0, i32 0
   store %Value* %21, %Value** %57
 
 ;stmt27:
   %58 = load %Value*, %Value** %v
-  %59 = getelementptr inbounds %Value, %Value* %58, i32 0, i32 7
+  %59 = getelementptr inbounds %Value, %Value* %58, i32 0, i32 8
   %60 = getelementptr inbounds %ValueBin, %ValueBin* %59, i32 0, i32 1
   store %Value* %24, %Value** %60
 
@@ -14649,18 +14651,18 @@ define void @binFold (%Value* %_vx) {
 
 ;stmt2:
   %1 = load %Value*, %Value** %vx
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 8
   %3 = getelementptr inbounds %ValueBin, %ValueBin* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
-  %5 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 4
+  %5 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 5
   %6 = load %Int64, %Int64* %5
 
 ;stmt3:
   %7 = load %Value*, %Value** %vx
-  %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 7
+  %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 8
   %9 = getelementptr inbounds %ValueBin, %ValueBin* %8, i32 0, i32 1
   %10 = load %Value*, %Value** %9
-  %11 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 4
+  %11 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 5
   %12 = load %Int64, %Int64* %11
 
 ;stmt4:
@@ -14670,7 +14672,7 @@ define void @binFold (%Value* %_vx) {
 
 ;stmt5:
   %16 = load %Value*, %Value** %vx
-  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 7
+  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 8
   %18 = getelementptr inbounds %ValueBin, %ValueBin* %17, i32 0, i32 0
   %19 = load %Value*, %Value** %18
   %20 = getelementptr inbounds %Value, %Value* %19, i32 0, i32 1
@@ -14912,7 +14914,7 @@ endif_0:
 
 ;stmt53:
   %60 = load %Value*, %Value** %vx
-  %61 = getelementptr inbounds %Value, %Value* %60, i32 0, i32 4
+  %61 = getelementptr inbounds %Value, %Value* %60, i32 0, i32 5
   %62 = load %Int64, %Int64* %res
   store %Int64 %62, %Int64* %61
   ret void
@@ -14985,10 +14987,10 @@ then_2:
 
 ;stmt10:
   %23 = load %Value*, %Value** %l
-  %24 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 4
+  %24 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 5
   %25 = load %Int64, %Int64* %24
   %26 = load %Value*, %Value** %r
-  %27 = getelementptr inbounds %Value, %Value* %26, i32 0, i32 4
+  %27 = getelementptr inbounds %Value, %Value* %26, i32 0, i32 5
   %28 = load %Int64, %Int64* %27
   %29 = shl %Int64 %25, %28
   store %Int64 %29, %Int64* %v
@@ -15005,10 +15007,10 @@ then_3:
 
 ;stmt13:
   %32 = load %Value*, %Value** %l
-  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 4
+  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 5
   %34 = load %Int64, %Int64* %33
   %35 = load %Value*, %Value** %r
-  %36 = getelementptr inbounds %Value, %Value* %35, i32 0, i32 4
+  %36 = getelementptr inbounds %Value, %Value* %35, i32 0, i32 5
   %37 = load %Int64, %Int64* %36
   %38 = ashr %Int64 %34, %37
   store %Int64 %38, %Int64* %v
@@ -15040,14 +15042,14 @@ else_1:
 
 ;stmt17:
   %48 = load %Value*, %Value** %retv
-  %49 = getelementptr inbounds %Value, %Value* %48, i32 0, i32 7
+  %49 = getelementptr inbounds %Value, %Value* %48, i32 0, i32 8
   %50 = getelementptr inbounds %ValueBin, %ValueBin* %49, i32 0, i32 0
   %51 = load %Value*, %Value** %l
   store %Value* %51, %Value** %50
 
 ;stmt18:
   %52 = load %Value*, %Value** %retv
-  %53 = getelementptr inbounds %Value, %Value* %52, i32 0, i32 7
+  %53 = getelementptr inbounds %Value, %Value* %52, i32 0, i32 8
   %54 = getelementptr inbounds %ValueBin, %ValueBin* %53, i32 0, i32 1
   %55 = load %Value*, %Value** %r
   store %Value* %55, %Value** %54
@@ -15073,13 +15075,13 @@ define %Type* @checkValueShift (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 8
   %3 = getelementptr inbounds %ValueBin, %ValueBin* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
 
 ;stmt1:
   %5 = load %Value*, %Value** %v
-  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 7
+  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 8
   %7 = getelementptr inbounds %ValueBin, %ValueBin* %6, i32 0, i32 1
   %8 = load %Value*, %Value** %7
 
@@ -15091,18 +15093,18 @@ define %Type* @checkValueShift (%Value* %_v) {
 
 ;stmt4:
   %11 = load %Value*, %Value** %v
-  %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 7
+  %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 8
   %13 = getelementptr inbounds %ValueBin, %ValueBin* %12, i32 0, i32 1
   %14 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 1
   %15 = load %Type*, %Type** %14
-  %16 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 15
+  %16 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 16
   %17 = load %TokenInfo*, %TokenInfo** %16
   %18 = call %Value* (%Value*, %Type*, %TokenInfo*) @cast (%Value* %8, %Type* %15, %TokenInfo* %17)
   store %Value* %18, %Value** %13
 
 ;stmt5:
   %19 = load %Value*, %Value** %v
-  %20 = getelementptr inbounds %Value, %Value* %19, i32 0, i32 7
+  %20 = getelementptr inbounds %Value, %Value* %19, i32 0, i32 8
   %21 = getelementptr inbounds %ValueBin, %ValueBin* %20, i32 0, i32 1
   %22 = load %Value*, %Value** %21
 
@@ -15158,13 +15160,13 @@ endif_0:
   %12 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 28, %TokenInfo* %11)
 
 ;stmt4:
-  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 8
+  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 9
   %14 = getelementptr inbounds %ValueIndex, %ValueIndex* %13, i32 0, i32 0
   %15 = load %Value*, %Value** %a
   store %Value* %15, %Value** %14
 
 ;stmt5:
-  %16 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 8
+  %16 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 9
   %17 = getelementptr inbounds %ValueIndex, %ValueIndex* %16, i32 0, i32 1
   %18 = load %Value*, %Value** %i
   store %Value* %18, %Value** %17
@@ -15187,13 +15189,13 @@ define %Type* @checkValueIndex (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 8
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 9
   %3 = getelementptr inbounds %ValueIndex, %ValueIndex* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
 
 ;stmt1:
   %5 = load %Value*, %Value** %v
-  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 8
+  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 9
   %7 = getelementptr inbounds %ValueIndex, %ValueIndex* %6, i32 0, i32 1
   %8 = load %Value*, %Value** %7
 
@@ -15255,13 +15257,13 @@ endif_0:
   %12 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 29, %TokenInfo* %11)
 
 ;stmt4:
-  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 9
+  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 10
   %14 = getelementptr inbounds %ValueAccess, %ValueAccess* %13, i32 0, i32 0
   %15 = load %Value*, %Value** %r
   store %Value* %15, %Value** %14
 
 ;stmt5:
-  %16 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 9
+  %16 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 10
   %17 = getelementptr inbounds %ValueAccess, %ValueAccess* %16, i32 0, i32 1
   %18 = load %Str, %Str* %fid
   store %Str %18, %Str* %17
@@ -15284,7 +15286,7 @@ define %Type* @checkValueAccess (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 9
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 10
   %3 = getelementptr inbounds %ValueAccess, %ValueAccess* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
 
@@ -15331,7 +15333,7 @@ then_1:
 ;stmt10:
   %16 = load %Str, %Str* @_func228_str1
   %17 = load %Value*, %Value** %v
-  %18 = getelementptr inbounds %Value, %Value* %17, i32 0, i32 15
+  %18 = getelementptr inbounds %Value, %Value* %17, i32 0, i32 16
   %19 = load %TokenInfo*, %TokenInfo** %18
   call void (%Str, %TokenInfo*) @error (%Str %16, %TokenInfo* %19)
 
@@ -15346,7 +15348,7 @@ endif_1:
 ;stmt12:
   %22 = load %Type*, %Type** %record_type
   %23 = load %Value*, %Value** %v
-  %24 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 9
+  %24 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 10
   %25 = getelementptr inbounds %ValueAccess, %ValueAccess* %24, i32 0, i32 1
   %26 = load %Str, %Str* %25
   %27 = call %Field* (%Type*, %Str) @type_record_get_field (%Type* %22, %Str %26)
@@ -15363,7 +15365,7 @@ then_2:
 ;stmt15:
   %31 = load %Str, %Str* @_func228_str2
   %32 = load %Value*, %Value** %v
-  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 15
+  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 16
   %34 = load %TokenInfo*, %TokenInfo** %33
   call void (%Str, %TokenInfo*) @error (%Str %31, %TokenInfo* %34)
 
@@ -15416,13 +15418,13 @@ endif_0:
   %12 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 27, %TokenInfo* %11)
 
 ;stmt4:
-  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 11
+  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 12
   %14 = getelementptr inbounds %ValueCall, %ValueCall* %13, i32 0, i32 0
   %15 = load %Value*, %Value** %f
   store %Value* %15, %Value** %14
 
 ;stmt5:
-  %16 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 11
+  %16 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 12
   %17 = getelementptr inbounds %ValueCall, %ValueCall* %16, i32 0, i32 1
   %18 = load %List*, %List** %a
   store %List* %18, %List** %17
@@ -15445,7 +15447,7 @@ define %Type* @checkValueCall (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 11
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 12
   %3 = getelementptr inbounds %ValueCall, %ValueCall* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
 
@@ -15463,7 +15465,7 @@ then_0:
 
 ;stmt4:
   %9 = load %Str, %Str* @_func230_str1
-  %10 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 15
+  %10 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 16
   %11 = load %TokenInfo*, %TokenInfo** %10
   call void (%Str, %TokenInfo*) @error (%Str %9, %TokenInfo* %11)
 
@@ -15487,7 +15489,7 @@ then_1:
 ;stmt8:
   %17 = load %Str, %Str* @_func230_str2
   %18 = load %Value*, %Value** %v
-  %19 = getelementptr inbounds %Value, %Value* %18, i32 0, i32 15
+  %19 = getelementptr inbounds %Value, %Value* %18, i32 0, i32 16
   %20 = load %TokenInfo*, %TokenInfo** %19
   call void (%Str, %TokenInfo*) @error (%Str %17, %TokenInfo* %20)
 
@@ -15501,11 +15503,11 @@ endif_1:
 
 ;stmt10:
   %23 = load %Value*, %Value** %v
-  %24 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 11
+  %24 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 12
   %25 = getelementptr inbounds %ValueCall, %ValueCall* %24, i32 0, i32 1
   %26 = load %List*, %List** %25
   %27 = load %Value*, %Value** %v
-  %28 = getelementptr inbounds %Value, %Value* %27, i32 0, i32 15
+  %28 = getelementptr inbounds %Value, %Value* %27, i32 0, i32 16
   %29 = load %TokenInfo*, %TokenInfo** %28
   %30 = call %Bool (%Value*, %List*, %TokenInfo*) @checkParams (%Value* %4, %List* %26, %TokenInfo* %29)
 
@@ -15831,7 +15833,7 @@ then_1:
 ;stmt5:
   %14 = load %Type*, %Type** %t
   %15 = load %Value*, %Value** %v
-  %16 = getelementptr inbounds %Value, %Value* %15, i32 0, i32 4
+  %16 = getelementptr inbounds %Value, %Value* %15, i32 0, i32 5
   %17 = load %Int64, %Int64* %16
   %18 = load %TokenInfo*, %TokenInfo** %ti
   %19 = call %Value* (%Type*, %Int64, %TokenInfo*) @valueNewImm (%Type* %14, %Int64 %17, %TokenInfo* %18)
@@ -15846,13 +15848,13 @@ endif_1:
   %22 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 30, %TokenInfo* %21)
 
 ;stmt7:
-  %23 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 10
+  %23 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 11
   %24 = getelementptr inbounds %ValueCast, %ValueCast* %23, i32 0, i32 0
   %25 = load %Value*, %Value** %v
   store %Value* %25, %Value** %24
 
 ;stmt8:
-  %26 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 10
+  %26 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 11
   %27 = getelementptr inbounds %ValueCast, %ValueCast* %26, i32 0, i32 1
   %28 = load %Type*, %Type** %t
   store %Type* %28, %Type** %27
@@ -15875,14 +15877,14 @@ define %Type* @checkValueCast (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 10
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 11
   %3 = getelementptr inbounds %ValueCast, %ValueCast* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
   %5 = call %Type* (%Value*) @checkValue (%Value* %4)
 
 ;stmt1:
   %6 = load %Value*, %Value** %v
-  %7 = getelementptr inbounds %Value, %Value* %6, i32 0, i32 10
+  %7 = getelementptr inbounds %Value, %Value* %6, i32 0, i32 11
   %8 = getelementptr inbounds %ValueCast, %ValueCast* %7, i32 0, i32 1
   %9 = load %Type*, %Type** %8
 
@@ -15901,7 +15903,7 @@ define %Value* @size_of (%Type* %_t, %TokenInfo* %_ti) {
   %2 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 31, %TokenInfo* %1)
 
 ;stmt1:
-  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 12
+  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 13
   %4 = load %Type*, %Type** %t
   store %Type* %4, %Type** %3
 
@@ -15915,7 +15917,7 @@ define %Type* @checkValueSizeof (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 12
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 13
   %3 = load %Type*, %Type** %2
 
 ;stmt1:
@@ -15930,7 +15932,7 @@ then_0:
 ;stmt3:
   %7 = load %Str, %Str* @_func236_str1
   %8 = load %Value*, %Value** %v
-  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 15
+  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 16
   %10 = load %TokenInfo*, %TokenInfo** %9
   call void (%Str, %TokenInfo*) @error (%Str %7, %TokenInfo* %10)
   br label %endif_0
@@ -15951,7 +15953,7 @@ endif_0:
 
 ;stmt6:
   %16 = load %Value*, %Value** %v
-  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 4
+  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 5
   %18 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 2
   %19 = load %Nat32, %Nat32* %18
   %20 = sext %Nat32 %19 to %Int64
@@ -15975,7 +15977,7 @@ define %Value* @align_of (%Type* %_t, %TokenInfo* %_ti) {
   %2 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 32, %TokenInfo* %1)
 
 ;stmt1:
-  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 12
+  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 13
   %4 = load %Type*, %Type** %t
   store %Type* %4, %Type** %3
 
@@ -15989,7 +15991,7 @@ define %Type* @checkValueAlignof (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 12
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 13
   %3 = load %Type*, %Type** %2
 
 ;stmt1:
@@ -16004,7 +16006,7 @@ then_0:
 ;stmt3:
   %7 = load %Str, %Str* @_func238_str1
   %8 = load %Value*, %Value** %v
-  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 15
+  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 16
   %10 = load %TokenInfo*, %TokenInfo** %9
   call void (%Str, %TokenInfo*) @error (%Str %7, %TokenInfo* %10)
   br label %endif_0
@@ -16025,7 +16027,7 @@ endif_0:
 
 ;stmt6:
   %16 = load %Value*, %Value** %v
-  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 4
+  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 5
   %18 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 2
   %19 = load %Nat32, %Nat32* %18
   %20 = sext %Nat32 %19 to %Int64
@@ -16137,7 +16139,7 @@ define %Value* @valueNew (%ValueKind %_k, %TokenInfo* %_ti) {
   store %TokenInfo* %_ti, %TokenInfo** %ti
 
 ;stmt0:
-  %1 = call %Unit* (%Nat32) @malloc (%Nat32 176)
+  %1 = call %Unit* (%Nat32) @malloc (%Nat32 184)
   %2 = bitcast %Unit* %1 to %Value*
 
 ;stmt1:
@@ -16149,7 +16151,7 @@ define %Value* @valueNew (%ValueKind %_k, %TokenInfo* %_ti) {
 
 ;stmt2:
   %7 = bitcast %Value* %2 to %Unit*
-  %8 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %7, %Nat8 0, %Nat32 176)
+  %8 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %7, %Nat8 0, %Nat32 184)
 
 ;stmt3:
   %9 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 0
@@ -16157,7 +16159,7 @@ define %Value* @valueNew (%ValueKind %_k, %TokenInfo* %_ti) {
   store %ValueKind %10, %ValueKind* %9
 
 ;stmt4:
-  %11 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 15
+  %11 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 16
   %12 = load %TokenInfo*, %TokenInfo** %ti
   store %TokenInfo* %12, %TokenInfo** %11
 
@@ -16183,7 +16185,7 @@ define %Value* @valueNewImm (%Type* %_t, %Int64 %_dx, %TokenInfo* %_ti) {
   store %Type* %4, %Type** %3
 
 ;stmt2:
-  %5 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 4
+  %5 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 5
   %6 = load %Int64, %Int64* %dx
   store %Int64 %6, %Int64* %5
 
@@ -16805,7 +16807,7 @@ endif_0:
   call void (%Value*, %Str) @rename (%Value* %6, %Str %3)
 
 ;stmt8:
-  %16 = getelementptr inbounds %Value, %Value* %6, i32 0, i32 14
+  %16 = getelementptr inbounds %Value, %Value* %6, i32 0, i32 15
   store %TokenInfo* %2, %TokenInfo** %16
 
 ;stmt9:
@@ -16852,7 +16854,7 @@ then_2:
   store %StorageClass 5, %StorageClass* %33
 
 ;stmt17:
-  %34 = getelementptr inbounds %Value, %Value* %31, i32 0, i32 5
+  %34 = getelementptr inbounds %Value, %Value* %31, i32 0, i32 6
   store %Str %3, %Str* %34
 
 ;stmt18:
@@ -17175,7 +17177,7 @@ define %Value* @create_local_var (%Str %_id, %Type* %_t, %Value* %_init_value, %
   store %StorageClass 2, %StorageClass* %6
 
 ;stmt3:
-  %7 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 5
+  %7 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 6
   %8 = load %Str, %Str* %id
   store %Str %8, %Str* %7
 
@@ -17247,7 +17249,7 @@ define void @create_global_var (%Str %_id, %Type* %_t, %Value* %_init_value, %To
   store %StorageClass 3, %StorageClass* %11
 
 ;stmt4:
-  %12 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 5
+  %12 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 6
   %13 = load %Str, %Str* %id
   store %Str %13, %Str* %12
 
@@ -18841,7 +18843,7 @@ then_0:
   %9 = load %Unit*, %Unit** @fout
   %10 = load %Str, %Str* @_func309_str1
   %11 = load %Value*, %Value** %v
-  %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 4
+  %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 5
   %13 = load %Int64, %Int64* %12
   %14 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %9, %Str %10, %Int64 %13)
   br label %endif_0
@@ -18880,7 +18882,7 @@ then_2:
   %28 = load %Unit*, %Unit** @fout
   %29 = load %Str, %Str* @_func309_str3
   %30 = load %Value*, %Value** %v
-  %31 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 5
+  %31 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 6
   %32 = load %Str, %Str* %31
   %33 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %28, %Str %29, %Str %32)
   br label %endif_2
@@ -18897,7 +18899,7 @@ then_3:
   %35 = load %Unit*, %Unit** @fout
   %36 = load %Str, %Str* @_func309_str4
   %37 = load %Value*, %Value** %v
-  %38 = getelementptr inbounds %Value, %Value* %37, i32 0, i32 5
+  %38 = getelementptr inbounds %Value, %Value* %37, i32 0, i32 6
   %39 = load %Str, %Str* %38
   %40 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %35, %Str %36, %Str %39)
   br label %endif_3
@@ -19333,7 +19335,7 @@ define %Value* @eval_call (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 11
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 12
   %3 = getelementptr inbounds %ValueCall, %ValueCall* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
   %5 = call %Value* (%Value*) @eval (%Value* %4)
@@ -19346,7 +19348,7 @@ define %Value* @eval_call (%Value* %_v) {
 
 ;stmt3:
   %8 = load %Value*, %Value** %v
-  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 11
+  %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 12
   %10 = getelementptr inbounds %ValueCall, %ValueCall* %9, i32 0, i32 1
   %11 = load %List*, %List** %10
   %12 = bitcast %List* %7 to %Unit*
@@ -19449,7 +19451,7 @@ define %Value* @eval_index (%Value* %_v) {
 
 ;stmt1:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 8
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 9
   %3 = getelementptr inbounds %ValueIndex, %ValueIndex* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
   %5 = call %Value* (%Value*) @eval (%Value* %4)
@@ -19457,7 +19459,7 @@ define %Value* @eval_index (%Value* %_v) {
 
 ;stmt2:
   %6 = load %Value*, %Value** %v
-  %7 = getelementptr inbounds %Value, %Value* %6, i32 0, i32 8
+  %7 = getelementptr inbounds %Value, %Value* %6, i32 0, i32 9
   %8 = getelementptr inbounds %ValueIndex, %ValueIndex* %7, i32 0, i32 1
   %9 = load %Value*, %Value** %8
   %10 = call %Value* (%Value*) @eval (%Value* %9)
@@ -19615,7 +19617,7 @@ define %Value* @eval_access (%Value* %_v) {
 
 ;stmt2:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 9
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 10
   %3 = getelementptr inbounds %ValueAccess, %ValueAccess* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
   %5 = call %Value* (%Value*) @eval (%Value* %4)
@@ -19661,7 +19663,7 @@ endif_0:
 
 ;stmt9:
   %23 = load %Value*, %Value** %v
-  %24 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 9
+  %24 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 10
   %25 = getelementptr inbounds %ValueAccess, %ValueAccess* %24, i32 0, i32 1
   %26 = load %Str, %Str* %25
   %27 = bitcast %Str %26 to %Unit*
@@ -19673,7 +19675,7 @@ endif_0:
 ;stmt10:
   %31 = load %Type*, %Type** %record_type
   %32 = load %Value*, %Value** %v
-  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 9
+  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 10
   %34 = getelementptr inbounds %ValueAccess, %ValueAccess* %33, i32 0, i32 1
   %35 = load %Str, %Str* %34
   %36 = call %Field* (%Type*, %Str) @type_record_get_field (%Type* %31, %Str %35)
@@ -19726,7 +19728,7 @@ define %Value* @eval_ref (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 6
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
   %3 = getelementptr inbounds %ValueUn, %ValueUn* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
   %5 = call %Value* (%Value*) @eval (%Value* %4)
@@ -19804,7 +19806,7 @@ define %Value* @eval_deref (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 6
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
   %3 = getelementptr inbounds %ValueUn, %ValueUn* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
   %5 = call %Value* (%Value*) @eval (%Value* %4)
@@ -19827,7 +19829,7 @@ define %Value* @eval_not (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 6
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
   %3 = getelementptr inbounds %ValueUn, %ValueUn* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
   %5 = call %Value* (%Value*) @eval (%Value* %4)
@@ -19889,7 +19891,7 @@ define %Value* @eval_minus (%Value* %_v) {
 
 ;stmt0:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 6
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
   %3 = getelementptr inbounds %ValueUn, %ValueUn* %2, i32 0, i32 0
   %4 = load %Value*, %Value** %3
   %5 = call %Value* (%Value*) @eval (%Value* %4)
@@ -19938,13 +19940,13 @@ define %Value* @eval_cast (%Value* %_v) {
 
 ;stmt2:
   %1 = load %Value*, %Value** %v
-  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 10
+  %2 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 11
   %3 = getelementptr inbounds %ValueCast, %ValueCast* %2, i32 0, i32 1
   %4 = load %Type*, %Type** %3
 
 ;stmt3:
   %5 = load %Value*, %Value** %v
-  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 10
+  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 11
   %7 = getelementptr inbounds %ValueCast, %ValueCast* %6, i32 0, i32 0
   %8 = load %Value*, %Value** %7
   %9 = call %Value* (%Value*) @eval (%Value* %8)
@@ -20302,7 +20304,7 @@ define %Value* @eval_bin (%Value* %_v) {
 
 ;stmt2:
   %2 = load %Value*, %Value** %v
-  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 7
+  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 8
   %4 = getelementptr inbounds %ValueBin, %ValueBin* %3, i32 0, i32 0
   %5 = load %Value*, %Value** %4
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 1
@@ -20670,7 +20672,7 @@ endif_0:
 
 ;stmt80:
   %53 = load %Value*, %Value** %v
-  %54 = getelementptr inbounds %Value, %Value* %53, i32 0, i32 7
+  %54 = getelementptr inbounds %Value, %Value* %53, i32 0, i32 8
   %55 = getelementptr inbounds %ValueBin, %ValueBin* %54, i32 0, i32 0
   %56 = load %Value*, %Value** %55
   %57 = call %Value* (%Value*) @eval (%Value* %56)
@@ -20678,7 +20680,7 @@ endif_0:
 
 ;stmt81:
   %59 = load %Value*, %Value** %v
-  %60 = getelementptr inbounds %Value, %Value* %59, i32 0, i32 7
+  %60 = getelementptr inbounds %Value, %Value* %59, i32 0, i32 8
   %61 = getelementptr inbounds %ValueBin, %ValueBin* %60, i32 0, i32 1
   %62 = load %Value*, %Value** %61
   %63 = call %Value* (%Value*) @eval (%Value* %62)
@@ -20775,7 +20777,7 @@ define %Value* @nv (%Type* %_t, %StorageClass %_c, %Nat32 %_reg) {
   store %Nat32 %_reg, %Nat32* %reg
 
 ;stmt0:
-  %1 = call %Unit* (%Nat32) @malloc (%Nat32 176)
+  %1 = call %Unit* (%Nat32) @malloc (%Nat32 184)
   %2 = bitcast %Unit* %1 to %Value*
 
 ;stmt1:
@@ -20787,7 +20789,7 @@ define %Value* @nv (%Type* %_t, %StorageClass %_c, %Nat32 %_reg) {
 
 ;stmt2:
   %7 = bitcast %Value* %2 to %Unit*
-  %8 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %7, %Nat8 0, %Nat32 176)
+  %8 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %7, %Nat8 0, %Nat32 184)
 
 ;stmt3:
   %9 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 1
@@ -22251,7 +22253,7 @@ then_2:
 ;stmt11:
   %21 = load %Str, %Str* @_func352_str1
   %22 = load %Value*, %Value** %v
-  %23 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 15
+  %23 = getelementptr inbounds %Value, %Value* %22, i32 0, i32 16
   %24 = load %TokenInfo*, %TokenInfo** %23
   call void (%Str, %TokenInfo*) @error (%Str %21, %TokenInfo* %24)
   br label %endif_2

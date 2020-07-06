@@ -72,6 +72,9 @@ type Value = record {
   block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
 
 
+  bound_with : *AssemblyItem
+
+
 //union {
   imm    : Int64
   id     : Str   // вместо id нужна ссылка на объект в сборке
