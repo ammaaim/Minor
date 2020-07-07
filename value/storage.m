@@ -5,6 +5,7 @@ type StorageClass = enum {
   // default class
   StorageUndefined,  // used by undefined value
 
+  StorageImmediate,
   /*
    * Global Immutable Object used by name
    * such as funcs, strings, literal arrays & records

@@ -49,13 +49,13 @@ let get_name_func = func () -> Str {return get_name("func", &func_uid)}
 
 var str_uid : Nat32
 let get_name_str = func () -> Str {
+  var uid : *Nat32
+  uid = &str_uid
   if fctx.cfunc != Nil {
-    return get_name("str", &fctx.strno)  // local string
+    uid = &fctx.strno  // local string
   }
-
-  return get_name("str", &str_uid)  // global string
+  return get_name("str", uid)  // global string
 }
-
 
 
 var arr_uid : Nat32
@@ -66,7 +66,5 @@ let get_name_var = func () -> Str {return get_name("var", &var_uid)}
 
 var type_uid : Nat32
 let get_name_type = func () -> Str {return get_name("Type", &type_uid)}
-
-
 
 

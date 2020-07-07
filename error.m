@@ -89,11 +89,11 @@ let gline = func (line : []Nat8, ti : *TokenInfo) -> Unit {
   while True {
     if linecnt == lineno {
       while True {
-        if read(fd, &c, 1) == 0 {goto exitt}
+        if read(fd, &c, 1) == 0 {goto exit}
         line[pos] = c
         pos = pos + 1
         if c == "\n"[0] {
-          goto exitt
+          goto exit
         }
       }
     } else {
@@ -104,7 +104,7 @@ let gline = func (line : []Nat8, ti : *TokenInfo) -> Unit {
     }
   }
 
-exitt:
+exit:
   close(fd)
   line[pos] = 0
   return

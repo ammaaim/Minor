@@ -15,18 +15,6 @@ type Object = record {
 
 
 
-// ino = item number
-let print_getelementptr_inline = func (v : *Value, ino : Nat32) -> Unit {
-  // getelementptr inbounds ([5 x i8], [5 x i8]* @.str, i32 0, i32 0)
-  fprintf(fout, "getelementptr inbounds (")
-  printType(v.type.pointer.to, True, True)
-  comma()
-  printType(v.type, True, True)
-  space()
-  print_value(v)
-  fprintf(fout, ", i32 0, i32 %d)", ino)
-}
-
 
 // печатает терм
 let print_value = func (v : *Value) -> Unit {
