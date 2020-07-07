@@ -1,4 +1,4 @@
-// data/node
+// lib/data/node
 
 
 type Node = record {
