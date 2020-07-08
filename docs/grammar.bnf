@@ -14,4 +14,10 @@ tenum = `enum` `{` (ID [sep ID])? `}`
 
 # value
 value = vterm | vun | vbin | vcall | vindex | vaccess | vcast | vsizeof | valignof
+vterm = ID
+vun = un_op value
+vbin = value bin_op value
+vcall = value `(` (value [sep value])? `)`
+vindex = value `[` value `]`
+vaccess = value `.` ID
 
