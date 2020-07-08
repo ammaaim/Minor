@@ -1,4 +1,4 @@
-module = [def sep]?
+module = (def [sep def])?
 def = typedef | valuedef
 typedef = `type` ID `=` type
 valuedef = `let` ID `=` value
