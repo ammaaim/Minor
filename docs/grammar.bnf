@@ -23,7 +23,7 @@ vun = un_op value
 un_op = `+` | `-` | `not` | `*` | `&`
 vbin = value bin_op value
 bin_op = `+` | `-` | `*` | `/` | `%` | `and` | `or` | `xor` | `==` | `!=` | `<` | `>` | `<=` | `>=` | `<<` | `>>`
-vcall = value `(` (value [sep value])? `)`
+vcall = value `(` values? `)`
 vindex = value `[` value `]`
 vaccess = value `.` ID
 vcast = value `to` type
@@ -31,3 +31,11 @@ vsizeof = `sizeof` type
 valignof = `alignof` type
 
 vterm = vid | vnum | vfunc | varray | vrecord
+vid = ID
+vnum = NUM
+vfunc = `func` type block
+varray = `array` `{` values? `}`
+vrecord = `record` `{` `}`
+
+values = value [sep value]
+
