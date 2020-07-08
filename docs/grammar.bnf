@@ -14,7 +14,7 @@ tpointer = `*` type
 tarray = `[` value? `]` type
 tfunc = `(` fields? `)` `->` type
 trecord = `record` `{` fields? `}`
-tenum = `enum` `{` (ID [sep ID])? `}`
+tenum = `enum` `{` (ID [sep ID]?)? `}`
 
 # value
 value = vterm | vun | vbin | vcall | vindex | vaccess | vcast | vsizeof | valignof
@@ -33,9 +33,14 @@ valignof = `alignof` type
 vterm = vid | vnum | vfunc | varray | vrecord
 vid = ID
 vnum = NUM
-vfunc = `func` type block
+vfunc = `func` type sblock
 varray = `array` `{` values? `}`
 vrecord = `record` `{` `}`
 
-values = value [sep value]
+# statement
+statement = sexpr | sassign | sblock | sif | swhile | sreturn | sbreak | scont
+
+
+values = value [sep value]?
+fields = field [sep field]?
 
