@@ -11,9 +11,9 @@ sep = NL | `;`  # separator
 type = tnamed | tpointer | tarray | tfunc | trecord | tenum
 tnamed = ID
 tpointer = `*` type
-tarray = `[` expr? `]` type
-tfunc = `(` (field [sep field])? `)` `->` type
-trecord = `record` `{` (field [sep field])? `}`
+tarray = `[` value? `]` type
+tfunc = `(` fields? `)` `->` type
+trecord = `record` `{` fields? `}`
 tenum = `enum` `{` (ID [sep ID])? `}`
 
 # value
