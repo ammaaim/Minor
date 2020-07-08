@@ -39,8 +39,19 @@ vrecord = `record` `{` `}`
 
 # statement
 statement = sexpr | sassign | sblock | sif | swhile | sreturn | sbreak | scont
+sexpr = value
+sassign = value `=` value
+sblock = `{` statements? `}`
+sif = `if` value sblock (`else` sblock)
+swhile = `while` value sblock
+sreturn = `return` value?
+sbreak = `break`
+scont = `continue`
+
+
 
 
 values = value [sep value]?
 fields = field [sep field]?
+statements = statement [sep statement]?
 
