@@ -42,7 +42,7 @@ statement = sexpr | sassign | sblock | sif | swhile | sreturn | sbreak | scont
 sexpr = value
 sassign = value `=` value
 sblock = `{` statements? `}`
-sif = `if` value sblock (`else` sblock)
+sif = `if` value sblock (`else` sblock)?
 swhile = `while` value sblock
 sreturn = `return` value?
 sbreak = `break`
