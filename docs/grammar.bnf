@@ -38,7 +38,7 @@ varray = `array` `{` values? `}`
 vrecord = `record` `{` `}`
 
 # statement
-statement = sexpr | sassign | sblock | sif | swhile | sreturn | sbreak | scont
+statement = sexpr | sassign | sblock | sif | swhile | sreturn | sbreak | scont | sgoto | slab
 sexpr = value
 sassign = value `=` value
 sblock = `{` statements? `}`
@@ -47,8 +47,8 @@ swhile = `while` value sblock
 sreturn = `return` value?
 sbreak = `break`
 scont = `continue`
-
-
+sgoto = `goto` ID
+slab = ID `:`
 
 
 values = value [sep value]?
