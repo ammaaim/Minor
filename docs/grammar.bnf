@@ -2,6 +2,7 @@ module = [def]?
 def = typedef | valuedef
 typedef = `type` ID `=` type
 valuedef = `let` ID `=` value
+
 # type
 type = tnamed | tpointer | tarray | tfunc | trecord | tenum
 tnamed = ID
@@ -10,4 +11,7 @@ tarray = `[` expr? `]` type
 tfunc = `(` (field [sep field])? `)` `->` type
 trecord = `record` `{` (field [sep field])? `}`
 tenum = `enum` `{` (ID [sep ID])? `}`
-#
+
+# value
+value = vterm | vun | vbin | vcall | vindex | vaccess | vcast | vsizeof | valignof
+
