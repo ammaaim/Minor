@@ -1,4 +1,4 @@
-// data/list
+// lib/data/list
 
 
 import "node"

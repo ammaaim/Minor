@@ -1,0 +1,57 @@
+# Minor language grammar
+module = (def [sep def])?
+
+def = typedef | valuedef
+typedef = `type` ID `=` type
+valuedef = `let` ID `=` value
+
+sep = NL | `;`  # separator
+
+# type
+type = tnamed | tpointer | tarray | tfunc | trecord | tenum
+tnamed = ID
+tpointer = `*` type
+tarray = `[` value? `]` type
+tfunc = `(` fields? `)` `->` type
+trecord = `record` `{` fields? `}`
+tenum = `enum` `{` (ID [sep ID]?)? `}`
+
+# value
+value = vterm | vun | vbin | vcall | vindex | vaccess | vcast | vsizeof | valignof
+
+vun = un_op value
+un_op = `+` | `-` | `not` | `*` | `&`
+vbin = value bin_op value
+bin_op = `+` | `-` | `*` | `/` | `%` | `and` | `or` | `xor` | `==` | `!=` | `<` | `>` | `<=` | `>=` | `<<` | `>>`
+vcall = value `(` values? `)`
+vindex = value `[` value `]`
+vaccess = value `.` ID
+vcast = value `to` type
+vsizeof = `sizeof` type
+valignof = `alignof` type
+
+vterm = vid | vnum | vfunc | varray | vrecord
+vid = ID
+vnum = NUM
+vfunc = `func` type sblock
+varray = `array` `{` values? `}`
+vrecord = `record` `{` `}`
+
+# statement
+statement = sexpr | sassign | sblock | sif | swhile | sreturn | sbreak | scont | sgoto | slab
+sexpr = value
+sassign = value `=` value
+sblock = `{` statements? `}`
+sif = `if` value sblock (`else` sblock)?
+swhile = `while` value sblock
+sreturn = `return` value?
+sbreak = `break`
+scont = `continue`
+sgoto = `goto` ID
+slab = ID `:`
+
+
+values = value [sep value]?
+fields = field [sep field]?
+statements = statement [sep statement]?
+

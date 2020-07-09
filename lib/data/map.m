@@ -1,4 +1,4 @@
-// data/map
+// lib/data/map
 
 
 type Map = List
