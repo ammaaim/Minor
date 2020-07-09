@@ -3,7 +3,7 @@
 
 import "index"
 import "define"
-import "data"
+import "name"
 import "expr"
 import "stmt"
 import "prn/assembly"

@@ -9,21 +9,14 @@ type ValueParser = () -> *Value
 let expr = func ValueParser {return hier1()}
 //let expr = hier1  // не работает тк он вызывает @expr вместо @hier1
 
-
+// used in parser/type
 // parse constant expression
 let cexpr = func ValueParser {
   let v = expr()
   if v == Nil {goto fail}
 
-  // ссылка на глобальную переменную - тоже константа
-  if v.kind == ValueRef {
-    let sc = v.un.x.storage.class
-    if sc == StorageGlobal {
-      //printf("CAT!\n")
-      return v  // it's ok to be Ref to global
-    }
-  }
 
+  // in [x]X we need only imm const
   if not valueIsConst(v) {
     error("expected constant value", v.ti)
     goto fail

@@ -8450,71 +8450,36 @@ else_0:
 endif_0:
 
 ;stmt4:
-  %6 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 0
-  %7 = load %ValueKind, %ValueKind* %6
-  %8 = icmp eq %ValueKind %7, 7
-  br i1 %8, label %then_1, label %else_1
+  %6 = call %Bool (%Value*) @valueIsConst (%Value* %1)
+  %7 = xor %Bool %6, 1
+  br i1 %7, label %then_1, label %else_1
 then_1:
 
 ;stmt5:
 
 ;stmt6:
-  %9 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 7
-  %10 = getelementptr inbounds %ValueUn, %ValueUn* %9, i32 0, i32 0
-  %11 = load %Value*, %Value** %10
-  %12 = getelementptr inbounds %Value, %Value* %11, i32 0, i32 2
-  %13 = getelementptr inbounds %Storage, %Storage* %12, i32 0, i32 0
-  %14 = load %StorageClass, %StorageClass* %13
+  %8 = load %Str, %Str* @_func144_str1
+  %9 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 16
+  %10 = load %TokenInfo*, %TokenInfo** %9
+  call void (%Str, %TokenInfo*) @error (%Str %8, %TokenInfo* %10)
 
 ;stmt7:
-  %15 = icmp eq %StorageClass %14, 4
-  br i1 %15, label %then_2, label %else_2
-then_2:
-
-;stmt8:
-
-;stmt9:
-  ret %Value* %1
-  br label %endif_2
-else_2:
-  br label %endif_2
-endif_2:
+  br label %fail
   br label %endif_1
 else_1:
   br label %endif_1
 endif_1:
 
-;stmt10:
-  %17 = call %Bool (%Value*) @valueIsConst (%Value* %1)
-  %18 = xor %Bool %17, 1
-  br i1 %18, label %then_3, label %else_3
-then_3:
-
-;stmt11:
-
-;stmt12:
-  %19 = load %Str, %Str* @_func144_str1
-  %20 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 16
-  %21 = load %TokenInfo*, %TokenInfo** %20
-  call void (%Str, %TokenInfo*) @error (%Str %19, %TokenInfo* %21)
-
-;stmt13:
-  br label %fail
-  br label %endif_3
-else_3:
-  br label %endif_3
-endif_3:
-
-;stmt14:
+;stmt8:
   ret %Value* %1
 
-;stmt15:
+;stmt9:
   br label %fail
 fail:
 
-;stmt16:
-  %24 = inttoptr i64 0 to %Value*
-  ret %Value* %24
+;stmt10:
+  %13 = inttoptr i64 0 to %Value*
+  ret %Value* %13
 }
 
 define %Value* @hier1 () {
