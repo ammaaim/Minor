@@ -1,4 +1,5 @@
 # Minor language grammar
+
 module = (def [sep def])?
 
 def = typedef | valuedef
@@ -7,6 +8,7 @@ valuedef = `let` ID `=` value
 
 sep = NL | `;`  # separator
 
+
 # type
 type = tnamed | tpointer | tarray | tfunc | trecord | tenum
 tnamed = ID
@@ -14,7 +16,12 @@ tpointer = `*` type
 tarray = `[` value? `]` type
 tfunc = `(` fields? `)` `->` type
 trecord = `record` `{` fields? `}`
-tenum = `enum` `{` (ID [sep ID]?)? `}`
+tenum = `enum` `{` ids? `}`
+
+field = id [`,` id]? `:` type
+fields = field [sep field]?
+ids = ID [sep ID]?
+
 
 # value
 value = vterm | vun | vbin | vcall | vindex | vaccess | vcast | vsizeof | valignof
@@ -37,8 +44,12 @@ vfunc = `func` type sblock
 varray = `array` `{` values? `}`
 vrecord = `record` `{` `}`
 
+values = value [sep value]?
+
+
 # statement
 statement = sexpr | sassign | sblock | sif | swhile | sreturn | sbreak | scont | sgoto | slab
+
 sexpr = value
 sassign = value `=` value
 sblock = `{` statements? `}`
@@ -50,8 +61,7 @@ scont = `continue`
 sgoto = `goto` ID
 slab = ID `:`
 
-
-values = value [sep value]?
-fields = field [sep field]?
 statements = statement [sep statement]?
+
+
 
