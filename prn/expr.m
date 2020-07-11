@@ -6,17 +6,21 @@ type Obj = record {
   type : *Type
 
   class : StorageClass
+
   imm : Int64
+
   id  : Str
+
   reg : Nat32  // StorageRegister, StorageAddress
+
 }
 
 
-type Eval = (v : *Value) -> *Obj
+type Eval = (v : *Value) -> Obj
 
 
 
-let print_obj = func (o : *Obj) -> Unit {
+let print_obj = func (o : Obj) -> Unit {
   let cl = o.class
   if cl == StorageImmediate {
     fprintf(fout, "%d", o.imm)
@@ -36,15 +40,17 @@ let eval = func Eval {
   let k = v.kind
 
   if k == ValueId {
-    let o = obj(v.type, StorageRegister, 0)
-    o.class = v.storage.class   // << v.storage - кандидат на удаление!
-    o.id = v.id
-    o.reg = v.storage.reg
-    return o
+    var ox : Obj
+    ox = obj(v.type, StorageRegister, 0)
+    ox.class = v.storage.class   // << v.storage - кандидат на удаление!
+    ox.id = v.id
+    ox.reg = v.storage.reg
+    return ox
   } else if k == ValueImmediate {
-    let o = obj(v.type, StorageImmediate, 0)
-    o.imm = v.imm
-    return o
+    var ox2 : Obj
+    ox2 = obj(v.type, StorageImmediate, 0)
+    ox2.imm = v.imm
+    return ox2
   } else if k == ValueCall {
     return eval_call(v)
   } else if k == ValueIndex {
@@ -70,18 +76,19 @@ let eval = func Eval {
 
 
 
-let loadImmPtr = func (x : *Obj) -> *Obj {
+let loadImmPtr = func (x : Obj) -> Obj {
   let t = x.type
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = inttoptr i64 ", reg)
   print_obj(x)
   o(" to ")
   printType(t, True, True)
+
   return obj(t, StorageRegister, reg)
 }
 
 
-let load = func (x : *Obj) -> *Obj {
+let load = func (x : Obj) -> Obj {
   // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
   // явной операцией inttoptr. Поэтому если нам попался указатель вида ValueImmediate
   // то его нужно будет загрузить в регистр функцией inttoptr
@@ -105,27 +112,43 @@ let load = func (x : *Obj) -> *Obj {
   comma()
   printType(x.type, True, True)
   o("* ")
-
   print_obj(x)
+
   return obj(x.type, StorageRegister, reg)
 }
 
 
+let MAXARG = 256
+
+
 let eval_call = func Eval {
   /*"%retval = call i32 @test(i32 %argc)"*/
-  let ee = eval(v.call.function)
-  let f = load(ee)
+  var f : Obj
+  f = load(eval(v.call.function))
 
   /* вычисляем аргументы перед печатью вызова */
-  let args = list_new()
+
+  // контекст в котором накапливаются вычисленные аргументы
+  type Ctx = record {
+    args : [MAXARG]Obj
+    argcnt : Nat16
+  }
+
+  var ctx : Ctx
+  ctx.argcnt = 0
+
   let eval_args = func ListForeachHandler {
     let arg = data to *Value
-    let evaluated_args = ctx to *List
-    list_append(evaluated_args, load(eval(arg)))
+    let c = ctx to *Ctx
+    var argg : Obj
+    argg = load(eval(arg))
+    c.args[c.argcnt] = argg
+    c.argcnt = c.argcnt + 1
   }
-  list_foreach(v.call.arguments, eval_args, args)
+  list_foreach(v.call.arguments, eval_args, &ctx)
 
   /* печатаем вызов */
+
   var retval_reg : Nat32
   if type_eq(f.type.function.to, typeUnit) {
     fprintf(fout, "\n  call ")
@@ -142,41 +165,24 @@ let eval_call = func Eval {
   /* печатаем список аргументов */
   o(" (")
 
+  var need_comma : Bool
+  need_comma = False
 
-  // типы аргументов будем брать из параметров
-  // тк тип некоторых аргументов может оказаться Intager
+  var c : Nat16
+  c = 0
 
-  type PrintArgsCtx = record {
-    need_comma : Bool
-    param_ln : *Node
-  }
+  while c < ctx.argcnt {
+    if need_comma {comma()}
 
-  var pac : PrintArgsCtx
-  pac.need_comma = False
-  pac.param_ln = f.type.function.params.first
-
-  let print_args = func ListForeachHandler {
-    let a = data to *Obj
-    let pac = ctx to *PrintArgsCtx
-
-    if pac.need_comma {comma()}
-
-    // пока есть параметры типы даем из параметров
-    // когда параметры кончатся пойдут типы аргументов
-    // это сделано изза того что аргумент может оказаться Intager
-    // (см. выведение типа функции из контекста вызова)
-    if pac.param_ln != Nil {
-      printType((pac.param_ln.data to *Field).type, True, True)
-      pac.param_ln = pac.param_ln.next
-    } else {
-      printType(a.type, True, True)
-    }
-
+    printType(ctx.args[c].type, True, True)
     space()
-    print_obj(a)
-    pac.need_comma = True
+    print_obj(ctx.args[c])
+
+    need_comma = True
+
+    c = c + 1
   }
-  list_foreach(args, print_args, &pac)
+
   o(")")
 
   /* возвращаем результат (регистр) */
@@ -185,10 +191,10 @@ let eval_call = func Eval {
 
 
 let eval_index = func Eval {
-  var a : *Obj
+  var a, i : Obj
   a = eval(v.index.array)
 
-  let i = load(eval(v.index.index))
+  i = load(eval(v.index.index))
 
   if a.type.array.undefined {
     a = load(a)
@@ -229,7 +235,7 @@ let eval_index = func Eval {
 
 
 let eval_access = func Eval {
-  var s : *Obj
+  var s : Obj
   var record_type : *Type
 
   s = eval(v.access.value)
@@ -261,7 +267,8 @@ let eval_access = func Eval {
 
 
 let eval_ref = func Eval {
-  let vx = eval(v.un.x)
+  var vx : Obj
+  vx = eval(v.un.x)
   if vx.class == StorageAddress {
     // если это адрес - вернем его в регистре, а тип обернем в указатель
     return obj(v.type, StorageRegister, vx.reg)
@@ -285,7 +292,8 @@ let eval_ref = func Eval {
 
 let eval_deref = func Eval {
   // загружаем указатель
-  let vx = load(eval(v.un.x))
+  var vx : Obj
+  vx = load(eval(v.un.x))
 
   // возвращаем загруженный указатель как #Address
   return obj(v.type, StorageAddress, vx.reg)
@@ -293,7 +301,8 @@ let eval_deref = func Eval {
 
 
 let eval_not = func Eval {
-  let vx = load(eval(v.un.x))
+  var vx : Obj
+  vx = load(eval(v.un.x))
 
   //"%s = xor %s, -1"
   let reg = lab_get()
@@ -311,7 +320,8 @@ let eval_minus = func Eval {
   //nuw and nsw stand for "No Unsigned Wrap" and "No Signed Wrap", respectively. If the nuw and/or
   //nsw keywords are present, the result value of the add is undefined if unsigned and/or signed
   //overflow, respectively, occurs.
-  let vx = load(eval(v.un.x))
+  var vx : Obj
+  vx = load(eval(v.un.x))
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = sub nsw ", reg)
   printType(vx.type, True, True)
@@ -338,7 +348,8 @@ let eval_cast = func Eval {
   xx = 0
   let to = v.cast.to
 
-  let ee = load(eval(v.cast.value))
+  var ee : Obj
+  ee = load(eval(v.cast.value))
 
   // преиведение значения к собственному типу бессмыслено
   // поэтому просто возвращаем загруженное значение
@@ -388,7 +399,7 @@ let eval_cast = func Eval {
       fprintf(fout, "ptrtoint ")
     } else if k == TypeEnum {
       // Enum -> Basic
-      let esz = get("enumSize") to Nat * 8
+      let esz = cfg.enumSize to Nat * 8
 
       if esz > to.basic.p {
         /* power(v) > power(t) */
@@ -462,8 +473,9 @@ let eval_bin = func Eval {
     if signed {o = "ashr"} else {o = "lshr"}
   }
 
-  let l = load(eval(v.bin.l))
-  let r = load(eval(v.bin.r))
+  var l, r : Obj
+  l = load(eval(v.bin.l))
+  r = load(eval(v.bin.r))
 
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = %s ", reg, o)
@@ -478,8 +490,9 @@ let eval_bin = func Eval {
 
 
 let print_st = func (l, r : *Value) -> Unit {
-  let lx = eval(l)
-  let rx = load(eval(r))
+  var lx, rx : Obj
+  lx = eval(l)
+  rx = load(eval(r))
   fprintf(fout, "\n  store ")
   printType(rx.type, True, True)
   space()
@@ -492,13 +505,15 @@ let print_st = func (l, r : *Value) -> Unit {
 
 
 // new value object
-let obj = func (t : *Type, c : StorageClass, reg : Nat32) -> *Obj {
-  let o = malloc(sizeof Obj) to *Obj
-  assert(o != Nil, "printer::obj")
-  memset(o, 0, sizeof Obj)
+let obj = func (t : *Type, c : StorageClass, reg : Nat32) -> Obj {
+  var o : Obj
+  //assert(o != Nil, "printer::obj")
+  //memset(&o, 0, sizeof Obj)
   o.type = t
   o.class = c
   o.reg = reg
+  o.id = Nil
+  o.imm = 0
   return o
 }
 
