@@ -12,8 +12,29 @@ import "call"
 import "cast"
 import "sizeof"
 import "alignof"
-import "storage"
 import "init"
+
+
+
+type StorageClass = enum {
+  // default class
+  StorageUndefined,  // used by undefined value
+
+  StorageImmediate,  // For Obj in printer
+  /*
+   * Global Immutable Object used by name
+   * such as funcs, strings, literal arrays & records
+   */
+  StorageGlobalConst,
+
+  // variables
+  StorageLocal,      // local var
+  StorageGlobal,     // global var
+
+  // register
+  StorageAddress,    // address of value in register
+  StorageRegister    // value in LLVM register
+}
 
 
 
@@ -72,8 +93,6 @@ type Value = record {
   block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
 
 
-  bound_with : *AssemblyItem
-
 
 //union {
   imm    : Int64  // ValueImmediate
@@ -114,11 +133,10 @@ let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
 }
 
 
-let valueIsConst = func (v : *Value) -> Bool {
-  return classIsConst(v.class) or v.kind == ValueImmediate
-}
 
-let valueIsReadonly = func (v : *Value) -> Bool {return not classIsMutable(v.class)}
+
+
+
 
 
 let isUnaryOpKind = func (k : ValueKind) -> Bool {
@@ -147,5 +165,21 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
          k == ValueLe or
          k == ValueGe
 }
+
+
+
+
+let valueIsConst = func (v : *Value) -> Bool {
+  return v.class == StorageGlobalConst or v.kind == ValueImmediate
+}
+
+
+let valueIsMutable = func (v : *Value) -> Bool {
+  let cl = v.class
+  return cl == StorageLocal or cl == StorageGlobal or cl == StorageAddress
+}
+
+let valueIsReadonly = func (v : *Value) -> Bool {return not valueIsMutable(v)}
+
 
 

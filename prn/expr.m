@@ -3,6 +3,27 @@
 let MAXARG = 256
 
 
+/*type StorageClass = enum {
+  // default class
+  StorageUndefined,  // used by undefined value
+
+  StorageImmediate,  // For Obj in printer
+  /*
+   * Global Immutable Object used by name
+   * such as funcs, strings, literal arrays & records
+   */
+  StorageGlobalConst,
+
+  // variables
+  StorageLocal,      // local var
+  StorageGlobal,     // global var
+
+  // register
+  StorageAddress,    // address of value in register
+  StorageRegister    // value in LLVM register
+}*/
+
+
 // Объект принтера - содержит тип значения и его местоположение
 type Obj = record {
   type : *Type
