@@ -92,7 +92,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %ValueCall = type {%Value*, %List*}
 %ValueCast = type {%Value*, %Type*}
 %ValueKind = type %Int16
-%Value = type {%ValueKind, %Type*, %Int64, %Nat32, %Str, %ValueUn, %ValueBin, %ValueIndex, %ValueAccess, %ValueCast, %ValueCall, %Type*, %Block*, %TokenInfo*, %TokenInfo*, %TokenInfo*}
+%Value = type {%ValueKind, %Type*, %Int64, %Nat32, %Str, %ValueUn, %ValueBin, %ValueIndex, %ValueAccess, %ValueCast, %ValueCall, %Type*, %AssemblyItem*, %TokenInfo*, %TokenInfo*, %TokenInfo*}
 %ModuleContext = type {%Source*, %List, %List}
 %FuncContext = type {%Value*, %Block*, %Nat32, %Nat32, %Nat32, %Nat32, %Nat32}
 %MetadataClass = type %Int16
@@ -8067,19 +8067,21 @@ then_2:
   store %ValueKind 4, %ValueKind* %36
 
 ;stmt17:
-  %37 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %38 = load %Str, %Str* %id
-  %39 = load %Type*, %Type** %type
-  %40 = inttoptr i64 0 to %Block*
-  %41 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %Block*) @asmFuncAdd (%Assembly* %37, %Str %38, %Type* %39, %Block* %40)
+  %37 = getelementptr inbounds %Value, %Value* %23, i32 0, i32 12
+  %38 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
+  %39 = load %Str, %Str* %id
+  %40 = load %Type*, %Type** %type
+  %41 = inttoptr i64 0 to %Block*
+  %42 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %Block*) @asmFuncAdd (%Assembly* %38, %Str %39, %Type* %40, %Block* %41)
+  store %AssemblyItem* %42, %AssemblyItem** %37
   br label %endif_2
 else_2:
   br label %endif_2
 endif_2:
 
 ;stmt18:
-  %42 = load %Str, %Str* %id
-  call void (%Str, %Value*) @bind_value_global (%Str %42, %Value* %23)
+  %43 = load %Str, %Str* %id
+  call void (%Str, %Value*) @bind_value_global (%Str %43, %Value* %23)
   ret void
 }
 
@@ -8151,8 +8153,8 @@ then_0:
   %31 = getelementptr inbounds %Value, %Value* %15, i32 0, i32 12
   %32 = load %Value*, %Value** %v
   %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 12
-  %34 = load %Block*, %Block** %33
-  store %Block* %34, %Block** %31
+  %34 = load %AssemblyItem*, %AssemblyItem** %33
+  store %AssemblyItem* %34, %AssemblyItem** %31
 
 ;stmt10:
   %35 = load %Str, %Str* %id
@@ -10144,26 +10146,24 @@ endif_2:
 
 ;stmt32:
   %46 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 12
-  store %Block* %45, %Block** %46
-
-;stmt33:
   %47 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
   %48 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %Block*) @asmFuncAdd (%Assembly* %47, %Str %15, %Type* %22, %Block* %45)
+  store %AssemblyItem* %48, %AssemblyItem** %46
 
-;stmt34:
+;stmt33:
   store %FuncContext %1, %FuncContext* @fctx
 
-;stmt35:
+;stmt34:
   ret %Value* %29
 
-;stmt36:
+;stmt35:
   br label %fail
 fail:
 
-;stmt37:
+;stmt36:
   store %FuncContext %1, %FuncContext* @fctx
 
-;stmt38:
+;stmt37:
   %50 = inttoptr i64 0 to %Value*
   ret %Value* %50
 }
@@ -22263,7 +22263,11 @@ define void @vchk (%Unit* %_k, %Unit* %_v, %Unit* %_ctx) {
   %6 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0
   %7 = load %TypeKind, %TypeKind* %6
   %8 = icmp eq %TypeKind %7, 3
-  br i1 %8, label %then_0, label %else_0
+  %9 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 0
+  %10 = load %ValueKind, %ValueKind* %9
+  %11 = icmp eq %ValueKind %10, 4
+  %12 = and %Bool %8, %11
+  br i1 %12, label %then_0, label %else_0
 then_0:
 
 ;stmt3:
@@ -22307,27 +22311,30 @@ define void @checkFunc (%Value* %_f) {
 ;stmt2:
   %5 = load %Value*, %Value** %f
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 12
-  %7 = load %Block*, %Block** %6
+  %7 = load %AssemblyItem*, %AssemblyItem** %6
+  %8 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %7, i32 0, i32 11
+  %9 = getelementptr inbounds %FuncDef, %FuncDef* %8, i32 0, i32 1
+  %10 = load %Block*, %Block** %9
 
 ;stmt3:
-  %8 = bitcast %Block* %7 to %Unit*
-  %9 = inttoptr i64 0 to %Unit*
-  %10 = icmp ne %Unit* %8, %9
-  br i1 %10, label %then_0, label %else_0
+  %11 = bitcast %Block* %10 to %Unit*
+  %12 = inttoptr i64 0 to %Unit*
+  %13 = icmp ne %Unit* %11, %12
+  br i1 %13, label %then_0, label %else_0
 then_0:
 
 ;stmt4:
 
 ;stmt5:
-  call void (%Block*) @stmtBlockCheck (%Block* %7)
+  call void (%Block*) @stmtBlockCheck (%Block* %10)
   br label %endif_0
 else_0:
   br label %endif_0
 endif_0:
 
 ;stmt6:
-  %11 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 0
-  store %Value* %2, %Value** %11
+  %14 = getelementptr inbounds %FuncContext, %FuncContext* @fctx, i32 0, i32 0
+  store %Value* %2, %Value** %14
   ret void
 }
 

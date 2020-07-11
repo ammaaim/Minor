@@ -19,10 +19,10 @@ import "init"
 type ValueKind = enum {
   ValueInvalid,
 
-  ValueUndefined,  // StorageUndefined
+  ValueUndefined,    // StorageUndefined
 
   /* value used by id */
-  ValueId,  // Unknown value, we know only Id
+  ValueId,           // Unknown value, we know only Id (for what?)
 
   ValueImmediate,    // by imm
   ValueGlobalConst,  // by id
@@ -79,9 +79,10 @@ type Value = record {
   szof   : *Type
 //}
 
-
-  // ссылка на блок, если это функция
-  block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
+  // ссылка на связанную со значением запись в сборке
+  // в случае функции (константной) через это поле checkFunc получит ссылку на блок
+  // для его проверки
+  assembly_item : *AssemblyItem
 
 
   declared_at,     // place in code where value was mentioned first time

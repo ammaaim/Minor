@@ -7,7 +7,6 @@ type Fx = record {
 }
 
 let checkMain = func () -> Unit {
-
   // check types
   let tchk = func MapForeachHandler {
     let type = v to *Type
@@ -22,15 +21,12 @@ let checkMain = func () -> Unit {
 
     checkValue(val)
 
-    // проверяем все функции
-    if val.type.kind == TypeFunction {
+    // проверяем все константные функции (не переменные с -> типом)
+    if val.type.kind == TypeFunction and val.kind == ValueGlobalConst {
       checkFunc(val)
     }
   }
   map_foreach(&mctx.value_index, vchk, Nil)
-
-
-
 }
 
 
@@ -39,10 +35,11 @@ let checkFunc = func (f : *Value) -> Unit {
   let old_cfunc = fctx.cfunc
   fctx.cfunc = f
 
+  let block = f.assembly_item.funcdef.block
+
   // extern function doesn't have the block
-  let b = f.block
-  if b != Nil {
-    stmtBlockCheck(b)
+  if block != Nil {
+    stmtBlockCheck(block)
   }
 
   // reset context

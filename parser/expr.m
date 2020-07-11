@@ -460,9 +460,9 @@ let term_func = func ValueParser {
 
   need("{")
   let block = doblock()
-  fv.block = block  // для чека сохраняем сссылку на блок в самом значении
 
-  asmFuncAdd(&asm0, id, t, block)
+  fv.assembly_item = asmFuncAdd(&asm0, id, t, block)
+
   fctx = old_fctx
 
   return fv
