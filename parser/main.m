@@ -334,11 +334,11 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *Tok
 
 
 let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> Unit {
-  asmVarAdd(&asm0, id, t, init_value)
 
   // создадим фейковый value который будет занесен в индекс
   // и будет ссылаться на переменную (просто нести тот же id)
   let v = valueNew(ValueGlobalVar, ti)
+  v.assembly_item = asmVarAdd(&asm0, id, t, init_value)
   v.type = t
   v.id = id
   bind_value_global(id, v)

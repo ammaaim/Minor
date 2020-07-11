@@ -362,10 +362,13 @@ let term_str = func ValueParser {
 
   let id = get_name_str()
 
-  asmStringAdd(&asm0, id, s, len)
+
 
   // создаем значение для строки
   let v = valueNew(ValueId, ti)
+
+  v.assembly_item = asmStringAdd(&asm0, id, s, len)
+
   v.type = typeStr
   v.kind = ValueGlobalVar
   v.id = id
@@ -394,9 +397,9 @@ let term_arr = func ValueParser {
   let id = get_name_arr()
   let t = type_array_new(of, len, False)
 
-  asmArrayAdd(&asm0, id, t, data)
 
   let v = valueNew(ValueId, ti)
+  v.assembly_item = asmArrayAdd(&asm0, id, t, data)
   v.type = t
   v.kind = ValueGlobalConst
   v.id = id

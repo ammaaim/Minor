@@ -9870,27 +9870,29 @@ define %Value* @term_str () {
   %9 = call %Str () @get_name_str ()
 
 ;stmt6:
-  %10 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %11 = call %AssemblyItem* (%Assembly*, %Str, %Str, %Nat32) @asmStringAdd (%Assembly* %10, %Str %9, %Str %8, %Nat32 %7)
+  %10 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 2, %TokenInfo* %2)
 
 ;stmt7:
-  %12 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 2, %TokenInfo* %2)
+  %11 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 12
+  %12 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
+  %13 = call %AssemblyItem* (%Assembly*, %Str, %Str, %Nat32) @asmStringAdd (%Assembly* %12, %Str %9, %Str %8, %Nat32 %7)
+  store %AssemblyItem* %13, %AssemblyItem** %11
 
 ;stmt8:
-  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 1
-  %14 = load %Type*, %Type** @typeStr
-  store %Type* %14, %Type** %13
+  %14 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 1
+  %15 = load %Type*, %Type** @typeStr
+  store %Type* %15, %Type** %14
 
 ;stmt9:
-  %15 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 0
-  store %ValueKind 5, %ValueKind* %15
+  %16 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 0
+  store %ValueKind 5, %ValueKind* %16
 
 ;stmt10:
-  %16 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 4
-  store %Str %9, %Str* %16
+  %17 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 4
+  store %Str %9, %Str* %17
 
 ;stmt11:
-  ret %Value* %12
+  ret %Value* %10
 }
 
 define %Value* @term_arr () {
@@ -9976,30 +9978,32 @@ break_0:
   %27 = call %Type* (%Type*, %Nat32, %Bool) @type_array_new (%Type* %3, %Nat32 %26, %Bool 0)
 
 ;stmt19:
-  %28 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %29 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %List*) @asmArrayAdd (%Assembly* %28, %Str %25, %Type* %27, %List* %6)
+  %28 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 2, %TokenInfo* %2)
 
 ;stmt20:
-  %30 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 2, %TokenInfo* %2)
+  %29 = getelementptr inbounds %Value, %Value* %28, i32 0, i32 12
+  %30 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
+  %31 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %List*) @asmArrayAdd (%Assembly* %30, %Str %25, %Type* %27, %List* %6)
+  store %AssemblyItem* %31, %AssemblyItem** %29
 
 ;stmt21:
-  %31 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 1
-  store %Type* %27, %Type** %31
+  %32 = getelementptr inbounds %Value, %Value* %28, i32 0, i32 1
+  store %Type* %27, %Type** %32
 
 ;stmt22:
-  %32 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 0
-  store %ValueKind 4, %ValueKind* %32
+  %33 = getelementptr inbounds %Value, %Value* %28, i32 0, i32 0
+  store %ValueKind 4, %ValueKind* %33
 
 ;stmt23:
-  %33 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 4
-  store %Str %25, %Str* %33
+  %34 = getelementptr inbounds %Value, %Value* %28, i32 0, i32 4
+  store %Str %25, %Str* %34
 
 ;stmt24:
-  %34 = getelementptr inbounds %Value, %Value* %30, i32 0, i32 14
-  store %TokenInfo* %2, %TokenInfo** %34
+  %35 = getelementptr inbounds %Value, %Value* %28, i32 0, i32 14
+  store %TokenInfo* %2, %TokenInfo** %35
 
 ;stmt25:
-  ret %Value* %30
+  ret %Value* %28
 }
 
 define %Value* @term_func () {
@@ -17087,29 +17091,31 @@ define void @create_global_var (%Str %_id, %Type* %_t, %Value* %_init_value, %To
   store %TokenInfo* %_ti, %TokenInfo** %ti
 
 ;stmt0:
-  %1 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %2 = load %Str, %Str* %id
-  %3 = load %Type*, %Type** %t
-  %4 = load %Value*, %Value** %init_value
-  %5 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %Value*) @asmVarAdd (%Assembly* %1, %Str %2, %Type* %3, %Value* %4)
+  %1 = load %TokenInfo*, %TokenInfo** %ti
+  %2 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 5, %TokenInfo* %1)
 
 ;stmt1:
-  %6 = load %TokenInfo*, %TokenInfo** %ti
-  %7 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 5, %TokenInfo* %6)
+  %3 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 12
+  %4 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
+  %5 = load %Str, %Str* %id
+  %6 = load %Type*, %Type** %t
+  %7 = load %Value*, %Value** %init_value
+  %8 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %Value*) @asmVarAdd (%Assembly* %4, %Str %5, %Type* %6, %Value* %7)
+  store %AssemblyItem* %8, %AssemblyItem** %3
 
 ;stmt2:
-  %8 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 1
-  %9 = load %Type*, %Type** %t
-  store %Type* %9, %Type** %8
+  %9 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 1
+  %10 = load %Type*, %Type** %t
+  store %Type* %10, %Type** %9
 
 ;stmt3:
-  %10 = getelementptr inbounds %Value, %Value* %7, i32 0, i32 4
-  %11 = load %Str, %Str* %id
-  store %Str %11, %Str* %10
+  %11 = getelementptr inbounds %Value, %Value* %2, i32 0, i32 4
+  %12 = load %Str, %Str* %id
+  store %Str %12, %Str* %11
 
 ;stmt4:
-  %12 = load %Str, %Str* %id
-  call void (%Str, %Value*) @bind_value_global (%Str %12, %Value* %7)
+  %13 = load %Str, %Str* %id
+  call void (%Str, %Value*) @bind_value_global (%Str %13, %Value* %2)
   ret void
 }
 
