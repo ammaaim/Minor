@@ -65,12 +65,6 @@ type Value = record {
 
   type : *Type
 
-  //class : StorageClass
-
-
-  // ссылка на блок, если это функция
-  block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
-
 
 //union {
   imm    : Int64  // ValueImmediate
@@ -84,6 +78,10 @@ type Value = record {
   call   : ValueCall
   szof   : *Type
 //}
+
+
+  // ссылка на блок, если это функция
+  block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
 
 
   declared_at,     // place in code where value was mentioned first time
