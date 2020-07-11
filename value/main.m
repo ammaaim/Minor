@@ -65,8 +65,6 @@ type Value = record {
 
   type : *Type
 
-  //storage : Storage
-
   class : StorageClass
 
 
@@ -78,9 +76,9 @@ type Value = record {
 
 
 //union {
-  imm    : Int64
-  reg    : Nat32 // for StorageRegister (let)
-  id     : Str   // вместо id нужна ссылка на объект в сборке
+  imm    : Int64  // ValueImmediate
+  reg    : Nat32  // StorageRegister (let)
+  id     : Str    // вместо id нужна ссылка на объект в сборке
   un     : ValueUn
   bin    : ValueBin
   index  : ValueIndex
@@ -89,6 +87,7 @@ type Value = record {
   call   : ValueCall
   szof   : *Type
 //}
+
 
   declared_at,     // place in code where value was mentioned first time
   defined_at,      // place in code where value was defined
