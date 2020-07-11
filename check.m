@@ -1,9 +1,23 @@
 // m2/check
 
+import "type/check"
+
+type Fx = record {
+  fx : *Fx
+}
 
 let checkMain = func () -> Unit {
-  let chk = func MapForeachHandler {
 
+  // check types
+  let tchk = func MapForeachHandler {
+    let type = v to *Type
+    typeCheck(type)
+  }
+  map_foreach(&mctx.type_index, tchk, Nil)
+
+
+  // check values
+  let vchk = func MapForeachHandler {
     let val = v to *Value
 
     checkValue(val)
@@ -13,7 +27,10 @@ let checkMain = func () -> Unit {
       checkFunc(val)
     }
   }
-  map_foreach(&mctx.value_index, chk, Nil)
+  map_foreach(&mctx.value_index, vchk, Nil)
+
+
+
 }
 
 

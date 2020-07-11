@@ -10,9 +10,13 @@
 // еще check должен рекурсивно проверить типы на внутреннюю рекурсию но это потом
 
 
+// неизвестный тип недопустим
+// агрегатный тип не может включать в себя самого себя
+
 // проверяем тип на наличие в нем TypeUnknown
 // TypeUnknown недопустим
 let typeCheck = func (t : *Type) -> Unit {
+  //printf("typeCheck\n")
   if type_is_pointer(t) {
     typeCheckPointer(&t.pointer)
   } else if type_is_array(t) {
@@ -50,14 +54,12 @@ let typeCheckFunc = func (f : *TypeFunc) -> Unit {
 
 
 let typeCheckRecord = func (r : *TypeRecord) -> Unit {
-  // чекаем поля: поле не может иметь неопределенный тип!
-  // (но может быть указателем или неопр массивом undef-типа)
   let foreach_struct_field = func ListForeachHandler {
     let f = data to *Field
-    //typeCheck(f.type)  // должно быть так но возн беск рекурсия! исправь это
-    if f.type.kind == TypeUnknown {
+    //typeCheck(f.type)  // возн беск рекурсия!
+    /*if f.type.kind == TypeUnknown {
       error("unknown type", f.type.ti)
-    }
+    }*/
   }
   list_foreach(r.fields, foreach_struct_field, Nil)
 }
