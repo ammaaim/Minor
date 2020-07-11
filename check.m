@@ -66,9 +66,9 @@ let checkValue = func (v : *Value) -> *Type {
 
   let k = v.kind
 
-  if k == ValueId {
+  /*if k == ValueId {
     error("unknown value", v.ti)
-  } else if isBinaryOpKind(k) {
+  } else */if isBinaryOpKind(k) {
     t = checkValueBinary(v)
   } else if isUnaryOpKind(k) {
     t = checkValueUnary(v)

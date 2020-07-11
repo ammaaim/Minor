@@ -81,10 +81,10 @@ let add_value = func (index : *Map, id : Str, v : *Value) -> Unit {
   let ae = map_get(index, id) to *Value
   if ae != Nil {
     // если значение уже есть но не определено
-    if ae.class != StorageUndefined {
+    /*if ae.kind != ValueUndefined {
       error("value bind error: attempt to id redefinition", v.ti)
       return
-    }
+    }*/
 
     // это позволяет юзать глобальные значения до того как они будут объявлены
     memcpy(ae, v, sizeof Value)
@@ -153,7 +153,7 @@ let get_value_from_params = func (params : *List, id : Str) -> *Value {
   // создадим для него 'Value' и вернем его
   let v = valueNew(ValueId, param.ti)
   v.type = param.type
-  v.class = StorageLocal
+  v.kind = ValueLocalVar
   v.id = param.id
   return v
 }

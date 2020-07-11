@@ -3,7 +3,7 @@
 let MAXARG = 256
 
 
-/*type StorageClass = enum {
+type StorageClass = enum {
   // default class
   StorageUndefined,  // used by undefined value
 
@@ -21,7 +21,7 @@ let MAXARG = 256
   // register
   StorageAddress,    // address of value in register
   StorageRegister    // value in LLVM register
-}*/
+}
 
 
 // Объект принтера - содержит тип значения и его местоположение
@@ -57,17 +57,30 @@ let eval = func Eval {
 
   var ox : Obj
 
-  if k == ValueId {
-    ox.type = v.type
-    ox.class = v.class   // << v.storage - кандидат на удаление!
-    ox.id = v.id
-    ox.reg = v.reg
-    return ox
-  } else if k == ValueImmediate {
-    ox.type = v.type
+  ox.type = v.type
+  ox.id = v.id
+  ox.imm = v.imm
+  ox.reg = v.reg
+
+  if k == ValueImmediate {
     ox.class = StorageImmediate
-    ox.imm = v.imm
     return ox
+  } else if k == ValueGlobalConst {
+    ox.class = StorageGlobalConst
+    return ox
+  } else if k == ValueLocalVar {
+    ox.class = StorageLocal
+    return ox
+  } else if k == ValueGlobalVar {
+    ox.class = StorageGlobal
+    return ox
+  } else if k == ValueRegister {
+    ox.class = StorageRegister
+    return ox
+  } else if k == ValueAddress {
+    ox.class = StorageAddress
+    return ox
+
   } else if k == ValueCall {
     return eval_call(v)
   } else if k == ValueIndex {

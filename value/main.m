@@ -16,32 +16,14 @@ import "init"
 
 
 
-type StorageClass = enum {
-  // default class
-  StorageUndefined,  // used by undefined value
-
-  StorageImmediate,  // For Obj in printer
-  /*
-   * Global Immutable Object used by name
-   * such as funcs, strings, literal arrays & records
-   */
-  StorageGlobalConst,
-
-  // variables
-  StorageLocal,      // local var
-  StorageGlobal,     // global var
-
-  // register
-  StorageAddress,    // address of value in register
-  StorageRegister    // value in LLVM register
-}
-
 
 type ValueKind = enum {
   ValueInvalid,
 
+  ValueUndefined,  // StorageUndefined
+
   /* value used by id */
-  ValueId,
+  ValueId,  // Unknown value, we know only Id
 
   ValueImmediate,
   ValueGlobalConst,  // by id
@@ -50,6 +32,7 @@ type ValueKind = enum {
   ValueLocalVar,     // by id
 
   ValueRegister,     // by reg  // let a = 1
+  ValueAddress,      //
 
 
   /* unary */
@@ -83,7 +66,7 @@ type Value = record {
 
   type : *Type
 
-  class : StorageClass
+  //class : StorageClass
 
 
   // ссылка на блок, если это функция
@@ -161,13 +144,13 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
 
 
 let valueIsConst = func (v : *Value) -> Bool {
-  return v.class == StorageGlobalConst or v.kind == ValueImmediate
+  return v.kind == ValueGlobalConst or v.kind == ValueImmediate
 }
 
 
 let valueIsMutable = func (v : *Value) -> Bool {
-  let cl = v.class
-  return cl == StorageLocal or cl == StorageGlobal or cl == StorageAddress
+  let k = v.kind
+  return k == ValueLocalVar or k == ValueGlobalVar or k == ValueAddress
 }
 
 

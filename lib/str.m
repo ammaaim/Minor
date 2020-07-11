@@ -4,9 +4,8 @@
 let STR_TERM = 0
 
 
-let str_new = func (len : Nat) -> Str {
-  return malloc(len) to Str
-}
+
+let str_new = func (len : Nat) -> Str {return malloc(len) to Str}
 
 
 // create copy of string
@@ -16,6 +15,7 @@ let dup = func (s : Str) -> Str {
   strcpy(new_s, s)
   return new_s
 }
+
 
 // склеивает две строки формируя на выходе новую
 let cat = func (s1, s2 : Str) -> Str {
