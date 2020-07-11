@@ -38,7 +38,7 @@ let eval = func Eval {
 
   if k == ValueId {
     ox.type = v.type
-    ox.class = v.storage.class   // << v.storage - кандидат на удаление!
+    ox.class = v.class   // << v.storage - кандидат на удаление!
     ox.id = v.id
     ox.reg = v.reg
     return ox

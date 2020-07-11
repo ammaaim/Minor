@@ -22,7 +22,7 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
   v.declared_at = ti
 
   if type.kind == TypeFunction {
-    v.storage.class = StorageGlobalConst
+    v.class = StorageGlobalConst
     asmFuncAdd(&asm0, id, type, Nil)
   }
 
@@ -42,7 +42,7 @@ let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
     ae.kind = v.kind
     ae.type = v.type
     ae.id = v.id
-    ae.storage = v.storage
+    ae.class = v.class
     ae.block = v.block
 
     rename(ae, id)

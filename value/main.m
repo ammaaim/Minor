@@ -65,7 +65,9 @@ type Value = record {
 
   type : *Type
 
-  storage : Storage
+  //storage : Storage
+
+  class : StorageClass
 
 
   // ссылка на блок, если это функция
@@ -77,7 +79,7 @@ type Value = record {
 
 //union {
   imm    : Int64
-  reg    : Nat32 // for let
+  reg    : Nat32 // for StorageRegister (let)
   id     : Str   // вместо id нужна ссылка на объект в сборке
   un     : ValueUn
   bin    : ValueBin
@@ -114,10 +116,10 @@ let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
 
 
 let valueIsConst = func (v : *Value) -> Bool {
-  return storageIsConst(&v.storage) or v.kind == ValueImmediate
+  return classIsConst(v.class) or v.kind == ValueImmediate
 }
 
-let valueIsReadonly = func (v : *Value) -> Bool {return not storageIsMutable(&v.storage)}
+let valueIsReadonly = func (v : *Value) -> Bool {return not classIsMutable(v.class)}
 
 
 let isUnaryOpKind = func (k : ValueKind) -> Bool {

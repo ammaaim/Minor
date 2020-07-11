@@ -367,7 +367,7 @@ let term_str = func ValueParser {
   // создаем значение для строки
   let v = valueNew(ValueId, ti)
   v.type = typeStr
-  v.storage.class = StorageGlobal
+  v.class = StorageGlobal
   v.id = id
   return v
 }
@@ -398,7 +398,7 @@ let term_arr = func ValueParser {
 
   let v = valueNew(ValueId, ti)
   v.type = t
-  v.storage.class = StorageGlobalConst
+  v.class = StorageGlobalConst
   v.id = id
   v.defined_at = ti
   return v
@@ -451,7 +451,7 @@ let term_func = func ValueParser {
   }
 
   fctx.cfunc = fv
-  fv.storage.class = StorageGlobalConst
+  fv.class = StorageGlobalConst
   fv.id = id
   fv.defined_at = ti
 

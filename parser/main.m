@@ -213,12 +213,12 @@ let parseLet = func () -> *Stmt {
   // важно чтобы undef переменные попадали сюда так как иначе
   // происходит просто связывание id с переменной а не с ее значением по месту
   // это слабое место, Саня, придумай как переделать let
-  if not valueIsConst(v) or v.storage.class == StorageUndefined {
+  if not valueIsConst(v) or v.class == StorageUndefined {
     // v0 - значение сопряженное с результатом вычисления v
     // то есть он получит тот же регистр что и результат вычисления v
     // регистр он получит в принтере тк только там они проясняются
     let v0 = valueNew(ValueId, ti)
-    v0.storage.class = StorageRegister
+    v0.class = StorageRegister
     v0.id = id
     bind_value_local(id, v0)
     return stmt_new_let(v, v0, ti)
@@ -318,7 +318,7 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *Tok
   // и будет ссылаться на переменную (просто нести тот же id)
   let v = valueNew(ValueId, ti)
   v.type = t
-  v.storage.class = StorageLocal
+  v.class = StorageLocal
   v.id = id
   bind_value_local(id, v)
 
@@ -342,7 +342,7 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *To
   // и будет ссылаться на переменную (просто нести тот же id)
   let v = valueNew(ValueId, ti)
   v.type = t
-  v.storage.class = StorageGlobal
+  v.class = StorageGlobal
   v.id = id
   bind_value_global(id, v)
 }

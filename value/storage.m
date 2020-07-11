@@ -22,27 +22,21 @@ type StorageClass = enum {
 }
 
 
-type Storage = record {
-  class : StorageClass
-}
 
 
-
-let storageIsConst = func (s : *Storage) -> Bool {
-  let cl = s.class
+let classIsConst = func (cl : StorageClass) -> Bool {
   return cl == StorageGlobalConst
 }
 
 
-let storageIsMutable = func (s : *Storage) -> Bool {
-  let cl = s.class
+let classIsMutable = func (cl : StorageClass) -> Bool {
   return cl == StorageLocal or cl == StorageGlobal or cl == StorageAddress
 }
 
 
 
-let storageIsRegister = func (s : *Storage) -> Bool {
-  return s.class == StorageRegister
+let storageIsRegister = func (cl : StorageClass) -> Bool {
+  return cl == StorageRegister
 }
 
 
