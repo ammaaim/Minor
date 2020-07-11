@@ -1,56 +1,52 @@
 // m2/prn/expr
 
+let MAXARG = 256
+
 
 // Объект принтера - содержит тип значения и его местоположение
 type Obj = record {
   type : *Type
 
   class : StorageClass
-
   imm : Int64
-
   id  : Str
-
   reg : Nat32  // StorageRegister, StorageAddress
-
 }
 
 
+// new printer object
+let obj = func (t : *Type, c : StorageClass, reg : Nat32) -> Obj {
+  var o : Obj
+  o.type = t
+  o.class = c
+  o.reg = reg
+  o.id = Nil
+  o.imm = 0
+  return o
+}
+
+
+// evaluator type
 type Eval = (v : *Value) -> Obj
 
 
-
-let print_obj = func (o : Obj) -> Unit {
-  let cl = o.class
-  if cl == StorageImmediate {
-    fprintf(fout, "%d", o.imm)
-  } else if cl == StorageRegister or cl == StorageAddress {
-    fprintf(fout, "%%%d", o.reg)
-  } else if cl == StorageGlobal or cl == StorageGlobalConst{
-    fprintf(fout, "@%s", o.id)
-  } else if cl == StorageLocal {
-    fprintf(fout, "%%%s", o.id)
-  } else if cl == StorageUndefined {
-    fprintf(fout, "<StorageUndefined>")
-  }
-}
-
-
+// value evaluation
 let eval = func Eval {
   let k = v.kind
 
+  var ox : Obj
+
   if k == ValueId {
-    var ox : Obj
-    ox = obj(v.type, StorageRegister, 0)
+    ox.type = v.type
     ox.class = v.storage.class   // << v.storage - кандидат на удаление!
     ox.id = v.id
     ox.reg = v.storage.reg
     return ox
   } else if k == ValueImmediate {
-    var ox2 : Obj
-    ox2 = obj(v.type, StorageImmediate, 0)
-    ox2.imm = v.imm
-    return ox2
+    ox.type = v.type
+    ox.class = StorageImmediate
+    ox.imm = v.imm
+    return ox
   } else if k == ValueCall {
     return eval_call(v)
   } else if k == ValueIndex {
@@ -71,54 +67,6 @@ let eval = func Eval {
 
   return eval_bin(v)
 }
-
-
-
-
-
-let loadImmPtr = func (x : Obj) -> Obj {
-  let t = x.type
-  let reg = lab_get()
-  fprintf(fout, "\n  %%%d = inttoptr i64 ", reg)
-  print_obj(x)
-  o(" to ")
-  printType(t, True, True)
-
-  return obj(t, StorageRegister, reg)
-}
-
-
-let load = func (x : Obj) -> Obj {
-  // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
-  // явной операцией inttoptr. Поэтому если нам попался указатель вида ValueImmediate
-  // то его нужно будет загрузить в регистр функцией inttoptr
-  if x.class == StorageImmediate {
-    if typeIsReference(x.type) {
-      return loadImmPtr(x)
-    }
-    return x
-  }
-
-  // в загрузке нуждаются только значения с изменяемым классом памяти
-  // это StorageGlobal, StorageLocal & StorageAddress;
-  // остальные вернем просто так
-  if x.class != StorageLocal and x.class != StorageGlobal and x.class != StorageAddress {
-    return x
-  }
-
-  let reg = lab_get()
-  fprintf(fout, "\n  %%%d = load ", reg)
-  printType(x.type, True, True)
-  comma()
-  printType(x.type, True, True)
-  o("* ")
-  print_obj(x)
-
-  return obj(x.type, StorageRegister, reg)
-}
-
-
-let MAXARG = 256
 
 
 let eval_call = func Eval {
@@ -173,13 +121,10 @@ let eval_call = func Eval {
 
   while c < ctx.argcnt {
     if need_comma {comma()}
-
     printType(ctx.args[c].type, True, True)
     space()
     print_obj(ctx.args[c])
-
     need_comma = True
-
     c = c + 1
   }
 
@@ -291,11 +236,11 @@ let eval_ref = func Eval {
 
 
 let eval_deref = func Eval {
-  // загружаем указатель
+  // load pointer
   var vx : Obj
   vx = load(eval(v.un.x))
 
-  // возвращаем загруженный указатель как #Address
+  // returns loaded pointer as #Address
   return obj(v.type, StorageAddress, vx.reg)
 }
 
@@ -504,17 +449,64 @@ let print_st = func (l, r : *Value) -> Unit {
 }
 
 
-// new value object
-let obj = func (t : *Type, c : StorageClass, reg : Nat32) -> Obj {
-  var o : Obj
-  //assert(o != Nil, "printer::obj")
-  //memset(&o, 0, sizeof Obj)
-  o.type = t
-  o.class = c
-  o.reg = reg
-  o.id = Nil
-  o.imm = 0
-  return o
+
+// загрузка (если она необходима) значения вычисленного выражения
+let load = func (x : Obj) -> Obj {
+
+  let loadImmPtr = func (x : Obj) -> Obj {
+    let t = x.type
+    let reg = lab_get()
+    fprintf(fout, "\n  %%%d = inttoptr i64 ", reg)
+    print_obj(x)
+    o(" to ")
+    printType(t, True, True)
+
+    return obj(t, StorageRegister, reg)
+  }
+
+  // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
+  // явной операцией inttoptr. Поэтому если нам попался указатель вида ValueImmediate
+  // то его нужно будет загрузить в регистр функцией inttoptr
+  if x.class == StorageImmediate {
+    if typeIsReference(x.type) {
+      return loadImmPtr(x)
+    }
+    return x
+  }
+
+  // в загрузке нуждаются только значения с изменяемым классом памяти
+  // это StorageGlobal, StorageLocal & StorageAddress;
+  // остальные вернем просто так
+  if x.class != StorageLocal and x.class != StorageGlobal and x.class != StorageAddress {
+    return x
+  }
+
+  let reg = lab_get()
+  fprintf(fout, "\n  %%%d = load ", reg)
+  printType(x.type, True, True)
+  comma()
+  printType(x.type, True, True)
+  o("* ")
+  print_obj(x)
+
+  return obj(x.type, StorageRegister, reg)
+}
+
+
+// печать значение вычисленного выражения
+let print_obj = func (o : Obj) -> Unit {
+  let cl = o.class
+  if cl == StorageImmediate {
+    fprintf(fout, "%d", o.imm)
+  } else if cl == StorageRegister or cl == StorageAddress {
+    fprintf(fout, "%%%d", o.reg)
+  } else if cl == StorageGlobal or cl == StorageGlobalConst{
+    fprintf(fout, "@%s", o.id)
+  } else if cl == StorageLocal {
+    fprintf(fout, "%%%s", o.id)
+  } else if cl == StorageUndefined {
+    fprintf(fout, "<StorageUndefined>")
+  }
 }
 
 

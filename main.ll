@@ -977,150 +977,150 @@ target triple = "x86_64-apple-macosx10.14.0"
 @_func305_str1 = constant i8* getelementptr inbounds ([17 x i8], [17 x i8]* @.str._func305_str1, i32 0, i32 0), align 8
 @.str._func305_str2 = private unnamed_addr constant [5 x i8] c"\0A%s:\00", align 1
 @_func305_str2 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func305_str2, i32 0, i32 0), align 8
-@.str._func308_str1 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
-@_func308_str1 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func308_str1, i32 0, i32 0), align 8
-@.str._func308_str2 = private unnamed_addr constant [5 x i8] c"%%%d\00", align 1
-@_func308_str2 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func308_str2, i32 0, i32 0), align 8
-@.str._func308_str3 = private unnamed_addr constant [4 x i8] c"@%s\00", align 1
-@_func308_str3 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func308_str3, i32 0, i32 0), align 8
-@.str._func308_str4 = private unnamed_addr constant [5 x i8] c"%%%s\00", align 1
-@_func308_str4 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func308_str4, i32 0, i32 0), align 8
-@.str._func308_str5 = private unnamed_addr constant [19 x i8] c"<StorageUndefined>\00", align 1
-@_func308_str5 = constant i8* getelementptr inbounds ([19 x i8], [19 x i8]* @.str._func308_str5, i32 0, i32 0), align 8
-@.str._func310_str1 = private unnamed_addr constant [24 x i8] c"\0A  %%%d = inttoptr i64 \00", align 1
-@_func310_str1 = constant i8* getelementptr inbounds ([24 x i8], [24 x i8]* @.str._func310_str1, i32 0, i32 0), align 8
-@.str._func310_str2 = private unnamed_addr constant [5 x i8] c" to \00", align 1
-@_func310_str2 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func310_str2, i32 0, i32 0), align 8
-@.str._func311_str1 = private unnamed_addr constant [16 x i8] c"\0A  %%%d = load \00", align 1
-@_func311_str1 = constant i8* getelementptr inbounds ([16 x i8], [16 x i8]* @.str._func311_str1, i32 0, i32 0), align 8
-@.str._func311_str2 = private unnamed_addr constant [3 x i8] c"* \00", align 1
-@_func311_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func311_str2, i32 0, i32 0), align 8
-@.str._func312_str1 = private unnamed_addr constant [9 x i8] c"\0A  call \00", align 1
-@_func312_str1 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func312_str1, i32 0, i32 0), align 8
-@.str._func312_str2 = private unnamed_addr constant [16 x i8] c"\0A  %%%d = call \00", align 1
-@_func312_str2 = constant i8* getelementptr inbounds ([16 x i8], [16 x i8]* @.str._func312_str2, i32 0, i32 0), align 8
-@.str._func312_str3 = private unnamed_addr constant [3 x i8] c" (\00", align 1
-@_func312_str3 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func312_str3, i32 0, i32 0), align 8
-@.str._func312_str4 = private unnamed_addr constant [2 x i8] c")\00", align 1
-@_func312_str4 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func312_str4, i32 0, i32 0), align 8
+@.str._func310_str1 = private unnamed_addr constant [9 x i8] c"\0A  call \00", align 1
+@_func310_str1 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func310_str1, i32 0, i32 0), align 8
+@.str._func310_str2 = private unnamed_addr constant [16 x i8] c"\0A  %%%d = call \00", align 1
+@_func310_str2 = constant i8* getelementptr inbounds ([16 x i8], [16 x i8]* @.str._func310_str2, i32 0, i32 0), align 8
+@.str._func310_str3 = private unnamed_addr constant [3 x i8] c" (\00", align 1
+@_func310_str3 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func310_str3, i32 0, i32 0), align 8
+@.str._func310_str4 = private unnamed_addr constant [2 x i8] c")\00", align 1
+@_func310_str4 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func310_str4, i32 0, i32 0), align 8
+@.str._func312_str1 = private unnamed_addr constant [34 x i8] c"\0A  %%%d = getelementptr inbounds \00", align 1
+@_func312_str1 = constant i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str._func312_str1, i32 0, i32 0), align 8
+@.str._func312_str2 = private unnamed_addr constant [3 x i8] c"* \00", align 1
+@_func312_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func312_str2, i32 0, i32 0), align 8
+@.str._func312_str3 = private unnamed_addr constant [8 x i8] c", i32 0\00", align 1
+@_func312_str3 = constant i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str._func312_str3, i32 0, i32 0), align 8
+@.str._func313_str1 = private unnamed_addr constant [29 x i8] c"print/expr:: v.field == Nil\0A\00", align 1
+@_func313_str1 = constant i8* getelementptr inbounds ([29 x i8], [29 x i8]* @.str._func313_str1, i32 0, i32 0), align 8
+@.str._func313_str2 = private unnamed_addr constant [34 x i8] c"\0A  %%%d = getelementptr inbounds \00", align 1
+@_func313_str2 = constant i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str._func313_str2, i32 0, i32 0), align 8
+@.str._func313_str3 = private unnamed_addr constant [3 x i8] c"* \00", align 1
+@_func313_str3 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func313_str3, i32 0, i32 0), align 8
+@.str._func313_str4 = private unnamed_addr constant [16 x i8] c", i32 0, i32 %u\00", align 1
+@_func313_str4 = constant i8* getelementptr inbounds ([16 x i8], [16 x i8]* @.str._func313_str4, i32 0, i32 0), align 8
 @.str._func314_str1 = private unnamed_addr constant [34 x i8] c"\0A  %%%d = getelementptr inbounds \00", align 1
 @_func314_str1 = constant i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str._func314_str1, i32 0, i32 0), align 8
 @.str._func314_str2 = private unnamed_addr constant [3 x i8] c"* \00", align 1
 @_func314_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func314_str2, i32 0, i32 0), align 8
-@.str._func314_str3 = private unnamed_addr constant [8 x i8] c", i32 0\00", align 1
-@_func314_str3 = constant i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str._func314_str3, i32 0, i32 0), align 8
-@.str._func315_str1 = private unnamed_addr constant [29 x i8] c"print/expr:: v.field == Nil\0A\00", align 1
-@_func315_str1 = constant i8* getelementptr inbounds ([29 x i8], [29 x i8]* @.str._func315_str1, i32 0, i32 0), align 8
-@.str._func315_str2 = private unnamed_addr constant [34 x i8] c"\0A  %%%d = getelementptr inbounds \00", align 1
-@_func315_str2 = constant i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str._func315_str2, i32 0, i32 0), align 8
-@.str._func315_str3 = private unnamed_addr constant [3 x i8] c"* \00", align 1
-@_func315_str3 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func315_str3, i32 0, i32 0), align 8
-@.str._func315_str4 = private unnamed_addr constant [16 x i8] c", i32 0, i32 %u\00", align 1
-@_func315_str4 = constant i8* getelementptr inbounds ([16 x i8], [16 x i8]* @.str._func315_str4, i32 0, i32 0), align 8
-@.str._func316_str1 = private unnamed_addr constant [34 x i8] c"\0A  %%%d = getelementptr inbounds \00", align 1
-@_func316_str1 = constant i8* getelementptr inbounds ([34 x i8], [34 x i8]* @.str._func316_str1, i32 0, i32 0), align 8
-@.str._func316_str2 = private unnamed_addr constant [3 x i8] c"* \00", align 1
-@_func316_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func316_str2, i32 0, i32 0), align 8
-@.str._func316_str3 = private unnamed_addr constant [6 x i8] c"i32 0\00", align 1
-@_func316_str3 = constant i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str._func316_str3, i32 0, i32 0), align 8
-@.str._func318_str1 = private unnamed_addr constant [15 x i8] c"\0A  %%%d = xor \00", align 1
-@_func318_str1 = constant i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str._func318_str1, i32 0, i32 0), align 8
-@.str._func318_str2 = private unnamed_addr constant [4 x i8] c", 1\00", align 1
-@_func318_str2 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func318_str2, i32 0, i32 0), align 8
-@.str._func318_str3 = private unnamed_addr constant [5 x i8] c", -1\00", align 1
-@_func318_str3 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func318_str3, i32 0, i32 0), align 8
-@.str._func319_str1 = private unnamed_addr constant [19 x i8] c"\0A  %%%d = sub nsw \00", align 1
-@_func319_str1 = constant i8* getelementptr inbounds ([19 x i8], [19 x i8]* @.str._func319_str1, i32 0, i32 0), align 8
-@.str._func319_str2 = private unnamed_addr constant [3 x i8] c" 0\00", align 1
-@_func319_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func319_str2, i32 0, i32 0), align 8
-@.str._func320_str1 = private unnamed_addr constant [11 x i8] c"\0A  %%%d = \00", align 1
-@_func320_str1 = constant i8* getelementptr inbounds ([11 x i8], [11 x i8]* @.str._func320_str1, i32 0, i32 0), align 8
-@.str._func320_str2 = private unnamed_addr constant [10 x i8] c"inttoptr \00", align 1
-@_func320_str2 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func320_str2, i32 0, i32 0), align 8
-@.str._func320_str3 = private unnamed_addr constant [9 x i8] c"bitcast \00", align 1
-@_func320_str3 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func320_str3, i32 0, i32 0), align 8
-@.str._func320_str4 = private unnamed_addr constant [9 x i8] c"bitcast \00", align 1
-@_func320_str4 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func320_str4, i32 0, i32 0), align 8
-@.str._func320_str5 = private unnamed_addr constant [10 x i8] c"inttoptr \00", align 1
-@_func320_str5 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func320_str5, i32 0, i32 0), align 8
-@.str._func320_str6 = private unnamed_addr constant [7 x i8] c"trunc \00", align 1
-@_func320_str6 = constant i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str._func320_str6, i32 0, i32 0), align 8
-@.str._func320_str7 = private unnamed_addr constant [2 x i8] c"s\00", align 1
-@_func320_str7 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func320_str7, i32 0, i32 0), align 8
-@.str._func320_str8 = private unnamed_addr constant [2 x i8] c"z\00", align 1
-@_func320_str8 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func320_str8, i32 0, i32 0), align 8
-@.str._func320_str9 = private unnamed_addr constant [5 x i8] c"ext \00", align 1
-@_func320_str9 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func320_str9, i32 0, i32 0), align 8
-@.str._func320_str10 = private unnamed_addr constant [9 x i8] c"bitcast \00", align 1
-@_func320_str10 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func320_str10, i32 0, i32 0), align 8
-@.str._func320_str11 = private unnamed_addr constant [10 x i8] c"ptrtoint \00", align 1
-@_func320_str11 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func320_str11, i32 0, i32 0), align 8
-@.str._func320_str12 = private unnamed_addr constant [7 x i8] c"trunc \00", align 1
-@_func320_str12 = constant i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str._func320_str12, i32 0, i32 0), align 8
-@.str._func320_str13 = private unnamed_addr constant [6 x i8] c"zext \00", align 1
-@_func320_str13 = constant i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str._func320_str13, i32 0, i32 0), align 8
-@.str._func320_str14 = private unnamed_addr constant [9 x i8] c"bitcast \00", align 1
-@_func320_str14 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func320_str14, i32 0, i32 0), align 8
-@.str._func320_str15 = private unnamed_addr constant [18 x i8] c"e.type.kind = %d\0A\00", align 1
-@_func320_str15 = constant i8* getelementptr inbounds ([18 x i8], [18 x i8]* @.str._func320_str15, i32 0, i32 0), align 8
-@.str._func320_str16 = private unnamed_addr constant [33 x i8] c"printer/expr/cast :: e.type.kind\00", align 1
-@_func320_str16 = constant i8* getelementptr inbounds ([33 x i8], [33 x i8]* @.str._func320_str16, i32 0, i32 0), align 8
-@.str._func320_str17 = private unnamed_addr constant [5 x i8] c" to \00", align 1
-@_func320_str17 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func320_str17, i32 0, i32 0), align 8
-@.str._func321_str1 = private unnamed_addr constant [7 x i8] c"<oper>\00", align 1
-@_func321_str1 = constant i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str._func321_str1, i32 0, i32 0), align 8
-@.str._func321_str2 = private unnamed_addr constant [4 x i8] c"add\00", align 1
-@_func321_str2 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func321_str2, i32 0, i32 0), align 8
-@.str._func321_str3 = private unnamed_addr constant [4 x i8] c"sub\00", align 1
-@_func321_str3 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func321_str3, i32 0, i32 0), align 8
-@.str._func321_str4 = private unnamed_addr constant [4 x i8] c"mul\00", align 1
-@_func321_str4 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func321_str4, i32 0, i32 0), align 8
-@.str._func321_str5 = private unnamed_addr constant [5 x i8] c"sdiv\00", align 1
-@_func321_str5 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func321_str5, i32 0, i32 0), align 8
-@.str._func321_str6 = private unnamed_addr constant [5 x i8] c"udiv\00", align 1
-@_func321_str6 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func321_str6, i32 0, i32 0), align 8
-@.str._func321_str7 = private unnamed_addr constant [5 x i8] c"srem\00", align 1
-@_func321_str7 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func321_str7, i32 0, i32 0), align 8
-@.str._func321_str8 = private unnamed_addr constant [5 x i8] c"urem\00", align 1
-@_func321_str8 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func321_str8, i32 0, i32 0), align 8
-@.str._func321_str9 = private unnamed_addr constant [3 x i8] c"or\00", align 1
-@_func321_str9 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func321_str9, i32 0, i32 0), align 8
-@.str._func321_str10 = private unnamed_addr constant [4 x i8] c"xor\00", align 1
-@_func321_str10 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func321_str10, i32 0, i32 0), align 8
-@.str._func321_str11 = private unnamed_addr constant [4 x i8] c"and\00", align 1
-@_func321_str11 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func321_str11, i32 0, i32 0), align 8
-@.str._func321_str12 = private unnamed_addr constant [8 x i8] c"icmp eq\00", align 1
-@_func321_str12 = constant i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str._func321_str12, i32 0, i32 0), align 8
-@.str._func321_str13 = private unnamed_addr constant [8 x i8] c"icmp ne\00", align 1
-@_func321_str13 = constant i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str._func321_str13, i32 0, i32 0), align 8
-@.str._func321_str14 = private unnamed_addr constant [9 x i8] c"icmp slt\00", align 1
-@_func321_str14 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func321_str14, i32 0, i32 0), align 8
-@.str._func321_str15 = private unnamed_addr constant [9 x i8] c"icmp ult\00", align 1
-@_func321_str15 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func321_str15, i32 0, i32 0), align 8
-@.str._func321_str16 = private unnamed_addr constant [9 x i8] c"icmp sgt\00", align 1
-@_func321_str16 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func321_str16, i32 0, i32 0), align 8
-@.str._func321_str17 = private unnamed_addr constant [9 x i8] c"icmp ugt\00", align 1
-@_func321_str17 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func321_str17, i32 0, i32 0), align 8
-@.str._func321_str18 = private unnamed_addr constant [9 x i8] c"icmp sle\00", align 1
-@_func321_str18 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func321_str18, i32 0, i32 0), align 8
-@.str._func321_str19 = private unnamed_addr constant [9 x i8] c"icmp ule\00", align 1
-@_func321_str19 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func321_str19, i32 0, i32 0), align 8
-@.str._func321_str20 = private unnamed_addr constant [9 x i8] c"icmp sge\00", align 1
-@_func321_str20 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func321_str20, i32 0, i32 0), align 8
-@.str._func321_str21 = private unnamed_addr constant [9 x i8] c"icmp uge\00", align 1
-@_func321_str21 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func321_str21, i32 0, i32 0), align 8
-@.str._func321_str22 = private unnamed_addr constant [4 x i8] c"shl\00", align 1
-@_func321_str22 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func321_str22, i32 0, i32 0), align 8
-@.str._func321_str23 = private unnamed_addr constant [5 x i8] c"ashr\00", align 1
-@_func321_str23 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func321_str23, i32 0, i32 0), align 8
-@.str._func321_str24 = private unnamed_addr constant [5 x i8] c"lshr\00", align 1
-@_func321_str24 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func321_str24, i32 0, i32 0), align 8
-@.str._func321_str25 = private unnamed_addr constant [14 x i8] c"\0A  %%%d = %s \00", align 1
-@_func321_str25 = constant i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str._func321_str25, i32 0, i32 0), align 8
-@.str._func322_str1 = private unnamed_addr constant [10 x i8] c"\0A  store \00", align 1
-@_func322_str1 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func322_str1, i32 0, i32 0), align 8
-@.str._func322_str2 = private unnamed_addr constant [3 x i8] c"* \00", align 1
-@_func322_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func322_str2, i32 0, i32 0), align 8
+@.str._func314_str3 = private unnamed_addr constant [6 x i8] c"i32 0\00", align 1
+@_func314_str3 = constant i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str._func314_str3, i32 0, i32 0), align 8
+@.str._func316_str1 = private unnamed_addr constant [15 x i8] c"\0A  %%%d = xor \00", align 1
+@_func316_str1 = constant i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str._func316_str1, i32 0, i32 0), align 8
+@.str._func316_str2 = private unnamed_addr constant [4 x i8] c", 1\00", align 1
+@_func316_str2 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func316_str2, i32 0, i32 0), align 8
+@.str._func316_str3 = private unnamed_addr constant [5 x i8] c", -1\00", align 1
+@_func316_str3 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func316_str3, i32 0, i32 0), align 8
+@.str._func317_str1 = private unnamed_addr constant [19 x i8] c"\0A  %%%d = sub nsw \00", align 1
+@_func317_str1 = constant i8* getelementptr inbounds ([19 x i8], [19 x i8]* @.str._func317_str1, i32 0, i32 0), align 8
+@.str._func317_str2 = private unnamed_addr constant [3 x i8] c" 0\00", align 1
+@_func317_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func317_str2, i32 0, i32 0), align 8
+@.str._func318_str1 = private unnamed_addr constant [11 x i8] c"\0A  %%%d = \00", align 1
+@_func318_str1 = constant i8* getelementptr inbounds ([11 x i8], [11 x i8]* @.str._func318_str1, i32 0, i32 0), align 8
+@.str._func318_str2 = private unnamed_addr constant [10 x i8] c"inttoptr \00", align 1
+@_func318_str2 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func318_str2, i32 0, i32 0), align 8
+@.str._func318_str3 = private unnamed_addr constant [9 x i8] c"bitcast \00", align 1
+@_func318_str3 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func318_str3, i32 0, i32 0), align 8
+@.str._func318_str4 = private unnamed_addr constant [9 x i8] c"bitcast \00", align 1
+@_func318_str4 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func318_str4, i32 0, i32 0), align 8
+@.str._func318_str5 = private unnamed_addr constant [10 x i8] c"inttoptr \00", align 1
+@_func318_str5 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func318_str5, i32 0, i32 0), align 8
+@.str._func318_str6 = private unnamed_addr constant [7 x i8] c"trunc \00", align 1
+@_func318_str6 = constant i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str._func318_str6, i32 0, i32 0), align 8
+@.str._func318_str7 = private unnamed_addr constant [2 x i8] c"s\00", align 1
+@_func318_str7 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func318_str7, i32 0, i32 0), align 8
+@.str._func318_str8 = private unnamed_addr constant [2 x i8] c"z\00", align 1
+@_func318_str8 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func318_str8, i32 0, i32 0), align 8
+@.str._func318_str9 = private unnamed_addr constant [5 x i8] c"ext \00", align 1
+@_func318_str9 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func318_str9, i32 0, i32 0), align 8
+@.str._func318_str10 = private unnamed_addr constant [9 x i8] c"bitcast \00", align 1
+@_func318_str10 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func318_str10, i32 0, i32 0), align 8
+@.str._func318_str11 = private unnamed_addr constant [10 x i8] c"ptrtoint \00", align 1
+@_func318_str11 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func318_str11, i32 0, i32 0), align 8
+@.str._func318_str12 = private unnamed_addr constant [7 x i8] c"trunc \00", align 1
+@_func318_str12 = constant i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str._func318_str12, i32 0, i32 0), align 8
+@.str._func318_str13 = private unnamed_addr constant [6 x i8] c"zext \00", align 1
+@_func318_str13 = constant i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str._func318_str13, i32 0, i32 0), align 8
+@.str._func318_str14 = private unnamed_addr constant [9 x i8] c"bitcast \00", align 1
+@_func318_str14 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func318_str14, i32 0, i32 0), align 8
+@.str._func318_str15 = private unnamed_addr constant [18 x i8] c"e.type.kind = %d\0A\00", align 1
+@_func318_str15 = constant i8* getelementptr inbounds ([18 x i8], [18 x i8]* @.str._func318_str15, i32 0, i32 0), align 8
+@.str._func318_str16 = private unnamed_addr constant [33 x i8] c"printer/expr/cast :: e.type.kind\00", align 1
+@_func318_str16 = constant i8* getelementptr inbounds ([33 x i8], [33 x i8]* @.str._func318_str16, i32 0, i32 0), align 8
+@.str._func318_str17 = private unnamed_addr constant [5 x i8] c" to \00", align 1
+@_func318_str17 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func318_str17, i32 0, i32 0), align 8
+@.str._func319_str1 = private unnamed_addr constant [7 x i8] c"<oper>\00", align 1
+@_func319_str1 = constant i8* getelementptr inbounds ([7 x i8], [7 x i8]* @.str._func319_str1, i32 0, i32 0), align 8
+@.str._func319_str2 = private unnamed_addr constant [4 x i8] c"add\00", align 1
+@_func319_str2 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func319_str2, i32 0, i32 0), align 8
+@.str._func319_str3 = private unnamed_addr constant [4 x i8] c"sub\00", align 1
+@_func319_str3 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func319_str3, i32 0, i32 0), align 8
+@.str._func319_str4 = private unnamed_addr constant [4 x i8] c"mul\00", align 1
+@_func319_str4 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func319_str4, i32 0, i32 0), align 8
+@.str._func319_str5 = private unnamed_addr constant [5 x i8] c"sdiv\00", align 1
+@_func319_str5 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func319_str5, i32 0, i32 0), align 8
+@.str._func319_str6 = private unnamed_addr constant [5 x i8] c"udiv\00", align 1
+@_func319_str6 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func319_str6, i32 0, i32 0), align 8
+@.str._func319_str7 = private unnamed_addr constant [5 x i8] c"srem\00", align 1
+@_func319_str7 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func319_str7, i32 0, i32 0), align 8
+@.str._func319_str8 = private unnamed_addr constant [5 x i8] c"urem\00", align 1
+@_func319_str8 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func319_str8, i32 0, i32 0), align 8
+@.str._func319_str9 = private unnamed_addr constant [3 x i8] c"or\00", align 1
+@_func319_str9 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func319_str9, i32 0, i32 0), align 8
+@.str._func319_str10 = private unnamed_addr constant [4 x i8] c"xor\00", align 1
+@_func319_str10 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func319_str10, i32 0, i32 0), align 8
+@.str._func319_str11 = private unnamed_addr constant [4 x i8] c"and\00", align 1
+@_func319_str11 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func319_str11, i32 0, i32 0), align 8
+@.str._func319_str12 = private unnamed_addr constant [8 x i8] c"icmp eq\00", align 1
+@_func319_str12 = constant i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str._func319_str12, i32 0, i32 0), align 8
+@.str._func319_str13 = private unnamed_addr constant [8 x i8] c"icmp ne\00", align 1
+@_func319_str13 = constant i8* getelementptr inbounds ([8 x i8], [8 x i8]* @.str._func319_str13, i32 0, i32 0), align 8
+@.str._func319_str14 = private unnamed_addr constant [9 x i8] c"icmp slt\00", align 1
+@_func319_str14 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func319_str14, i32 0, i32 0), align 8
+@.str._func319_str15 = private unnamed_addr constant [9 x i8] c"icmp ult\00", align 1
+@_func319_str15 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func319_str15, i32 0, i32 0), align 8
+@.str._func319_str16 = private unnamed_addr constant [9 x i8] c"icmp sgt\00", align 1
+@_func319_str16 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func319_str16, i32 0, i32 0), align 8
+@.str._func319_str17 = private unnamed_addr constant [9 x i8] c"icmp ugt\00", align 1
+@_func319_str17 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func319_str17, i32 0, i32 0), align 8
+@.str._func319_str18 = private unnamed_addr constant [9 x i8] c"icmp sle\00", align 1
+@_func319_str18 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func319_str18, i32 0, i32 0), align 8
+@.str._func319_str19 = private unnamed_addr constant [9 x i8] c"icmp ule\00", align 1
+@_func319_str19 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func319_str19, i32 0, i32 0), align 8
+@.str._func319_str20 = private unnamed_addr constant [9 x i8] c"icmp sge\00", align 1
+@_func319_str20 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func319_str20, i32 0, i32 0), align 8
+@.str._func319_str21 = private unnamed_addr constant [9 x i8] c"icmp uge\00", align 1
+@_func319_str21 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func319_str21, i32 0, i32 0), align 8
+@.str._func319_str22 = private unnamed_addr constant [4 x i8] c"shl\00", align 1
+@_func319_str22 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func319_str22, i32 0, i32 0), align 8
+@.str._func319_str23 = private unnamed_addr constant [5 x i8] c"ashr\00", align 1
+@_func319_str23 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func319_str23, i32 0, i32 0), align 8
+@.str._func319_str24 = private unnamed_addr constant [5 x i8] c"lshr\00", align 1
+@_func319_str24 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func319_str24, i32 0, i32 0), align 8
+@.str._func319_str25 = private unnamed_addr constant [14 x i8] c"\0A  %%%d = %s \00", align 1
+@_func319_str25 = constant i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str._func319_str25, i32 0, i32 0), align 8
+@.str._func320_str1 = private unnamed_addr constant [10 x i8] c"\0A  store \00", align 1
+@_func320_str1 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func320_str1, i32 0, i32 0), align 8
+@.str._func320_str2 = private unnamed_addr constant [3 x i8] c"* \00", align 1
+@_func320_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func320_str2, i32 0, i32 0), align 8
+@.str._func322_str1 = private unnamed_addr constant [24 x i8] c"\0A  %%%d = inttoptr i64 \00", align 1
+@_func322_str1 = constant i8* getelementptr inbounds ([24 x i8], [24 x i8]* @.str._func322_str1, i32 0, i32 0), align 8
+@.str._func322_str2 = private unnamed_addr constant [5 x i8] c" to \00", align 1
+@_func322_str2 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func322_str2, i32 0, i32 0), align 8
+@.str._func321_str1 = private unnamed_addr constant [16 x i8] c"\0A  %%%d = load \00", align 1
+@_func321_str1 = constant i8* getelementptr inbounds ([16 x i8], [16 x i8]* @.str._func321_str1, i32 0, i32 0), align 8
+@.str._func321_str2 = private unnamed_addr constant [3 x i8] c"* \00", align 1
+@_func321_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func321_str2, i32 0, i32 0), align 8
+@.str._func323_str1 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
+@_func323_str1 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func323_str1, i32 0, i32 0), align 8
+@.str._func323_str2 = private unnamed_addr constant [5 x i8] c"%%%d\00", align 1
+@_func323_str2 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func323_str2, i32 0, i32 0), align 8
+@.str._func323_str3 = private unnamed_addr constant [4 x i8] c"@%s\00", align 1
+@_func323_str3 = constant i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str._func323_str3, i32 0, i32 0), align 8
+@.str._func323_str4 = private unnamed_addr constant [5 x i8] c"%%%s\00", align 1
+@_func323_str4 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func323_str4, i32 0, i32 0), align 8
+@.str._func323_str5 = private unnamed_addr constant [19 x i8] c"<StorageUndefined>\00", align 1
+@_func323_str5 = constant i8* getelementptr inbounds ([19 x i8], [19 x i8]* @.str._func323_str5, i32 0, i32 0), align 8
 @.str._func324_str1 = private unnamed_addr constant [14 x i8] c"\0A%%%s = type \00", align 1
 @_func324_str1 = constant i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str._func324_str1, i32 0, i32 0), align 8
 @.str._func325_str1 = private unnamed_addr constant [44 x i8] c"\0A@%s = private unnamed_addr constant [%d x \00", align 1
@@ -18755,106 +18755,44 @@ define void @print_block (%Block* %_b) {
   ret void
 }
 
-define void @print_obj (%Obj %_o) {
-  %o = alloca %Obj
-  store %Obj %_o, %Obj* %o
+define %Obj @obj (%Type* %_t, %StorageClass %_c, %Nat32 %_reg) {
+  %t = alloca %Type*
+  store %Type* %_t, %Type** %t
+  %c = alloca %StorageClass
+  store %StorageClass %_c, %StorageClass* %c
+  %reg = alloca %Nat32
+  store %Nat32 %_reg, %Nat32* %reg
 
 ;stmt0:
-  %1 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 1
-  %2 = load %StorageClass, %StorageClass* %1
+  %o = alloca %Obj
 
 ;stmt1:
-  %3 = icmp eq %StorageClass %2, 1
-  br i1 %3, label %then_0, label %else_0
-then_0:
+  %1 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 0
+  %2 = load %Type*, %Type** %t
+  store %Type* %2, %Type** %1
 
 ;stmt2:
+  %3 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 1
+  %4 = load %StorageClass, %StorageClass* %c
+  store %StorageClass %4, %StorageClass* %3
 
 ;stmt3:
-  %4 = load %Unit*, %Unit** @fout
-  %5 = load %Str, %Str* @_func308_str1
-  %6 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 2
-  %7 = load %Int64, %Int64* %6
-  %8 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %4, %Str %5, %Int64 %7)
-  br label %endif_0
-else_0:
+  %5 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 4
+  %6 = load %Nat32, %Nat32* %reg
+  store %Nat32 %6, %Nat32* %5
 
 ;stmt4:
-  %9 = icmp eq %StorageClass %2, 6
-  %10 = icmp eq %StorageClass %2, 5
-  %11 = or %Bool %9, %10
-  br i1 %11, label %then_1, label %else_1
-then_1:
+  %7 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 3
+  %8 = inttoptr i64 0 to %Str
+  store %Str %8, %Str* %7
 
 ;stmt5:
+  %9 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 2
+  store %Int64 0, %Int64* %9
 
 ;stmt6:
-  %12 = load %Unit*, %Unit** @fout
-  %13 = load %Str, %Str* @_func308_str2
-  %14 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 4
-  %15 = load %Nat32, %Nat32* %14
-  %16 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %12, %Str %13, %Nat32 %15)
-  br label %endif_1
-else_1:
-
-;stmt7:
-  %17 = icmp eq %StorageClass %2, 4
-  %18 = icmp eq %StorageClass %2, 2
-  %19 = or %Bool %17, %18
-  br i1 %19, label %then_2, label %else_2
-then_2:
-
-;stmt8:
-
-;stmt9:
-  %20 = load %Unit*, %Unit** @fout
-  %21 = load %Str, %Str* @_func308_str3
-  %22 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 3
-  %23 = load %Str, %Str* %22
-  %24 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %20, %Str %21, %Str %23)
-  br label %endif_2
-else_2:
-
-;stmt10:
-  %25 = icmp eq %StorageClass %2, 3
-  br i1 %25, label %then_3, label %else_3
-then_3:
-
-;stmt11:
-
-;stmt12:
-  %26 = load %Unit*, %Unit** @fout
-  %27 = load %Str, %Str* @_func308_str4
-  %28 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 3
-  %29 = load %Str, %Str* %28
-  %30 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %26, %Str %27, %Str %29)
-  br label %endif_3
-else_3:
-
-;stmt13:
-  %31 = icmp eq %StorageClass %2, 0
-  br i1 %31, label %then_4, label %else_4
-then_4:
-
-;stmt14:
-
-;stmt15:
-  %32 = load %Unit*, %Unit** @fout
-  %33 = load %Str, %Str* @_func308_str5
-  %34 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %32, %Str %33)
-  br label %endif_4
-else_4:
-  br label %endif_4
-endif_4:
-  br label %endif_3
-endif_3:
-  br label %endif_2
-endif_2:
-  br label %endif_1
-endif_1:
-  br label %endif_0
-endif_0:
-  ret void
+  %10 = load %Obj, %Obj* %o
+  ret %Obj %10
 }
 
 define %Obj @eval (%Value* %_v) {
@@ -18867,21 +18805,21 @@ define %Obj @eval (%Value* %_v) {
   %3 = load %ValueKind, %ValueKind* %2
 
 ;stmt1:
+  %ox = alloca %Obj
+
+;stmt2:
   %4 = icmp eq %ValueKind %3, 1
   br i1 %4, label %then_0, label %else_0
 then_0:
 
-;stmt2:
-
 ;stmt3:
-  %ox = alloca %Obj
 
 ;stmt4:
-  %5 = load %Value*, %Value** %v
-  %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 1
-  %7 = load %Type*, %Type** %6
-  %8 = call %Obj (%Type*, %StorageClass, %Nat32) @obj (%Type* %7, %StorageClass 6, %Nat32 0)
-  store %Obj %8, %Obj* %ox
+  %5 = getelementptr inbounds %Obj, %Obj* %ox, i32 0, i32 0
+  %6 = load %Value*, %Value** %v
+  %7 = getelementptr inbounds %Value, %Value* %6, i32 0, i32 1
+  %8 = load %Type*, %Type** %7
+  store %Type* %8, %Type** %5
 
 ;stmt5:
   %9 = getelementptr inbounds %Obj, %Obj* %ox, i32 0, i32 1
@@ -18920,137 +18858,138 @@ then_1:
 ;stmt10:
 
 ;stmt11:
-  %ox2 = alloca %Obj
+  %26 = getelementptr inbounds %Obj, %Obj* %ox, i32 0, i32 0
+  %27 = load %Value*, %Value** %v
+  %28 = getelementptr inbounds %Value, %Value* %27, i32 0, i32 1
+  %29 = load %Type*, %Type** %28
+  store %Type* %29, %Type** %26
 
 ;stmt12:
-  %26 = load %Value*, %Value** %v
-  %27 = getelementptr inbounds %Value, %Value* %26, i32 0, i32 1
-  %28 = load %Type*, %Type** %27
-  %29 = call %Obj (%Type*, %StorageClass, %Nat32) @obj (%Type* %28, %StorageClass 1, %Nat32 0)
-  store %Obj %29, %Obj* %ox2
+  %30 = getelementptr inbounds %Obj, %Obj* %ox, i32 0, i32 1
+  store %StorageClass 1, %StorageClass* %30
 
 ;stmt13:
-  %30 = getelementptr inbounds %Obj, %Obj* %ox2, i32 0, i32 2
-  %31 = load %Value*, %Value** %v
-  %32 = getelementptr inbounds %Value, %Value* %31, i32 0, i32 5
-  %33 = load %Int64, %Int64* %32
-  store %Int64 %33, %Int64* %30
+  %31 = getelementptr inbounds %Obj, %Obj* %ox, i32 0, i32 2
+  %32 = load %Value*, %Value** %v
+  %33 = getelementptr inbounds %Value, %Value* %32, i32 0, i32 5
+  %34 = load %Int64, %Int64* %33
+  store %Int64 %34, %Int64* %31
 
 ;stmt14:
-  %34 = load %Obj, %Obj* %ox2
-  ret %Obj %34
+  %35 = load %Obj, %Obj* %ox
+  ret %Obj %35
   br label %endif_1
 else_1:
 
 ;stmt15:
-  %36 = icmp eq %ValueKind %3, 27
-  br i1 %36, label %then_2, label %else_2
+  %37 = icmp eq %ValueKind %3, 27
+  br i1 %37, label %then_2, label %else_2
 then_2:
 
 ;stmt16:
 
 ;stmt17:
-  %37 = load %Value*, %Value** %v
-  %38 = call %Obj (%Value*) @eval_call (%Value* %37)
-  ret %Obj %38
+  %38 = load %Value*, %Value** %v
+  %39 = call %Obj (%Value*) @eval_call (%Value* %38)
+  ret %Obj %39
   br label %endif_2
 else_2:
 
 ;stmt18:
-  %40 = icmp eq %ValueKind %3, 28
-  br i1 %40, label %then_3, label %else_3
+  %41 = icmp eq %ValueKind %3, 28
+  br i1 %41, label %then_3, label %else_3
 then_3:
 
 ;stmt19:
 
 ;stmt20:
-  %41 = load %Value*, %Value** %v
-  %42 = call %Obj (%Value*) @eval_index (%Value* %41)
-  ret %Obj %42
+  %42 = load %Value*, %Value** %v
+  %43 = call %Obj (%Value*) @eval_index (%Value* %42)
+  ret %Obj %43
   br label %endif_3
 else_3:
 
 ;stmt21:
-  %44 = icmp eq %ValueKind %3, 29
-  br i1 %44, label %then_4, label %else_4
+  %45 = icmp eq %ValueKind %3, 29
+  br i1 %45, label %then_4, label %else_4
 then_4:
 
 ;stmt22:
 
 ;stmt23:
-  %45 = load %Value*, %Value** %v
-  %46 = call %Obj (%Value*) @eval_access (%Value* %45)
-  ret %Obj %46
+  %46 = load %Value*, %Value** %v
+  %47 = call %Obj (%Value*) @eval_access (%Value* %46)
+  ret %Obj %47
   br label %endif_4
 else_4:
 
 ;stmt24:
-  %48 = icmp eq %ValueKind %3, 7
-  br i1 %48, label %then_5, label %else_5
+  %49 = icmp eq %ValueKind %3, 7
+  br i1 %49, label %then_5, label %else_5
 then_5:
 
 ;stmt25:
 
 ;stmt26:
-  %49 = load %Value*, %Value** %v
-  %50 = call %Obj (%Value*) @eval_ref (%Value* %49)
-  ret %Obj %50
+  %50 = load %Value*, %Value** %v
+  %51 = call %Obj (%Value*) @eval_ref (%Value* %50)
+  ret %Obj %51
   br label %endif_5
 else_5:
 
 ;stmt27:
-  %52 = icmp eq %ValueKind %3, 8
-  br i1 %52, label %then_6, label %else_6
+  %53 = icmp eq %ValueKind %3, 8
+  br i1 %53, label %then_6, label %else_6
 then_6:
 
 ;stmt28:
 
 ;stmt29:
-  %53 = load %Value*, %Value** %v
-  %54 = call %Obj (%Value*) @eval_deref (%Value* %53)
-  ret %Obj %54
+  %54 = load %Value*, %Value** %v
+  %55 = call %Obj (%Value*) @eval_deref (%Value* %54)
+  ret %Obj %55
   br label %endif_6
 else_6:
 
 ;stmt30:
-  %56 = icmp eq %ValueKind %3, 10
-  br i1 %56, label %then_7, label %else_7
+  %57 = icmp eq %ValueKind %3, 10
+  br i1 %57, label %then_7, label %else_7
 then_7:
 
 ;stmt31:
 
 ;stmt32:
-  %57 = load %Value*, %Value** %v
-  %58 = call %Obj (%Value*) @eval_minus (%Value* %57)
-  ret %Obj %58
+  %58 = load %Value*, %Value** %v
+  %59 = call %Obj (%Value*) @eval_minus (%Value* %58)
+  ret %Obj %59
   br label %endif_7
 else_7:
 
 ;stmt33:
-  %60 = icmp eq %ValueKind %3, 9
-  br i1 %60, label %then_8, label %else_8
+  %61 = icmp eq %ValueKind %3, 9
+  br i1 %61, label %then_8, label %else_8
 then_8:
 
 ;stmt34:
 
 ;stmt35:
-  %61 = load %Value*, %Value** %v
-  %62 = call %Obj (%Value*) @eval_not (%Value* %61)
-  ret %Obj %62
+  %62 = load %Value*, %Value** %v
+  %63 = call %Obj (%Value*) @eval_not (%Value* %62)
+  ret %Obj %63
   br label %endif_8
 else_8:
 
 ;stmt36:
-  %64 = icmp eq %ValueKind %3, 30
-  br i1 %64, label %then_9, label %else_9
+  %65 = icmp eq %ValueKind %3, 30
+  br i1 %65, label %then_9, label %else_9
 then_9:
 
 ;stmt37:
 
 ;stmt38:
-  %65 = load %Value*, %Value** %v
-  %66 = call %Obj (%Value*) @eval_cast (%Value* %65)
-  ret %Obj %66
+  %66 = load %Value*, %Value** %v
+  %67 = call %Obj (%Value*) @eval_cast (%Value* %66)
+  ret %Obj %67
   br label %endif_9
 else_9:
   br label %endif_9
@@ -19075,141 +19014,9 @@ endif_1:
 endif_0:
 
 ;stmt39:
-  %68 = load %Value*, %Value** %v
-  %69 = call %Obj (%Value*) @eval_bin (%Value* %68)
-  ret %Obj %69
-}
-
-define %Obj @loadImmPtr (%Obj %_x) {
-  %x = alloca %Obj
-  store %Obj %_x, %Obj* %x
-
-;stmt0:
-  %1 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
-  %2 = load %Type*, %Type** %1
-
-;stmt1:
-  %3 = call %Nat32 () @lab_get ()
-
-;stmt2:
-  %4 = load %Unit*, %Unit** @fout
-  %5 = load %Str, %Str* @_func310_str1
-  %6 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %4, %Str %5, %Nat32 %3)
-
-;stmt3:
-  %7 = load %Obj, %Obj* %x
-  call void (%Obj) @print_obj (%Obj %7)
-
-;stmt4:
-  %8 = load %Str, %Str* @_func310_str2
-  call void (%Str) @o (%Str %8)
-
-;stmt5:
-  call void (%Type*, %Bool, %Bool) @printType (%Type* %2, %Bool 1, %Bool 1)
-
-;stmt6:
-  %9 = call %Obj (%Type*, %StorageClass, %Nat32) @obj (%Type* %2, %StorageClass 6, %Nat32 %3)
-  ret %Obj %9
-}
-
-define %Obj @load (%Obj %_x) {
-  %x = alloca %Obj
-  store %Obj %_x, %Obj* %x
-
-;stmt0:
-  %1 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
-  %2 = load %StorageClass, %StorageClass* %1
-  %3 = icmp eq %StorageClass %2, 1
-  br i1 %3, label %then_0, label %else_0
-then_0:
-
-;stmt1:
-
-;stmt2:
-  %4 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
-  %5 = load %Type*, %Type** %4
-  %6 = call %Bool (%Type*) @typeIsReference (%Type* %5)
-  br i1 %6, label %then_1, label %else_1
-then_1:
-
-;stmt3:
-
-;stmt4:
-  %7 = load %Obj, %Obj* %x
-  %8 = call %Obj (%Obj) @loadImmPtr (%Obj %7)
-  ret %Obj %8
-  br label %endif_1
-else_1:
-  br label %endif_1
-endif_1:
-
-;stmt5:
-  %10 = load %Obj, %Obj* %x
-  ret %Obj %10
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt6:
-  %12 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
-  %13 = load %StorageClass, %StorageClass* %12
-  %14 = icmp ne %StorageClass %13, 3
-  %15 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
-  %16 = load %StorageClass, %StorageClass* %15
-  %17 = icmp ne %StorageClass %16, 4
-  %18 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
-  %19 = load %StorageClass, %StorageClass* %18
-  %20 = icmp ne %StorageClass %19, 5
-  %21 = and %Bool %17, %20
-  %22 = and %Bool %14, %21
-  br i1 %22, label %then_2, label %else_2
-then_2:
-
-;stmt7:
-
-;stmt8:
-  %23 = load %Obj, %Obj* %x
-  ret %Obj %23
-  br label %endif_2
-else_2:
-  br label %endif_2
-endif_2:
-
-;stmt9:
-  %25 = call %Nat32 () @lab_get ()
-
-;stmt10:
-  %26 = load %Unit*, %Unit** @fout
-  %27 = load %Str, %Str* @_func311_str1
-  %28 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %26, %Str %27, %Nat32 %25)
-
-;stmt11:
-  %29 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
-  %30 = load %Type*, %Type** %29
-  call void (%Type*, %Bool, %Bool) @printType (%Type* %30, %Bool 1, %Bool 1)
-
-;stmt12:
-  call void () @comma ()
-
-;stmt13:
-  %31 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
-  %32 = load %Type*, %Type** %31
-  call void (%Type*, %Bool, %Bool) @printType (%Type* %32, %Bool 1, %Bool 1)
-
-;stmt14:
-  %33 = load %Str, %Str* @_func311_str2
-  call void (%Str) @o (%Str %33)
-
-;stmt15:
-  %34 = load %Obj, %Obj* %x
-  call void (%Obj) @print_obj (%Obj %34)
-
-;stmt16:
-  %35 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
-  %36 = load %Type*, %Type** %35
-  %37 = call %Obj (%Type*, %StorageClass, %Nat32) @obj (%Type* %36, %StorageClass 6, %Nat32 %25)
-  ret %Obj %37
+  %69 = load %Value*, %Value** %v
+  %70 = call %Obj (%Value*) @eval_bin (%Value* %69)
+  ret %Obj %70
 }
 
 define void @eval_args (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
@@ -19303,7 +19110,7 @@ then_0:
 
 ;stmt8:
   %21 = load %Unit*, %Unit** @fout
-  %22 = load %Str, %Str* @_func312_str1
+  %22 = load %Str, %Str* @_func310_str1
   %23 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %21, %Str %22)
   br label %endif_0
 else_0:
@@ -19316,7 +19123,7 @@ else_0:
 
 ;stmt11:
   %25 = load %Unit*, %Unit** @fout
-  %26 = load %Str, %Str* @_func312_str2
+  %26 = load %Str, %Str* @_func310_str2
   %27 = load %Nat32, %Nat32* %retval_reg
   %28 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %25, %Str %26, %Nat32 %27)
   br label %endif_0
@@ -19335,7 +19142,7 @@ endif_0:
   call void (%Obj) @print_obj (%Obj %31)
 
 ;stmt15:
-  %32 = load %Str, %Str* @_func312_str3
+  %32 = load %Str, %Str* @_func310_str3
   call void (%Str) @o (%Str %32)
 
 ;stmt16:
@@ -19405,7 +19212,7 @@ endif_1:
 break_0:
 
 ;stmt30:
-  %49 = load %Str, %Str* @_func312_str4
+  %49 = load %Str, %Str* @_func310_str4
   call void (%Str) @o (%Str %49)
 
 ;stmt31:
@@ -19469,7 +19276,7 @@ endif_0:
 
 ;stmt8:
   %20 = load %Unit*, %Unit** @fout
-  %21 = load %Str, %Str* @_func314_str1
+  %21 = load %Str, %Str* @_func312_str1
   %22 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %20, %Str %21, %Nat32 %19)
 
 ;stmt9:
@@ -19527,7 +19334,7 @@ else_2:
 ;stmt20:
 
 ;stmt21:
-  %38 = load %Str, %Str* @_func314_str2
+  %38 = load %Str, %Str* @_func312_str2
   call void (%Str) @o (%Str %38)
   br label %endif_2
 endif_2:
@@ -19549,7 +19356,7 @@ then_3:
 ;stmt24:
 
 ;stmt25:
-  %46 = load %Str, %Str* @_func314_str3
+  %46 = load %Str, %Str* @_func312_str3
   call void (%Str) @o (%Str %46)
   br label %endif_3
 else_3:
@@ -19640,7 +19447,7 @@ endif_0:
   %24 = bitcast %Str %23 to %Unit*
   %25 = inttoptr i64 0 to %Unit*
   %26 = icmp ne %Unit* %24, %25
-  %27 = load %Str, %Str* @_func315_str1
+  %27 = load %Str, %Str* @_func313_str1
   call void (%Bool, %Str) @assert (%Bool %26, %Str %27)
 
 ;stmt10:
@@ -19658,7 +19465,7 @@ endif_0:
 
 ;stmt12:
   %37 = load %Unit*, %Unit** @fout
-  %38 = load %Str, %Str* @_func315_str2
+  %38 = load %Str, %Str* @_func313_str2
   %39 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %37, %Str %38, %Nat32 %36)
 
 ;stmt13:
@@ -19673,7 +19480,7 @@ endif_0:
   call void (%Type*, %Bool, %Bool) @printType (%Type* %41, %Bool 1, %Bool 1)
 
 ;stmt16:
-  %42 = load %Str, %Str* @_func315_str3
+  %42 = load %Str, %Str* @_func313_str3
   call void (%Str) @o (%Str %42)
 
 ;stmt17:
@@ -19682,7 +19489,7 @@ endif_0:
 
 ;stmt18:
   %44 = load %Unit*, %Unit** @fout
-  %45 = load %Str, %Str* @_func315_str4
+  %45 = load %Str, %Str* @_func313_str4
   %46 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %44, %Str %45, %Nat16 %35)
 
 ;stmt19:
@@ -19735,7 +19542,7 @@ endif_0:
 
 ;stmt6:
   %17 = load %Unit*, %Unit** @fout
-  %18 = load %Str, %Str* @_func316_str1
+  %18 = load %Str, %Str* @_func314_str1
   %19 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %17, %Str %18, %Nat32 %16)
 
 ;stmt7:
@@ -19752,7 +19559,7 @@ endif_0:
   call void (%Type*, %Bool, %Bool) @printType (%Type* %23, %Bool 1, %Bool 1)
 
 ;stmt10:
-  %24 = load %Str, %Str* @_func316_str2
+  %24 = load %Str, %Str* @_func314_str2
   call void (%Str) @o (%Str %24)
 
 ;stmt11:
@@ -19763,7 +19570,7 @@ endif_0:
   call void () @comma ()
 
 ;stmt13:
-  %26 = load %Str, %Str* @_func316_str3
+  %26 = load %Str, %Str* @_func314_str3
   call void (%Str) @o (%Str %26)
 
 ;stmt14:
@@ -19821,7 +19628,7 @@ define %Obj @eval_not (%Value* %_v) {
 
 ;stmt3:
   %8 = load %Unit*, %Unit** @fout
-  %9 = load %Str, %Str* @_func318_str1
+  %9 = load %Str, %Str* @_func316_str1
   %10 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %8, %Str %9, %Nat32 %7)
 
 ;stmt4:
@@ -19847,7 +19654,7 @@ then_0:
 ;stmt8:
 
 ;stmt9:
-  %18 = load %Str, %Str* @_func318_str2
+  %18 = load %Str, %Str* @_func316_str2
   call void (%Str) @o (%Str %18)
   br label %endif_0
 else_0:
@@ -19855,7 +19662,7 @@ else_0:
 ;stmt10:
 
 ;stmt11:
-  %19 = load %Str, %Str* @_func318_str3
+  %19 = load %Str, %Str* @_func316_str3
   call void (%Str) @o (%Str %19)
   br label %endif_0
 endif_0:
@@ -19888,7 +19695,7 @@ define %Obj @eval_minus (%Value* %_v) {
 
 ;stmt3:
   %8 = load %Unit*, %Unit** @fout
-  %9 = load %Str, %Str* @_func319_str1
+  %9 = load %Str, %Str* @_func317_str1
   %10 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %8, %Str %9, %Nat32 %7)
 
 ;stmt4:
@@ -19898,7 +19705,7 @@ define %Obj @eval_minus (%Value* %_v) {
 
 ;stmt5:
   %13 = load %Unit*, %Unit** @fout
-  %14 = load %Str, %Str* @_func319_str2
+  %14 = load %Str, %Str* @_func317_str2
   %15 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %13, %Str %14)
 
 ;stmt6:
@@ -19965,7 +19772,7 @@ endif_0:
 
 ;stmt9:
   %17 = load %Unit*, %Unit** @fout
-  %18 = load %Str, %Str* @_func320_str1
+  %18 = load %Str, %Str* @_func318_str1
   %19 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %17, %Str %18, %Nat32 %16)
 
 ;stmt10:
@@ -19992,7 +19799,7 @@ then_2:
 
 ;stmt15:
   %28 = load %Unit*, %Unit** @fout
-  %29 = load %Str, %Str* @_func320_str2
+  %29 = load %Str, %Str* @_func318_str2
   %30 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %28, %Str %29)
   br label %endif_2
 else_2:
@@ -20001,7 +19808,7 @@ else_2:
 
 ;stmt17:
   %31 = load %Unit*, %Unit** @fout
-  %32 = load %Str, %Str* @_func320_str3
+  %32 = load %Str, %Str* @_func318_str3
   %33 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %31, %Str %32)
   br label %endif_2
 endif_2:
@@ -20034,7 +19841,7 @@ then_4:
 
 ;stmt22:
   %46 = load %Unit*, %Unit** @fout
-  %47 = load %Str, %Str* @_func320_str4
+  %47 = load %Str, %Str* @_func318_str4
   %48 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %46, %Str %47)
   br label %endif_4
 else_4:
@@ -20043,7 +19850,7 @@ else_4:
 
 ;stmt24:
   %49 = load %Unit*, %Unit** @fout
-  %50 = load %Str, %Str* @_func320_str5
+  %50 = load %Str, %Str* @_func318_str5
   %51 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %49, %Str %50)
   br label %endif_4
 endif_4:
@@ -20083,7 +19890,7 @@ then_7:
 
 ;stmt31:
   %65 = load %Unit*, %Unit** @fout
-  %66 = load %Str, %Str* @_func320_str6
+  %66 = load %Str, %Str* @_func318_str6
   %67 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %65, %Str %66)
   br label %endif_7
 else_7:
@@ -20114,7 +19921,7 @@ then_9:
 
 ;stmt36:
   %80 = load %Unit*, %Unit** @fout
-  %81 = load %Str, %Str* @_func320_str7
+  %81 = load %Str, %Str* @_func318_str7
   %82 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %80, %Str %81)
   br label %endif_9
 else_9:
@@ -20123,14 +19930,14 @@ else_9:
 
 ;stmt38:
   %83 = load %Unit*, %Unit** @fout
-  %84 = load %Str, %Str* @_func320_str8
+  %84 = load %Str, %Str* @_func318_str8
   %85 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %83, %Str %84)
   br label %endif_9
 endif_9:
 
 ;stmt39:
   %86 = load %Unit*, %Unit** @fout
-  %87 = load %Str, %Str* @_func320_str9
+  %87 = load %Str, %Str* @_func318_str9
   %88 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %86, %Str %87)
   br label %endif_8
 else_8:
@@ -20139,7 +19946,7 @@ else_8:
 
 ;stmt41:
   %89 = load %Unit*, %Unit** @fout
-  %90 = load %Str, %Str* @_func320_str10
+  %90 = load %Str, %Str* @_func318_str10
   %91 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %89, %Str %90)
   br label %endif_8
 endif_8:
@@ -20157,7 +19964,7 @@ then_10:
 
 ;stmt44:
   %93 = load %Unit*, %Unit** @fout
-  %94 = load %Str, %Str* @_func320_str11
+  %94 = load %Str, %Str* @_func318_str11
   %95 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %93, %Str %94)
   br label %endif_10
 else_10:
@@ -20186,7 +19993,7 @@ then_12:
 
 ;stmt50:
   %104 = load %Unit*, %Unit** @fout
-  %105 = load %Str, %Str* @_func320_str12
+  %105 = load %Str, %Str* @_func318_str12
   %106 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %104, %Str %105)
   br label %endif_12
 else_12:
@@ -20203,7 +20010,7 @@ then_13:
 
 ;stmt53:
   %111 = load %Unit*, %Unit** @fout
-  %112 = load %Str, %Str* @_func320_str13
+  %112 = load %Str, %Str* @_func318_str13
   %113 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %111, %Str %112)
   br label %endif_13
 else_13:
@@ -20212,7 +20019,7 @@ else_13:
 
 ;stmt55:
   %114 = load %Unit*, %Unit** @fout
-  %115 = load %Str, %Str* @_func320_str14
+  %115 = load %Str, %Str* @_func318_str14
   %116 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %114, %Str %115)
   br label %endif_13
 endif_13:
@@ -20233,11 +20040,11 @@ else_14:
 ;stmt58:
 
 ;stmt59:
-  %118 = load %Str, %Str* @_func320_str15
+  %118 = load %Str, %Str* @_func318_str15
   %119 = call %Int32 (%Str, ...) @printf (%Str %118, %TypeKind %23)
 
 ;stmt60:
-  %120 = load %Str, %Str* @_func320_str16
+  %120 = load %Str, %Str* @_func318_str16
   call void (%Str) @fatal (%Str %120)
   br label %endif_14
 endif_14:
@@ -20269,7 +20076,7 @@ endif_1:
   call void (%Obj) @print_obj (%Obj %123)
 
 ;stmt64:
-  %124 = load %Str, %Str* @_func320_str17
+  %124 = load %Str, %Str* @_func318_str17
   call void (%Str) @o (%Str %124)
 
 ;stmt65:
@@ -20291,7 +20098,7 @@ define %Obj @eval_bin (%Value* %_v) {
   %o = alloca %Str
 
 ;stmt1:
-  %1 = load %Str, %Str* @_func321_str1
+  %1 = load %Str, %Str* @_func319_str1
   store %Str %1, %Str* %o
 
 ;stmt2:
@@ -20318,7 +20125,7 @@ then_0:
 ;stmt5:
 
 ;stmt6:
-  %15 = load %Str, %Str* @_func321_str2
+  %15 = load %Str, %Str* @_func319_str2
   store %Str %15, %Str* %o
   br label %endif_0
 else_0:
@@ -20331,7 +20138,7 @@ then_1:
 ;stmt8:
 
 ;stmt9:
-  %17 = load %Str, %Str* @_func321_str3
+  %17 = load %Str, %Str* @_func319_str3
   store %Str %17, %Str* %o
   br label %endif_1
 else_1:
@@ -20344,7 +20151,7 @@ then_2:
 ;stmt11:
 
 ;stmt12:
-  %19 = load %Str, %Str* @_func321_str4
+  %19 = load %Str, %Str* @_func319_str4
   store %Str %19, %Str* %o
   br label %endif_2
 else_2:
@@ -20363,7 +20170,7 @@ then_4:
 ;stmt16:
 
 ;stmt17:
-  %21 = load %Str, %Str* @_func321_str5
+  %21 = load %Str, %Str* @_func319_str5
   store %Str %21, %Str* %o
   br label %endif_4
 else_4:
@@ -20371,7 +20178,7 @@ else_4:
 ;stmt18:
 
 ;stmt19:
-  %22 = load %Str, %Str* @_func321_str6
+  %22 = load %Str, %Str* @_func319_str6
   store %Str %22, %Str* %o
   br label %endif_4
 endif_4:
@@ -20392,7 +20199,7 @@ then_6:
 ;stmt23:
 
 ;stmt24:
-  %24 = load %Str, %Str* @_func321_str7
+  %24 = load %Str, %Str* @_func319_str7
   store %Str %24, %Str* %o
   br label %endif_6
 else_6:
@@ -20400,7 +20207,7 @@ else_6:
 ;stmt25:
 
 ;stmt26:
-  %25 = load %Str, %Str* @_func321_str8
+  %25 = load %Str, %Str* @_func319_str8
   store %Str %25, %Str* %o
   br label %endif_6
 endif_6:
@@ -20415,7 +20222,7 @@ then_7:
 ;stmt28:
 
 ;stmt29:
-  %27 = load %Str, %Str* @_func321_str9
+  %27 = load %Str, %Str* @_func319_str9
   store %Str %27, %Str* %o
   br label %endif_7
 else_7:
@@ -20428,7 +20235,7 @@ then_8:
 ;stmt31:
 
 ;stmt32:
-  %29 = load %Str, %Str* @_func321_str10
+  %29 = load %Str, %Str* @_func319_str10
   store %Str %29, %Str* %o
   br label %endif_8
 else_8:
@@ -20441,7 +20248,7 @@ then_9:
 ;stmt34:
 
 ;stmt35:
-  %31 = load %Str, %Str* @_func321_str11
+  %31 = load %Str, %Str* @_func319_str11
   store %Str %31, %Str* %o
   br label %endif_9
 else_9:
@@ -20454,7 +20261,7 @@ then_10:
 ;stmt37:
 
 ;stmt38:
-  %33 = load %Str, %Str* @_func321_str12
+  %33 = load %Str, %Str* @_func319_str12
   store %Str %33, %Str* %o
   br label %endif_10
 else_10:
@@ -20467,7 +20274,7 @@ then_11:
 ;stmt40:
 
 ;stmt41:
-  %35 = load %Str, %Str* @_func321_str13
+  %35 = load %Str, %Str* @_func319_str13
   store %Str %35, %Str* %o
   br label %endif_11
 else_11:
@@ -20486,7 +20293,7 @@ then_13:
 ;stmt45:
 
 ;stmt46:
-  %37 = load %Str, %Str* @_func321_str14
+  %37 = load %Str, %Str* @_func319_str14
   store %Str %37, %Str* %o
   br label %endif_13
 else_13:
@@ -20494,7 +20301,7 @@ else_13:
 ;stmt47:
 
 ;stmt48:
-  %38 = load %Str, %Str* @_func321_str15
+  %38 = load %Str, %Str* @_func319_str15
   store %Str %38, %Str* %o
   br label %endif_13
 endif_13:
@@ -20515,7 +20322,7 @@ then_15:
 ;stmt52:
 
 ;stmt53:
-  %40 = load %Str, %Str* @_func321_str16
+  %40 = load %Str, %Str* @_func319_str16
   store %Str %40, %Str* %o
   br label %endif_15
 else_15:
@@ -20523,7 +20330,7 @@ else_15:
 ;stmt54:
 
 ;stmt55:
-  %41 = load %Str, %Str* @_func321_str17
+  %41 = load %Str, %Str* @_func319_str17
   store %Str %41, %Str* %o
   br label %endif_15
 endif_15:
@@ -20544,7 +20351,7 @@ then_17:
 ;stmt59:
 
 ;stmt60:
-  %43 = load %Str, %Str* @_func321_str18
+  %43 = load %Str, %Str* @_func319_str18
   store %Str %43, %Str* %o
   br label %endif_17
 else_17:
@@ -20552,7 +20359,7 @@ else_17:
 ;stmt61:
 
 ;stmt62:
-  %44 = load %Str, %Str* @_func321_str19
+  %44 = load %Str, %Str* @_func319_str19
   store %Str %44, %Str* %o
   br label %endif_17
 endif_17:
@@ -20573,7 +20380,7 @@ then_19:
 ;stmt66:
 
 ;stmt67:
-  %46 = load %Str, %Str* @_func321_str20
+  %46 = load %Str, %Str* @_func319_str20
   store %Str %46, %Str* %o
   br label %endif_19
 else_19:
@@ -20581,7 +20388,7 @@ else_19:
 ;stmt68:
 
 ;stmt69:
-  %47 = load %Str, %Str* @_func321_str21
+  %47 = load %Str, %Str* @_func319_str21
   store %Str %47, %Str* %o
   br label %endif_19
 endif_19:
@@ -20596,7 +20403,7 @@ then_20:
 ;stmt71:
 
 ;stmt72:
-  %49 = load %Str, %Str* @_func321_str22
+  %49 = load %Str, %Str* @_func319_str22
   store %Str %49, %Str* %o
   br label %endif_20
 else_20:
@@ -20615,7 +20422,7 @@ then_22:
 ;stmt76:
 
 ;stmt77:
-  %51 = load %Str, %Str* @_func321_str23
+  %51 = load %Str, %Str* @_func319_str23
   store %Str %51, %Str* %o
   br label %endif_22
 else_22:
@@ -20623,7 +20430,7 @@ else_22:
 ;stmt78:
 
 ;stmt79:
-  %52 = load %Str, %Str* @_func321_str24
+  %52 = load %Str, %Str* @_func319_str24
   store %Str %52, %Str* %o
   br label %endif_22
 endif_22:
@@ -20691,7 +20498,7 @@ endif_0:
 
 ;stmt85:
   %66 = load %Unit*, %Unit** @fout
-  %67 = load %Str, %Str* @_func321_str25
+  %67 = load %Str, %Str* @_func319_str25
   %68 = load %Str, %Str* %o
   %69 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %66, %Str %67, %Nat32 %65, %Str %68)
 
@@ -20747,7 +20554,7 @@ define void @print_st (%Value* %_l, %Value* %_r) {
 
 ;stmt4:
   %6 = load %Unit*, %Unit** @fout
-  %7 = load %Str, %Str* @_func322_str1
+  %7 = load %Str, %Str* @_func320_str1
   %8 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %6, %Str %7)
 
 ;stmt5:
@@ -20771,7 +20578,7 @@ define void @print_st (%Value* %_l, %Value* %_r) {
   call void (%Type*, %Bool, %Bool) @printType (%Type* %13, %Bool 1, %Bool 1)
 
 ;stmt10:
-  %14 = load %Str, %Str* @_func322_str2
+  %14 = load %Str, %Str* @_func320_str2
   call void (%Str) @o (%Str %14)
 
 ;stmt11:
@@ -20780,44 +20587,238 @@ define void @print_st (%Value* %_l, %Value* %_r) {
   ret void
 }
 
-define %Obj @obj (%Type* %_t, %StorageClass %_c, %Nat32 %_reg) {
-  %t = alloca %Type*
-  store %Type* %_t, %Type** %t
-  %c = alloca %StorageClass
-  store %StorageClass %_c, %StorageClass* %c
-  %reg = alloca %Nat32
-  store %Nat32 %_reg, %Nat32* %reg
+define %Obj @loadImmPtr (%Obj %_x) {
+  %x = alloca %Obj
+  store %Obj %_x, %Obj* %x
 
 ;stmt0:
-  %o = alloca %Obj
+  %1 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
+  %2 = load %Type*, %Type** %1
 
 ;stmt1:
-  %1 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 0
-  %2 = load %Type*, %Type** %t
-  store %Type* %2, %Type** %1
+  %3 = call %Nat32 () @lab_get ()
 
 ;stmt2:
-  %3 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 1
-  %4 = load %StorageClass, %StorageClass* %c
-  store %StorageClass %4, %StorageClass* %3
+  %4 = load %Unit*, %Unit** @fout
+  %5 = load %Str, %Str* @_func322_str1
+  %6 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %4, %Str %5, %Nat32 %3)
 
 ;stmt3:
-  %5 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 4
-  %6 = load %Nat32, %Nat32* %reg
-  store %Nat32 %6, %Nat32* %5
+  %7 = load %Obj, %Obj* %x
+  call void (%Obj) @print_obj (%Obj %7)
 
 ;stmt4:
-  %7 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 3
-  %8 = inttoptr i64 0 to %Str
-  store %Str %8, %Str* %7
+  %8 = load %Str, %Str* @_func322_str2
+  call void (%Str) @o (%Str %8)
 
 ;stmt5:
-  %9 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 2
-  store %Int64 0, %Int64* %9
+  call void (%Type*, %Bool, %Bool) @printType (%Type* %2, %Bool 1, %Bool 1)
 
 ;stmt6:
-  %10 = load %Obj, %Obj* %o
+  %9 = call %Obj (%Type*, %StorageClass, %Nat32) @obj (%Type* %2, %StorageClass 6, %Nat32 %3)
+  ret %Obj %9
+}
+
+define %Obj @load (%Obj %_x) {
+  %x = alloca %Obj
+  store %Obj %_x, %Obj* %x
+
+;stmt0:
+  %1 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
+  %2 = load %StorageClass, %StorageClass* %1
+  %3 = icmp eq %StorageClass %2, 1
+  br i1 %3, label %then_0, label %else_0
+then_0:
+
+;stmt1:
+
+;stmt2:
+  %4 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
+  %5 = load %Type*, %Type** %4
+  %6 = call %Bool (%Type*) @typeIsReference (%Type* %5)
+  br i1 %6, label %then_1, label %else_1
+then_1:
+
+;stmt3:
+
+;stmt4:
+  %7 = load %Obj, %Obj* %x
+  %8 = call %Obj (%Obj) @loadImmPtr (%Obj %7)
+  ret %Obj %8
+  br label %endif_1
+else_1:
+  br label %endif_1
+endif_1:
+
+;stmt5:
+  %10 = load %Obj, %Obj* %x
   ret %Obj %10
+  br label %endif_0
+else_0:
+  br label %endif_0
+endif_0:
+
+;stmt6:
+  %12 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
+  %13 = load %StorageClass, %StorageClass* %12
+  %14 = icmp ne %StorageClass %13, 3
+  %15 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
+  %16 = load %StorageClass, %StorageClass* %15
+  %17 = icmp ne %StorageClass %16, 4
+  %18 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
+  %19 = load %StorageClass, %StorageClass* %18
+  %20 = icmp ne %StorageClass %19, 5
+  %21 = and %Bool %17, %20
+  %22 = and %Bool %14, %21
+  br i1 %22, label %then_2, label %else_2
+then_2:
+
+;stmt7:
+
+;stmt8:
+  %23 = load %Obj, %Obj* %x
+  ret %Obj %23
+  br label %endif_2
+else_2:
+  br label %endif_2
+endif_2:
+
+;stmt9:
+  %25 = call %Nat32 () @lab_get ()
+
+;stmt10:
+  %26 = load %Unit*, %Unit** @fout
+  %27 = load %Str, %Str* @_func321_str1
+  %28 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %26, %Str %27, %Nat32 %25)
+
+;stmt11:
+  %29 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
+  %30 = load %Type*, %Type** %29
+  call void (%Type*, %Bool, %Bool) @printType (%Type* %30, %Bool 1, %Bool 1)
+
+;stmt12:
+  call void () @comma ()
+
+;stmt13:
+  %31 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
+  %32 = load %Type*, %Type** %31
+  call void (%Type*, %Bool, %Bool) @printType (%Type* %32, %Bool 1, %Bool 1)
+
+;stmt14:
+  %33 = load %Str, %Str* @_func321_str2
+  call void (%Str) @o (%Str %33)
+
+;stmt15:
+  %34 = load %Obj, %Obj* %x
+  call void (%Obj) @print_obj (%Obj %34)
+
+;stmt16:
+  %35 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 0
+  %36 = load %Type*, %Type** %35
+  %37 = call %Obj (%Type*, %StorageClass, %Nat32) @obj (%Type* %36, %StorageClass 6, %Nat32 %25)
+  ret %Obj %37
+}
+
+define void @print_obj (%Obj %_o) {
+  %o = alloca %Obj
+  store %Obj %_o, %Obj* %o
+
+;stmt0:
+  %1 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 1
+  %2 = load %StorageClass, %StorageClass* %1
+
+;stmt1:
+  %3 = icmp eq %StorageClass %2, 1
+  br i1 %3, label %then_0, label %else_0
+then_0:
+
+;stmt2:
+
+;stmt3:
+  %4 = load %Unit*, %Unit** @fout
+  %5 = load %Str, %Str* @_func323_str1
+  %6 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 2
+  %7 = load %Int64, %Int64* %6
+  %8 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %4, %Str %5, %Int64 %7)
+  br label %endif_0
+else_0:
+
+;stmt4:
+  %9 = icmp eq %StorageClass %2, 6
+  %10 = icmp eq %StorageClass %2, 5
+  %11 = or %Bool %9, %10
+  br i1 %11, label %then_1, label %else_1
+then_1:
+
+;stmt5:
+
+;stmt6:
+  %12 = load %Unit*, %Unit** @fout
+  %13 = load %Str, %Str* @_func323_str2
+  %14 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 4
+  %15 = load %Nat32, %Nat32* %14
+  %16 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %12, %Str %13, %Nat32 %15)
+  br label %endif_1
+else_1:
+
+;stmt7:
+  %17 = icmp eq %StorageClass %2, 4
+  %18 = icmp eq %StorageClass %2, 2
+  %19 = or %Bool %17, %18
+  br i1 %19, label %then_2, label %else_2
+then_2:
+
+;stmt8:
+
+;stmt9:
+  %20 = load %Unit*, %Unit** @fout
+  %21 = load %Str, %Str* @_func323_str3
+  %22 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 3
+  %23 = load %Str, %Str* %22
+  %24 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %20, %Str %21, %Str %23)
+  br label %endif_2
+else_2:
+
+;stmt10:
+  %25 = icmp eq %StorageClass %2, 3
+  br i1 %25, label %then_3, label %else_3
+then_3:
+
+;stmt11:
+
+;stmt12:
+  %26 = load %Unit*, %Unit** @fout
+  %27 = load %Str, %Str* @_func323_str4
+  %28 = getelementptr inbounds %Obj, %Obj* %o, i32 0, i32 3
+  %29 = load %Str, %Str* %28
+  %30 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %26, %Str %27, %Str %29)
+  br label %endif_3
+else_3:
+
+;stmt13:
+  %31 = icmp eq %StorageClass %2, 0
+  br i1 %31, label %then_4, label %else_4
+then_4:
+
+;stmt14:
+
+;stmt15:
+  %32 = load %Unit*, %Unit** @fout
+  %33 = load %Str, %Str* @_func323_str5
+  %34 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %32, %Str %33)
+  br label %endif_4
+else_4:
+  br label %endif_4
+endif_4:
+  br label %endif_3
+endif_3:
+  br label %endif_2
+endif_2:
+  br label %endif_1
+endif_1:
+  br label %endif_0
+endif_0:
+  ret void
 }
 
 define void @typedef (%Str %_id, %Type* %_t) {
