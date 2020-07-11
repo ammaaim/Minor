@@ -102,7 +102,6 @@ target triple = "x86_64-apple-macosx10.14.0"
 %Eval = type %Obj (%Value*)*
 %Ctx = type {[256 x %Obj], %Nat16}
 %Arch = type %Int16
-%Fx = type {}
 
 ;strings:
 
@@ -1262,8 +1261,8 @@ target triple = "x86_64-apple-macosx10.14.0"
 @_func344_str4 = constant i8* getelementptr inbounds ([5 x i8], [5 x i8]* @.str._func344_str4, i32 0, i32 0), align 8
 @.str._func344_str5 = private unnamed_addr constant [11 x i8] c"%s = %lld\0A\00", align 1
 @_func344_str5 = constant i8* getelementptr inbounds ([11 x i8], [11 x i8]* @.str._func344_str5, i32 0, i32 0), align 8
-@.str._func345_str1 = private unnamed_addr constant [14 x i8] c"unknown type2\00", align 1
-@_func345_str1 = constant i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str._func345_str1, i32 0, i32 0), align 8
+@.str._func345_str1 = private unnamed_addr constant [13 x i8] c"unknown type\00", align 1
+@_func345_str1 = constant i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str._func345_str1, i32 0, i32 0), align 8
 @.str._func346_str1 = private unnamed_addr constant [13 x i8] c"unknown type\00", align 1
 @_func346_str1 = constant i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str._func346_str1, i32 0, i32 0), align 8
 @.str._func355_str1 = private unnamed_addr constant [28 x i8] c"checkValue:: unknown v.kind\00", align 1
@@ -21787,7 +21786,7 @@ define void @print_type_index (%List* %_index) {
 ;stmt1:
   %4 = load %List*, %List** %index
   %5 = inttoptr i64 0 to %Unit*
-  call void (%List*, %MapForeachHandler, %Unit*) @map_foreach (%List* %4, %MapForeachHandler @tshow, %Unit* %5)
+  call void (%List*, %MapForeachHandler, %Unit*) @map_foreach (%List* %4, void (%Unit*, %Unit*, %Unit*)* @tshow, %Unit* %5)
   ret void
 }
 
@@ -21836,7 +21835,7 @@ define void @print_value_index (%List* %_index) {
 ;stmt1:
   %4 = load %List*, %List** %index
   %5 = inttoptr i64 0 to %Unit*
-  call void (%List*, %MapForeachHandler, %Unit*) @map_foreach (%List* %4, %MapForeachHandler @vshow, %Unit* %5)
+  call void (%List*, %MapForeachHandler, %Unit*) @map_foreach (%List* %4, void (%Unit*, %Unit*, %Unit*)* @vshow, %Unit* %5)
   ret void
 }
 
@@ -22823,43 +22822,41 @@ define void @shwt (%Unit* %_k, %Unit* %_v, %Unit* %_ctx) {
   %6 = call %Int32 (%Str, ...) @printf (%Str %4, %Unit* %5)
 
 ;stmt2:
-
-;stmt3:
   %i = alloca %Nat32
 
-;stmt4:
+;stmt3:
   store %Nat32 0, %Nat32* %i
 
-;stmt5:
+;stmt4:
   br label %continue_0
 continue_0:
   %7 = load %Nat32, %Nat32* %i
-  %8 = sub %Nat32 0, %3
+  %8 = sub %Nat32 40, %3
   %9 = icmp ult %Nat32 %7, %8
   br i1 %9, label %body_0, label %break_0
 body_0:
 
-;stmt6:
+;stmt5:
 
-;stmt7:
+;stmt6:
   %10 = load %Str, %Str* @_func360_str2
   %11 = call %Int32 (%Str, ...) @printf (%Str %10)
 
-;stmt8:
+;stmt7:
   %12 = load %Nat32, %Nat32* %i
   %13 = add %Nat32 %12, 1
   store %Nat32 %13, %Nat32* %i
   br label %continue_0
 break_0:
 
-;stmt9:
+;stmt8:
   %14 = load %Unit*, %Unit** %v
   %15 = bitcast %Unit* %14 to %Type*
 
-;stmt10:
+;stmt9:
   call void (%Type*) @prttype (%Type* %15)
 
-;stmt11:
+;stmt10:
   %16 = load %Str, %Str* @_func360_str3
   %17 = call %Int32 (%Str, ...) @printf (%Str %16)
   ret void
@@ -22893,43 +22890,41 @@ define void @shwv (%Unit* %_k, %Unit* %_v, %Unit* %_ctx) {
   %6 = call %Int32 (%Str, ...) @printf (%Str %4, %Unit* %5)
 
 ;stmt2:
-
-;stmt3:
   %i = alloca %Nat32
 
-;stmt4:
+;stmt3:
   store %Nat32 0, %Nat32* %i
 
-;stmt5:
+;stmt4:
   br label %continue_0
 continue_0:
   %7 = load %Nat32, %Nat32* %i
-  %8 = sub %Nat32 0, %3
+  %8 = sub %Nat32 40, %3
   %9 = icmp ult %Nat32 %7, %8
   br i1 %9, label %body_0, label %break_0
 body_0:
 
-;stmt6:
+;stmt5:
 
-;stmt7:
+;stmt6:
   %10 = load %Str, %Str* @_func362_str2
   %11 = call %Int32 (%Str, ...) @printf (%Str %10)
 
-;stmt8:
+;stmt7:
   %12 = load %Nat32, %Nat32* %i
   %13 = add %Nat32 %12, 1
   store %Nat32 %13, %Nat32* %i
   br label %continue_0
 break_0:
 
-;stmt9:
+;stmt8:
   %14 = load %Unit*, %Unit** %v
   %15 = bitcast %Unit* %14 to %Value*
   %16 = getelementptr inbounds %Value, %Value* %15, i32 0, i32 1
   %17 = load %Type*, %Type** %16
   call void (%Type*) @prttype (%Type* %17)
 
-;stmt10:
+;stmt9:
   %18 = load %Str, %Str* @_func362_str3
   %19 = call %Int32 (%Str, ...) @printf (%Str %18)
   ret void
