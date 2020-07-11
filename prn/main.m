@@ -104,7 +104,7 @@ let print_value_index = func (index : *Map) -> Unit {
     fprintf(fout, "\n;#%s -> %p {", k, vv);
     fprintf(fout, "\n;  v.kind = %s", print_value_kind(vv.kind))
     fprintf(fout, "\n;  v.storage.class = %s", print_storage_class(vv.storage.class))
-    fprintf(fout, "\n;  v.storage.reg = %d", vv.storage.reg)
+    //fprintf(fout, "\n;  v.storage.reg = %d", vv.storage.reg)
     fprintf(fout, "\n;}\n")
   }
   map_foreach(index, vshow, Nil)

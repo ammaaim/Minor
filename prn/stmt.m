@@ -77,7 +77,7 @@ let print_stmt_let = func (e, x : *Value) -> Unit {
   var ee : Obj
   ee = load(eval(e))
   // сопрягаем
-  x.storage.reg = ee.reg
+  x.reg = ee.reg
 }
 
 

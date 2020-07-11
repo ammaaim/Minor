@@ -40,7 +40,7 @@ let eval = func Eval {
     ox.type = v.type
     ox.class = v.storage.class   // << v.storage - кандидат на удаление!
     ox.id = v.id
-    ox.reg = v.storage.reg
+    ox.reg = v.reg
     return ox
   } else if k == ValueImmediate {
     ox.type = v.type

@@ -24,8 +24,6 @@ type StorageClass = enum {
 
 type Storage = record {
   class : StorageClass
-
-  reg : Nat32  // StorageRegister, StorageAddress
 }
 
 

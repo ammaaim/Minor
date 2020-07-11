@@ -77,6 +77,7 @@ type Value = record {
 
 //union {
   imm    : Int64
+  reg    : Nat32 // for let
   id     : Str   // вместо id нужна ссылка на объект в сборке
   un     : ValueUn
   bin    : ValueBin

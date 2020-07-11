@@ -84,7 +84,7 @@ let value_show = func (v : *Value) -> Unit {
   printf("  type: "); prttype(v.type); printf("\n")
   printf("  storage.class: %s\n", print_storage_class(v.storage.class))
   printf("  id: %s\n", v.id)
-  printf("  storage.reg: %d\n", v.storage.reg)
+  //printf("  storage.reg: %d\n", v.storage.reg)
   printf("  imm: %d\n", v.imm)
   printf("}\n")
 }
