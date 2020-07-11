@@ -35,16 +35,14 @@ let print_obj = func (o : *Obj) -> Unit {
 let eval = func Eval {
   let k = v.kind
 
-
   if k == ValueId {
-    let o = nv(v.type, StorageRegister, 0)
+    let o = obj(v.type, StorageRegister, 0)
     o.class = v.storage.class   // << v.storage - кандидат на удаление!
     o.id = v.id
     o.reg = v.storage.reg
     return o
-
   } else if k == ValueImmediate {
-    let o = nv(v.type, StorageImmediate, 0)
+    let o = obj(v.type, StorageImmediate, 0)
     o.imm = v.imm
     return o
   } else if k == ValueCall {
@@ -72,7 +70,6 @@ let eval = func Eval {
 
 
 
-
 let loadImmPtr = func (x : *Obj) -> *Obj {
   let t = x.type
   let reg = lab_get()
@@ -80,7 +77,7 @@ let loadImmPtr = func (x : *Obj) -> *Obj {
   print_obj(x)
   o(" to ")
   printType(t, True, True)
-  return nv(t, StorageRegister, reg)
+  return obj(t, StorageRegister, reg)
 }
 
 
@@ -110,7 +107,7 @@ let load = func (x : *Obj) -> *Obj {
   o("* ")
 
   print_obj(x)
-  return nv(x.type, StorageRegister, reg)
+  return obj(x.type, StorageRegister, reg)
 }
 
 
@@ -183,7 +180,7 @@ let eval_call = func Eval {
   o(")")
 
   /* возвращаем результат (регистр) */
-  return nv(v.type, StorageRegister, retval_reg)
+  return obj(v.type, StorageRegister, retval_reg)
 }
 
 
@@ -227,7 +224,7 @@ let eval_index = func Eval {
   space()
   print_obj(i)
   //o(" ; eval_index")
-  return nv(v.type, StorageAddress, reg)
+  return obj(v.type, StorageAddress, reg)
 }
 
 
@@ -259,7 +256,7 @@ let eval_access = func Eval {
   fprintf(fout, ", i32 0, i32 %u", fieldno)
   //o("; eval_access")
 
-  return nv(v.type, StorageAddress, reg)
+  return obj(v.type, StorageAddress, reg)
 }
 
 
@@ -267,7 +264,7 @@ let eval_ref = func Eval {
   let vx = eval(v.un.x)
   if vx.class == StorageAddress {
     // если это адрес - вернем его в регистре, а тип обернем в указатель
-    return nv(v.type, StorageRegister, vx.reg)
+    return obj(v.type, StorageRegister, vx.reg)
   }
 
   //%7 = getelementptr inbounds %Int32, %Int32* @a, i32 0
@@ -282,7 +279,7 @@ let eval_ref = func Eval {
   o("i32 0")
   //o("; ref")
 
-  return nv(v.type, StorageRegister, reg)
+  return obj(v.type, StorageRegister, reg)
 }
 
 
@@ -291,7 +288,7 @@ let eval_deref = func Eval {
   let vx = load(eval(v.un.x))
 
   // возвращаем загруженный указатель как #Address
-  return nv(v.type, StorageAddress, vx.reg)
+  return obj(v.type, StorageAddress, vx.reg)
 }
 
 
@@ -305,7 +302,7 @@ let eval_not = func Eval {
   space()
   print_obj(vx)
   if (type_eq(vx.type, typeBool)) {o(", 1")} else {o(", -1")}
-  return nv(vx.type, StorageRegister, reg)
+  return obj(vx.type, StorageRegister, reg)
 }
 
 
@@ -321,7 +318,7 @@ let eval_minus = func Eval {
   fprintf(fout, " 0")
   comma()
   print_obj(vx)
-  return nv(vx.type, StorageRegister, reg)
+  return obj(vx.type, StorageRegister, reg)
 }
 
 
@@ -419,7 +416,7 @@ let eval_cast = func Eval {
   o(" to ")
   printType(to, True, True)
 
-  return nv(v.type, StorageRegister, reg)
+  return obj(v.type, StorageRegister, reg)
 }
 
 
@@ -476,7 +473,7 @@ let eval_bin = func Eval {
   comma()
   print_obj(r)
 
-  return nv(v.type, StorageRegister, reg)
+  return obj(v.type, StorageRegister, reg)
 }
 
 
@@ -495,9 +492,9 @@ let print_st = func (l, r : *Value) -> Unit {
 
 
 // new value object
-let nv = func (t : *Type, c : StorageClass, reg : Nat32) -> *Obj {
+let obj = func (t : *Type, c : StorageClass, reg : Nat32) -> *Obj {
   let o = malloc(sizeof Obj) to *Obj
-  assert(o != Nil, "printer::nv")
+  assert(o != Nil, "printer::obj")
   memset(o, 0, sizeof Obj)
   o.type = t
   o.class = c

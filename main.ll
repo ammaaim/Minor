@@ -1123,8 +1123,8 @@ target triple = "x86_64-apple-macosx10.14.0"
 @_func323_str1 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func323_str1, i32 0, i32 0), align 8
 @.str._func323_str2 = private unnamed_addr constant [3 x i8] c"* \00", align 1
 @_func323_str2 = constant i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str._func323_str2, i32 0, i32 0), align 8
-@.str._func324_str1 = private unnamed_addr constant [12 x i8] c"printer::nv\00", align 1
-@_func324_str1 = constant i8* getelementptr inbounds ([12 x i8], [12 x i8]* @.str._func324_str1, i32 0, i32 0), align 8
+@.str._func324_str1 = private unnamed_addr constant [13 x i8] c"printer::obj\00", align 1
+@_func324_str1 = constant i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str._func324_str1, i32 0, i32 0), align 8
 @.str._func325_str1 = private unnamed_addr constant [14 x i8] c"\0A%%%s = type \00", align 1
 @_func325_str1 = constant i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str._func325_str1, i32 0, i32 0), align 8
 @.str._func326_str1 = private unnamed_addr constant [44 x i8] c"\0A@%s = private unnamed_addr constant [%d x \00", align 1
@@ -18867,7 +18867,7 @@ then_0:
   %5 = load %Value*, %Value** %v
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 1
   %7 = load %Type*, %Type** %6
-  %8 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %7, %StorageClass 6, %Nat32 0)
+  %8 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %7, %StorageClass 6, %Nat32 0)
 
 ;stmt4:
   %9 = getelementptr inbounds %Obj, %Obj* %8, i32 0, i32 1
@@ -18908,7 +18908,7 @@ then_1:
   %25 = load %Value*, %Value** %v
   %26 = getelementptr inbounds %Value, %Value* %25, i32 0, i32 1
   %27 = load %Type*, %Type** %26
-  %28 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %27, %StorageClass 1, %Nat32 0)
+  %28 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %27, %StorageClass 1, %Nat32 0)
 
 ;stmt11:
   %29 = getelementptr inbounds %Obj, %Obj* %28, i32 0, i32 2
@@ -19089,7 +19089,7 @@ define %Obj* @loadImmPtr (%Obj* %_x) {
   call void (%Type*, %Bool, %Bool) @printType (%Type* %3, %Bool 1, %Bool 1)
 
 ;stmt6:
-  %10 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %3, %StorageClass 6, %Nat32 %4)
+  %10 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %3, %StorageClass 6, %Nat32 %4)
   ret %Obj* %10
 }
 
@@ -19197,7 +19197,7 @@ endif_2:
   %42 = load %Obj*, %Obj** %x
   %43 = getelementptr inbounds %Obj, %Obj* %42, i32 0, i32 0
   %44 = load %Type*, %Type** %43
-  %45 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %44, %StorageClass 6, %Nat32 %30)
+  %45 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %44, %StorageClass 6, %Nat32 %30)
   ret %Obj* %45
 }
 
@@ -19417,7 +19417,7 @@ endif_0:
   %44 = getelementptr inbounds %Value, %Value* %43, i32 0, i32 1
   %45 = load %Type*, %Type** %44
   %46 = load %Nat32, %Nat32* %retval_reg
-  %47 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %45, %StorageClass 6, %Nat32 %46)
+  %47 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %45, %StorageClass 6, %Nat32 %46)
   ret %Obj* %47
 }
 
@@ -19579,7 +19579,7 @@ endif_3:
   %54 = load %Value*, %Value** %v
   %55 = getelementptr inbounds %Value, %Value* %54, i32 0, i32 1
   %56 = load %Type*, %Type** %55
-  %57 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %56, %StorageClass 5, %Nat32 %20)
+  %57 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %56, %StorageClass 5, %Nat32 %20)
   ret %Obj* %57
 }
 
@@ -19696,7 +19696,7 @@ endif_0:
   %50 = load %Value*, %Value** %v
   %51 = getelementptr inbounds %Value, %Value* %50, i32 0, i32 1
   %52 = load %Type*, %Type** %51
-  %53 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %52, %StorageClass 5, %Nat32 %39)
+  %53 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %52, %StorageClass 5, %Nat32 %39)
   ret %Obj* %53
 }
 
@@ -19726,7 +19726,7 @@ then_0:
   %11 = load %Type*, %Type** %10
   %12 = getelementptr inbounds %Obj, %Obj* %5, i32 0, i32 4
   %13 = load %Nat32, %Nat32* %12
-  %14 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %11, %StorageClass 6, %Nat32 %13)
+  %14 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %11, %StorageClass 6, %Nat32 %13)
   ret %Obj* %14
   br label %endif_0
 else_0:
@@ -19772,7 +19772,7 @@ endif_0:
   %26 = load %Value*, %Value** %v
   %27 = getelementptr inbounds %Value, %Value* %26, i32 0, i32 1
   %28 = load %Type*, %Type** %27
-  %29 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %28, %StorageClass 6, %Nat32 %16)
+  %29 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %28, %StorageClass 6, %Nat32 %16)
   ret %Obj* %29
 }
 
@@ -19794,7 +19794,7 @@ define %Obj* @eval_deref (%Value* %_v) {
   %9 = load %Type*, %Type** %8
   %10 = getelementptr inbounds %Obj, %Obj* %6, i32 0, i32 4
   %11 = load %Nat32, %Nat32* %10
-  %12 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %9, %StorageClass 5, %Nat32 %11)
+  %12 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %9, %StorageClass 5, %Nat32 %11)
   ret %Obj* %12
 }
 
@@ -19856,7 +19856,7 @@ endif_0:
 ;stmt11:
   %19 = getelementptr inbounds %Obj, %Obj* %6, i32 0, i32 0
   %20 = load %Type*, %Type** %19
-  %21 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %20, %StorageClass 6, %Nat32 %7)
+  %21 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %20, %StorageClass 6, %Nat32 %7)
   ret %Obj* %21
 }
 
@@ -19899,7 +19899,7 @@ define %Obj* @eval_minus (%Value* %_v) {
 ;stmt7:
   %16 = getelementptr inbounds %Obj, %Obj* %6, i32 0, i32 0
   %17 = load %Type*, %Type** %16
-  %18 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %17, %StorageClass 6, %Nat32 %7)
+  %18 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %17, %StorageClass 6, %Nat32 %7)
   ret %Obj* %18
 }
 
@@ -20262,7 +20262,7 @@ endif_1:
   %124 = load %Value*, %Value** %v
   %125 = getelementptr inbounds %Value, %Value* %124, i32 0, i32 1
   %126 = load %Type*, %Type** %125
-  %127 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %126, %StorageClass 6, %Nat32 %15)
+  %127 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %126, %StorageClass 6, %Nat32 %15)
   ret %Obj* %127
 }
 
@@ -20691,7 +20691,7 @@ endif_0:
   %72 = load %Value*, %Value** %v
   %73 = getelementptr inbounds %Value, %Value* %72, i32 0, i32 1
   %74 = load %Type*, %Type** %73
-  %75 = call %Obj* (%Type*, %StorageClass, %Nat32) @nv (%Type* %74, %StorageClass 6, %Nat32 %65)
+  %75 = call %Obj* (%Type*, %StorageClass, %Nat32) @obj (%Type* %74, %StorageClass 6, %Nat32 %65)
   ret %Obj* %75
 }
 
@@ -20743,7 +20743,7 @@ define void @print_st (%Value* %_l, %Value* %_r) {
   ret void
 }
 
-define %Obj* @nv (%Type* %_t, %StorageClass %_c, %Nat32 %_reg) {
+define %Obj* @obj (%Type* %_t, %StorageClass %_c, %Nat32 %_reg) {
   %t = alloca %Type*
   store %Type* %_t, %Type** %t
   %c = alloca %StorageClass
