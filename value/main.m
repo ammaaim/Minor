@@ -16,7 +16,6 @@ import "init"
 
 
 
-
 type ValueKind = enum {
   ValueInvalid,
 
@@ -25,14 +24,14 @@ type ValueKind = enum {
   /* value used by id */
   ValueId,  // Unknown value, we know only Id
 
-  ValueImmediate,
+  ValueImmediate,    // by imm
   ValueGlobalConst,  // by id
 
   ValueGlobalVar,    // by id
   ValueLocalVar,     // by id
 
-  ValueRegister,     // by reg  // let a = 1
-  ValueAddress,      //
+  ValueRegister,     // by reg  // `let c = a * b`
+  ValueAddress,      // by reg
 
 
   /* unary */
