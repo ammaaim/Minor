@@ -24,7 +24,7 @@ let arraydef = func (id : Str, t : *Type, items : *List) -> Unit {
     if *need_comma {comma()}
     printType(v.type, True, True)
     space()
-    print_value(v)
+//    print_value(v)
     *need_comma = True
   }
   list_foreach(items, print_array_item, &need_comma)
@@ -74,7 +74,8 @@ let stringdef = func (id : Str, len : Nat, s : Str) -> Unit {
 let vardef = func (id : Str, t : *Type, v : *Value) -> Unit {
   fprintf(fout, "\n@%s = global ", id)
   printType(t, True, True); space()
-  if v != Nil {print_value(v)} else {o("zeroinitializer")}
+  /*if v != Nil {print_value(v)} else {o("zeroinitializer")}*/
+  o("zeroinitializer")
   //if DEBUG {comma(); dbg(0)}
 }
 

@@ -57,7 +57,7 @@ let print_stmt = func (s : *Stmt) -> Unit {
 
 // Печать значения происходит в два этапа
 // 1. eval - распечатывается алгоритм вычисления значения
-// 2. print_value - печатается регистр в котором находится значение (уже вычисленное)
+// 2. print_obj - печатается регистр в котором находится значение (уже вычисленное)
 //                  или непосредственная константа (которая никак не вычисляется в LLVM)
 
 
@@ -76,7 +76,7 @@ let print_stmt_expr = func (e : *Value) -> Unit {eval(e)}
 let print_stmt_let = func (e, x : *Value) -> Unit {
   let ee = load(eval(e))
   // сопрягаем
-  x.storage.reg = ee.storage.reg
+  x.storage.reg = ee.reg
 }
 
 
@@ -85,7 +85,7 @@ let print_stmt_if = func (i : *If) -> Unit {
   global_if_id = global_if_id + 1
   let c = load(eval(i.cond))
   fprintf(fout, "\n  br i1 ")
-  print_value(c)
+  print_obj(c)
   fprintf(fout, ", label %%then_%d, label %%else_%d", if_id, if_id)
   fprintf(fout, "\nthen_%d:", if_id)
   print_stmt(i.then)
@@ -105,7 +105,7 @@ let print_stmt_while = func (w : *While) -> Unit {
   fprintf(fout, "\ncontinue_%d:", while_id)
   let c =  load(eval(w.cond))
   fprintf(fout, "\n  br i1 ")
-  print_value(c)
+  print_obj(c)
   fprintf(fout, ", label %%body_%d, label %%break_%d", while_id, while_id)
   fprintf(fout, "\nbody_%d:", while_id)
   print_stmt(w.stmt)
@@ -125,7 +125,7 @@ let print_stmt_return = func (rv : *Value) -> Unit {
   fprintf(fout, "\n  ret ")
   printType(v.type, True, True)
   space()
-  print_value(v)
+  print_obj(v)
   lab_get()  // for LLVM
 }
 

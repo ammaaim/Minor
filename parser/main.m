@@ -221,8 +221,7 @@ let parseLet = func () -> *Stmt {
     v0.storage.class = StorageRegister
     v0.id = id
     bind_value_local(id, v0)
-    let xxx = stmt_new_let(v, v0, ti)
-    return xxx
+    return stmt_new_let(v, v0, ti)
   }
 
   bind_value_in_block(fctx.cblock, id, v)

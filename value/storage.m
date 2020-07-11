@@ -5,7 +5,7 @@ type StorageClass = enum {
   // default class
   StorageUndefined,  // used by undefined value
 
-  StorageImmediate,
+  StorageImmediate,  // For Obj in printer
   /*
    * Global Immutable Object used by name
    * such as funcs, strings, literal arrays & records
@@ -40,6 +40,7 @@ let storageIsMutable = func (s : *Storage) -> Bool {
   let cl = s.class
   return cl == StorageLocal or cl == StorageGlobal or cl == StorageAddress
 }
+
 
 
 let storageIsRegister = func (s : *Storage) -> Bool {
