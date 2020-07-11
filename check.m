@@ -2,9 +2,7 @@
 
 import "type/check"
 
-type Fx = record {
-  fx : *Fx
-}
+
 
 let checkMain = func () -> Unit {
   // check types
