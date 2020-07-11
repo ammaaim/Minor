@@ -37,15 +37,11 @@ type StorageClass = enum {
 }
 
 
-
-// Dont change the order!
-// see isUnaryOpValue, etc.
 type ValueKind = enum {
   ValueInvalid,
 
   /* value used by id */
   ValueId,
-
 
   ValueImmediate,
   ValueGlobalConst,  // by id
@@ -81,6 +77,7 @@ type ValueKind = enum {
   ValueAlignof
 }
 
+
 type Value = record {
   kind : ValueKind
 
@@ -91,7 +88,6 @@ type Value = record {
 
   // ссылка на блок, если это функция
   block : *Block  // ссылка на блок функции - при чеке он будет обработан отсюда
-
 
 
 //union {
@@ -134,11 +130,6 @@ let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
 
 
 
-
-
-
-
-
 let isUnaryOpKind = func (k : ValueKind) -> Bool {
   return k == ValueRef or k == ValueDeref or k == ValueMinus or k == ValueNot
 }
@@ -178,6 +169,7 @@ let valueIsMutable = func (v : *Value) -> Bool {
   let cl = v.class
   return cl == StorageLocal or cl == StorageGlobal or cl == StorageAddress
 }
+
 
 let valueIsReadonly = func (v : *Value) -> Bool {return not valueIsMutable(v)}
 
