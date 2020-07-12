@@ -1,3 +1,4 @@
+// m2/value/alignof
 
 
 let align_of = func (t : *Type, ti : *TokenInfo) -> *Value {
@@ -16,7 +17,7 @@ let checkValueAlignof = func (v : *Value) -> *Type {
 
   v.kind = ValueImmediate  // turn ValueAlignof to ValueImmediate (only here!)
   v.type = type_new(TypeNumeric)
-  v.imm = t.size to Int64
+  v.imm = t.align to Int64
 
   return v.type
 }

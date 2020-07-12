@@ -36,6 +36,13 @@ let parse_type = func () -> *Type {
     error("expected type", ti)
     printf("tok=%s\n", ctok().text)
   } else {
+
+    // вообще выравнивание должно быть не тут а в array и record
+    // а вот это вот все - косяк! переделай! #TODO
+    if t.kind == TypeRecord or t.kind == TypeArray {
+      t.nsize = t.size
+    }
+
     t.size = alignment(t.size, cfg.dataAlignment to Nat8)
     t.defined_at = ti
     t.ti = ti

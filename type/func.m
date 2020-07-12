@@ -40,7 +40,8 @@ let type_function_eq = func (a, b : *TypeFunc) -> Bool {
 
 
 let typeFuncCheck = func (f : *TypeFunc) -> Unit {
-  typeCheck(f.to)  // check return type
+  // check return type
+  typeCheck(f.to)
 
   // check params
   let foreach_func_param = func ListForeachHandler {

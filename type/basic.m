@@ -12,6 +12,7 @@ type TypeBasic = record {
 let type_basic_new = func (id : Str, size, p : Nat, i, s : Bool) -> *Type {
   let t = type_new(TypeBasic)
   t.size = size
+  t.nsize = size // размер без выравнивания
   t.aka = id
   t.basic.id = id
   t.basic.p = p

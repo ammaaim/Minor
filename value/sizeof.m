@@ -1,3 +1,4 @@
+// m2/value/sizeof
 
 
 // сейчас при таком раскладе sizeof XX + 0 дает ошибку!!!
@@ -22,7 +23,8 @@ let checkValueSizeof = func (v : *Value) -> *Type {
 
   v.kind = ValueImmediate  // turn ValueSizeof to ValueImmediate (only here!)
   v.type = type_new(TypeNumeric)
-  v.imm = t.size to Int64
+
+  v.imm = t.nsize to Int64
 
   return v.type
 }

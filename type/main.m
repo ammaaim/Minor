@@ -43,6 +43,7 @@ type Type = record {
 
   aka   : Str    // type alias (!need for printer)
 
+  nsize : Nat32  // размер типа в байтах
   size  : Nat32  // размер типа в байтах (с учетом выравнивания)
   align : Nat8   // значение выравнивания стандартное для этого типа
 
