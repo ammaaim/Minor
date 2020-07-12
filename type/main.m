@@ -12,6 +12,14 @@ import "eq"
 import "init"
 
 
+
+// встретили неизвестный тип
+// создали TypeUnknown
+// встретили typedef - проверили если ae то заполняем ae из nt
+// check сперва проверяет типы если есть TypeUnknown - ошибка
+// еще check должен рекурсивно проверить типы на внутреннюю рекурсию но это потом
+
+
 /*
  * Type Kind
  */
@@ -36,7 +44,8 @@ type Type = record {
   aka   : Str    // type alias (!need for printer)
 
   size  : Nat32  // размер типа в байтах (с учетом выравнивания)
-  align : Nat8   // заданное значение выравнивания [ЭТО АТТРИБУТ НЕ ТИПА А ЗНАЧЕНИЯ!]
+  align : Nat8   // значение выравнивания стандартное для этого типа
+
 
 //union {
     basic     : TypeBasic
@@ -90,18 +99,11 @@ let typeIsReference = func (t : *Type) -> Bool {
 }
 
 
-let type_is_basic = func (t : *Type) -> Bool {return t.kind == TypeBasic}
-let type_is_function = func (t : *Type) -> Bool {return t.kind == TypeFunction}
-let type_is_record = func (t : *Type) -> Bool {return t.kind == TypeRecord}
-let type_is_enum = func (t : *Type) -> Bool {return t.kind == TypeEnum}
-let type_is_pointer = func (t : *Type) -> Bool {return t.kind == TypePointer}
-let type_is_array = func (t : *Type) -> Bool {return t.kind == TypeArray}
-
-
 let type_is_basic_integer = func (t : *Type) -> Bool {
   if t.kind == TypeBasic {return t.basic.i}
   return False
 }
+
 
 
 var x_uid : Nat32

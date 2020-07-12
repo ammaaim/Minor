@@ -34,3 +34,8 @@ let type_array_eq = func (a, b : *TypeArray) -> Bool {
 }
 
 
+let typeArrayCheck = func (a : *TypeArray) -> Unit {
+  typeCheck(a.of)
+}
+
+

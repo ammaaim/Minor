@@ -18,3 +18,12 @@ let type_pointer_eq = func (a, b : *TypePointer) -> Bool {
 }
 
 
+let typePointerCheck = func (p : *TypePointer) -> Unit {
+  let to = p.to
+  if to.kind == TypeUnknown {
+    error("unknown type", to.ti)
+  } else {
+    typeCheck(to)
+  }
+}
+

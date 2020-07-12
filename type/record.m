@@ -83,3 +83,15 @@ let type_record_eq = func (a, b : *TypeRecord) -> Bool {
 }
 
 
+let typeRecordCheck = func (r : *TypeRecord) -> Unit {
+  let foreach_struct_field = func ListForeachHandler {
+    let f = data to *Field
+    //typeCheck(f.type)  // возн беск рекурсия!
+    /*if f.type.kind == TypeUnknown {
+      error("unknown type", f.type.ti)
+    }*/
+  }
+  list_foreach(r.fields, foreach_struct_field, Nil)
+}
+
+
