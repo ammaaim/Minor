@@ -18539,7 +18539,7 @@ define void @print_block (%Block* %_b) {
   ret void
 }
 
-define %Obj @obj (%Type* %_t, %ObjKind %_k, %Nat32 %_reg) {
+define %Obj @new_obj (%Type* %_t, %ObjKind %_k, %Nat32 %_reg) {
   %t = alloca %Type*
   store %Type* %_t, %Type** %t
   %k = alloca %ObjKind
@@ -19063,7 +19063,7 @@ break_0:
   %51 = getelementptr inbounds %Value, %Value* %50, i32 0, i32 1
   %52 = load %Type*, %Type** %51
   %53 = load %Nat32, %Nat32* %retval_reg
-  %54 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %52, %ObjKind 6, %Nat32 %53)
+  %54 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %52, %ObjKind 6, %Nat32 %53)
   ret %Obj %54
 }
 
@@ -19225,7 +19225,7 @@ endif_3:
   %50 = load %Value*, %Value** %v
   %51 = getelementptr inbounds %Value, %Value* %50, i32 0, i32 1
   %52 = load %Type*, %Type** %51
-  %53 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %52, %ObjKind 5, %Nat32 %19)
+  %53 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %52, %ObjKind 5, %Nat32 %19)
   ret %Obj %53
 }
 
@@ -19339,7 +19339,7 @@ endif_0:
   %47 = load %Value*, %Value** %v
   %48 = getelementptr inbounds %Value, %Value* %47, i32 0, i32 1
   %49 = load %Type*, %Type** %48
-  %50 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %49, %ObjKind 5, %Nat32 %36)
+  %50 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %49, %ObjKind 5, %Nat32 %36)
   ret %Obj %50
 }
 
@@ -19373,7 +19373,7 @@ then_0:
   %11 = load %Type*, %Type** %10
   %12 = getelementptr inbounds %Obj, %Obj* %vx, i32 0, i32 4
   %13 = load %Nat32, %Nat32* %12
-  %14 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %11, %ObjKind 6, %Nat32 %13)
+  %14 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %11, %ObjKind 6, %Nat32 %13)
   ret %Obj %14
   br label %endif_0
 else_0:
@@ -19420,7 +19420,7 @@ endif_0:
   %27 = load %Value*, %Value** %v
   %28 = getelementptr inbounds %Value, %Value* %27, i32 0, i32 1
   %29 = load %Type*, %Type** %28
-  %30 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %29, %ObjKind 6, %Nat32 %16)
+  %30 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %29, %ObjKind 6, %Nat32 %16)
   ret %Obj %30
 }
 
@@ -19446,7 +19446,7 @@ define %Obj @eval_deref (%Value* %_v) {
   %9 = load %Type*, %Type** %8
   %10 = getelementptr inbounds %Obj, %Obj* %vx, i32 0, i32 4
   %11 = load %Nat32, %Nat32* %10
-  %12 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %9, %ObjKind 5, %Nat32 %11)
+  %12 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %9, %ObjKind 5, %Nat32 %11)
   ret %Obj %12
 }
 
@@ -19513,7 +19513,7 @@ endif_0:
 ;stmt12:
   %20 = getelementptr inbounds %Obj, %Obj* %vx, i32 0, i32 1
   %21 = load %Type*, %Type** %20
-  %22 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %21, %ObjKind 6, %Nat32 %7)
+  %22 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %21, %ObjKind 6, %Nat32 %7)
   ret %Obj %22
 }
 
@@ -19561,7 +19561,7 @@ define %Obj @eval_minus (%Value* %_v) {
 ;stmt8:
   %17 = getelementptr inbounds %Obj, %Obj* %vx, i32 0, i32 1
   %18 = load %Type*, %Type** %17
-  %19 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %18, %ObjKind 6, %Nat32 %7)
+  %19 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %18, %ObjKind 6, %Nat32 %7)
   ret %Obj %19
 }
 
@@ -19929,7 +19929,7 @@ endif_1:
   %125 = load %Value*, %Value** %v
   %126 = getelementptr inbounds %Value, %Value* %125, i32 0, i32 1
   %127 = load %Type*, %Type** %126
-  %128 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %127, %ObjKind 6, %Nat32 %16)
+  %128 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %127, %ObjKind 6, %Nat32 %16)
   ret %Obj %128
 }
 
@@ -20368,7 +20368,7 @@ endif_0:
   %74 = load %Value*, %Value** %v
   %75 = getelementptr inbounds %Value, %Value* %74, i32 0, i32 1
   %76 = load %Type*, %Type** %75
-  %77 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %76, %ObjKind 6, %Nat32 %65)
+  %77 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %76, %ObjKind 6, %Nat32 %65)
   ret %Obj %77
 }
 
@@ -20458,7 +20458,7 @@ define %Obj @loadImmPtr (%Obj %_x) {
   call void (%Type*, %Bool, %Bool) @printType (%Type* %2, %Bool 1, %Bool 1)
 
 ;stmt6:
-  %9 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %2, %ObjKind 6, %Nat32 %3)
+  %9 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %2, %ObjKind 6, %Nat32 %3)
   ret %Obj %9
 }
 
@@ -20575,7 +20575,7 @@ endif_3:
 ;stmt19:
   %40 = getelementptr inbounds %Obj, %Obj* %x, i32 0, i32 1
   %41 = load %Type*, %Type** %40
-  %42 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %41, %ObjKind 6, %Nat32 %30)
+  %42 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %41, %ObjKind 6, %Nat32 %30)
   ret %Obj %42
 }
 
