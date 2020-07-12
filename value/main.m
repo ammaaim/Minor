@@ -155,7 +155,3 @@ let valueIsMutable = func (v : *Value) -> Bool {
 }
 
 
-//let valueIsReadonly = func (v : *Value) -> Bool {return not valueIsMutable(v)}
-
-
-
