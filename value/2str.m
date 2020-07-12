@@ -2,8 +2,8 @@
 
 
 let print_value_kind = func (k : ValueKind) -> Str {
-  if k == ValueId {
-    return "ValueId"
+  if k == ValueUndefined {
+    return "ValueUndefined"
   } else if k == ValueRef {
     return "ValueRef"
   } else if k == ValueDeref {

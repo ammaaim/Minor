@@ -19,10 +19,10 @@ import "init"
 type ValueKind = enum {
   ValueInvalid,
 
-  ValueUndefined,    // StorageUndefined
+  ValueUndefined,    // Value was used but not defined
 
-  /* value used by id */
-  ValueId,           // Unknown value, we know only Id (for what?)
+
+  /* Terminals */
 
   ValueImmediate,    // by imm
   ValueGlobalConst,  // by id
@@ -31,8 +31,9 @@ type ValueKind = enum {
   ValueLocalVar,     // by id
 
   ValueRegister,     // by reg  // `let c = a * b`
-  ValueAddress,      // by reg
 
+
+  /* Operations */
 
   /* unary */
   ValueRef,
@@ -59,6 +60,7 @@ type ValueKind = enum {
   ValueAlignof
 }
 
+//type ValueClass = record {ValueTerm, ValueOperation}  // ?
 
 type Value = record {
   kind : ValueKind
@@ -148,7 +150,7 @@ let valueIsConst = func (v : *Value) -> Bool {
 
 let valueIsMutable = func (v : *Value) -> Bool {
   let k = v.kind
-  return k == ValueLocalVar or k == ValueGlobalVar or k == ValueAddress
+  return k == ValueLocalVar or k == ValueGlobalVar
 }
 
 

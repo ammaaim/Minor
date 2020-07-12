@@ -55,31 +55,28 @@ type Eval = (v : *Value) -> Obj
 let eval = func Eval {
   let k = v.kind
 
-  var ox : Obj
+  var obj : Obj
 
-  ox.type = v.type
-  ox.id = v.id
-  ox.imm = v.imm
-  ox.reg = v.reg
+  obj.type = v.type
+  obj.id = v.id
+  obj.imm = v.imm
+  obj.reg = v.reg
 
   if k == ValueImmediate {
-    ox.class = StorageImmediate
-    return ox
+    obj.class = StorageImmediate
+    return obj
   } else if k == ValueGlobalConst {
-    ox.class = StorageGlobalConst
-    return ox
+    obj.class = StorageGlobalConst
+    return obj
   } else if k == ValueLocalVar {
-    ox.class = StorageLocal
-    return ox
+    obj.class = StorageLocal
+    return obj
   } else if k == ValueGlobalVar {
-    ox.class = StorageGlobal
-    return ox
+    obj.class = StorageGlobal
+    return obj
   } else if k == ValueRegister {
-    ox.class = StorageRegister
-    return ox
-  } else if k == ValueAddress {
-    ox.class = StorageAddress
-    return ox
+    obj.class = StorageRegister
+    return obj
 
   } else if k == ValueCall {
     return eval_call(v)
