@@ -144,7 +144,8 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
 
 
 let valueIsConst = func (v : *Value) -> Bool {
-  return v.kind == ValueGlobalConst or v.kind == ValueImmediate
+  let k = v.kind
+  return k == ValueGlobalConst or k == ValueImmediate
 }
 
 

@@ -5,7 +5,7 @@ let MAXARG = 256
 
 
 type ObjKind = enum {
-  ObjInvalid,    // error occurred while evaluation
+  ObjInvalid,    // An error occurred while evaluation
 
   ObjImmediate,  // value in imm field
 
@@ -21,7 +21,7 @@ type ObjKind = enum {
 
   // register
   ObjAddress,    // address of value in register
-  ObjRegister    // value in LLVM register
+  ObjRegister    // value in register
 }
 
 
