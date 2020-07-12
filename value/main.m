@@ -27,8 +27,9 @@ type ValueKind = enum {
   ValueImmediate,    // by imm
   ValueGlobalConst,  // by id
 
-  ValueGlobalVar,    // by id
+  ValueParam,        // by id
   ValueLocalVar,     // by id
+  ValueGlobalVar,    // by id
 
   ValueRegister,     // by reg  // `let c = a * b`
 
@@ -147,7 +148,7 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
 let valueIsReadonly = func (v : *Value) -> Bool {
   let k = v.kind
   // это неправильно - тк операции тоже readonly!
-  return k == ValueGlobalConst or k == ValueImmediate or k == ValueRegister
+  return k == ValueGlobalConst or k == ValueImmediate or k == ValueRegister or k == ValueParam
   //return not valueIsMutable(v)
 }
 
