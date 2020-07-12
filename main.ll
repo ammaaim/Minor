@@ -14009,97 +14009,85 @@ then_0:
 ;stmt5:
 
 ;stmt6:
-  %10 = load %Value*, %Value** %v
-  %11 = call %Bool (%Value*) @valueIsReadonly (%Value* %10)
-  br i1 %11, label %then_1, label %else_1
-then_1:
-
-;stmt7:
-  br label %endif_1
-else_1:
-  br label %endif_1
-endif_1:
-
-;stmt8:
-  %12 = call %Type* (%Type*) @type_pointer_new (%Type* %5)
-  store %Type* %12, %Type** %t
+  %10 = call %Type* (%Type*) @type_pointer_new (%Type* %5)
+  store %Type* %10, %Type** %t
   br label %endif_0
 else_0:
 
+;stmt7:
+  %11 = icmp eq %ValueKind %8, 8
+  br i1 %11, label %then_1, label %else_1
+then_1:
+
+;stmt8:
+
 ;stmt9:
-  %13 = icmp eq %ValueKind %8, 8
-  br i1 %13, label %then_2, label %else_2
+  %12 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0
+  %13 = load %TypeKind, %TypeKind* %12
+  %14 = icmp ne %TypeKind %13, 6
+  br i1 %14, label %then_2, label %else_2
 then_2:
 
 ;stmt10:
 
 ;stmt11:
-  %14 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0
-  %15 = load %TypeKind, %TypeKind* %14
-  %16 = icmp ne %TypeKind %15, 6
-  br i1 %16, label %then_3, label %else_3
-then_3:
+  %15 = load %Str, %Str* @_func217_str1
+  %16 = load %Value*, %Value** %v
+  %17 = getelementptr inbounds %Value, %Value* %16, i32 0, i32 15
+  %18 = load %TokenInfo*, %TokenInfo** %17
+  call void (%Str, %TokenInfo*) @error (%Str %15, %TokenInfo* %18)
 
 ;stmt12:
-
-;stmt13:
-  %17 = load %Str, %Str* @_func217_str1
-  %18 = load %Value*, %Value** %v
-  %19 = getelementptr inbounds %Value, %Value* %18, i32 0, i32 15
-  %20 = load %TokenInfo*, %TokenInfo** %19
-  call void (%Str, %TokenInfo*) @error (%Str %17, %TokenInfo* %20)
-
-;stmt14:
-  %21 = inttoptr i64 0 to %Type*
-  ret %Type* %21
-  br label %endif_3
-else_3:
-  br label %endif_3
-endif_3:
-
-;stmt15:
-  %23 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 6
-  %24 = getelementptr inbounds %TypePointer, %TypePointer* %23, i32 0, i32 0
-  %25 = load %Type*, %Type** %24
-  store %Type* %25, %Type** %t
+  %19 = inttoptr i64 0 to %Type*
+  ret %Type* %19
   br label %endif_2
 else_2:
+  br label %endif_2
+endif_2:
+
+;stmt13:
+  %21 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 6
+  %22 = getelementptr inbounds %TypePointer, %TypePointer* %21, i32 0, i32 0
+  %23 = load %Type*, %Type** %22
+  store %Type* %23, %Type** %t
+  br label %endif_1
+else_1:
+
+;stmt14:
+  %24 = icmp eq %ValueKind %8, 10
+  br i1 %24, label %then_3, label %else_3
+then_3:
+
+;stmt15:
 
 ;stmt16:
-  %26 = icmp eq %ValueKind %8, 10
-  br i1 %26, label %then_4, label %else_4
-then_4:
+  store %Type* %5, %Type** %t
+  br label %endif_3
+else_3:
 
 ;stmt17:
+  %25 = icmp eq %ValueKind %8, 9
+  br i1 %25, label %then_4, label %else_4
+then_4:
 
 ;stmt18:
+
+;stmt19:
   store %Type* %5, %Type** %t
   br label %endif_4
 else_4:
-
-;stmt19:
-  %27 = icmp eq %ValueKind %8, 9
-  br i1 %27, label %then_5, label %else_5
-then_5:
-
-;stmt20:
-
-;stmt21:
-  store %Type* %5, %Type** %t
-  br label %endif_5
-else_5:
-  br label %endif_5
-endif_5:
   br label %endif_4
 endif_4:
-  br label %endif_2
-endif_2:
+  br label %endif_3
+endif_3:
+  br label %endif_1
+endif_1:
   br label %endif_0
 endif_0:
 
-;stmt22:
-  %28 = load %Type*, %Type** %t
-  ret %Type* %28
+;stmt20:
+  %26 = load %Type*, %Type** %t
+  ret %Type* %26
 }
 
 define %Bool @binTypeValid (%ValueKind %_k, %Type* %_t) {

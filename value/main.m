@@ -142,10 +142,11 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
 
 
 
-
 let valueIsReadonly = func (v : *Value) -> Bool {
   let k = v.kind
+  // это неправильно - тк операции тоже readonly!
   return k == ValueGlobalConst or k == ValueImmediate or k == ValueRegister
+  //return not valueIsMutable(v)
 }
 
 
