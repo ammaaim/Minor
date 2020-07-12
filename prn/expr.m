@@ -489,7 +489,7 @@ let print_st = func (l, r : *Value) -> Unit {
 
 // загрузка (если она необходима) значения вычисленного выражения
 let load = func (x : Obj) -> Obj {
-  if x.kind == ObjKindInvalid {return x}
+  if x.kind == ObjInvalid {return x}
 
   let loadImmPtr = func (x : Obj) -> Obj {
     let t = x.type
@@ -542,8 +542,8 @@ let print_obj = func (o : Obj) -> Unit {
     fprintf(fout, "@%s", o.id)
   } else if k == ObjLocal {
     fprintf(fout, "%%%s", o.id)
-  } else if k == ObjKindInvalid {
-    fprintf(fout, "<ObjKindInvalid>")
+  } else if k == ObjInvalid {
+    fprintf(fout, "<ObjInvalid>")
   }
 }
 

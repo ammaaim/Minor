@@ -143,9 +143,9 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
 
 
 
-let valueIsConst = func (v : *Value) -> Bool {
+let valueIsReadonly = func (v : *Value) -> Bool {
   let k = v.kind
-  return k == ValueGlobalConst or k == ValueImmediate
+  return k == ValueGlobalConst or k == ValueImmediate or k == ValueRegister
 }
 
 
@@ -155,7 +155,7 @@ let valueIsMutable = func (v : *Value) -> Bool {
 }
 
 
-let valueIsReadonly = func (v : *Value) -> Bool {return not valueIsMutable(v)}
+//let valueIsReadonly = func (v : *Value) -> Bool {return not valueIsMutable(v)}
 
 
 

@@ -15,9 +15,8 @@ let cexpr = func ValueParser {
   let v = expr()
   if v == Nil {goto fail}
 
-
   // in [x]X we need only imm const
-  if not valueIsConst(v) {
+  if v.kind != ValueImmediate {
     error("expected constant value", v.ti)
     goto fail
   }
