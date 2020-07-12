@@ -4,8 +4,7 @@ let MAXARG = 256
 
 
 type ObjKind = enum {
-  // default kind
-  ObjKindUndefined,  // used by undefined value
+  ObjKindInvalid,    // error occurred while evaluation
 
   ObjKindImmediate,  // For Obj in printer
   /*
@@ -37,10 +36,10 @@ type Obj = record {
 
 
 // new printer object
-let obj = func (t : *Type, c : ObjKind, reg : Nat32) -> Obj {
+let obj = func (t : *Type, k : ObjKind, reg : Nat32) -> Obj {
   var o : Obj
   o.type = t
-  o.kind = c
+  o.kind = k
   o.reg = reg
   o.id = Nil
   o.imm = 0
@@ -61,26 +60,27 @@ let eval = func Eval {
   let k = v.kind
 
   var obj : Obj
-
   obj.type = v.type
-  obj.id = v.id
-  obj.imm = v.imm
-  obj.reg = v.reg
 
   if k == ValueImmediate {
     obj.kind = ObjKindImmediate
+    obj.imm = v.imm
     return obj
   } else if k == ValueGlobalConst {
     obj.kind = ObjKindGlobalConst
+    obj.id = v.id
     return obj
   } else if k == ValueLocalVar {
     obj.kind = ObjKindLocal
+    obj.id = v.id
     return obj
   } else if k == ValueGlobalVar {
     obj.kind = ObjKindGlobal
+    obj.id = v.id
     return obj
   } else if k == ValueRegister {
     obj.kind = ObjKindRegister
+    obj.reg = v.reg
     return obj
 
   } else if k == ValueCall {
@@ -166,7 +166,6 @@ let eval_call = func Eval {
 
   o(")")
 
-  /* возвращаем результат (регистр) */
   return obj(v.type, ObjKindRegister, retval_reg)
 }
 
@@ -488,6 +487,7 @@ let print_st = func (l, r : *Value) -> Unit {
 
 // загрузка (если она необходима) значения вычисленного выражения
 let load = func (x : Obj) -> Obj {
+  if x.kind == ObjKindInvalid {return x}
 
   let loadImmPtr = func (x : Obj) -> Obj {
     let t = x.type
@@ -540,8 +540,8 @@ let print_obj = func (o : Obj) -> Unit {
     fprintf(fout, "@%s", o.id)
   } else if k == ObjKindLocal {
     fprintf(fout, "%%%s", o.id)
-  } else if k == ObjKindUndefined {
-    fprintf(fout, "<ObjKindUndefined>")
+  } else if k == ObjKindInvalid {
+    fprintf(fout, "<ObjKindInvalid>")
   }
 }
 
