@@ -5,7 +5,7 @@ let MAXARG = 256
 
 
 type ObjKind = enum {
-  ObjKindInvalid,    // error occurred while evaluation
+  ObjInvalid,    // error occurred while evaluation
 
   ObjImmediate,  // value in imm field
 
