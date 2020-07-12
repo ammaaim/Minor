@@ -60,23 +60,6 @@ let print_value_kind = func (k : ValueKind) -> Str {
 }
 
 
-let print_storage_class = func (c : StorageClass) -> Str {
-  if c == StorageUndefined {
-    return "StorageUndefined"
-  } else if c == StorageGlobalConst {
-    return "StorageGlobalConst"
-  } else if c == StorageRegister {
-    return "StorageRegister"
-  } else if c == StorageAddress {
-    return "StorageAddress"
-  } else if c == StorageLocal {
-    return "StorageLocal"
-  } else if c == StorageGlobal {
-    return "StorageGlobal"
-  }
-  return "StorageClassUnknown"
-}
-
 
 let value_show = func (v : *Value) -> Unit {
   printf("value: %p {\n", v)

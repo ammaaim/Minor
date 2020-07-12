@@ -3,43 +3,44 @@
 let MAXARG = 256
 
 
-type StorageClass = enum {
-  // default class
-  StorageUndefined,  // used by undefined value
+type ObjKind = enum {
+  // default kind
+  ObjKindUndefined,  // used by undefined value
 
-  StorageImmediate,  // For Obj in printer
+  ObjKindImmediate,  // For Obj in printer
   /*
    * Global Immutable Object used by name
    * such as funcs, strings, literal arrays & records
    */
-  StorageGlobalConst,
+  ObjKindGlobalConst,
 
   // variables
-  StorageLocal,      // local var
-  StorageGlobal,     // global var
+  ObjKindLocal,      // local var
+  ObjKindGlobal,     // global var
 
   // register
-  StorageAddress,    // address of value in register
-  StorageRegister    // value in LLVM register
+  ObjKindAddress,    // address of value in register
+  ObjKindRegister    // value in LLVM register
 }
 
 
 // Объект принтера - содержит тип значения и его местоположение
 type Obj = record {
+  kind : ObjKind
+
   type : *Type
 
-  class : StorageClass
   imm : Int64
   id  : Str
-  reg : Nat32  // StorageRegister, StorageAddress
+  reg : Nat32  // ObjKindRegister, ObjKindAddress
 }
 
 
 // new printer object
-let obj = func (t : *Type, c : StorageClass, reg : Nat32) -> Obj {
+let obj = func (t : *Type, c : ObjKind, reg : Nat32) -> Obj {
   var o : Obj
   o.type = t
-  o.class = c
+  o.kind = c
   o.reg = reg
   o.id = Nil
   o.imm = 0
@@ -52,6 +53,10 @@ type Eval = (v : *Value) -> Obj
 
 
 // value evaluation
+// Принимает на вход значение. Возвращает объект принтера
+// Значения-операции вычисляются. Результатом может быть константа, имя, регистр или адрес.
+// Имена и адреса нуждаются в дополнительной загрузке функцией load
+// (только если это не lval)
 let eval = func Eval {
   let k = v.kind
 
@@ -63,19 +68,19 @@ let eval = func Eval {
   obj.reg = v.reg
 
   if k == ValueImmediate {
-    obj.class = StorageImmediate
+    obj.kind = ObjKindImmediate
     return obj
   } else if k == ValueGlobalConst {
-    obj.class = StorageGlobalConst
+    obj.kind = ObjKindGlobalConst
     return obj
   } else if k == ValueLocalVar {
-    obj.class = StorageLocal
+    obj.kind = ObjKindLocal
     return obj
   } else if k == ValueGlobalVar {
-    obj.class = StorageGlobal
+    obj.kind = ObjKindGlobal
     return obj
   } else if k == ValueRegister {
-    obj.class = StorageRegister
+    obj.kind = ObjKindRegister
     return obj
 
   } else if k == ValueCall {
@@ -162,7 +167,7 @@ let eval_call = func Eval {
   o(")")
 
   /* возвращаем результат (регистр) */
-  return obj(v.type, StorageRegister, retval_reg)
+  return obj(v.type, ObjKindRegister, retval_reg)
 }
 
 
@@ -206,7 +211,7 @@ let eval_index = func Eval {
   space()
   print_obj(i)
   //o(" ; eval_index")
-  return obj(v.type, StorageAddress, reg)
+  return obj(v.type, ObjKindAddress, reg)
 }
 
 
@@ -238,16 +243,16 @@ let eval_access = func Eval {
   fprintf(fout, ", i32 0, i32 %u", fieldno)
   //o("; eval_access")
 
-  return obj(v.type, StorageAddress, reg)
+  return obj(v.type, ObjKindAddress, reg)
 }
 
 
 let eval_ref = func Eval {
   var vx : Obj
   vx = eval(v.un.x)
-  if vx.class == StorageAddress {
+  if vx.kind == ObjKindAddress {
     // если это адрес - вернем его в регистре, а тип обернем в указатель
-    return obj(v.type, StorageRegister, vx.reg)
+    return obj(v.type, ObjKindRegister, vx.reg)
   }
 
   //%7 = getelementptr inbounds %Int32, %Int32* @a, i32 0
@@ -262,7 +267,7 @@ let eval_ref = func Eval {
   o("i32 0")
   //o("; ref")
 
-  return obj(v.type, StorageRegister, reg)
+  return obj(v.type, ObjKindRegister, reg)
 }
 
 
@@ -272,7 +277,7 @@ let eval_deref = func Eval {
   vx = load(eval(v.un.x))
 
   // returns loaded pointer as #Address
-  return obj(v.type, StorageAddress, vx.reg)
+  return obj(v.type, ObjKindAddress, vx.reg)
 }
 
 
@@ -287,7 +292,7 @@ let eval_not = func Eval {
   space()
   print_obj(vx)
   if (type_eq(vx.type, typeBool)) {o(", 1")} else {o(", -1")}
-  return obj(vx.type, StorageRegister, reg)
+  return obj(vx.type, ObjKindRegister, reg)
 }
 
 
@@ -304,7 +309,7 @@ let eval_minus = func Eval {
   fprintf(fout, " 0")
   comma()
   print_obj(vx)
-  return obj(vx.type, StorageRegister, reg)
+  return obj(vx.type, ObjKindRegister, reg)
 }
 
 
@@ -403,7 +408,7 @@ let eval_cast = func Eval {
   o(" to ")
   printType(to, True, True)
 
-  return obj(v.type, StorageRegister, reg)
+  return obj(v.type, ObjKindRegister, reg)
 }
 
 
@@ -461,7 +466,7 @@ let eval_bin = func Eval {
   comma()
   print_obj(r)
 
-  return obj(v.type, StorageRegister, reg)
+  return obj(v.type, ObjKindRegister, reg)
 }
 
 
@@ -492,13 +497,13 @@ let load = func (x : Obj) -> Obj {
     o(" to ")
     printType(t, True, True)
 
-    return obj(t, StorageRegister, reg)
+    return obj(t, ObjKindRegister, reg)
   }
 
   // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
   // явной операцией inttoptr. Поэтому если нам попался указатель вида ValueImmediate
   // то его нужно будет загрузить в регистр функцией inttoptr
-  if x.class == StorageImmediate {
+  if x.kind == ObjKindImmediate {
     if typeIsReference(x.type) {
       return loadImmPtr(x)
     }
@@ -506,9 +511,9 @@ let load = func (x : Obj) -> Obj {
   }
 
   // в загрузке нуждаются только значения с изменяемым классом памяти
-  // это StorageGlobal, StorageLocal & StorageAddress;
+  // это ObjKindGlobal, ObjKindLocal & ObjKindAddress;
   // остальные вернем просто так
-  if x.class != StorageLocal and x.class != StorageGlobal and x.class != StorageAddress {
+  if x.kind != ObjKindLocal and x.kind != ObjKindGlobal and x.kind != ObjKindAddress {
     return x
   }
 
@@ -520,23 +525,23 @@ let load = func (x : Obj) -> Obj {
   o("* ")
   print_obj(x)
 
-  return obj(x.type, StorageRegister, reg)
+  return obj(x.type, ObjKindRegister, reg)
 }
 
 
 // печать значение вычисленного выражения
 let print_obj = func (o : Obj) -> Unit {
-  let cl = o.class
-  if cl == StorageImmediate {
+  let k = o.kind
+  if k == ObjKindImmediate {
     fprintf(fout, "%d", o.imm)
-  } else if cl == StorageRegister or cl == StorageAddress {
+  } else if k == ObjKindRegister or k == ObjKindAddress {
     fprintf(fout, "%%%d", o.reg)
-  } else if cl == StorageGlobal or cl == StorageGlobalConst{
+  } else if k == ObjKindGlobal or k == ObjKindGlobalConst{
     fprintf(fout, "@%s", o.id)
-  } else if cl == StorageLocal {
+  } else if k == ObjKindLocal {
     fprintf(fout, "%%%s", o.id)
-  } else if cl == StorageUndefined {
-    fprintf(fout, "<StorageUndefined>")
+  } else if k == ObjKindUndefined {
+    fprintf(fout, "<ObjKindUndefined>")
   }
 }
 
