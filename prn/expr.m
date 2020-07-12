@@ -1,5 +1,6 @@
 // m2/prn/expr
 
+
 let MAXARG = 256
 
 
@@ -114,23 +115,23 @@ let eval_call = func Eval {
   /* вычисляем аргументы перед печатью вызова */
 
   // контекст в котором накапливаются вычисленные аргументы
-  type Ctx = record {
+  type Arguments = record {
     args : [MAXARG]Obj
-    argcnt : Nat16
+    cnt  : Nat16
   }
 
-  var ctx : Ctx
-  ctx.argcnt = 0
+  var args : Arguments
+  args.cnt = 0
 
   let eval_args = func ListForeachHandler {
     let arg = data to *Value
-    let c = ctx to *Ctx
+    let args = ctx to *Arguments
     var argg : Obj
     argg = load(eval(arg))
-    c.args[c.argcnt] = argg
-    c.argcnt = c.argcnt + 1
+    args.args[args.cnt] = argg
+    args.cnt = args.cnt + 1
   }
-  list_foreach(v.call.arguments, eval_args, &ctx)
+  list_foreach(v.call.arguments, eval_args, &args)
 
   /* печатаем вызов */
 
@@ -156,11 +157,11 @@ let eval_call = func Eval {
   var c : Nat16
   c = 0
 
-  while c < ctx.argcnt {
+  while c < args.cnt {
     if need_comma {comma()}
-    printType(ctx.args[c].type, True, True)
+    printType(args.args[c].type, True, True)
     space()
-    print_obj(ctx.args[c])
+    print_obj(args.args[c])
     need_comma = True
     c = c + 1
   }

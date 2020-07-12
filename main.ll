@@ -100,7 +100,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %ObjKind = type %Int16
 %Obj = type {%ObjKind, %Type*, %Int64, %Str, %Nat32}
 %Eval = type %Obj (%Value*)*
-%Ctx = type {[256 x %Obj], %Nat16}
+%Arguments = type {[256 x %Obj], %Nat16}
 %Arch = type %Int16
 
 ;strings:
@@ -18876,7 +18876,7 @@ define void @eval_args (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
 
 ;stmt1:
   %3 = load %Unit*, %Unit** %ctx
-  %4 = bitcast %Unit* %3 to %Ctx*
+  %4 = bitcast %Unit* %3 to %Arguments*
 
 ;stmt2:
   %argg = alloca %Obj
@@ -18887,16 +18887,16 @@ define void @eval_args (%Unit* %_data, %Unit* %_ctx, %Nat32 %_index) {
   store %Obj %6, %Obj* %argg
 
 ;stmt4:
-  %7 = getelementptr inbounds %Ctx, %Ctx* %4, i32 0, i32 0
-  %8 = getelementptr inbounds %Ctx, %Ctx* %4, i32 0, i32 1
+  %7 = getelementptr inbounds %Arguments, %Arguments* %4, i32 0, i32 0
+  %8 = getelementptr inbounds %Arguments, %Arguments* %4, i32 0, i32 1
   %9 = load %Nat16, %Nat16* %8
   %10 = getelementptr inbounds [256 x %Obj], [256 x %Obj]* %7, i32 0, %Nat16 %9
   %11 = load %Obj, %Obj* %argg
   store %Obj %11, %Obj* %10
 
 ;stmt5:
-  %12 = getelementptr inbounds %Ctx, %Ctx* %4, i32 0, i32 1
-  %13 = getelementptr inbounds %Ctx, %Ctx* %4, i32 0, i32 1
+  %12 = getelementptr inbounds %Arguments, %Arguments* %4, i32 0, i32 1
+  %13 = getelementptr inbounds %Arguments, %Arguments* %4, i32 0, i32 1
   %14 = load %Nat16, %Nat16* %13
   %15 = add %Nat16 %14, 1
   store %Nat16 %15, %Nat16* %12
@@ -18920,10 +18920,10 @@ define %Obj @eval_call (%Value* %_v) {
   store %Obj %6, %Obj* %f
 
 ;stmt2:
-  %ctx = alloca %Ctx
+  %args = alloca %Arguments
 
 ;stmt3:
-  %7 = getelementptr inbounds %Ctx, %Ctx* %ctx, i32 0, i32 1
+  %7 = getelementptr inbounds %Arguments, %Arguments* %args, i32 0, i32 1
   store %Nat16 0, %Nat16* %7
 
 ;stmt4:
@@ -18931,8 +18931,8 @@ define %Obj @eval_call (%Value* %_v) {
   %9 = getelementptr inbounds %Value, %Value* %8, i32 0, i32 10
   %10 = getelementptr inbounds %ValueCall, %ValueCall* %9, i32 0, i32 1
   %11 = load %List*, %List** %10
-  %12 = getelementptr inbounds %Ctx, %Ctx* %ctx, i32 0
-  %13 = bitcast %Ctx* %12 to %Unit*
+  %12 = getelementptr inbounds %Arguments, %Arguments* %args, i32 0
+  %13 = bitcast %Arguments* %12 to %Unit*
   call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %11, %ListForeachHandler @eval_args, %Unit* %13)
 
 ;stmt5:
@@ -19004,7 +19004,7 @@ endif_0:
   br label %continue_0
 continue_0:
   %33 = load %Nat16, %Nat16* %c
-  %34 = getelementptr inbounds %Ctx, %Ctx* %ctx, i32 0, i32 1
+  %34 = getelementptr inbounds %Arguments, %Arguments* %args, i32 0, i32 1
   %35 = load %Nat16, %Nat16* %34
   %36 = icmp ult %Nat16 %33, %35
   br i1 %36, label %body_0, label %break_0
@@ -19027,7 +19027,7 @@ else_1:
 endif_1:
 
 ;stmt25:
-  %38 = getelementptr inbounds %Ctx, %Ctx* %ctx, i32 0, i32 0
+  %38 = getelementptr inbounds %Arguments, %Arguments* %args, i32 0, i32 0
   %39 = load %Nat16, %Nat16* %c
   %40 = getelementptr inbounds [256 x %Obj], [256 x %Obj]* %38, i32 0, %Nat16 %39
   %41 = getelementptr inbounds %Obj, %Obj* %40, i32 0, i32 1
@@ -19038,7 +19038,7 @@ endif_1:
   call void () @space ()
 
 ;stmt27:
-  %43 = getelementptr inbounds %Ctx, %Ctx* %ctx, i32 0, i32 0
+  %43 = getelementptr inbounds %Arguments, %Arguments* %args, i32 0, i32 0
   %44 = load %Nat16, %Nat16* %c
   %45 = getelementptr inbounds [256 x %Obj], [256 x %Obj]* %43, i32 0, %Nat16 %44
   %46 = load %Obj, %Obj* %45
