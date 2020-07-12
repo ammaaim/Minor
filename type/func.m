@@ -28,10 +28,9 @@ let type_function_eq = func (a, b : *TypeFunc) -> Bool {
     let f1 = data1 to *Field
     let f2 = data2 to *Field
 
-    // id может быть Nil (в случае задекларированной в контексте вызова функции)
-    if f1.id != Nil and f2.id != Nil {
-      if strcmp(f1.id, f2.id) != 0 {return False}
-    }
+    assert(f1.id != Nil, "m2/type/func f1.id == Nil!")
+    assert(f2.id != Nil, "m2/type/func f2.id == Nil!")
+    if strcmp(f1.id, f2.id) != 0 {return False}
 
     return type_eq(f1.type, f2.type)
   }

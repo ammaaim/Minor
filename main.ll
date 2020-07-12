@@ -327,6 +327,10 @@ target triple = "x86_64-apple-macosx10.14.0"
 @_func89_str1 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func89_str1, i32 0, i32 0), align 8
 @.str._func106_str1 = private unnamed_addr constant [13 x i8] c"unknown type\00", align 1
 @_func106_str1 = constant i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str._func106_str1, i32 0, i32 0), align 8
+@.str._func109_str1 = private unnamed_addr constant [27 x i8] c"m2/type/func f1.id == Nil!\00", align 1
+@_func109_str1 = constant i8* getelementptr inbounds ([27 x i8], [27 x i8]* @.str._func109_str1, i32 0, i32 0), align 8
+@.str._func109_str2 = private unnamed_addr constant [27 x i8] c"m2/type/func f2.id == Nil!\00", align 1
+@_func109_str2 = constant i8* getelementptr inbounds ([27 x i8], [27 x i8]* @.str._func109_str2, i32 0, i32 0), align 8
 @.str._func112_str1 = private unnamed_addr constant [26 x i8] c"type_eq unknown type kind\00", align 1
 @_func112_str1 = constant i8* getelementptr inbounds ([26 x i8], [26 x i8]* @.str._func112_str1, i32 0, i32 0), align 8
 @.str._func113_str1 = private unnamed_addr constant [5 x i8] c"Unit\00", align 1
@@ -6705,47 +6709,44 @@ define %Bool @check_param (%Unit* %_data1, %Unit* %_data2, %Unit* %_ctx, %Nat32 
   %7 = bitcast %Str %6 to %Unit*
   %8 = inttoptr i64 0 to %Unit*
   %9 = icmp ne %Unit* %7, %8
-  %10 = getelementptr inbounds %Field, %Field* %4, i32 0, i32 0
-  %11 = load %Str, %Str* %10
-  %12 = bitcast %Str %11 to %Unit*
-  %13 = inttoptr i64 0 to %Unit*
-  %14 = icmp ne %Unit* %12, %13
-  %15 = and %Bool %9, %14
-  br i1 %15, label %then_0, label %else_0
-then_0:
+  %10 = load %Str, %Str* @_func109_str1
+  call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt3:
+  %11 = getelementptr inbounds %Field, %Field* %4, i32 0, i32 0
+  %12 = load %Str, %Str* %11
+  %13 = bitcast %Str %12 to %Unit*
+  %14 = inttoptr i64 0 to %Unit*
+  %15 = icmp ne %Unit* %13, %14
+  %16 = load %Str, %Str* @_func109_str2
+  call void (%Bool, %Str) @assert (%Bool %15, %Str %16)
 
 ;stmt4:
-  %16 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 0
-  %17 = load %Str, %Str* %16
-  %18 = getelementptr inbounds %Field, %Field* %4, i32 0, i32 0
-  %19 = load %Str, %Str* %18
-  %20 = call %Int32 (%Str, %Str) @strcmp (%Str %17, %Str %19)
-  %21 = icmp ne %Int32 %20, 0
-  br i1 %21, label %then_1, label %else_1
-then_1:
+  %17 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 0
+  %18 = load %Str, %Str* %17
+  %19 = getelementptr inbounds %Field, %Field* %4, i32 0, i32 0
+  %20 = load %Str, %Str* %19
+  %21 = call %Int32 (%Str, %Str) @strcmp (%Str %18, %Str %20)
+  %22 = icmp ne %Int32 %21, 0
+  br i1 %22, label %then_0, label %else_0
+then_0:
 
 ;stmt5:
 
 ;stmt6:
   ret %Bool 0
-  br label %endif_1
-else_1:
-  br label %endif_1
-endif_1:
   br label %endif_0
 else_0:
   br label %endif_0
 endif_0:
 
 ;stmt7:
-  %23 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 1
-  %24 = load %Type*, %Type** %23
-  %25 = getelementptr inbounds %Field, %Field* %4, i32 0, i32 1
-  %26 = load %Type*, %Type** %25
-  %27 = call %Bool (%Type*, %Type*) @type_eq (%Type* %24, %Type* %26)
-  ret %Bool %27
+  %24 = getelementptr inbounds %Field, %Field* %2, i32 0, i32 1
+  %25 = load %Type*, %Type** %24
+  %26 = getelementptr inbounds %Field, %Field* %4, i32 0, i32 1
+  %27 = load %Type*, %Type** %26
+  %28 = call %Bool (%Type*, %Type*) @type_eq (%Type* %25, %Type* %27)
+  ret %Bool %28
 }
 
 define %Bool @type_function_eq (%TypeFunc* %_a, %TypeFunc* %_b) {
