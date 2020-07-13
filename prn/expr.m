@@ -39,7 +39,7 @@ type Obj = record {
 
 
 // new printer object
-let new_obj = func (t : *Type, k : ObjKind, reg : Nat32) -> Obj {
+let obj = func (t : *Type, k : ObjKind, reg : Nat32) -> Obj {
   var o : Obj
   o.type = t
   o.kind = k
@@ -172,7 +172,7 @@ let eval_call = func Eval {
 
   o(")")
 
-  return new_obj(v.type, ObjRegister, retval_reg)
+  return obj(v.type, ObjRegister, retval_reg)
 }
 
 
@@ -198,7 +198,7 @@ let eval_index = func Eval {
     space()
     print_obj(a)
     fprintf(fout, ", %u", i.imm)
-    return new_obj(v.type, ObjRegister, reg)
+    return obj(v.type, ObjRegister, reg)
   }
 
 
@@ -233,7 +233,7 @@ let eval_index = func Eval {
   space()
   print_obj(i)
   //o(" ; eval_index")
-  return new_obj(v.type, ObjAddress, reg)
+  return obj(v.type, ObjAddress, reg)
 }
 
 
@@ -266,7 +266,7 @@ let eval_access = func Eval {
     space()
     print_obj(s)
     fprintf(fout, ", %u", fieldno)
-    return new_obj(v.type, ObjRegister, reg)
+    return obj(v.type, ObjRegister, reg)
   }
 
   // todo: совмести это с index - там в сущность такой же алгоритм
@@ -280,7 +280,7 @@ let eval_access = func Eval {
   fprintf(fout, ", i32 0, i32 %u", fieldno)
   //o("; eval_access")
 
-  return new_obj(v.type, ObjAddress, reg)
+  return obj(v.type, ObjAddress, reg)
 }
 
 
@@ -288,7 +288,7 @@ let eval_ref = func Eval {
   let vx = eval(v.un.x)
   if vx.kind == ObjAddress {
     // если это адрес - вернем его в регистре, а тип обернем в указатель
-    return new_obj(v.type, ObjRegister, vx.reg)
+    return obj(v.type, ObjRegister, vx.reg)
   }
 
   //%7 = getelementptr inbounds %Int32, %Int32* @a, i32 0
@@ -303,7 +303,7 @@ let eval_ref = func Eval {
   o("i32 0")
   //o("; ref")
 
-  return new_obj(v.type, ObjRegister, reg)
+  return obj(v.type, ObjRegister, reg)
 }
 
 
@@ -312,7 +312,7 @@ let eval_deref = func Eval {
   let vx = load(eval(v.un.x))
 
   // returns loaded pointer as #Address
-  return new_obj(v.type, ObjAddress, vx.reg)
+  return obj(v.type, ObjAddress, vx.reg)
 }
 
 
@@ -326,7 +326,7 @@ let eval_not = func Eval {
   space()
   print_obj(vx)
   if (type_eq(vx.type, typeBool)) {o(", 1")} else {o(", -1")}
-  return new_obj(vx.type, ObjRegister, reg)
+  return obj(vx.type, ObjRegister, reg)
 }
 
 
@@ -342,7 +342,7 @@ let eval_minus = func Eval {
   fprintf(fout, " 0")
   comma()
   print_obj(vx)
-  return new_obj(vx.type, ObjRegister, reg)
+  return obj(vx.type, ObjRegister, reg)
 }
 
 
@@ -438,7 +438,7 @@ let eval_cast = func Eval {
   o(" to ")
   printType(to, True, True)
 
-  return new_obj(v.type, ObjRegister, reg)
+  return obj(v.type, ObjRegister, reg)
 }
 
 
@@ -495,7 +495,7 @@ let eval_bin = func Eval {
   comma()
   print_obj(r)
 
-  return new_obj(v.type, ObjRegister, reg)
+  return obj(v.type, ObjRegister, reg)
 }
 
 
@@ -526,7 +526,7 @@ let load = func (x : Obj) -> Obj {
     o(" to ")
     printType(t, True, True)
 
-    return new_obj(t, ObjRegister, reg)
+    return obj(t, ObjRegister, reg)
   }
 
   // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
@@ -555,7 +555,7 @@ let load = func (x : Obj) -> Obj {
   o("* ")
   print_obj(x)
 
-  return new_obj(x.type, ObjRegister, reg)
+  return obj(x.type, ObjRegister, reg)
 }
 
 

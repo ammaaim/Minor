@@ -164,18 +164,21 @@ fail:
 }
 
 
-var offset : Nat16
+
 
 let parse_type_func = func TypeParser {
   let params = parse_fields(")")
 
+  // прописываем параметрам смещения - это нужно для принтера
+  var offset : Nat16
   offset = 0
   let set_param_offset = func ListForeachHandler {
     let f = data to *Field
-    f.offset = offset
-    offset = offset + 1
+    let poff = ctx to *Nat16  // pointer to offset accumulator
+    f.offset = *poff
+    *poff = *poff + 1
   }
-  list_foreach(params, set_param_offset, Nil)
+  list_foreach(params, set_param_offset, &offset)
 
   need ("->")
   let rettype = parse_type()

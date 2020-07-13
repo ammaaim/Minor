@@ -74,8 +74,7 @@ let print_stmt_expr = func (e : *Value) -> Unit {eval(e)}
 
 
 let print_stmt_let = func (e, x : *Value) -> Unit {
-  var ee : Obj
-  ee = load(eval(e))
+  let ee = load(eval(e))
   // сопрягаем
   x.reg = ee.reg
 }
@@ -84,8 +83,7 @@ let print_stmt_let = func (e, x : *Value) -> Unit {
 let print_stmt_if = func (i : *If) -> Unit {
   let if_id = global_if_id
   global_if_id = global_if_id + 1
-  var c : Obj
-  c = load(eval(i.cond))
+  let c = load(eval(i.cond))
   fprintf(fout, "\n  br i1 ")
   print_obj(c)
   fprintf(fout, ", label %%then_%d, label %%else_%d", if_id, if_id)
@@ -105,8 +103,7 @@ let print_stmt_while = func (w : *While) -> Unit {
   global_while_id = global_while_id + 1
   fprintf(fout, "\n  br label %%continue_%d", while_id)
   fprintf(fout, "\ncontinue_%d:", while_id)
-  var c : Obj
-  c =  load(eval(w.cond))
+  let c =  load(eval(w.cond))
   fprintf(fout, "\n  br i1 ")
   print_obj(c)
   fprintf(fout, ", label %%body_%d, label %%break_%d", while_id, while_id)
@@ -124,8 +121,7 @@ let print_stmt_return = func (rv : *Value) -> Unit {
     o("\nret void")
     return
   }
-  var v : Obj
-  v = load(eval(rv))
+  let v = load(eval(rv))
   fprintf(fout, "\n  ret ")
   printType(v.type, True, True)
   space()

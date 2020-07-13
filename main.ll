@@ -1327,7 +1327,6 @@ target triple = "x86_64-apple-macosx10.14.0"
 @arr_uid = global %Nat32 zeroinitializer
 @var_uid = global %Nat32 zeroinitializer
 @type_uid = global %Nat32 zeroinitializer
-@offset = global %Nat16 zeroinitializer
 @mctx = global %ModuleContext zeroinitializer
 @fctx = global %FuncContext zeroinitializer
 @asm0 = global %Assembly zeroinitializer
@@ -7412,32 +7411,23 @@ define %Str @get_name (%Str, %Nat32*) {
   %3 = call %Str () @get_prefix ()
 
 ;stmt1:
-  %_uid2 = alloca %Nat32*
-
-;stmt2:
-  store %Nat32* %1, %Nat32** %_uid2
-
-;stmt3:
   %id = alloca %Str
 
+;stmt2:
+  %4 = load %Nat32, %Nat32* %1
+  %5 = add %Nat32 %4, 1
+  store %Nat32 %5, %Nat32* %1
+
+;stmt3:
+  %6 = load %Nat32, %Nat32* %1
+  %7 = call %Str (%Str, %Nat32) @get_suid (%Str %0, %Nat32 %6)
+  store %Str %7, %Str* %id
+
 ;stmt4:
-  %4 = load %Nat32*, %Nat32** %_uid2
-  %5 = load %Nat32*, %Nat32** %_uid2
-  %6 = load %Nat32, %Nat32* %5
-  %7 = add %Nat32 %6, 1
-  store %Nat32 %7, %Nat32* %4
-
-;stmt5:
-  %8 = load %Nat32*, %Nat32** %_uid2
-  %9 = load %Nat32, %Nat32* %8
-  %10 = call %Str (%Str, %Nat32) @get_suid (%Str %0, %Nat32 %9)
-  store %Str %10, %Str* %id
-
-;stmt6:
-  %11 = load %Str, %Str* @_func137_str1
-  %12 = load %Str, %Str* %id
-  %13 = call %Str (%Str, %Str, %Str) @cat3 (%Str %3, %Str %11, %Str %12)
-  ret %Str %13
+  %8 = load %Str, %Str* @_func137_str1
+  %9 = load %Str, %Str* %id
+  %10 = call %Str (%Str, %Str, %Str) @cat3 (%Str %3, %Str %8, %Str %9)
+  ret %Str %10
 }
 
 define %Str @get_name_func () {
@@ -11864,14 +11854,17 @@ define void @set_param_offset (%Unit*, %Unit*, %Nat32) {
   %4 = bitcast %Unit* %0 to %Field*
 
 ;stmt1:
-  %5 = getelementptr inbounds %Field, %Field* %4, i32 0, i32 2
-  %6 = load %Nat16, %Nat16* @offset
-  store %Nat16 %6, %Nat16* %5
+  %5 = bitcast %Unit* %1 to %Nat16*
 
 ;stmt2:
-  %7 = load %Nat16, %Nat16* @offset
-  %8 = add %Nat16 %7, 1
-  store %Nat16 %8, %Nat16* @offset
+  %6 = getelementptr inbounds %Field, %Field* %4, i32 0, i32 2
+  %7 = load %Nat16, %Nat16* %5
+  store %Nat16 %7, %Nat16* %6
+
+;stmt3:
+  %8 = load %Nat16, %Nat16* %5
+  %9 = add %Nat16 %8, 1
+  store %Nat16 %9, %Nat16* %5
   ret void
 }
 
@@ -11882,48 +11875,52 @@ define %Type* @parse_type_func () {
   %2 = call %List* (%Str) @parse_fields (%Str %1)
 
 ;stmt1:
-  store %Nat16 0, %Nat16* @offset
+  %offset = alloca %Nat16
 
 ;stmt2:
-  %3 = inttoptr i64 0 to %Unit*
-  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %2, %ListForeachHandler @set_param_offset, %Unit* %3)
+  store %Nat16 0, %Nat16* %offset
 
 ;stmt3:
-  %4 = load %Str, %Str* @_func206_str2
-  %5 = call %Bool (%Str) @need (%Str %4)
+  %3 = getelementptr inbounds %Nat16, %Nat16* %offset, i32 0
+  %4 = bitcast %Nat16* %3 to %Unit*
+  call void (%List*, %ListForeachHandler, %Unit*) @list_foreach (%List* %2, %ListForeachHandler @set_param_offset, %Unit* %4)
 
 ;stmt4:
-  %6 = call %Type* () @parse_type ()
+  %5 = load %Str, %Str* @_func206_str2
+  %6 = call %Bool (%Str) @need (%Str %5)
 
 ;stmt5:
-  %7 = bitcast %List* %2 to %Unit*
-  %8 = inttoptr i64 0 to %Unit*
-  %9 = icmp eq %Unit* %7, %8
-  %10 = bitcast %Type* %6 to %Unit*
-  %11 = inttoptr i64 0 to %Unit*
-  %12 = icmp eq %Unit* %10, %11
-  %13 = or %Bool %9, %12
-  br i1 %13, label %then_0, label %else_0
-then_0:
+  %7 = call %Type* () @parse_type ()
 
 ;stmt6:
+  %8 = bitcast %List* %2 to %Unit*
+  %9 = inttoptr i64 0 to %Unit*
+  %10 = icmp eq %Unit* %8, %9
+  %11 = bitcast %Type* %7 to %Unit*
+  %12 = inttoptr i64 0 to %Unit*
+  %13 = icmp eq %Unit* %11, %12
+  %14 = or %Bool %10, %13
+  br i1 %14, label %then_0, label %else_0
+then_0:
 
 ;stmt7:
-  %14 = inttoptr i64 0 to %Type*
-  ret %Type* %14
+
+;stmt8:
+  %15 = inttoptr i64 0 to %Type*
+  ret %Type* %15
   br label %endif_0
 else_0:
   br label %endif_0
 endif_0:
 
-;stmt8:
-  %16 = load %Str, %Str* @_func206_str3
-  %17 = call %Nat64 (%Str) @get (%Str %16)
-  %18 = icmp eq %Nat64 %17, 1
-
 ;stmt9:
-  %19 = call %Type* (%List*, %Type*, %Bool) @type_func_new (%List* %2, %Type* %6, %Bool %18)
-  ret %Type* %19
+  %17 = load %Str, %Str* @_func206_str3
+  %18 = call %Nat64 (%Str) @get (%Str %17)
+  %19 = icmp eq %Nat64 %18, 1
+
+;stmt10:
+  %20 = call %Type* (%List*, %Type*, %Bool) @type_func_new (%List* %2, %Type* %7, %Bool %19)
+  ret %Type* %20
 }
 
 define %Str @print_value_kind (%ValueKind) {
@@ -16601,18 +16598,13 @@ define void @print_stmt_expr (%Value*) {
 define void @print_stmt_let (%Value*, %Value*) {
 
 ;stmt0:
-  %ee = alloca %Obj
-
-;stmt1:
   %3 = call %Obj (%Value*) @eval (%Value* %0)
   %4 = call %Obj (%Obj) @load (%Obj %3)
-  store %Obj %4, %Obj* %ee
 
-;stmt2:
+;stmt1:
   %5 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 3
-  %6 = getelementptr inbounds %Obj, %Obj* %ee, i32 0, i32 4
-  %7 = load %Nat32, %Nat32* %6
-  store %Nat32 %7, %Nat32* %5
+  %6 = extractvalue %Obj %4, 4
+  store %Nat32 %6, %Nat32* %5
   ret void
 }
 
@@ -16627,78 +16619,73 @@ define void @print_stmt_if (%If*) {
   store %Nat32 %4, %Nat32* @global_if_id
 
 ;stmt2:
-  %c = alloca %Obj
-
-;stmt3:
   %5 = getelementptr inbounds %If, %If* %0, i32 0, i32 0
   %6 = load %Value*, %Value** %5
   %7 = call %Obj (%Value*) @eval (%Value* %6)
   %8 = call %Obj (%Obj) @load (%Obj %7)
-  store %Obj %8, %Obj* %c
 
-;stmt4:
+;stmt3:
   %9 = load %Unit*, %Unit** @fout
   %10 = load %Str, %Str* @_func296_str1
   %11 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %9, %Str %10)
 
+;stmt4:
+  call void (%Obj) @print_obj (%Obj %8)
+
 ;stmt5:
-  %12 = load %Obj, %Obj* %c
-  call void (%Obj) @print_obj (%Obj %12)
+  %12 = load %Unit*, %Unit** @fout
+  %13 = load %Str, %Str* @_func296_str2
+  %14 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %12, %Str %13, %Nat32 %2, %Nat32 %2)
 
 ;stmt6:
-  %13 = load %Unit*, %Unit** @fout
-  %14 = load %Str, %Str* @_func296_str2
-  %15 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %13, %Str %14, %Nat32 %2, %Nat32 %2)
+  %15 = load %Unit*, %Unit** @fout
+  %16 = load %Str, %Str* @_func296_str3
+  %17 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %15, %Str %16, %Nat32 %2)
 
 ;stmt7:
-  %16 = load %Unit*, %Unit** @fout
-  %17 = load %Str, %Str* @_func296_str3
-  %18 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %16, %Str %17, %Nat32 %2)
+  %18 = getelementptr inbounds %If, %If* %0, i32 0, i32 1
+  %19 = load %Stmt*, %Stmt** %18
+  call void (%Stmt*) @print_stmt (%Stmt* %19)
 
 ;stmt8:
-  %19 = getelementptr inbounds %If, %If* %0, i32 0, i32 1
-  %20 = load %Stmt*, %Stmt** %19
-  call void (%Stmt*) @print_stmt (%Stmt* %20)
+  %20 = load %Unit*, %Unit** @fout
+  %21 = load %Str, %Str* @_func296_str4
+  %22 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %20, %Str %21, %Nat32 %2)
 
 ;stmt9:
-  %21 = load %Unit*, %Unit** @fout
-  %22 = load %Str, %Str* @_func296_str4
-  %23 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %21, %Str %22, %Nat32 %2)
+  %23 = load %Unit*, %Unit** @fout
+  %24 = load %Str, %Str* @_func296_str5
+  %25 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %23, %Str %24, %Nat32 %2)
 
 ;stmt10:
-  %24 = load %Unit*, %Unit** @fout
-  %25 = load %Str, %Str* @_func296_str5
-  %26 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %24, %Str %25, %Nat32 %2)
-
-;stmt11:
-  %27 = getelementptr inbounds %If, %If* %0, i32 0, i32 2
-  %28 = load %Stmt*, %Stmt** %27
-  %29 = bitcast %Stmt* %28 to %Unit*
-  %30 = inttoptr i64 0 to %Unit*
-  %31 = icmp ne %Unit* %29, %30
-  br i1 %31, label %then_0, label %else_0
+  %26 = getelementptr inbounds %If, %If* %0, i32 0, i32 2
+  %27 = load %Stmt*, %Stmt** %26
+  %28 = bitcast %Stmt* %27 to %Unit*
+  %29 = inttoptr i64 0 to %Unit*
+  %30 = icmp ne %Unit* %28, %29
+  br i1 %30, label %then_0, label %else_0
 then_0:
 
-;stmt12:
+;stmt11:
 
-;stmt13:
-  %32 = getelementptr inbounds %If, %If* %0, i32 0, i32 2
-  %33 = load %Stmt*, %Stmt** %32
-  call void (%Stmt*) @print_stmt (%Stmt* %33)
+;stmt12:
+  %31 = getelementptr inbounds %If, %If* %0, i32 0, i32 2
+  %32 = load %Stmt*, %Stmt** %31
+  call void (%Stmt*) @print_stmt (%Stmt* %32)
   br label %endif_0
 else_0:
   br label %endif_0
 endif_0:
 
-;stmt14:
-  %34 = load %Unit*, %Unit** @fout
-  %35 = load %Str, %Str* @_func296_str6
-  %36 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %34, %Str %35, %Nat32 %2)
+;stmt13:
+  %33 = load %Unit*, %Unit** @fout
+  %34 = load %Str, %Str* @_func296_str6
+  %35 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %33, %Str %34, %Nat32 %2)
 
-;stmt15:
-  %37 = load %Unit*, %Unit** @fout
-  %38 = load %Str, %Str* @_func296_str7
-  %39 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %37, %Str %38, %Nat32 %2)
+;stmt14:
+  %36 = load %Unit*, %Unit** @fout
+  %37 = load %Str, %Str* @_func296_str7
+  %38 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %36, %Str %37, %Nat32 %2)
   ret void
 }
 
@@ -16729,55 +16716,50 @@ define void @print_stmt_while (%While*) {
   %13 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %10, %Str %11, %Nat32 %12)
 
 ;stmt5:
-  %c = alloca %Obj
-
-;stmt6:
   %14 = getelementptr inbounds %While, %While* %0, i32 0, i32 0
   %15 = load %Value*, %Value** %14
   %16 = call %Obj (%Value*) @eval (%Value* %15)
   %17 = call %Obj (%Obj) @load (%Obj %16)
-  store %Obj %17, %Obj* %c
 
-;stmt7:
+;stmt6:
   %18 = load %Unit*, %Unit** @fout
   %19 = load %Str, %Str* @_func297_str3
   %20 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %18, %Str %19)
 
+;stmt7:
+  call void (%Obj) @print_obj (%Obj %17)
+
 ;stmt8:
-  %21 = load %Obj, %Obj* %c
-  call void (%Obj) @print_obj (%Obj %21)
+  %21 = load %Unit*, %Unit** @fout
+  %22 = load %Str, %Str* @_func297_str4
+  %23 = load %Nat32, %Nat32* @while_id
+  %24 = load %Nat32, %Nat32* @while_id
+  %25 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %21, %Str %22, %Nat32 %23, %Nat32 %24)
 
 ;stmt9:
-  %22 = load %Unit*, %Unit** @fout
-  %23 = load %Str, %Str* @_func297_str4
-  %24 = load %Nat32, %Nat32* @while_id
-  %25 = load %Nat32, %Nat32* @while_id
-  %26 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %22, %Str %23, %Nat32 %24, %Nat32 %25)
+  %26 = load %Unit*, %Unit** @fout
+  %27 = load %Str, %Str* @_func297_str5
+  %28 = load %Nat32, %Nat32* @while_id
+  %29 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %26, %Str %27, %Nat32 %28)
 
 ;stmt10:
-  %27 = load %Unit*, %Unit** @fout
-  %28 = load %Str, %Str* @_func297_str5
-  %29 = load %Nat32, %Nat32* @while_id
-  %30 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %27, %Str %28, %Nat32 %29)
+  %30 = getelementptr inbounds %While, %While* %0, i32 0, i32 1
+  %31 = load %Stmt*, %Stmt** %30
+  call void (%Stmt*) @print_stmt (%Stmt* %31)
 
 ;stmt11:
-  %31 = getelementptr inbounds %While, %While* %0, i32 0, i32 1
-  %32 = load %Stmt*, %Stmt** %31
-  call void (%Stmt*) @print_stmt (%Stmt* %32)
+  %32 = load %Unit*, %Unit** @fout
+  %33 = load %Str, %Str* @_func297_str6
+  %34 = load %Nat32, %Nat32* @while_id
+  %35 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %32, %Str %33, %Nat32 %34)
 
 ;stmt12:
-  %33 = load %Unit*, %Unit** @fout
-  %34 = load %Str, %Str* @_func297_str6
-  %35 = load %Nat32, %Nat32* @while_id
-  %36 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %33, %Str %34, %Nat32 %35)
+  %36 = load %Unit*, %Unit** @fout
+  %37 = load %Str, %Str* @_func297_str7
+  %38 = load %Nat32, %Nat32* @while_id
+  %39 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %36, %Str %37, %Nat32 %38)
 
 ;stmt13:
-  %37 = load %Unit*, %Unit** @fout
-  %38 = load %Str, %Str* @_func297_str7
-  %39 = load %Nat32, %Nat32* @while_id
-  %40 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %37, %Str %38, %Nat32 %39)
-
-;stmt14:
   store %Nat32 %2, %Nat32* @while_id
   ret void
 }
@@ -16808,32 +16790,26 @@ else_0:
 endif_0:
 
 ;stmt5:
-  %v = alloca %Obj
-
-;stmt6:
   %8 = call %Obj (%Value*) @eval (%Value* %0)
   %9 = call %Obj (%Obj) @load (%Obj %8)
-  store %Obj %9, %Obj* %v
 
-;stmt7:
+;stmt6:
   %10 = load %Unit*, %Unit** @fout
   %11 = load %Str, %Str* @_func298_str2
   %12 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %10, %Str %11)
 
-;stmt8:
-  %13 = getelementptr inbounds %Obj, %Obj* %v, i32 0, i32 1
-  %14 = load %Type*, %Type** %13
-  call void (%Type*, %Bool, %Bool) @printType (%Type* %14, %Bool 1, %Bool 1)
+;stmt7:
+  %13 = extractvalue %Obj %9, 1
+  call void (%Type*, %Bool, %Bool) @printType (%Type* %13, %Bool 1, %Bool 1)
 
-;stmt9:
+;stmt8:
   call void () @space ()
 
-;stmt10:
-  %15 = load %Obj, %Obj* %v
-  call void (%Obj) @print_obj (%Obj %15)
+;stmt9:
+  call void (%Obj) @print_obj (%Obj %9)
 
-;stmt11:
-  %16 = call %Nat32 () @lab_get ()
+;stmt10:
+  %14 = call %Nat32 () @lab_get ()
   ret void
 }
 
@@ -16912,7 +16888,7 @@ define void @print_block (%Block*) {
   ret void
 }
 
-define %Obj @new_obj (%Type*, %ObjKind, %Nat32) {
+define %Obj @obj (%Type*, %ObjKind, %Nat32) {
 
 ;stmt0:
   %o = alloca %Obj
@@ -17409,7 +17385,7 @@ break_0:
   %46 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %47 = load %Type*, %Type** %46
   %48 = load %Nat32, %Nat32* %retval_reg
-  %49 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %47, %ObjKind 6, %Nat32 %48)
+  %49 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %47, %ObjKind 6, %Nat32 %48)
   ret %Obj %49
 }
 
@@ -17497,7 +17473,7 @@ then_1:
 ;stmt15:
   %37 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %38 = load %Type*, %Type** %37
-  %39 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %38, %ObjKind 6, %Nat32 %26)
+  %39 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %38, %ObjKind 6, %Nat32 %26)
   ret %Obj %39
   br label %endif_1
 else_1:
@@ -17611,7 +17587,7 @@ endif_4:
 ;stmt39:
   %69 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %70 = load %Type*, %Type** %69
-  %71 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %70, %ObjKind 5, %Nat32 %41)
+  %71 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %70, %ObjKind 5, %Nat32 %41)
   ret %Obj %71
 }
 
@@ -17728,7 +17704,7 @@ then_1:
 ;stmt20:
   %52 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %53 = load %Type*, %Type** %52
-  %54 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %53, %ObjKind 6, %Nat32 %43)
+  %54 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %53, %ObjKind 6, %Nat32 %43)
   ret %Obj %54
   br label %endif_1
 else_1:
@@ -17770,7 +17746,7 @@ endif_1:
 ;stmt29:
   %67 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %68 = load %Type*, %Type** %67
-  %69 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %68, %ObjKind 5, %Nat32 %56)
+  %69 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %68, %ObjKind 5, %Nat32 %56)
   ret %Obj %69
 }
 
@@ -17794,7 +17770,7 @@ then_0:
   %8 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %9 = load %Type*, %Type** %8
   %10 = extractvalue %Obj %5, 4
-  %11 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %9, %ObjKind 6, %Nat32 %10)
+  %11 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %9, %ObjKind 6, %Nat32 %10)
   ret %Obj %11
   br label %endif_0
 else_0:
@@ -17837,7 +17813,7 @@ endif_0:
 ;stmt13:
   %21 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %22 = load %Type*, %Type** %21
-  %23 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %22, %ObjKind 6, %Nat32 %13)
+  %23 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %22, %ObjKind 6, %Nat32 %13)
   ret %Obj %23
 }
 
@@ -17854,7 +17830,7 @@ define %Obj @eval_deref (%Value*) {
   %7 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %8 = load %Type*, %Type** %7
   %9 = extractvalue %Obj %6, 4
-  %10 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %8, %ObjKind 5, %Nat32 %9)
+  %10 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %8, %ObjKind 5, %Nat32 %9)
   ret %Obj %10
 }
 
@@ -17910,7 +17886,7 @@ endif_0:
 
 ;stmt11:
   %17 = extractvalue %Obj %6, 1
-  %18 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %17, %ObjKind 6, %Nat32 %7)
+  %18 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %17, %ObjKind 6, %Nat32 %7)
   ret %Obj %18
 }
 
@@ -17948,7 +17924,7 @@ define %Obj @eval_minus (%Value*) {
 
 ;stmt7:
   %15 = extractvalue %Obj %6, 1
-  %16 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %15, %ObjKind 6, %Nat32 %7)
+  %16 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %15, %ObjKind 6, %Nat32 %7)
   ret %Obj %16
 }
 
@@ -18294,7 +18270,7 @@ endif_1:
 ;stmt63:
   %117 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %118 = load %Type*, %Type** %117
-  %119 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %118, %ObjKind 6, %Nat32 %13)
+  %119 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %118, %ObjKind 6, %Nat32 %13)
   ret %Obj %119
 }
 
@@ -18715,7 +18691,7 @@ endif_0:
 ;stmt89:
   %68 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %69 = load %Type*, %Type** %68
-  %70 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %69, %ObjKind 6, %Nat32 %62)
+  %70 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %69, %ObjKind 6, %Nat32 %62)
   ret %Obj %70
 }
 
@@ -18783,7 +18759,7 @@ define %Obj @loadImmPtr (%Obj) {
   call void (%Type*, %Bool, %Bool) @printType (%Type* %2, %Bool 1, %Bool 1)
 
 ;stmt6:
-  %8 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %2, %ObjKind 6, %Nat32 %3)
+  %8 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %2, %ObjKind 6, %Nat32 %3)
   ret %Obj %8
 }
 
@@ -18884,7 +18860,7 @@ endif_3:
 
 ;stmt19:
   %28 = extractvalue %Obj %0, 1
-  %29 = call %Obj (%Type*, %ObjKind, %Nat32) @new_obj (%Type* %28, %ObjKind 6, %Nat32 %21)
+  %29 = call %Obj (%Type*, %ObjKind, %Nat32) @obj (%Type* %28, %ObjKind 6, %Nat32 %21)
   ret %Obj %29
 }
 
