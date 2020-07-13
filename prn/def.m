@@ -112,7 +112,8 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
     let need_comma = ctx to *Bool
     if *need_comma {fprintf(fout, ", ")}
     printType(f.type, True, True)
-    fprintf(fout, " %%_%s", (data to *Field).id)
+    //fprintf(fout, " %%_%s", (data to *Field).id)
+    fprintf(fout, " %%%s", (data to *Field).id)
     *need_comma = True
   }
   list_foreach(t.function.params, vf_print_param, &need_comma)
@@ -134,7 +135,7 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
     после чего они будут доступны нам уже по указателю
     (будучи при этом локальными) */
 
-    let print_param_loc = func ListForeachHandler {
+    /*let print_param_loc = func ListForeachHandler {
       let p = data to *Field
       fprintf(fout, "\n  %%%s = alloca ", p.id)
       printType(p.type, True, True)
@@ -147,7 +148,7 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
       o("* ")
       fprintf(fout, "%%%s", p.id)
     }
-    list_foreach(t.function.params, print_param_loc, Nil)
+    list_foreach(t.function.params, print_param_loc, Nil)*/
 
     reset_local_labels()
 

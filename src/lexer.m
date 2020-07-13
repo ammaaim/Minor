@@ -113,9 +113,10 @@ let id = func Rule {return isalnum(c) or c == "_"[0]}
 let digit = func Rule {return isalnum(c)}
 let cpp_com = func Rule {return c != "\n"[0]}
 
-let c_com = func Rule {
+/*let c_com = func Rule {
   printf("%c", c)
   if c == "*"[0] {
+    //  WE CANNOT WRITE TO PARAM!
     c = getcc()
     if c == "/"[0] {
       //c = getcc()
@@ -124,7 +125,7 @@ let c_com = func Rule {
     lex_putback(c)
   }
   return True
-}
+}*/
 
 
 /*

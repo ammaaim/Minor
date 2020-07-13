@@ -29,14 +29,17 @@ let get_prefix = func () -> Str {
 let get_name = func (res : Str, uid : *Nat32) -> Str {
   let pre = get_prefix()
 
+  // косяк изза неумения работать мо значениями!
+  var _uid2 : *Nat32
+  _uid2 = uid
   var id : Str
   /*if cid != Nil {
     //printf("CID = %s\n", cid)
     id = cid
     cid = Nil
   } else {*/
-    *uid = *uid + 1
-    id = get_suid(res, *uid)
+    *_uid2 = *_uid2 + 1
+    id = get_suid(res, *_uid2)
   //}
 
   return cat3(pre, "_", id)

@@ -16,6 +16,7 @@ type ObjKind = enum {
   ObjGlobalConst,
 
   // variables
+  ObjParam,      // func param
   ObjLocal,      // local var
   ObjGlobal,     // global var
 
@@ -70,6 +71,11 @@ let eval = func Eval {
     return obj
   } else if k == ValueGlobalConst {
     obj.kind = ObjGlobalConst
+    obj.id = v.id
+    return obj
+
+  } else if k == ValueParam {
+    obj.kind = ObjParam
     obj.id = v.id
     return obj
   } else if k == ValueLocalVar {
@@ -233,8 +239,24 @@ let eval_access = func Eval {
 
   let fieldno = type_record_get_field(record_type, v.access.field).offset
 
-  // todo: совмести это с index - там в сущность такой же алгоритм
+
   let reg = lab_get()
+
+  let is_record_in_register = s.kind == ObjParam and s.type.kind == TypeRecord
+
+  // работа именно со значением в регистре; перетяни сюда и let !
+  if is_record_in_register {
+    //%7 = extractvalue { i8*, i8* } %4, 0
+    fprintf(fout, "\n  %%%d = extractvalue ", reg)
+    printType(record_type, True, True)
+    space()
+    print_obj(s)
+    fprintf(fout, ", %u", fieldno)
+    return new_obj(v.type, ObjRegister, reg)
+  }
+
+  // todo: совмести это с index - там в сущность такой же алгоритм
+
   fprintf(fout, "\n  %%%d = getelementptr inbounds ", reg)
   printType(record_type, True, True)
   comma()
@@ -512,6 +534,7 @@ let load = func (x : Obj) -> Obj {
     return x
   }
 
+
   // в загрузке нуждаются только значения с изменяемым классом памяти
   // это ObjGlobal, ObjLocal & ObjAddress;
   // остальные вернем просто так
@@ -538,9 +561,9 @@ let print_obj = func (o : Obj) -> Unit {
     fprintf(fout, "%d", o.imm)
   } else if k == ObjRegister or k == ObjAddress {
     fprintf(fout, "%%%d", o.reg)
-  } else if k == ObjGlobal or k == ObjGlobalConst{
+  } else if k == ObjGlobal or k == ObjGlobalConst {
     fprintf(fout, "@%s", o.id)
-  } else if k == ObjLocal {
+  } else if k == ObjLocal or k == ObjParam {
     fprintf(fout, "%%%s", o.id)
   } else if k == ObjInvalid {
     fprintf(fout, "<ObjInvalid>")

@@ -151,7 +151,7 @@ let get_value_from_params = func (params : *List, id : Str) -> *Value {
 
   // нашли параметр с таким именем
   // создадим для него 'Value' и вернем его
-  let v = valueNew(ValueLocalVar, param.ti)
+  let v = valueNew(ValueParam, param.ti)
   v.type = param.type
   v.id = param.id
   return v
