@@ -143,14 +143,45 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
          k == ValueGe
 }
 
+let isSpecialOpKind = func (k : ValueKind) -> Bool {
+  return k == ValueShl or
+         k == ValueShr or
+         k == ValueCall or
+         k == ValueIndex or
+         k == ValueAccess or
+         k == ValueCall or
+         k == ValueCast or
+         k == ValueSizeof or
+         k == ValueAlignof
+}
 
 
+let valueIsTerm = func (v : *Value) -> Bool {
+  let k = v.kind
+  return isUnaryOpKind(k) or isBinaryOpKind(k) or isSpecialOpKind(k)
+}
+
+
+// исп в assign
 let valueIsReadonly = func (v : *Value) -> Bool {
   let k = v.kind
+
+  if k == ValueIndex {
+    let def_arr = typeIsDefinedArray(v.index.array.type)
+    return valueIsReadonly(v.index.array) and def_arr
+  }
+
+  if k == ValueAccess {
+    return valueIsReadonly(v.access.value) and v.access.value.type.kind != TypePointer
+  }
+
   // это неправильно - тк операции тоже readonly!
-  return k == ValueGlobalConst or k == ValueImmediate or k == ValueRegister or k == ValueParam
-  //return not valueIsMutable(v)
+  return k == ValueGlobalConst or
+         k == ValueImmediate or
+         k == ValueRegister or
+         k == ValueParam
 }
+
 
 
 let valueIsMutable = func (v : *Value) -> Bool {
