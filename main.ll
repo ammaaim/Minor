@@ -555,16 +555,18 @@ target triple = "x86_64-apple-macosx10.14.0"
 @_func169_str2 = constant i8* getelementptr inbounds ([25 x i8], [25 x i8]* @.str._func169_str2, i32 0, i32 0), align 8
 @.str._func169_str3 = private unnamed_addr constant [10 x i8] c"YYY = %s\0A\00", align 1
 @_func169_str3 = constant i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str._func169_str3, i32 0, i32 0), align 8
-@.str._func171_str1 = private unnamed_addr constant [11 x i8] c"type error\00", align 1
-@_func171_str1 = constant i8* getelementptr inbounds ([11 x i8], [11 x i8]* @.str._func171_str1, i32 0, i32 0), align 8
-@.str._func171_str2 = private unnamed_addr constant [9 x i8] c"LTYPE = \00", align 1
-@_func171_str2 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func171_str2, i32 0, i32 0), align 8
-@.str._func171_str3 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@_func171_str3 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func171_str3, i32 0, i32 0), align 8
-@.str._func171_str4 = private unnamed_addr constant [9 x i8] c"RTYPE = \00", align 1
-@_func171_str4 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func171_str4, i32 0, i32 0), align 8
-@.str._func171_str5 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-@_func171_str5 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func171_str5, i32 0, i32 0), align 8
+@.str._func171_str1 = private unnamed_addr constant [13 x i8] c"invalid lval\00", align 1
+@_func171_str1 = constant i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str._func171_str1, i32 0, i32 0), align 8
+@.str._func171_str2 = private unnamed_addr constant [11 x i8] c"type error\00", align 1
+@_func171_str2 = constant i8* getelementptr inbounds ([11 x i8], [11 x i8]* @.str._func171_str2, i32 0, i32 0), align 8
+@.str._func171_str3 = private unnamed_addr constant [9 x i8] c"LTYPE = \00", align 1
+@_func171_str3 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func171_str3, i32 0, i32 0), align 8
+@.str._func171_str4 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@_func171_str4 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func171_str4, i32 0, i32 0), align 8
+@.str._func171_str5 = private unnamed_addr constant [9 x i8] c"RTYPE = \00", align 1
+@_func171_str5 = constant i8* getelementptr inbounds ([9 x i8], [9 x i8]* @.str._func171_str5, i32 0, i32 0), align 8
+@.str._func171_str6 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
+@_func171_str6 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func171_str6, i32 0, i32 0), align 8
 @.str._func172_str1 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 @_func172_str1 = constant i8* getelementptr inbounds ([2 x i8], [2 x i8]* @.str._func172_str1, i32 0, i32 0), align 8
 @.str._func172_str2 = private unnamed_addr constant [2 x i8] c"{\00", align 1
@@ -9787,58 +9789,78 @@ define void @stmtAssignCheck (%Stmt*) {
   %9 = call %Type* (%Value*) @checkValue (%Value* %7)
 
 ;stmt4:
-  %10 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 1
-  %11 = load %Type*, %Type** %10
-  %12 = call %Value* (%Value*, %Type*) @nat (%Value* %7, %Type* %11)
-
-;stmt5:
-  %13 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 1
-  %14 = load %Type*, %Type** %13
-  %15 = call %Bool (%Type*, %Type*) @type_eq (%Type* %8, %Type* %14)
-  %16 = xor %Bool %15, 1
-  br i1 %16, label %then_0, label %else_0
+  %10 = call %Bool (%Value*) @valueIsReadonly (%Value* %4)
+  br i1 %10, label %then_0, label %else_0
 then_0:
 
+;stmt5:
+
 ;stmt6:
+  %11 = load %Str, %Str* @_func171_str1
+  %12 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 15
+  %13 = load %TokenInfo*, %TokenInfo** %12
+  call void (%Str, %TokenInfo*) @error (%Str %11, %TokenInfo* %13)
 
 ;stmt7:
-  %17 = load %Str, %Str* @_func171_str1
-  %18 = getelementptr inbounds %Stmt, %Stmt* %0, i32 0, i32 7
-  %19 = load %TokenInfo*, %TokenInfo** %18
-  call void (%Str, %TokenInfo*) @error (%Str %17, %TokenInfo* %19)
-
-;stmt8:
-  %20 = load %Str, %Str* @_func171_str2
-  %21 = call %Int32 (%Str, ...) @printf (%Str %20)
-
-;stmt9:
-  call void (%Type*) @prttype (%Type* %8)
-
-;stmt10:
-  %22 = load %Str, %Str* @_func171_str3
-  %23 = call %Int32 (%Str, ...) @printf (%Str %22)
-
-;stmt11:
-  %24 = load %Str, %Str* @_func171_str4
-  %25 = call %Int32 (%Str, ...) @printf (%Str %24)
-
-;stmt12:
-  %26 = getelementptr inbounds %Value, %Value* %12, i32 0, i32 1
-  %27 = load %Type*, %Type** %26
-  call void (%Type*) @prttype (%Type* %27)
-
-;stmt13:
-  %28 = load %Str, %Str* @_func171_str5
-  %29 = call %Int32 (%Str, ...) @printf (%Str %28)
+ret void
   br label %endif_0
 else_0:
   br label %endif_0
 endif_0:
 
+;stmt8:
+  %15 = getelementptr inbounds %Value, %Value* %4, i32 0, i32 1
+  %16 = load %Type*, %Type** %15
+  %17 = call %Value* (%Value*, %Type*) @nat (%Value* %7, %Type* %16)
+
+;stmt9:
+  %18 = getelementptr inbounds %Value, %Value* %17, i32 0, i32 1
+  %19 = load %Type*, %Type** %18
+  %20 = call %Bool (%Type*, %Type*) @type_eq (%Type* %8, %Type* %19)
+  %21 = xor %Bool %20, 1
+  br i1 %21, label %then_1, label %else_1
+then_1:
+
+;stmt10:
+
+;stmt11:
+  %22 = load %Str, %Str* @_func171_str2
+  %23 = getelementptr inbounds %Stmt, %Stmt* %0, i32 0, i32 7
+  %24 = load %TokenInfo*, %TokenInfo** %23
+  call void (%Str, %TokenInfo*) @error (%Str %22, %TokenInfo* %24)
+
+;stmt12:
+  %25 = load %Str, %Str* @_func171_str3
+  %26 = call %Int32 (%Str, ...) @printf (%Str %25)
+
+;stmt13:
+  call void (%Type*) @prttype (%Type* %8)
+
 ;stmt14:
-  %30 = getelementptr inbounds %Stmt, %Stmt* %0, i32 0, i32 1
-  %31 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %30, i32 0, %Int32 1
-  store %Value* %12, %Value** %31
+  %27 = load %Str, %Str* @_func171_str4
+  %28 = call %Int32 (%Str, ...) @printf (%Str %27)
+
+;stmt15:
+  %29 = load %Str, %Str* @_func171_str5
+  %30 = call %Int32 (%Str, ...) @printf (%Str %29)
+
+;stmt16:
+  %31 = getelementptr inbounds %Value, %Value* %17, i32 0, i32 1
+  %32 = load %Type*, %Type** %31
+  call void (%Type*) @prttype (%Type* %32)
+
+;stmt17:
+  %33 = load %Str, %Str* @_func171_str6
+  %34 = call %Int32 (%Str, ...) @printf (%Str %33)
+  br label %endif_1
+else_1:
+  br label %endif_1
+endif_1:
+
+;stmt18:
+  %35 = getelementptr inbounds %Stmt, %Stmt* %0, i32 0, i32 1
+  %36 = getelementptr inbounds [2 x %Value*], [2 x %Value*]* %35, i32 0, %Int32 1
+  store %Value* %17, %Value** %36
   ret void
 }
 
