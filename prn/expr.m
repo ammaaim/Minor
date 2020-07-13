@@ -16,7 +16,7 @@ type ObjKind = enum {
   ObjGlobalConst,
 
   // variables
-  ObjParam,      // func param
+  //ObjParam,      // func param
   ObjLocal,      // local var
   ObjGlobal,     // global var
 
@@ -75,8 +75,8 @@ let eval = func Eval {
     return obj
 
   } else if k == ValueParam {
-    obj.kind = ObjParam
-    obj.id = v.id
+    obj.kind = ObjRegister
+    obj.reg = v.reg // <-----
     return obj
   } else if k == ValueLocalVar {
     obj.kind = ObjLocal
@@ -242,7 +242,7 @@ let eval_access = func Eval {
 
   let reg = lab_get()
 
-  let is_record_in_register = s.kind == ObjParam and s.type.kind == TypeRecord
+  let is_record_in_register = s.kind == ObjRegister and s.type.kind == TypeRecord
 
   // работа именно со значением в регистре; перетяни сюда и let !
   if is_record_in_register {
@@ -563,7 +563,7 @@ let print_obj = func (o : Obj) -> Unit {
     fprintf(fout, "%%%d", o.reg)
   } else if k == ObjGlobal or k == ObjGlobalConst {
     fprintf(fout, "@%s", o.id)
-  } else if k == ObjLocal or k == ObjParam {
+  } else if k == ObjLocal or k == ObjRegister {
     fprintf(fout, "%%%s", o.id)
   } else if k == ObjInvalid {
     fprintf(fout, "<ObjInvalid>")

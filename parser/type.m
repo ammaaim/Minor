@@ -164,8 +164,19 @@ fail:
 }
 
 
+var offset : Nat16
+
 let parse_type_func = func TypeParser {
   let params = parse_fields(")")
+
+  offset = 0
+  let set_param_offset = func ListForeachHandler {
+    let f = data to *Field
+    f.offset = offset
+    offset = offset + 1
+  }
+  list_foreach(params, set_param_offset, Nil)
+
   need ("->")
   let rettype = parse_type()
   if params == Nil or rettype == Nil {return Nil}

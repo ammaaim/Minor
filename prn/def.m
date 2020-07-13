@@ -81,8 +81,13 @@ let vardef = func (id : Str, t : *Type, v : *Value) -> Unit {
 
 
 let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
-  lab_reset()
-  lab_get()
+
+  // 0, 1, 2 - params; 3 - entry label, 4 - first free register
+
+  let firstlab = t.function.params.volume + (1 /*entry label*/)
+
+  lab_reset(firstlab to Nat32)
+  //lab_get()
 
   assert(t != Nil, "prn/funcdef t = Nil")
 
@@ -113,7 +118,7 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
     if *need_comma {fprintf(fout, ", ")}
     printType(f.type, True, True)
     //fprintf(fout, " %%_%s", (data to *Field).id)
-    fprintf(fout, " %%%s", (data to *Field).id)
+    //fprintf(fout, " %%%s", (data to *Field).id)
     *need_comma = True
   }
   list_foreach(t.function.params, vf_print_param, &need_comma)

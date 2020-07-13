@@ -153,7 +153,8 @@ let get_value_from_params = func (params : *List, id : Str) -> *Value {
   // создадим для него 'Value' и вернем его
   let v = valueNew(ValueParam, param.ti)
   v.type = param.type
-  v.id = param.id
+  v.id = param.id  // just for debug
+  v.reg = param.offset to Nat32 // <! printer use this info
   return v
 }
 

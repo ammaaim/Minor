@@ -5,7 +5,7 @@ var fout : *FILE       // output file
 
 var clab : Nat32       // current label (lab_get, lab_reset)
 
-let lab_reset = func () -> Unit {clab = 0}
+let lab_reset = func (val : Nat32) -> Unit {clab = val}
 
 let lab_get = func () -> Nat32 {
   let lab = clab
