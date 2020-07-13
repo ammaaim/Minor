@@ -364,20 +364,23 @@ let eval_cast = func Eval {
 
   let k = e.type.kind
 
+  var opcode : Str
+  opcode = "<cast>"
+
   if to.kind == TypeArray {
     if k == TypeBasic {
-      fprintf(fout, "inttoptr ") // int -> arr
+      opcode = "inttoptr"  // int -> arr
     } else {
-      fprintf(fout, "bitcast ") // x -> arr
+      opcode = "bitcast"   // x -> arr
     }
   } else if to.kind == TypePointer or to.kind == TypeFunction {
     // x -> Pointer
     if k == TypePointer or
        k == TypeArray or
        k == TypeFunction {
-      fprintf(fout, "bitcast ")  // ptr -> ptr
+      opcode = "bitcast"   // ptr -> ptr
     } else {
-      fprintf(fout, "inttoptr ") // int -> ptr
+      opcode = "inttoptr"  // int -> ptr
     }
   } else if to.kind == TypeBasic {
     // X -> Basic
@@ -385,35 +388,34 @@ let eval_cast = func Eval {
         // Basic -> Basic
       if e.type.basic.p > to.basic.p {
         // power(v) > power(t)
-        fprintf(fout, "trunc ")
+        opcode = "trunc"   // INT -> int
       } else if e.type.basic.p < to.basic.p {
         // power(v) < power(t)
         if to.basic.s {
-          fprintf(fout, "s") // ext Int -> Signed Int
+          opcode = "sext"  // int -> SIGNED_INT
         } else {
-          fprintf(fout, "z") // ext Int -> Unsigned Int
+          opcode = "zext"  // int -> UNSIGNED_INT
         }
-        fprintf(fout, "ext ")
       } else {
         // power(v) == power(t)
-        fprintf(fout, "bitcast ")
+        opcode = "bitcast"  // type -> type
       }
     } else if k == TypePointer {
       // Pointer -> Basic
-      fprintf(fout, "ptrtoint ")
+      opcode = "ptrtoint"
     } else if k == TypeEnum {
       // Enum -> Basic
       let esz = cfg.enumSize to Nat * 8
 
       if esz > to.basic.p {
         // power(v) > power(t)
-        fprintf(fout, "trunc ")
+        opcode = "trunc"
       } else if esz < to.basic.p {
         // power(v) < power(t)
-        fprintf(fout, "zext ")
+        opcode = "zext"
       } else {
         // power(v) == power(t)
-        fprintf(fout, "bitcast ")
+        opcode = "bitcast"
       }
 
     } else if k == TypeArray {
@@ -424,6 +426,8 @@ let eval_cast = func Eval {
       fatal("printer/expr/cast :: e.type.kind")
     }
   }
+
+  fprintf(fout, "%s ", opcode)
 
   printType(e.type, True, True)
   space()
