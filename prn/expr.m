@@ -1,13 +1,13 @@
 // m2/prn/expr
 
 
-let MAXARG = 256
+let MAXARG = 64
 
 
 type ObjKind = enum {
   ObjInvalid,    // An error occurred while evaluation
 
-  ObjImmediate,  // value in imm field
+  ObjImmediate,  // Numeric value in imm field
 
   /*
    * Global Immutable Object used by name
@@ -16,7 +16,6 @@ type ObjKind = enum {
   ObjGlobalConst,
 
   // variables
-  //ObjParam,      // func param
   ObjLocal,      // local var
   ObjGlobal,     // global var
 
@@ -65,6 +64,7 @@ let eval = func Eval {
   var obj : Obj
   obj.type = v.type
 
+  // terms
   if k == ValueImmediate {
     obj.kind = ObjImmediate
     obj.imm = v.imm
@@ -72,11 +72,6 @@ let eval = func Eval {
   } else if k == ValueGlobalConst {
     obj.kind = ObjGlobalConst
     obj.id = v.id
-    return obj
-
-  } else if k == ValueParam {
-    obj.kind = ObjRegister
-    obj.reg = v.reg // <-----
     return obj
   } else if k == ValueLocalVar {
     obj.kind = ObjLocal
@@ -86,11 +81,12 @@ let eval = func Eval {
     obj.kind = ObjGlobal
     obj.id = v.id
     return obj
-  } else if k == ValueRegister {
+  } else if k == ValueRegister or k == ValueParam {
     obj.kind = ObjRegister
     obj.reg = v.reg
     return obj
 
+  // operations
   } else if k == ValueCall {
     return eval_call(v)
   } else if k == ValueIndex {
@@ -117,7 +113,7 @@ let eval_call = func Eval {
   /*"%retval = call i32 @test(i32 %argc)"*/
   let f = load(eval(v.call.function))
 
-  /* вычисляем аргументы перед печатью вызова */
+  // вычисляем аргументы перед печатью вызова
 
   // контекст в котором накапливаются вычисленные аргументы
   type Arguments = record {
@@ -137,7 +133,7 @@ let eval_call = func Eval {
   }
   list_foreach(v.call.arguments, eval_args, &args)
 
-  /* печатаем вызов */
+  // печатаем вызов
 
   var retval_reg : Nat32
   if type_eq(f.type.function.to, typeUnit) {
@@ -152,7 +148,8 @@ let eval_call = func Eval {
 
   print_obj(f)
 
-  /* печатаем список аргументов */
+  // печатаем список аргументов
+
   o(" (")
 
   var need_comma : Bool
@@ -201,10 +198,9 @@ let eval_index = func Eval {
     return obj(v.type, ObjRegister, reg)
   }
 
-
+  // работа по ссылке на массив
 
   //%1 = getelementptr inbounds [10 x i32], [10 x i32]* @a, i64 0, i64 1
-
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = getelementptr inbounds ", reg)
 
@@ -232,7 +228,6 @@ let eval_index = func Eval {
   printType(i.type, True, True)
   space()
   print_obj(i)
-  //o(" ; eval_index")
   return obj(v.type, ObjAddress, reg)
 }
 
@@ -254,7 +249,6 @@ let eval_access = func Eval {
 
   let fieldno = type_record_get_field(record_type, v.access.field).offset
 
-
   let is_record_in_register = s.kind == ObjRegister and s.type.kind == TypeRecord
 
   // работа именно со значением в регистре
@@ -269,6 +263,8 @@ let eval_access = func Eval {
     return obj(v.type, ObjRegister, reg)
   }
 
+  // работа по ссылке на структуру
+
   // todo: совмести это с index - там в сущность такой же алгоритм
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = getelementptr inbounds ", reg)
@@ -278,8 +274,6 @@ let eval_access = func Eval {
   o("* ")
   print_obj(s)
   fprintf(fout, ", i32 0, i32 %u", fieldno)
-  //o("; eval_access")
-
   return obj(v.type, ObjAddress, reg)
 }
 
@@ -301,7 +295,6 @@ let eval_ref = func Eval {
   print_obj(vx)
   comma()
   o("i32 0")
-  //o("; ref")
 
   return obj(v.type, ObjRegister, reg)
 }
@@ -360,16 +353,16 @@ let eval_cast = func Eval {
 
   let to = v.cast.to
 
-  let ee = load(eval(v.cast.value))
+  let e = load(eval(v.cast.value))
 
   // преиведение значения к собственному типу бессмыслено
   // поэтому просто возвращаем загруженное значение
-  if type_eq(ee.type, to) {return ee}
+  if type_eq(e.type, to) {return e}
 
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = ", reg)
 
-  let k = ee.type.kind
+  let k = e.type.kind
 
   if to.kind == TypeArray {
     if k == TypeBasic {
@@ -378,7 +371,7 @@ let eval_cast = func Eval {
       fprintf(fout, "bitcast ") // x -> arr
     }
   } else if to.kind == TypePointer or to.kind == TypeFunction {
-    /* x -> Pointer */
+    // x -> Pointer
     if k == TypePointer or
        k == TypeArray or
        k == TypeFunction {
@@ -387,14 +380,14 @@ let eval_cast = func Eval {
       fprintf(fout, "inttoptr ") // int -> ptr
     }
   } else if to.kind == TypeBasic {
-    /* X -> Basic */
+    // X -> Basic
       if k == TypeBasic {
-        /* Basic -> Basic */
-      if ee.type.basic.p > to.basic.p {
-        /* power(v) > power(t) */
+        // Basic -> Basic
+      if e.type.basic.p > to.basic.p {
+        // power(v) > power(t)
         fprintf(fout, "trunc ")
-      } else if ee.type.basic.p < to.basic.p {
-        /* power(v) < power(t) */
+      } else if e.type.basic.p < to.basic.p {
+        // power(v) < power(t)
         if to.basic.s {
           fprintf(fout, "s") // ext Int -> Signed Int
         } else {
@@ -402,39 +395,39 @@ let eval_cast = func Eval {
         }
         fprintf(fout, "ext ")
       } else {
-        /* power(v) == power(t) */
+        // power(v) == power(t)
         fprintf(fout, "bitcast ")
       }
     } else if k == TypePointer {
-      /* Pointer -> Basic */
+      // Pointer -> Basic
       fprintf(fout, "ptrtoint ")
     } else if k == TypeEnum {
       // Enum -> Basic
       let esz = cfg.enumSize to Nat * 8
 
       if esz > to.basic.p {
-        /* power(v) > power(t) */
+        // power(v) > power(t)
         fprintf(fout, "trunc ")
       } else if esz < to.basic.p {
-        /* power(v) < power(t) */
+        // power(v) < power(t)
         fprintf(fout, "zext ")
       } else {
-        /* power(v) == power(t) */
+        // power(v) == power(t)
         fprintf(fout, "bitcast ")
       }
 
     } else if k == TypeArray {
 
     } else {
-      /**/
+      //*/
       printf("e.type.kind = %d\n", k)
       fatal("printer/expr/cast :: e.type.kind")
     }
   }
 
-  printType(ee.type, True, True)
+  printType(e.type, True, True)
   space()
-  print_obj(ee)
+  print_obj(e)
   o(" to ")
   printType(to, True, True)
 
@@ -525,7 +518,6 @@ let load = func (x : Obj) -> Obj {
     print_obj(x)
     o(" to ")
     printType(t, True, True)
-
     return obj(t, ObjRegister, reg)
   }
 
@@ -538,7 +530,6 @@ let load = func (x : Obj) -> Obj {
     }
     return x
   }
-
 
   // в загрузке нуждаются только значения с изменяемым классом памяти
   // это ObjGlobal, ObjLocal & ObjAddress;
@@ -568,7 +559,7 @@ let print_obj = func (o : Obj) -> Unit {
     fprintf(fout, "%%%d", o.reg)
   } else if k == ObjGlobal or k == ObjGlobalConst {
     fprintf(fout, "@%s", o.id)
-  } else if k == ObjLocal or k == ObjRegister {
+  } else if k == ObjLocal {
     fprintf(fout, "%%%s", o.id)
   } else if k == ObjInvalid {
     fprintf(fout, "<ObjInvalid>")
