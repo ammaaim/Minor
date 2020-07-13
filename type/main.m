@@ -99,6 +99,10 @@ let typeIsReference = func (t : *Type) -> Bool {
   return False
 }
 
+let typeIsDefinedArray = func (t : *Type) -> Bool {
+  if t.kind != TypeArray {return False}
+  return not t.array.undefined
+}
 
 let type_is_basic_integer = func (t : *Type) -> Bool {
   if t.kind == TypeBasic {return t.basic.i}

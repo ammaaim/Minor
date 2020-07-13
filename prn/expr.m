@@ -186,6 +186,23 @@ let eval_index = func Eval {
     a = load(a)
   }
 
+  let is_def_array_in_register = a.kind == ObjRegister and typeIsDefinedArray(a.type)
+  let index_is_imm = True
+
+  // работа именно со значением в регистре
+  if is_def_array_in_register and index_is_imm {
+    let reg = lab_get()
+    //%7 = extractvalue { i8*, i8* } %4, 0
+    fprintf(fout, "\n  %%%d = extractvalue ", reg)
+    printType(a.type, True, True)
+    space()
+    print_obj(a)
+    fprintf(fout, ", %u", i.imm)
+    return new_obj(v.type, ObjRegister, reg)
+  }
+
+
+
   //%1 = getelementptr inbounds [10 x i32], [10 x i32]* @a, i64 0, i64 1
 
   let reg = lab_get()
@@ -240,7 +257,7 @@ let eval_access = func Eval {
 
   let is_record_in_register = s.kind == ObjRegister and s.type.kind == TypeRecord
 
-  // работа именно со значением в регистре; перетяни сюда и let !
+  // работа именно со значением в регистре
   if is_record_in_register {
     let reg = lab_get()
     //%7 = extractvalue { i8*, i8* } %4, 0
