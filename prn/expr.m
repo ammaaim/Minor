@@ -240,12 +240,11 @@ let eval_access = func Eval {
   let fieldno = type_record_get_field(record_type, v.access.field).offset
 
 
-  let reg = lab_get()
-
   let is_record_in_register = s.kind == ObjRegister and s.type.kind == TypeRecord
 
   // работа именно со значением в регистре; перетяни сюда и let !
   if is_record_in_register {
+    let reg = lab_get()
     //%7 = extractvalue { i8*, i8* } %4, 0
     fprintf(fout, "\n  %%%d = extractvalue ", reg)
     printType(record_type, True, True)
@@ -256,7 +255,7 @@ let eval_access = func Eval {
   }
 
   // todo: совмести это с index - там в сущность такой же алгоритм
-
+  let reg = lab_get()
   fprintf(fout, "\n  %%%d = getelementptr inbounds ", reg)
   printType(record_type, True, True)
   comma()

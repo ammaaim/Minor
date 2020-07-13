@@ -81,9 +81,7 @@ let vardef = func (id : Str, t : *Type, v : *Value) -> Unit {
 
 
 let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
-
   // 0, 1, 2 - params; 3 - entry label, 4 - first free register
-
   let firstlab = t.function.params.volume + (1 /*entry label*/)
 
   lab_reset(firstlab to Nat32)
@@ -117,8 +115,6 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
     let need_comma = ctx to *Bool
     if *need_comma {fprintf(fout, ", ")}
     printType(f.type, True, True)
-    //fprintf(fout, " %%_%s", (data to *Field).id)
-    //fprintf(fout, " %%%s", (data to *Field).id)
     *need_comma = True
   }
   list_foreach(t.function.params, vf_print_param, &need_comma)
@@ -133,30 +129,7 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
 
   if b != Nil {
     o(" {")
-
-    // печатаем локальные переменные для параметров
-    /* Выделяем память локально и
-    загружаем в нее параметры функции,
-    после чего они будут доступны нам уже по указателю
-    (будучи при этом локальными) */
-
-    /*let print_param_loc = func ListForeachHandler {
-      let p = data to *Field
-      fprintf(fout, "\n  %%%s = alloca ", p.id)
-      printType(p.type, True, True)
-
-      fprintf(fout, "\n  store ")
-      printType(p.type, True, True)
-      space()
-      fprintf(fout, "%%_%s, ", p.id)
-      printType(p.type, True, True)
-      o("* ")
-      fprintf(fout, "%%%s", p.id)
-    }
-    list_foreach(t.function.params, print_param_loc, Nil)*/
-
     reset_local_labels()
-
     print_block(b)
     if isvoid {o("\n  ret void")}
     o("\n}")
