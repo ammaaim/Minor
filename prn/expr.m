@@ -115,8 +115,7 @@ let eval = func Eval {
 
 let eval_call = func Eval {
   /*"%retval = call i32 @test(i32 %argc)"*/
-  var f : Obj
-  f = load(eval(v.call.function))
+  let f = load(eval(v.call.function))
 
   /* вычисляем аргументы перед печатью вызова */
 
@@ -132,8 +131,7 @@ let eval_call = func Eval {
   let eval_args = func ListForeachHandler {
     let arg = data to *Value
     let args = ctx to *Arguments
-    var argg : Obj
-    argg = load(eval(arg))
+    let argg = load(eval(arg))
     args.args[args.cnt] = argg
     args.cnt = args.cnt + 1
   }
@@ -179,10 +177,10 @@ let eval_call = func Eval {
 
 
 let eval_index = func Eval {
-  var a, i : Obj
+  var a : Obj
   a = eval(v.index.array)
 
-  i = load(eval(v.index.index))
+  let i = load(eval(v.index.index))
 
   if a.type.array.undefined {
     a = load(a)
@@ -270,8 +268,7 @@ let eval_access = func Eval {
 
 
 let eval_ref = func Eval {
-  var vx : Obj
-  vx = eval(v.un.x)
+  let vx = eval(v.un.x)
   if vx.kind == ObjAddress {
     // если это адрес - вернем его в регистре, а тип обернем в указатель
     return new_obj(v.type, ObjRegister, vx.reg)
@@ -295,8 +292,7 @@ let eval_ref = func Eval {
 
 let eval_deref = func Eval {
   // load pointer
-  var vx : Obj
-  vx = load(eval(v.un.x))
+  let vx = load(eval(v.un.x))
 
   // returns loaded pointer as #Address
   return new_obj(v.type, ObjAddress, vx.reg)
@@ -304,8 +300,7 @@ let eval_deref = func Eval {
 
 
 let eval_not = func Eval {
-  var vx : Obj
-  vx = load(eval(v.un.x))
+  let vx = load(eval(v.un.x))
 
   //"%s = xor %s, -1"
   let reg = lab_get()
@@ -323,8 +318,7 @@ let eval_minus = func Eval {
   //nuw and nsw stand for "No Unsigned Wrap" and "No Signed Wrap", respectively. If the nuw and/or
   //nsw keywords are present, the result value of the add is undefined if unsigned and/or signed
   //overflow, respectively, occurs.
-  var vx : Obj
-  vx = load(eval(v.un.x))
+  let vx = load(eval(v.un.x))
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = sub nsw ", reg)
   printType(vx.type, True, True)
@@ -347,12 +341,9 @@ let eval_cast = func Eval {
       ptrtoint
   */
 
-  var xx : Nat32
-  xx = 0
   let to = v.cast.to
 
-  var ee : Obj
-  ee = load(eval(v.cast.value))
+  let ee = load(eval(v.cast.value))
 
   // преиведение значения к собственному типу бессмыслено
   // поэтому просто возвращаем загруженное значение
@@ -476,9 +467,8 @@ let eval_bin = func Eval {
     if signed {o = "ashr"} else {o = "lshr"}
   }
 
-  var l, r : Obj
-  l = load(eval(v.bin.l))
-  r = load(eval(v.bin.r))
+  let l = load(eval(v.bin.l))
+  let r = load(eval(v.bin.r))
 
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = %s ", reg, o)
@@ -493,9 +483,8 @@ let eval_bin = func Eval {
 
 
 let print_st = func (l, r : *Value) -> Unit {
-  var lx, rx : Obj
-  lx = eval(l)
-  rx = load(eval(r))
+  let lx = eval(l)
+  let rx = load(eval(r))
   fprintf(fout, "\n  store ")
   printType(rx.type, True, True)
   space()
