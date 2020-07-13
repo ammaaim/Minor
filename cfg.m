@@ -1,4 +1,4 @@
-// cfg
+// m2/cfg
 
 
 type Settings = record {
@@ -14,6 +14,6 @@ type Settings = record {
 
 var cfg : Settings
 
-
 var arch : Arch
+
 
