@@ -21,7 +21,6 @@ type ValueKind = enum {
 
   ValueUndefined,    // Value was used but not defined
 
-
   /* Terminals */
 
   ValueImmediate,    // by imm
@@ -32,7 +31,6 @@ type ValueKind = enum {
   ValueGlobalVar,    // by id
 
   ValueRegister,     // by reg  // `let c = a * b`
-
 
   /* Operations */
 
@@ -61,7 +59,6 @@ type ValueKind = enum {
   ValueAlignof
 }
 
-//type ValueClass = record {ValueTerm, ValueOperation}  // ?
 
 type Value = record {
   kind : ValueKind
@@ -70,9 +67,12 @@ type Value = record {
 
 
 //union {
+  // term info
   imm    : Int64  // ValueImmediate
   reg    : Nat32  // StorageRegister (let)
   id     : Str    // вместо id нужна ссылка на объект в сборке
+
+  // operation info
   un     : ValueUn
   bin    : ValueBin
   index  : ValueIndex
@@ -86,7 +86,6 @@ type Value = record {
   // в случае функции (константной) через это поле checkFunc получит ссылку на блок
   // для его проверки
   assembly_item : *AssemblyItem
-
 
   declared_at,     // place in code where value was mentioned first time
   defined_at,      // place in code where value was defined
@@ -105,13 +104,57 @@ let valueNew = func (k : ValueKind, ti : *TokenInfo) -> *Value {
 }
 
 
+// вычисляем тип для значения и всех его субзначений
+// Если возникает ошибка она выводится и возвращается Nil
+// возвращает тип значения
+let checkValue = func (v : *Value) -> *Type {
+  if v == Nil {goto fail}
+
+  // если тип уже известен - просто вернем его
+  if v.type != Nil {
+    return v.type
+  }
+
+  var t : *Type
+  t = Nil
+
+  let k = v.kind
+
+  if isBinaryOpKind(k) {
+    t = checkValueBinary(v)
+  } else if isUnaryOpKind(k) {
+    t = checkValueUnary(v)
+  } else if k == ValueCall {
+    t = checkValueCall(v)
+  } else if k == ValueIndex {
+    t = checkValueIndex(v)
+  } else if k == ValueAccess {
+    t = checkValueAccess(v)
+  } else if k == ValueCast {
+    t = checkValueCast(v)
+  } else if k == ValueShl or k == ValueShr {
+    t = checkValueShift(v)
+  } else if k == ValueSizeof {
+    t = checkValueSizeof(v)
+  } else if k == ValueAlignof {
+    t = checkValueAlignof(v)
+  }
+
+  v.type = t
+  return t
+
+fail:
+  assert(False, "checkValue:: unknown v.kind")
+  return Nil
+}
+
+
 let valueNewImm = func (t : *Type, dx : Int64, ti : *TokenInfo) -> *Value {
   let v = valueNew(ValueImmediate, ti)
   v.type = t
   v.imm = dx
   return v
 }
-
 
 
 
@@ -142,6 +185,7 @@ let isReletionOpKind = func (k : ValueKind) -> Bool {
          k == ValueLe or
          k == ValueGe
 }
+
 
 let isSpecialOpKind = func (k : ValueKind) -> Bool {
   return k == ValueShl or

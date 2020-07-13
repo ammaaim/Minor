@@ -550,7 +550,7 @@ let load = func (x : Obj) -> Obj {
 }
 
 
-// печать значение вычисленного выражения
+// печать значения вычисленного выражения
 let print_obj = func (o : Obj) -> Unit {
   let k = o.kind
   if k == ObjImmediate {
