@@ -14411,21 +14411,15 @@ endif_0:
   store %ValueKind 2, %ValueKind* %10
 
 ;stmt5:
-  %11 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
-  %12 = load %Type*, %Type** @typeNumeric
-  store %Type* %12, %Type** %11
+  %11 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 2
+  %12 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 2
+  %13 = load %Nat32, %Nat32* %12
+  %14 = sext %Nat32 %13 to %Int64
+  store %Int64 %14, %Int64* %11
 
 ;stmt6:
-  %13 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 2
-  %14 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 2
-  %15 = load %Nat32, %Nat32* %14
-  %16 = sext %Nat32 %15 to %Int64
-  store %Int64 %16, %Int64* %13
-
-;stmt7:
-  %17 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
-  %18 = load %Type*, %Type** %17
-  ret %Type* %18
+  %15 = load %Type*, %Type** @typeNumeric
+  ret %Type* %15
 }
 
 define %Value* @align_of (%Type*, %TokenInfo*) {
@@ -14471,21 +14465,15 @@ endif_0:
   store %ValueKind 2, %ValueKind* %10
 
 ;stmt5:
-  %11 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
-  %12 = load %Type*, %Type** @typeNumeric
-  store %Type* %12, %Type** %11
+  %11 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 2
+  %12 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 4
+  %13 = load %Nat8, %Nat8* %12
+  %14 = sext %Nat8 %13 to %Int64
+  store %Int64 %14, %Int64* %11
 
 ;stmt6:
-  %13 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 2
-  %14 = getelementptr inbounds %Type, %Type* %3, i32 0, i32 4
-  %15 = load %Nat8, %Nat8* %14
-  %16 = sext %Nat8 %15 to %Int64
-  store %Int64 %16, %Int64* %13
-
-;stmt7:
-  %17 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
-  %18 = load %Type*, %Type** %17
-  ret %Type* %18
+  %15 = load %Type*, %Type** @typeNumeric
+  ret %Type* %15
 }
 
 define void @value_init () {

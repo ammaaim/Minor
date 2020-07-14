@@ -16,10 +16,9 @@ let checkValueSizeof = func (v : *Value) -> *Type {
   }
 
   v.kind = ValueImmediate  // turn ValueSizeof to ValueImmediate (only here!)
-  v.type = typeNumeric
   v.imm = t.nsize to Int64
 
-  return v.type
+  return typeNumeric
 }
 
 

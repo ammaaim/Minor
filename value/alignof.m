@@ -16,10 +16,9 @@ let checkValueAlignof = func (v : *Value) -> *Type {
   }
 
   v.kind = ValueImmediate  // turn ValueAlignof to ValueImmediate (only here!)
-  v.type = typeNumeric
   v.imm = t.align to Int64
 
-  return v.type
+  return typeNumeric
 }
 
 
