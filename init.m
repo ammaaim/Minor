@@ -51,8 +51,9 @@ let init = func () -> Unit {
 let readConfig = func (fname : Str) -> Unit {
   printf("readConfig = %s\n", fname)
 
-  let tokens = tokenize(fname)
-  let config_source = src_new("config", tokens)
+  var cdir : [512]Nat8
+  getcwd(&cdir[0] to Str, 512)
+  let config_source = openSource(getSourceInfo(&cdir[0] to Str, "config"))
 
   let old_src = mctx.src
   mctx.src = config_source

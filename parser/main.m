@@ -143,7 +143,7 @@ let parseImport = func () -> Unit {
   let old_cdir = str_new(PATH_BUF_LEN)
   getcwd(old_cdir, PATH_BUF_LEN)
 
-  let src = source_open(imp_str)
+  let src = openImport(imp_str)
 
   if src == Nil {
     printf("when import = %s\n", imp_str)
