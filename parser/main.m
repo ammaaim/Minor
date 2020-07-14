@@ -13,12 +13,16 @@ import "import"
 
 
 
+
 type ModuleContext = record {
   src : *Source      // current source
 
   type_index,
   value_index : Map  // индексы модуля
 }
+
+
+type Module = ModuleContext
 
 
 // parsing function context

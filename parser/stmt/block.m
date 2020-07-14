@@ -12,12 +12,15 @@ type Block = record {
   // список в который попадают все локальные функции
   // для того чтобы их тела потом при check инге прочекать
   local_functions : *List
+
+  ti : *TokenInfo
 }
 
 
 let stmtBlock = func StmtParser {
   let b = doblock()
   if b == Nil {return Nil}
+  b.ti = ti  // ti самого блока
   let s = stmtNew(StmtBlock, ti)
   s.b = b
   return s

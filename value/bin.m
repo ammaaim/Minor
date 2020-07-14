@@ -49,7 +49,7 @@ let checkValueBinary = func (v : *Value) -> *Type {
   let rt = r.type
 
   if not type_eq(lt, rt) {
-    error("type error", v.ti)
+    error(E_TYPE_ERROR, v.ti)
     printf("LTYPE = "); prttype(lt); printf("\n")
     printf("RTYPE = "); prttype(rt); printf("\n")
     goto fail

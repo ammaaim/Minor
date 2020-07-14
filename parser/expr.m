@@ -443,6 +443,7 @@ let term_func = func ValueParser {
   let fv = valueNew(ValueGlobalConst, ti)
   fv.type = t
 
+  // we're in function?
   if parent_block != Nil {
     list_append(parent_block.local_functions, fv)
   }
@@ -459,6 +460,18 @@ let term_func = func ValueParser {
 
   fv.assembly_item = asmFuncAdd(&asm0, id, t, block)
 
+  // E_EXPECTED_RETURN check if no return
+  if not type_eq(t.function.to, typeUnit) {
+    if block.stmts.volume == 0 {
+      error(E_EXPECTED_RETURN, ti)
+    } else {
+      let last_statement = block.stmts.last.data to *Stmt
+      if last_statement.kind != StmtReturn  {
+        error(E_EXPECTED_RETURN, last_statement.ti)
+      }
+    }
+  }
+
   fctx = old_fctx
 
   return fv
@@ -467,6 +480,10 @@ fail:
   return Nil
 }
 
+
+/*let xx = func () -> *Nat32 {
+  1 + 2
+}*/
 
 let term_id = func ValueParser {
   let ti = &ctok().ti

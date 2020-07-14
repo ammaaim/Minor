@@ -46,14 +46,9 @@ let lex_init = func (fname : Str) -> Unit {
   }
 
   lstate.fd = open(fname, O_RDONLY)
+  lstate.file = fname
   lstate.line = 1
   lstate.pos = 1
-
-  let cd = cwd()
-  let abs_name = cat3(cd, "/", fname)
-  free(cd to *Unit)
-
-  lstate.file = abs_name
 }
 
 

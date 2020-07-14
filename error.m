@@ -28,6 +28,11 @@ let CFATAL = CRED
 let MAXERR = 20
 
 
+
+let E_TYPE_ERROR = "type error"
+let E_EXPECTED_RETURN = "expected return"
+
+
 let info = func (s : Str) -> Unit {
   printf("\n%c[0;%dminfo:%c[0m %s", 27, CINFO, 27, s)
 }
@@ -35,12 +40,13 @@ let info = func (s : Str) -> Unit {
 
 let warning = func (s : Str, ti : *TokenInfo) -> Unit {
   if ti != Nil {
-    printf("\n%c[0;%dmwarning%c[0m (%s:%d) : %s", 27, CWARNING, 27, ti.file, ti.line/*, ti.start*/, s)
+    printf("\n%c[0;%dmwarning%c[0m (%s:%d) : %s", 27, CWARNING, 27, ti.file, ti.line, s)
     show(ti)
-    printf("\n")
   } else {
     printf("\n%c[0;%dmwarning:%c[0m %s", 27, CWARNING, 27, s)
   }
+
+  printf("\n")
 
   warncnt = warncnt + 1
 }
@@ -50,10 +56,11 @@ let error = func (s : Str, ti : *TokenInfo) -> Unit {
   if ti == Nil {
     printf("\n%c[0;%dmerror:%c[0m %s", 27, CERROR, 27, s)
   } else {
-    printf("\n%c[0;%dmerror%c[0m (%s:%d) : %s", 27, CERROR, 27, ti.file, ti.line/*, ti.start*/, s)
+    printf("\n%c[0;%dmerror%c[0m (%s:%d) : %s", 27, CERROR, 27, ti.file, ti.line, s)
     show(ti)
-    printf("\n")
   }
+
+  printf("\n")
 
   errcnt = errcnt + 1
 
