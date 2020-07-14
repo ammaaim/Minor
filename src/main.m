@@ -16,7 +16,7 @@ type Source = record {
 
 
 
-var pdir : Str      // current, project & lib dir paths
+var pdir : Str      // cures2srcent, project & lib dir paths
 
 var liblist : List  // list of additional libraries paths
 
@@ -69,55 +69,85 @@ let src_new = func (name : Str, tokens : *List) -> *Source {
 }
 
 
-let src_open = func (dir, resource : Str) -> *Source {
+
+
+type ResourceType = enum {
+  ResourceUnknown,
+  ResourceLocal
+}
+
+type Resource = record {
+  type : ResourceType
+  path : Str           // fullpath
+  imported_as : Str    // import string
+}
+
+
+let getres = func (dir, resource : Str) -> Resource {
   let path = cat3(dir, "/", resource)
 
-  var tokens : *List
-  tokens = Nil
+  var r : Resource
+  r.type = ResourceUnknown
+  r.imported_as = resource
+  r.path = Nil
 
-  var fname : Str
+  // It's a module?
 
   let path_mod = cat(path, ".m")
 
   if exists(path_mod) {
-    // it's module
+    // it's a module
     chdir(getprefix(path_mod))
-    tokens = tokenize(get_last(path_mod))
-    fname = path_mod
-  } else {
-    let path_pkg = cat(path, "/main.m")
-    if exists(path_pkg) {
-      // it's package
-      chdir(getprefix(path_pkg))
-      tokens = tokenize("main.m")
-      fname = path_pkg
-    } else {
-      free(path_pkg)
-    }
+    r.type = ResourceLocal
+    r.path = path_mod
+    return r
   }
 
-  if tokens == Nil {
-    return Nil
+  // Maybe it's a package?
+
+  let path_pkg = cat(path, "/main.m")
+
+  if exists(path_pkg) {
+    // it's a package
+    chdir(getprefix(path_pkg))
+    r.type = ResourceLocal
+    r.path = path_pkg
+    return r
   }
 
-  return src_new(fname, tokens)
+  return r  // ResourceUnknown
+}
+
+
+let res2src = func (r : Resource) -> *Source {
+  let tokens = tokenize(r.path)
+  return src_new(r.path, tokens)
 }
 
 
 let source_open = func (import_string : Str) -> *Source {
   // search import local
-  let csrc = src_open(".", import_string)
-  if csrc != Nil {return csrc}
+  var cdir : [512]Nat8
+  getcwd(&cdir[0] to Str, 512)
+
+  let csrc = getres(&cdir[0] to Str, import_string)
+  if csrc.type != ResourceUnknown {return res2src(csrc)}
 
   // search import root
-  let psrc = src_open(pdir, import_string)
-  if psrc != Nil {return psrc}
+  let psrc = getres(pdir, import_string)
+  if psrc.type != ResourceUnknown {return res2src(psrc)}
 
   // search import in libraries
   let search_in_lib = func ListSearchHandler {
     let lib_path = data to Str
     let import_string = ctx to Str
-    return src_open(lib_path, import_string)
+    let res = getres(lib_path, import_string)
+
+    if res.type != ResourceUnknown {
+      return res2src(res)
+    }
+
+    return Nil
   }
   let lsrc = list_search(&liblist, search_in_lib, import_string) to *Source
 

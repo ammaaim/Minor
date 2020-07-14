@@ -20,6 +20,7 @@ type ListForeachHandler2 = (data1, data2, ctx : *Unit, index : Nat) -> Unit
 type ListCompareHandler = (data1, data2, ctx : *Unit, index : Nat) -> Bool
 
 // list_search
+// TODO: переведи в Bool (но есть проблема с src/main/source_open//search_in_lib)
 type ListSearchHandler = (data, ctx : *Unit, index : Nat) -> *Unit
 
 // list_map
