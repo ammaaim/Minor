@@ -10,8 +10,8 @@ let str_new = func (len : Nat) -> Str {return malloc(len) to Str}
 
 // create copy of string
 let dup = func (s : Str) -> Str {
-  let len = strlen(s) + (1 /* for STR_TERM */)
-  let new_s = str_new(len)
+  let len = strlen(s)
+  let new_s = str_new(len + 1)
   strcpy(new_s, s)
   return new_s
 }
@@ -24,7 +24,7 @@ let cat = func (s1, s2 : Str) -> Str {
 
   let len12 = len1 + len2
 
-  let s = malloc (len12 + (1 /* for STR_TERM */)) to Str
+  let s = str_new(len12 + 1)
 
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
@@ -43,7 +43,7 @@ let cat3 = func (s1, s2, s3 : Str) -> Str {
   let len12 = len1 + len2
   let len123 = len12 + len3
 
-  let s = malloc(len123 + (1 /* for STR_TERM */)) to Str
+  let s = str_new(len123 + 1)
 
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
@@ -65,7 +65,7 @@ let cat4 = func (s1, s2, s3, s4 : Str) -> Str {
   let len123 = len12 + len3
   let len1234 = len123 + len4
 
-  let s = malloc(len1234 + (1 /* for STR_TERM */)) to Str
+  let s = str_new(len1234 + 1)
 
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
@@ -90,7 +90,7 @@ let cat5 = func (s1, s2, s3, s4, s5 : Str) -> Str {
   let len1234 = len123 + len4
   let len12345 = len1234 + len5
 
-  let s = malloc(len12345 + (1 /* for STR_TERM */)) to Str
+  let s = str_new(len12345 + 1)
 
   strcpy(&s[0] to Str, s1)
   strcpy(&s[len1] to Str, s2)
