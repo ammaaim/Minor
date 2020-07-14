@@ -70,16 +70,16 @@ let src_new = func (name : Str, tokens : *List) -> *Source {
 
 
 
-
 type ResourceType = enum {
-  ResourceUnknown,
-  ResourceLocal
+  ResourceUnknown,  // we cannot found the resource
+  ResourceLocal     // this resource is a local file
 }
+
 
 type Resource = record {
   type : ResourceType
-  path : Str           // fullpath
   imported_as : Str    // import string
+  path : Str           // fullpath
 }
 
 
@@ -91,7 +91,7 @@ let getres = func (dir, resource : Str) -> Resource {
   r.imported_as = resource
   r.path = Nil
 
-  // It's a module?
+  // Is it a module?
 
   let path_mod = cat(path, ".m")
 
@@ -131,11 +131,15 @@ let source_open = func (import_string : Str) -> *Source {
   getcwd(&cdir[0] to Str, 512)
 
   let csrc = getres(&cdir[0] to Str, import_string)
-  if csrc.type != ResourceUnknown {return res2src(csrc)}
+  if csrc.type != ResourceUnknown {
+    return res2src(csrc)
+  }
 
   // search import root
   let psrc = getres(pdir, import_string)
-  if psrc.type != ResourceUnknown {return res2src(psrc)}
+  if psrc.type != ResourceUnknown {
+    return res2src(psrc)
+  }
 
   // search import in libraries
   let search_in_lib = func ListSearchHandler {
