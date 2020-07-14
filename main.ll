@@ -1379,9 +1379,10 @@ declare %Str @getenv (%Str)
 define %Str @str_new (%Nat32) {
 
 ;stmt0:
-  %2 = call %Unit* (%Nat32) @malloc (%Nat32 %0)
-  %3 = bitcast %Unit* %2 to %Str
-  ret %Str %3
+  %2 = add %Nat32 %0, 1
+  %3 = call %Unit* (%Nat32) @malloc (%Nat32 %2)
+  %4 = bitcast %Unit* %3 to %Str
+  ret %Str %4
 }
 
 define %Str @dup (%Str) {
@@ -1390,14 +1391,13 @@ define %Str @dup (%Str) {
   %2 = call %Nat32 (%Str) @strlen (%Str %0)
 
 ;stmt1:
-  %3 = add %Nat32 %2, 1
-  %4 = call %Str (%Nat32) @str_new (%Nat32 %3)
+  %3 = call %Str (%Nat32) @str_new (%Nat32 %2)
 
 ;stmt2:
-  %5 = call %Nat8* (%Str, %Str) @strcpy (%Str %4, %Str %0)
+  %4 = call %Nat8* (%Str, %Str) @strcpy (%Str %3, %Str %0)
 
 ;stmt3:
-  ret %Str %4
+  ret %Str %3
 }
 
 define %Str @cat (%Str, %Str) {
@@ -1412,25 +1412,24 @@ define %Str @cat (%Str, %Str) {
   %5 = add %Nat32 %3, %4
 
 ;stmt3:
-  %6 = add %Nat32 %5, 1
-  %7 = call %Str (%Nat32) @str_new (%Nat32 %6)
+  %6 = call %Str (%Nat32) @str_new (%Nat32 %5)
 
 ;stmt4:
-  %8 = getelementptr inbounds %Nat8, %Str %7, %Int32 0
-  %9 = bitcast %Nat8* %8 to %Str
-  %10 = call %Nat8* (%Str, %Str) @strcpy (%Str %9, %Str %0)
+  %7 = getelementptr inbounds %Nat8, %Str %6, %Int32 0
+  %8 = bitcast %Nat8* %7 to %Str
+  %9 = call %Nat8* (%Str, %Str) @strcpy (%Str %8, %Str %0)
 
 ;stmt5:
-  %11 = getelementptr inbounds %Nat8, %Str %7, %Nat32 %3
-  %12 = bitcast %Nat8* %11 to %Str
-  %13 = call %Nat8* (%Str, %Str) @strcpy (%Str %12, %Str %1)
+  %10 = getelementptr inbounds %Nat8, %Str %6, %Nat32 %3
+  %11 = bitcast %Nat8* %10 to %Str
+  %12 = call %Nat8* (%Str, %Str) @strcpy (%Str %11, %Str %1)
 
 ;stmt6:
-  %14 = getelementptr inbounds %Nat8, %Str %7, %Nat32 %5
-  store %Nat8 0, %Nat8* %14
+  %13 = getelementptr inbounds %Nat8, %Str %6, %Nat32 %5
+  store %Nat8 0, %Nat8* %13
 
 ;stmt7:
-  ret %Str %7
+  ret %Str %6
 }
 
 define %Str @cat3 (%Str, %Str, %Str) {
@@ -1451,30 +1450,29 @@ define %Str @cat3 (%Str, %Str, %Str) {
   %8 = add %Nat32 %7, %6
 
 ;stmt5:
-  %9 = add %Nat32 %8, 1
-  %10 = call %Str (%Nat32) @str_new (%Nat32 %9)
+  %9 = call %Str (%Nat32) @str_new (%Nat32 %8)
 
 ;stmt6:
-  %11 = getelementptr inbounds %Nat8, %Str %10, %Int32 0
-  %12 = bitcast %Nat8* %11 to %Str
-  %13 = call %Nat8* (%Str, %Str) @strcpy (%Str %12, %Str %0)
+  %10 = getelementptr inbounds %Nat8, %Str %9, %Int32 0
+  %11 = bitcast %Nat8* %10 to %Str
+  %12 = call %Nat8* (%Str, %Str) @strcpy (%Str %11, %Str %0)
 
 ;stmt7:
-  %14 = getelementptr inbounds %Nat8, %Str %10, %Nat32 %4
-  %15 = bitcast %Nat8* %14 to %Str
-  %16 = call %Nat8* (%Str, %Str) @strcpy (%Str %15, %Str %1)
+  %13 = getelementptr inbounds %Nat8, %Str %9, %Nat32 %4
+  %14 = bitcast %Nat8* %13 to %Str
+  %15 = call %Nat8* (%Str, %Str) @strcpy (%Str %14, %Str %1)
 
 ;stmt8:
-  %17 = getelementptr inbounds %Nat8, %Str %10, %Nat32 %7
-  %18 = bitcast %Nat8* %17 to %Str
-  %19 = call %Nat8* (%Str, %Str) @strcpy (%Str %18, %Str %2)
+  %16 = getelementptr inbounds %Nat8, %Str %9, %Nat32 %7
+  %17 = bitcast %Nat8* %16 to %Str
+  %18 = call %Nat8* (%Str, %Str) @strcpy (%Str %17, %Str %2)
 
 ;stmt9:
-  %20 = getelementptr inbounds %Nat8, %Str %10, %Nat32 %8
-  store %Nat8 0, %Nat8* %20
+  %19 = getelementptr inbounds %Nat8, %Str %9, %Nat32 %8
+  store %Nat8 0, %Nat8* %19
 
 ;stmt10:
-  ret %Str %10
+  ret %Str %9
 }
 
 define %Str @cat4 (%Str, %Str, %Str, %Str) {
@@ -1501,35 +1499,34 @@ define %Str @cat4 (%Str, %Str, %Str, %Str) {
   %11 = add %Nat32 %10, %8
 
 ;stmt7:
-  %12 = add %Nat32 %11, 1
-  %13 = call %Str (%Nat32) @str_new (%Nat32 %12)
+  %12 = call %Str (%Nat32) @str_new (%Nat32 %11)
 
 ;stmt8:
-  %14 = getelementptr inbounds %Nat8, %Str %13, %Int32 0
-  %15 = bitcast %Nat8* %14 to %Str
-  %16 = call %Nat8* (%Str, %Str) @strcpy (%Str %15, %Str %0)
+  %13 = getelementptr inbounds %Nat8, %Str %12, %Int32 0
+  %14 = bitcast %Nat8* %13 to %Str
+  %15 = call %Nat8* (%Str, %Str) @strcpy (%Str %14, %Str %0)
 
 ;stmt9:
-  %17 = getelementptr inbounds %Nat8, %Str %13, %Nat32 %5
-  %18 = bitcast %Nat8* %17 to %Str
-  %19 = call %Nat8* (%Str, %Str) @strcpy (%Str %18, %Str %1)
+  %16 = getelementptr inbounds %Nat8, %Str %12, %Nat32 %5
+  %17 = bitcast %Nat8* %16 to %Str
+  %18 = call %Nat8* (%Str, %Str) @strcpy (%Str %17, %Str %1)
 
 ;stmt10:
-  %20 = getelementptr inbounds %Nat8, %Str %13, %Nat32 %9
-  %21 = bitcast %Nat8* %20 to %Str
-  %22 = call %Nat8* (%Str, %Str) @strcpy (%Str %21, %Str %2)
+  %19 = getelementptr inbounds %Nat8, %Str %12, %Nat32 %9
+  %20 = bitcast %Nat8* %19 to %Str
+  %21 = call %Nat8* (%Str, %Str) @strcpy (%Str %20, %Str %2)
 
 ;stmt11:
-  %23 = getelementptr inbounds %Nat8, %Str %13, %Nat32 %10
-  %24 = bitcast %Nat8* %23 to %Str
-  %25 = call %Nat8* (%Str, %Str) @strcpy (%Str %24, %Str %3)
+  %22 = getelementptr inbounds %Nat8, %Str %12, %Nat32 %10
+  %23 = bitcast %Nat8* %22 to %Str
+  %24 = call %Nat8* (%Str, %Str) @strcpy (%Str %23, %Str %3)
 
 ;stmt12:
-  %26 = getelementptr inbounds %Nat8, %Str %13, %Nat32 %11
-  store %Nat8 0, %Nat8* %26
+  %25 = getelementptr inbounds %Nat8, %Str %12, %Nat32 %11
+  store %Nat8 0, %Nat8* %25
 
 ;stmt13:
-  ret %Str %13
+  ret %Str %12
 }
 
 define %Str @cat5 (%Str, %Str, %Str, %Str, %Str) {
@@ -1562,40 +1559,39 @@ define %Str @cat5 (%Str, %Str, %Str, %Str, %Str) {
   %14 = add %Nat32 %13, %10
 
 ;stmt9:
-  %15 = add %Nat32 %14, 1
-  %16 = call %Str (%Nat32) @str_new (%Nat32 %15)
+  %15 = call %Str (%Nat32) @str_new (%Nat32 %14)
 
 ;stmt10:
-  %17 = getelementptr inbounds %Nat8, %Str %16, %Int32 0
-  %18 = bitcast %Nat8* %17 to %Str
-  %19 = call %Nat8* (%Str, %Str) @strcpy (%Str %18, %Str %0)
+  %16 = getelementptr inbounds %Nat8, %Str %15, %Int32 0
+  %17 = bitcast %Nat8* %16 to %Str
+  %18 = call %Nat8* (%Str, %Str) @strcpy (%Str %17, %Str %0)
 
 ;stmt11:
-  %20 = getelementptr inbounds %Nat8, %Str %16, %Nat32 %6
-  %21 = bitcast %Nat8* %20 to %Str
-  %22 = call %Nat8* (%Str, %Str) @strcpy (%Str %21, %Str %1)
+  %19 = getelementptr inbounds %Nat8, %Str %15, %Nat32 %6
+  %20 = bitcast %Nat8* %19 to %Str
+  %21 = call %Nat8* (%Str, %Str) @strcpy (%Str %20, %Str %1)
 
 ;stmt12:
-  %23 = getelementptr inbounds %Nat8, %Str %16, %Nat32 %11
-  %24 = bitcast %Nat8* %23 to %Str
-  %25 = call %Nat8* (%Str, %Str) @strcpy (%Str %24, %Str %2)
+  %22 = getelementptr inbounds %Nat8, %Str %15, %Nat32 %11
+  %23 = bitcast %Nat8* %22 to %Str
+  %24 = call %Nat8* (%Str, %Str) @strcpy (%Str %23, %Str %2)
 
 ;stmt13:
-  %26 = getelementptr inbounds %Nat8, %Str %16, %Nat32 %12
-  %27 = bitcast %Nat8* %26 to %Str
-  %28 = call %Nat8* (%Str, %Str) @strcpy (%Str %27, %Str %3)
+  %25 = getelementptr inbounds %Nat8, %Str %15, %Nat32 %12
+  %26 = bitcast %Nat8* %25 to %Str
+  %27 = call %Nat8* (%Str, %Str) @strcpy (%Str %26, %Str %3)
 
 ;stmt14:
-  %29 = getelementptr inbounds %Nat8, %Str %16, %Nat32 %13
-  %30 = bitcast %Nat8* %29 to %Str
-  %31 = call %Nat8* (%Str, %Str) @strcpy (%Str %30, %Str %4)
+  %28 = getelementptr inbounds %Nat8, %Str %15, %Nat32 %13
+  %29 = bitcast %Nat8* %28 to %Str
+  %30 = call %Nat8* (%Str, %Str) @strcpy (%Str %29, %Str %4)
 
 ;stmt15:
-  %32 = getelementptr inbounds %Nat8, %Str %16, %Nat32 %14
-  store %Nat8 0, %Nat8* %32
+  %31 = getelementptr inbounds %Nat8, %Str %15, %Nat32 %14
+  store %Nat8 0, %Nat8* %31
 
 ;stmt16:
-  ret %Str %16
+  ret %Str %15
 }
 
 define void @assert (%Bool, %Str) {
@@ -14397,7 +14393,7 @@ endif_0:
 
 ;stmt5:
   %11 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
-  %12 = call %Type* (%TypeKind) @type_new (%TypeKind 1)
+  %12 = load %Type*, %Type** @typeNumeric
   store %Type* %12, %Type** %11
 
 ;stmt6:
@@ -14457,7 +14453,7 @@ endif_0:
 
 ;stmt5:
   %11 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
-  %12 = call %Type* (%TypeKind) @type_new (%TypeKind 1)
+  %12 = load %Type*, %Type** @typeNumeric
   store %Type* %12, %Type** %11
 
 ;stmt6:
