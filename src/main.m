@@ -4,25 +4,24 @@
 import "lexer"
 
 
-type ResourceType = enum {
-  ResourceUnknown,  // we cannot found the resource
-  ResourceLocal     // this resource is a local file
+type SourceType = enum {
+  SourceUnknown,  // we cannot found the resource
+  SourceLocal     // this resource is a local file
 }
 
 
-type Resource = record {
-  type : ResourceType
-  imported_as : Str    // import string
-  path : Str           // fullpath
+type SourceInfo = record {
+  type : SourceType  //
+  imported_as : Str  // import string
+  path : Str         // fullpath
 }
 
 
 // функция source_open получает строку импорта и возвращает *Source or Nil
 type Source = record {
-  res : Resource
-
-  tokens     : *List      // список токенов этого модуля
-  token_node : *Node      // нода текущего токена
+  info       : SourceInfo  //
+  tokens     : *List       // список токенов этого модуля
+  token_node : *Node       // нода текущего токена
 }
 
 
@@ -83,14 +82,14 @@ let src_new = func (name : Str, tokens : *List) -> *Source {
 
 // получает каталог dir (где искать)
 // и строку импорта ресурса resource
-// возвращает дескриптор ресурса Resource
-let getres = func (dir, resource : Str) -> Resource {
+// возвращает дескриптор ресурса SourceInfo
+let getSourceInfo = func (dir, resource : Str) -> SourceInfo {
   let path = cat3(dir, "/", resource)
 
-  var res : Resource
-  res.type = ResourceUnknown
-  res.imported_as = resource
-  res.path = Nil
+  var info : SourceInfo
+  info.type = SourceUnknown
+  info.imported_as = resource
+  info.path = Nil
 
   // Is it a module?
 
@@ -99,9 +98,9 @@ let getres = func (dir, resource : Str) -> Resource {
   if exists(path_mod) {
     // it's a module
     chdir(getprefix(path_mod))
-    res.type = ResourceLocal
-    res.path = path_mod
-    return res
+    info.type = SourceLocal
+    info.path = path_mod
+    return info
   }
 
   // Maybe it's a package?
@@ -111,19 +110,19 @@ let getres = func (dir, resource : Str) -> Resource {
   if exists(path_pkg) {
     // it's a package
     chdir(getprefix(path_pkg))
-    res.type = ResourceLocal
-    res.path = path_pkg
-    return res
+    info.type = SourceLocal
+    info.path = path_pkg
+    return info
   }
 
-  return res  // ResourceUnknown
+  return info  // SourceUnknown
 }
 
 
-let res2src = func (r : Resource) -> *Source {
+let res2src = func (r : SourceInfo) -> *Source {
   let tokens = tokenize(r.path)
   let s = src_new(r.path, tokens)
-  s.res = r
+  s.info = r
   return s
 }
 
@@ -133,14 +132,14 @@ let source_open = func (import_string : Str) -> *Source {
   var cdir : [512]Nat8
   getcwd(&cdir[0] to Str, 512)
 
-  let csrc = getres(&cdir[0] to Str, import_string)
-  if csrc.type != ResourceUnknown {
+  let csrc = getSourceInfo(&cdir[0] to Str, import_string)
+  if csrc.type != SourceUnknown {
     return res2src(csrc)
   }
 
   // search import root
-  let psrc = getres(pdir, import_string)
-  if psrc.type != ResourceUnknown {
+  let psrc = getSourceInfo(pdir, import_string)
+  if psrc.type != SourceUnknown {
     return res2src(psrc)
   }
 
@@ -148,13 +147,13 @@ let source_open = func (import_string : Str) -> *Source {
   let search_in_lib = func ListSearchHandler {
     let lib_path = data to Str
     let import_string = ctx to Str
-    let res = getres(lib_path, import_string)
-    return res.type != ResourceUnknown
+    let res = getSourceInfo(lib_path, import_string)
+    return res.type != SourceUnknown
   }
   let lib_path = list_search(&liblist, search_in_lib, import_string) to Str
 
   if lib_path != Nil {
-    return res2src(getres(lib_path, import_string))
+    return res2src(getSourceInfo(lib_path, import_string))
   }
 
   return Nil

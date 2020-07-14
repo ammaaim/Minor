@@ -54,9 +54,9 @@ target triple = "x86_64-apple-macosx10.14.0"
 %Token = type {%TokenType, %TokenInfo, [0 x %Nat8]}
 %State = type {%Int32, %TokenType, [256 x %Nat8], %Nat16, %Nat32, %Nat32, %Nat16, %Str, %Nat8}
 %Rule = type %Bool (%Nat8)*
-%ResourceType = type %Int16
-%Resource = type {%ResourceType, %Str, %Str}
-%Source = type {%Resource, %List*, %Node*}
+%SourceType = type %Int16
+%SourceInfo = type {%SourceType, %Str, %Str}
+%Source = type {%SourceInfo, %List*, %Node*}
 %TypeBasic = type {%Str, %Nat32, %Bool, %Bool}
 %TypeRecord = type {%List*, %Nat32}
 %Field = type {%Str, %Type*, %Nat16, %TokenInfo*}
@@ -4482,25 +4482,25 @@ endif_0:
   ret %Source* %14
 }
 
-define %Resource @getres (%Str, %Str) {
+define %SourceInfo @getSourceInfo (%Str, %Str) {
 
 ;stmt0:
   %3 = load %Str, %Str* @_func68_str1
   %4 = call %Str (%Str, %Str, %Str) @cat3 (%Str %0, %Str %3, %Str %1)
 
 ;stmt1:
-  %res = alloca %Resource
+  %info = alloca %SourceInfo
 
 ;stmt2:
-  %5 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 0
-  store %ResourceType 0, %ResourceType* %5
+  %5 = getelementptr inbounds %SourceInfo, %SourceInfo* %info, i32 0, i32 0
+  store %SourceType 0, %SourceType* %5
 
 ;stmt3:
-  %6 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 1
+  %6 = getelementptr inbounds %SourceInfo, %SourceInfo* %info, i32 0, i32 1
   store %Str %1, %Str* %6
 
 ;stmt4:
-  %7 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 2
+  %7 = getelementptr inbounds %SourceInfo, %SourceInfo* %info, i32 0, i32 2
   %8 = inttoptr i64 0 to %Str
   store %Str %8, %Str* %7
 
@@ -4520,16 +4520,16 @@ then_0:
   %13 = call %Int32 (%Str) @chdir (%Str %12)
 
 ;stmt9:
-  %14 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 0
-  store %ResourceType 1, %ResourceType* %14
+  %14 = getelementptr inbounds %SourceInfo, %SourceInfo* %info, i32 0, i32 0
+  store %SourceType 1, %SourceType* %14
 
 ;stmt10:
-  %15 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 2
+  %15 = getelementptr inbounds %SourceInfo, %SourceInfo* %info, i32 0, i32 2
   store %Str %10, %Str* %15
 
 ;stmt11:
-  %16 = load %Resource, %Resource* %res
-  ret %Resource %16
+  %16 = load %SourceInfo, %SourceInfo* %info
+  ret %SourceInfo %16
   br label %endif_0
 else_0:
   br label %endif_0
@@ -4551,39 +4551,39 @@ then_1:
   %22 = call %Int32 (%Str) @chdir (%Str %21)
 
 ;stmt16:
-  %23 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 0
-  store %ResourceType 1, %ResourceType* %23
+  %23 = getelementptr inbounds %SourceInfo, %SourceInfo* %info, i32 0, i32 0
+  store %SourceType 1, %SourceType* %23
 
 ;stmt17:
-  %24 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 2
+  %24 = getelementptr inbounds %SourceInfo, %SourceInfo* %info, i32 0, i32 2
   store %Str %19, %Str* %24
 
 ;stmt18:
-  %25 = load %Resource, %Resource* %res
-  ret %Resource %25
+  %25 = load %SourceInfo, %SourceInfo* %info
+  ret %SourceInfo %25
   br label %endif_1
 else_1:
   br label %endif_1
 endif_1:
 
 ;stmt19:
-  %27 = load %Resource, %Resource* %res
-  ret %Resource %27
+  %27 = load %SourceInfo, %SourceInfo* %info
+  ret %SourceInfo %27
 }
 
-define %Source* @res2src (%Resource) {
+define %Source* @res2src (%SourceInfo) {
 
 ;stmt0:
-  %2 = extractvalue %Resource %0, 2
+  %2 = extractvalue %SourceInfo %0, 2
   %3 = call %List* (%Str) @tokenize (%Str %2)
 
 ;stmt1:
-  %4 = extractvalue %Resource %0, 2
+  %4 = extractvalue %SourceInfo %0, 2
   %5 = call %Source* (%Str, %List*) @src_new (%Str %4, %List* %3)
 
 ;stmt2:
   %6 = getelementptr inbounds %Source, %Source* %5, i32 0, i32 0
-  store %Resource %0, %Resource* %6
+  store %SourceInfo %0, %SourceInfo* %6
 
 ;stmt3:
   ret %Source* %5
@@ -4598,11 +4598,11 @@ define %Bool @search_in_lib (%Unit*, %Unit*, %Nat32) {
   %5 = bitcast %Unit* %1 to %Str
 
 ;stmt2:
-  %6 = call %Resource (%Str, %Str) @getres (%Str %4, %Str %5)
+  %6 = call %SourceInfo (%Str, %Str) @getSourceInfo (%Str %4, %Str %5)
 
 ;stmt3:
-  %7 = extractvalue %Resource %6, 0
-  %8 = icmp ne %ResourceType %7, 0
+  %7 = extractvalue %SourceInfo %6, 0
+  %8 = icmp ne %SourceType %7, 0
   ret %Bool %8
 }
 
@@ -4619,18 +4619,18 @@ define %Source* @source_open (%Str) {
 ;stmt2:
   %5 = getelementptr inbounds [512 x %Nat8], [512 x %Nat8]* %cdir, i32 0, %Int32 0
   %6 = bitcast %Nat8* %5 to %Str
-  %7 = call %Resource (%Str, %Str) @getres (%Str %6, %Str %0)
+  %7 = call %SourceInfo (%Str, %Str) @getSourceInfo (%Str %6, %Str %0)
 
 ;stmt3:
-  %8 = extractvalue %Resource %7, 0
-  %9 = icmp ne %ResourceType %8, 0
+  %8 = extractvalue %SourceInfo %7, 0
+  %9 = icmp ne %SourceType %8, 0
   br i1 %9, label %then_0, label %else_0
 then_0:
 
 ;stmt4:
 
 ;stmt5:
-  %10 = call %Source* (%Resource) @res2src (%Resource %7)
+  %10 = call %Source* (%SourceInfo) @res2src (%SourceInfo %7)
   ret %Source* %10
   br label %endif_0
 else_0:
@@ -4639,18 +4639,18 @@ endif_0:
 
 ;stmt6:
   %12 = load %Str, %Str* @pdir
-  %13 = call %Resource (%Str, %Str) @getres (%Str %12, %Str %0)
+  %13 = call %SourceInfo (%Str, %Str) @getSourceInfo (%Str %12, %Str %0)
 
 ;stmt7:
-  %14 = extractvalue %Resource %13, 0
-  %15 = icmp ne %ResourceType %14, 0
+  %14 = extractvalue %SourceInfo %13, 0
+  %15 = icmp ne %SourceType %14, 0
   br i1 %15, label %then_1, label %else_1
 then_1:
 
 ;stmt8:
 
 ;stmt9:
-  %16 = call %Source* (%Resource) @res2src (%Resource %13)
+  %16 = call %Source* (%SourceInfo) @res2src (%SourceInfo %13)
   ret %Source* %16
   br label %endif_1
 else_1:
@@ -4673,8 +4673,8 @@ then_2:
 ;stmt12:
 
 ;stmt13:
-  %25 = call %Resource (%Str, %Str) @getres (%Str %21, %Str %0)
-  %26 = call %Source* (%Resource) @res2src (%Resource %25)
+  %25 = call %SourceInfo (%Str, %Str) @getSourceInfo (%Str %21, %Str %0)
+  %26 = call %Source* (%SourceInfo) @res2src (%SourceInfo %25)
   ret %Source* %26
   br label %endif_2
 else_2:
