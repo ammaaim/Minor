@@ -25,7 +25,10 @@ type OperandKind = enum {
 }
 
 
-// Объект принтера - содержит тип значения и его местоположение
+// Операнд - тип значения и его местоположение
+// Является результатом вычисления
+// Операнды Global, Local & Address нуждаются в загрузке (load)
+// перед использованием справа (rval)
 type Operand = record {
   kind : OperandKind
 
@@ -37,7 +40,7 @@ type Operand = record {
 }
 
 
-// new printer operand
+// create new operand
 let operand = func (t : *Type, k : OperandKind, reg : Nat32) -> Operand {
   var o : Operand
   o.type = t
@@ -247,7 +250,8 @@ let eval_access = func Eval {
 
   assert(v.access.field != Nil, "print/expr:: v.field == Nil\n")
 
-  let fieldno = type_record_get_field(record_type, v.access.field).offset
+  let field = type_record_get_field(record_type, v.access.field)
+  let fieldno = field.offset
 
   let is_record_in_register = s.kind == OperandRegister and s.type.kind == TypeRecord
 

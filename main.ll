@@ -1318,12 +1318,9 @@ target triple = "x86_64-apple-macosx10.14.0"
 @typeChar = global %Type* zeroinitializer
 @typeStr = global %Type* zeroinitializer
 @typeEnum = global %Type* zeroinitializer
-@typeNumeric = global %Type* zeroinitializer
-@typeSizeof = global %Type* zeroinitializer
-@typeAlignof = global %Type* zeroinitializer
-@typeFreePtr = global %Type* zeroinitializer
 @typeBaseInt = global %Type* zeroinitializer
-@typeBaseNat = global %Type* zeroinitializer
+@typeFreePtr = global %Type* zeroinitializer
+@typeNumeric = global %Type* zeroinitializer
 @x_uid = global %Nat32 zeroinitializer
 @globalTypeIndex = global %List zeroinitializer
 @globalValueIndex = global %List zeroinitializer
@@ -6471,15 +6468,6 @@ define void @type_init () {
   store %Type* %20, %Type** @typeBaseInt
 
 ;stmt43:
-  store %Type* %36, %Type** @typeBaseNat
-
-;stmt44:
-  store %Type* %36, %Type** @typeSizeof
-
-;stmt45:
-  store %Type* %18, %Type** @typeAlignof
-
-;stmt46:
   store %Type* %18, %Type** @typeEnum
   ret void
 }
@@ -13638,7 +13626,7 @@ endif_0:
 ;stmt15:
   %36 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 6
   %37 = getelementptr inbounds %ValueBin, %ValueBin* %36, i32 0, i32 0
-  %38 = load %Type*, %Type** @typeBaseNat
+  %38 = load %Type*, %Type** @typeBaseInt
   %39 = call %Value* (%Value*, %Type*) @castIfNumericTo (%Value* %4, %Type* %38)
   store %Value* %39, %Value** %37
 
@@ -17956,10 +17944,12 @@ endif_0:
   %29 = getelementptr inbounds %ValueAccess, %ValueAccess* %28, i32 0, i32 1
   %30 = load %Str, %Str* %29
   %31 = call %Field* (%Type*, %Str) @type_record_get_field (%Type* %27, %Str %30)
+
+;stmt11:
   %32 = getelementptr inbounds %Field, %Field* %31, i32 0, i32 2
   %33 = load %Nat16, %Nat16* %32
 
-;stmt11:
+;stmt12:
   %34 = getelementptr inbounds %Operand, %Operand* %s, i32 0, i32 0
   %35 = load %OperandKind, %OperandKind* %34
   %36 = icmp eq %OperandKind %35, 6
@@ -17970,37 +17960,37 @@ endif_0:
   %41 = icmp eq %TypeKind %40, 5
   %42 = and %Bool %36, %41
 
-;stmt12:
+;stmt13:
   br i1 %42, label %then_1, label %else_1
 then_1:
 
-;stmt13:
-
 ;stmt14:
-  %43 = call %Nat32 () @lab_get ()
 
 ;stmt15:
+  %43 = call %Nat32 () @lab_get ()
+
+;stmt16:
   %44 = load %Unit*, %Unit** @fout
   %45 = load %Str, %Str* @_func313_str2
   %46 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %44, %Str %45, %Nat32 %43)
 
-;stmt16:
+;stmt17:
   %47 = load %Type*, %Type** %record_type
   call void (%Type*, %Bool, %Bool) @printType (%Type* %47, %Bool 1, %Bool 1)
 
-;stmt17:
+;stmt18:
   call void () @space ()
 
-;stmt18:
+;stmt19:
   %48 = load %Operand, %Operand* %s
   call void (%Operand) @print_operand (%Operand %48)
 
-;stmt19:
+;stmt20:
   %49 = load %Unit*, %Unit** @fout
   %50 = load %Str, %Str* @_func313_str3
   %51 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %49, %Str %50, %Nat16 %33)
 
-;stmt20:
+;stmt21:
   %52 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %53 = load %Type*, %Type** %52
   %54 = call %Operand (%Type*, %OperandKind, %Nat32) @operand (%Type* %53, %OperandKind 6, %Nat32 %43)
@@ -18010,39 +18000,39 @@ else_1:
   br label %endif_1
 endif_1:
 
-;stmt21:
+;stmt22:
   %56 = call %Nat32 () @lab_get ()
 
-;stmt22:
+;stmt23:
   %57 = load %Unit*, %Unit** @fout
   %58 = load %Str, %Str* @_func313_str4
   %59 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %57, %Str %58, %Nat32 %56)
 
-;stmt23:
+;stmt24:
   %60 = load %Type*, %Type** %record_type
   call void (%Type*, %Bool, %Bool) @printType (%Type* %60, %Bool 1, %Bool 1)
 
-;stmt24:
+;stmt25:
   call void () @comma ()
 
-;stmt25:
+;stmt26:
   %61 = load %Type*, %Type** %record_type
   call void (%Type*, %Bool, %Bool) @printType (%Type* %61, %Bool 1, %Bool 1)
 
-;stmt26:
+;stmt27:
   %62 = load %Str, %Str* @_func313_str5
   call void (%Str) @o (%Str %62)
 
-;stmt27:
+;stmt28:
   %63 = load %Operand, %Operand* %s
   call void (%Operand) @print_operand (%Operand %63)
 
-;stmt28:
+;stmt29:
   %64 = load %Unit*, %Unit** @fout
   %65 = load %Str, %Str* @_func313_str6
   %66 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %64, %Str %65, %Nat16 %33)
 
-;stmt29:
+;stmt30:
   %67 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 1
   %68 = load %Type*, %Type** %67
   %69 = call %Operand (%Type*, %OperandKind, %Nat32) @operand (%Type* %68, %OperandKind 5, %Nat32 %56)

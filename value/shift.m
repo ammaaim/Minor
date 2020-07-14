@@ -39,7 +39,7 @@ let checkValueShift = func (v : *Value) -> *Type {
     return typeNumeric
   }
 
-  v.bin.l = castIfNumericTo(l, typeBaseNat)
+  v.bin.l = castIfNumericTo(l, typeBaseInt)
 
   // (!) LLVM требует чтобы типы левого и правого в шифтах были одинаковы,
   // что глупо но.. поэтому приводим правое к левому

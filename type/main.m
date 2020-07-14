@@ -71,15 +71,9 @@ var typeUnit,
     typeStr,
     typeEnum,
 
-    typeNumeric,
-
-    typeSizeof,
-    typeAlignof,
-
-    typeFreePtr,
-
     typeBaseInt,
-    typeBaseNat : *Type
+    typeFreePtr,
+    typeNumeric : *Type
 
 
 

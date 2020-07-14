@@ -70,9 +70,7 @@ let type_init = func () -> Unit {
   typeFreePtr = type_pointer_new(typeUnit)
   typeNumeric = type_new(TypeNumeric)
   typeBaseInt = typeInt32
-  typeBaseNat = typeNat32
-  typeSizeof = typeNat32
-  typeAlignof = typeInt16
+  //typeBaseNat = typeNat32
   typeEnum = typeInt16
 }
 
