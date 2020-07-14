@@ -8,10 +8,12 @@
 // 3. *Unit -> [] && [] -> *Unit
 
 
+
 // даем тип t значению v с типом #TypeNumeric (index, shift, call)
+// used in index, call, shift, expr
 let castIfNumericTo = func (v : *Value, t : *Type) -> *Value {
   if v.type.kind == TypeNumeric {
-    v.type = t
+    return valueNewImm(t, v.imm, v.ti)
   }
   return v
 }

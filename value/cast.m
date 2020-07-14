@@ -10,7 +10,9 @@ let WARNING0 = False  // "casting bigger to smaller"
 
 // можем ли мы приводить непосредственно значение v к типу t ?
 let immCastIsPossible = func (v : *Value, t : *Type) -> Bool {
-  if v.kind == ValueImmediate {return True}
+  if v.kind == ValueImmediate {
+    return True  // STUB
+  }
   return False
 }
 
@@ -19,6 +21,7 @@ let cast = func (v : *Value, t : *Type, ti : *TokenInfo) -> *Value {
   if v == Nil or t == Nil {goto fail}
 
   if immCastIsPossible(v, t) {
+    // creating new imm value with target type
     return valueNewImm(t, v.imm, ti)
   }
 

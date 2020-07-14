@@ -18,16 +18,22 @@ fail:
 
 
 let checkValueIndex = func (v : *Value) -> *Type {
+
   let a = v.index.array
   let i = v.index.index
+
   checkValue(a)
   checkValue(i)
 
   // приводим GenericTypeInt к typeBaseInt если надо
-  castIfNumericTo(a, typeBaseInt)
-  castIfNumericTo(i, typeBaseInt)
+  v.index.array = castIfNumericTo(a, typeBaseInt)
+  v.index.index = castIfNumericTo(i, typeBaseInt)
 
-  return a.type.array.of
+  checkValue(v.index.array)
+  checkValue(v.index.index)
+
+  // тип операции индексирования - тип элемента ее массива
+  return v.index.array.type.array.of
 }
 
 
