@@ -4,11 +4,22 @@
 import "lexer"
 
 
+type ResourceType = enum {
+  ResourceUnknown,  // we cannot found the resource
+  ResourceLocal     // this resource is a local file
+}
+
+
+type Resource = record {
+  type : ResourceType
+  imported_as : Str    // import string
+  path : Str           // fullpath
+}
+
+
 // функция source_open получает строку импорта и возвращает *Source or Nil
 type Source = record {
-  abs_path,              // Resource full path
-  int_path,               // Resource path inside root package
-  filename   : Str        // реальное имя файла в фс
+  res : Resource
 
   tokens     : *List      // список токенов этого модуля
   token_node : *Node      // нода текущего токена
@@ -62,7 +73,7 @@ let src_new = func (name : Str, tokens : *List) -> *Source {
   }
 
   let src = malloc(sizeof Source) to *Source
-  src.abs_path = fullpath
+  //src.abs_path = fullpath
   src.tokens = tokens
   src.token_node = src.tokens.first
   return src
@@ -70,26 +81,16 @@ let src_new = func (name : Str, tokens : *List) -> *Source {
 
 
 
-type ResourceType = enum {
-  ResourceUnknown,  // we cannot found the resource
-  ResourceLocal     // this resource is a local file
-}
-
-
-type Resource = record {
-  type : ResourceType
-  imported_as : Str    // import string
-  path : Str           // fullpath
-}
-
-
+// получает каталог dir (где искать)
+// и строку импорта ресурса resource
+// возвращает дескриптор ресурса Resource
 let getres = func (dir, resource : Str) -> Resource {
   let path = cat3(dir, "/", resource)
 
-  var r : Resource
-  r.type = ResourceUnknown
-  r.imported_as = resource
-  r.path = Nil
+  var res : Resource
+  res.type = ResourceUnknown
+  res.imported_as = resource
+  res.path = Nil
 
   // Is it a module?
 
@@ -98,9 +99,9 @@ let getres = func (dir, resource : Str) -> Resource {
   if exists(path_mod) {
     // it's a module
     chdir(getprefix(path_mod))
-    r.type = ResourceLocal
-    r.path = path_mod
-    return r
+    res.type = ResourceLocal
+    res.path = path_mod
+    return res
   }
 
   // Maybe it's a package?
@@ -110,18 +111,20 @@ let getres = func (dir, resource : Str) -> Resource {
   if exists(path_pkg) {
     // it's a package
     chdir(getprefix(path_pkg))
-    r.type = ResourceLocal
-    r.path = path_pkg
-    return r
+    res.type = ResourceLocal
+    res.path = path_pkg
+    return res
   }
 
-  return r  // ResourceUnknown
+  return res  // ResourceUnknown
 }
 
 
 let res2src = func (r : Resource) -> *Source {
   let tokens = tokenize(r.path)
-  return src_new(r.path, tokens)
+  let s = src_new(r.path, tokens)
+  s.res = r
+  return s
 }
 
 

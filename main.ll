@@ -54,9 +54,9 @@ target triple = "x86_64-apple-macosx10.14.0"
 %Token = type {%TokenType, %TokenInfo, [0 x %Nat8]}
 %State = type {%Int32, %TokenType, [256 x %Nat8], %Nat16, %Nat32, %Nat32, %Nat16, %Str, %Nat8}
 %Rule = type %Bool (%Nat8)*
-%Source = type {%Str, %Str, %Str, %List*, %Node*}
 %ResourceType = type %Int16
 %Resource = type {%ResourceType, %Str, %Str}
+%Source = type {%Resource, %List*, %Node*}
 %TypeBasic = type {%Str, %Nat32, %Bool, %Bool}
 %TypeRecord = type {%List*, %Nat32}
 %Field = type {%Str, %Type*, %Nat16, %TokenInfo*}
@@ -4467,23 +4467,18 @@ endif_0:
   %14 = bitcast %Unit* %13 to %Source*
 
 ;stmt7:
-  %15 = getelementptr inbounds %Source, %Source* %14, i32 0, i32 0
-  %16 = load %Str, %Str* %fullpath
-  store %Str %16, %Str* %15
+  %15 = getelementptr inbounds %Source, %Source* %14, i32 0, i32 1
+  store %List* %1, %List** %15
 
 ;stmt8:
-  %17 = getelementptr inbounds %Source, %Source* %14, i32 0, i32 3
-  store %List* %1, %List** %17
+  %16 = getelementptr inbounds %Source, %Source* %14, i32 0, i32 2
+  %17 = getelementptr inbounds %Source, %Source* %14, i32 0, i32 1
+  %18 = load %List*, %List** %17
+  %19 = getelementptr inbounds %List, %List* %18, i32 0, i32 0
+  %20 = load %Node*, %Node** %19
+  store %Node* %20, %Node** %16
 
 ;stmt9:
-  %18 = getelementptr inbounds %Source, %Source* %14, i32 0, i32 4
-  %19 = getelementptr inbounds %Source, %Source* %14, i32 0, i32 3
-  %20 = load %List*, %List** %19
-  %21 = getelementptr inbounds %List, %List* %20, i32 0, i32 0
-  %22 = load %Node*, %Node** %21
-  store %Node* %22, %Node** %18
-
-;stmt10:
   ret %Source* %14
 }
 
@@ -4494,18 +4489,18 @@ define %Resource @getres (%Str, %Str) {
   %4 = call %Str (%Str, %Str, %Str) @cat3 (%Str %0, %Str %3, %Str %1)
 
 ;stmt1:
-  %r = alloca %Resource
+  %res = alloca %Resource
 
 ;stmt2:
-  %5 = getelementptr inbounds %Resource, %Resource* %r, i32 0, i32 0
+  %5 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 0
   store %ResourceType 0, %ResourceType* %5
 
 ;stmt3:
-  %6 = getelementptr inbounds %Resource, %Resource* %r, i32 0, i32 2
+  %6 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 1
   store %Str %1, %Str* %6
 
 ;stmt4:
-  %7 = getelementptr inbounds %Resource, %Resource* %r, i32 0, i32 1
+  %7 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 2
   %8 = inttoptr i64 0 to %Str
   store %Str %8, %Str* %7
 
@@ -4525,15 +4520,15 @@ then_0:
   %13 = call %Int32 (%Str) @chdir (%Str %12)
 
 ;stmt9:
-  %14 = getelementptr inbounds %Resource, %Resource* %r, i32 0, i32 0
+  %14 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 0
   store %ResourceType 1, %ResourceType* %14
 
 ;stmt10:
-  %15 = getelementptr inbounds %Resource, %Resource* %r, i32 0, i32 1
+  %15 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 2
   store %Str %10, %Str* %15
 
 ;stmt11:
-  %16 = load %Resource, %Resource* %r
+  %16 = load %Resource, %Resource* %res
   ret %Resource %16
   br label %endif_0
 else_0:
@@ -4556,15 +4551,15 @@ then_1:
   %22 = call %Int32 (%Str) @chdir (%Str %21)
 
 ;stmt16:
-  %23 = getelementptr inbounds %Resource, %Resource* %r, i32 0, i32 0
+  %23 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 0
   store %ResourceType 1, %ResourceType* %23
 
 ;stmt17:
-  %24 = getelementptr inbounds %Resource, %Resource* %r, i32 0, i32 1
+  %24 = getelementptr inbounds %Resource, %Resource* %res, i32 0, i32 2
   store %Str %19, %Str* %24
 
 ;stmt18:
-  %25 = load %Resource, %Resource* %r
+  %25 = load %Resource, %Resource* %res
   ret %Resource %25
   br label %endif_1
 else_1:
@@ -4572,19 +4567,25 @@ else_1:
 endif_1:
 
 ;stmt19:
-  %27 = load %Resource, %Resource* %r
+  %27 = load %Resource, %Resource* %res
   ret %Resource %27
 }
 
 define %Source* @res2src (%Resource) {
 
 ;stmt0:
-  %2 = extractvalue %Resource %0, 1
+  %2 = extractvalue %Resource %0, 2
   %3 = call %List* (%Str) @tokenize (%Str %2)
 
 ;stmt1:
-  %4 = extractvalue %Resource %0, 1
+  %4 = extractvalue %Resource %0, 2
   %5 = call %Source* (%Str, %List*) @src_new (%Str %4, %List* %3)
+
+;stmt2:
+  %6 = getelementptr inbounds %Source, %Source* %5, i32 0, i32 0
+  store %Resource %0, %Resource* %6
+
+;stmt3:
   ret %Source* %5
 }
 
@@ -15854,7 +15855,7 @@ define %Node* @gett () {
 ;stmt0:
   %1 = getelementptr inbounds %ModuleContext, %ModuleContext* @mctx, i32 0, i32 0
   %2 = load %Source*, %Source** %1
-  %3 = getelementptr inbounds %Source, %Source* %2, i32 0, i32 4
+  %3 = getelementptr inbounds %Source, %Source* %2, i32 0, i32 2
   %4 = load %Node*, %Node** %3
   ret %Node* %4
 }
@@ -15864,7 +15865,7 @@ define void @sett (%Node*) {
 ;stmt0:
   %2 = getelementptr inbounds %ModuleContext, %ModuleContext* @mctx, i32 0, i32 0
   %3 = load %Source*, %Source** %2
-  %4 = getelementptr inbounds %Source, %Source* %3, i32 0, i32 4
+  %4 = getelementptr inbounds %Source, %Source* %3, i32 0, i32 2
   store %Node* %0, %Node** %4
   ret void
 }
@@ -15874,10 +15875,10 @@ define void @skip () {
 ;stmt0:
   %1 = getelementptr inbounds %ModuleContext, %ModuleContext* @mctx, i32 0, i32 0
   %2 = load %Source*, %Source** %1
-  %3 = getelementptr inbounds %Source, %Source* %2, i32 0, i32 4
+  %3 = getelementptr inbounds %Source, %Source* %2, i32 0, i32 2
   %4 = getelementptr inbounds %ModuleContext, %ModuleContext* @mctx, i32 0, i32 0
   %5 = load %Source*, %Source** %4
-  %6 = getelementptr inbounds %Source, %Source* %5, i32 0, i32 4
+  %6 = getelementptr inbounds %Source, %Source* %5, i32 0, i32 2
   %7 = load %Node*, %Node** %6
   %8 = getelementptr inbounds %Node, %Node* %7, i32 0, i32 1
   %9 = load %Node*, %Node** %8
