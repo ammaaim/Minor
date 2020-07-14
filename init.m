@@ -13,9 +13,11 @@ let init = func () -> Unit {
   list_init(&liblist)
 
   let syslib_path = getenv(MINOR_LIB_ENV_VAR)
+
   if syslib_path to *Unit == Nil {
     fatal("enviroment variable MINOR_LIB not defined")
   }
+
   liblist_add(syslib_path)
 
   asmInit(&asm0, "<asm0>")

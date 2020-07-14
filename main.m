@@ -43,9 +43,7 @@ let main = func (argc : Int, argv : []Str) -> Int {
 
   printf("lines: %d\n", lines)
 
-
   checkMain()
-
 
   //showValues()
   //showTypes()
