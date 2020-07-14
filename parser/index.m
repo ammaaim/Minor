@@ -142,8 +142,7 @@ let get_value_builtin = func (id : Str) -> *Value {
 let get_value_from_params = func (params : *List, id : Str) -> *Value {
   let psearch = func ListSearchHandler {
     let param = data to *Field
-    if strcmp(param.id, ctx to Str) == 0 {return data}
-    return Nil
+    return strcmp(param.id, ctx to Str) == 0
   }
 
   let param = list_search(params, psearch, id) to *Field

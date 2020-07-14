@@ -43,7 +43,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %ListForeachHandler = type void (%Unit*, %Unit*, %Nat32)*
 %ListForeachHandler2 = type void (%Unit*, %Unit*, %Unit*, %Nat32)*
 %ListCompareHandler = type %Bool (%Unit*, %Unit*, %Unit*, %Nat32)*
-%ListSearchHandler = type %Unit* (%Unit*, %Unit*, %Nat32)*
+%ListSearchHandler = type %Bool (%Unit*, %Unit*, %Nat32)*
 %ListMapHandler = type %Unit* (%Unit*, %Unit*, %Nat32)*
 %List = type {%Node*, %Node*, %Nat64}
 %Map = type {%Node*, %Node*, %Nat64}
@@ -2631,39 +2631,38 @@ body_0:
   %16 = getelementptr inbounds %Node, %Node* %15, i32 0, i32 3
   %17 = load %Unit*, %Unit** %16
   %18 = load %Nat32, %Nat32* %index
-  %19 = call %Unit* (%Unit*, %Unit*, %Nat32) %1 (%Unit* %17, %Unit* %2, %Nat32 %18)
-
-;stmt10:
-  %20 = inttoptr i64 0 to %Unit*
-  %21 = icmp ne %Unit* %19, %20
-  br i1 %21, label %then_1, label %else_1
+  %19 = call %Bool (%Unit*, %Unit*, %Nat32) %1 (%Unit* %17, %Unit* %2, %Nat32 %18)
+  br i1 %19, label %then_1, label %else_1
 then_1:
 
-;stmt11:
+;stmt10:
 
-;stmt12:
-  ret %Unit* %19
+;stmt11:
+  %20 = load %Node*, %Node** %n
+  %21 = getelementptr inbounds %Node, %Node* %20, i32 0, i32 3
+  %22 = load %Unit*, %Unit** %21
+  ret %Unit* %22
   br label %endif_1
 else_1:
   br label %endif_1
 endif_1:
 
-;stmt13:
-  %23 = load %Node*, %Node** %n
-  %24 = getelementptr inbounds %Node, %Node* %23, i32 0, i32 1
-  %25 = load %Node*, %Node** %24
-  store %Node* %25, %Node** %n
+;stmt12:
+  %24 = load %Node*, %Node** %n
+  %25 = getelementptr inbounds %Node, %Node* %24, i32 0, i32 1
+  %26 = load %Node*, %Node** %25
+  store %Node* %26, %Node** %n
 
-;stmt14:
-  %26 = load %Nat32, %Nat32* %index
-  %27 = add %Nat32 %26, 1
-  store %Nat32 %27, %Nat32* %index
+;stmt13:
+  %27 = load %Nat32, %Nat32* %index
+  %28 = add %Nat32 %27, 1
+  store %Nat32 %28, %Nat32* %index
   br label %continue_0
 break_0:
 
-;stmt15:
-  %28 = inttoptr i64 0 to %Unit*
-  ret %Unit* %28
+;stmt14:
+  %29 = inttoptr i64 0 to %Unit*
+  ret %Unit* %29
 }
 
 define %List* @list_map (%List*, %ListMapHandler, %Unit*) {
@@ -4589,7 +4588,7 @@ define %Source* @res2src (%Resource) {
   ret %Source* %5
 }
 
-define %Unit* @search_in_lib (%Unit*, %Unit*, %Nat32) {
+define %Bool @search_in_lib (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
   %4 = bitcast %Unit* %0 to %Str
@@ -4603,23 +4602,7 @@ define %Unit* @search_in_lib (%Unit*, %Unit*, %Nat32) {
 ;stmt3:
   %7 = extractvalue %Resource %6, 0
   %8 = icmp ne %ResourceType %7, 0
-  br i1 %8, label %then_0, label %else_0
-then_0:
-
-;stmt4:
-
-;stmt5:
-  %9 = call %Source* (%Resource) @res2src (%Resource %6)
-  %10 = bitcast %Source* %9 to %Unit*
-  ret %Unit* %10
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt6:
-  %12 = inttoptr i64 0 to %Unit*
-  ret %Unit* %12
+  ret %Bool %8
 }
 
 define %Source* @source_open (%Str) {
@@ -4677,10 +4660,29 @@ endif_1:
   %18 = getelementptr inbounds %List, %List* @liblist, i32 0
   %19 = bitcast %Str %0 to %Unit*
   %20 = call %Unit* (%List*, %ListSearchHandler, %Unit*) @list_search (%List* %18, %ListSearchHandler @search_in_lib, %Unit* %19)
-  %21 = bitcast %Unit* %20 to %Source*
+  %21 = bitcast %Unit* %20 to %Str
 
 ;stmt11:
-  ret %Source* %21
+  %22 = bitcast %Str %21 to %Unit*
+  %23 = inttoptr i64 0 to %Unit*
+  %24 = icmp ne %Unit* %22, %23
+  br i1 %24, label %then_2, label %else_2
+then_2:
+
+;stmt12:
+
+;stmt13:
+  %25 = call %Resource (%Str, %Str) @getres (%Str %21, %Str %0)
+  %26 = call %Source* (%Resource) @res2src (%Resource %25)
+  ret %Source* %26
+  br label %endif_2
+else_2:
+  br label %endif_2
+endif_2:
+
+;stmt14:
+  %28 = inttoptr i64 0 to %Source*
+  ret %Source* %28
 }
 
 define void @info (%Str) {
@@ -5574,7 +5576,7 @@ define %Type* @type_record_new (%List*) {
   ret %Type* %2
 }
 
-define %Unit* @fsearch (%Unit*, %Unit*, %Nat32) {
+define %Bool @fsearch (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
   %4 = bitcast %Unit* %0 to %Field*
@@ -5587,22 +5589,7 @@ define %Unit* @fsearch (%Unit*, %Unit*, %Nat32) {
   %7 = load %Str, %Str* %6
   %8 = call %Int32 (%Str, %Str) @strcmp (%Str %7, %Str %5)
   %9 = icmp eq %Int32 %8, 0
-  br i1 %9, label %then_0, label %else_0
-then_0:
-
-;stmt3:
-
-;stmt4:
-  %10 = bitcast %Field* %4 to %Unit*
-  ret %Unit* %10
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt5:
-  %12 = inttoptr i64 0 to %Unit*
-  ret %Unit* %12
+  ret %Bool %9
 }
 
 define %Field* @type_record_get_field (%Type*, %Str) {
@@ -7087,7 +7074,7 @@ endif_0:
   ret %Value* %12
 }
 
-define %Unit* @psearch (%Unit*, %Unit*, %Nat32) {
+define %Bool @psearch (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
   %4 = bitcast %Unit* %0 to %Field*
@@ -7098,21 +7085,7 @@ define %Unit* @psearch (%Unit*, %Unit*, %Nat32) {
   %7 = bitcast %Unit* %1 to %Str
   %8 = call %Int32 (%Str, %Str) @strcmp (%Str %6, %Str %7)
   %9 = icmp eq %Int32 %8, 0
-  br i1 %9, label %then_0, label %else_0
-then_0:
-
-;stmt2:
-
-;stmt3:
-  ret %Unit* %0
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt4:
-  %11 = inttoptr i64 0 to %Unit*
-  ret %Unit* %11
+  ret %Bool %9
 }
 
 define %Value* @get_value_from_params (%List*, %Str) {
@@ -11183,7 +11156,7 @@ define %AssemblyItem* @asmVarAdd (%Assembly*, %Str, %Type*, %Value*) {
   ret %AssemblyItem* %6
 }
 
-define %Unit* @search (%Unit*, %Unit*, %Nat32) {
+define %Bool @search (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
   %4 = bitcast %Unit* %0 to %AssemblyItem*
@@ -11196,21 +11169,7 @@ define %Unit* @search (%Unit*, %Unit*, %Nat32) {
   %7 = load %Str, %Str* %6
   %8 = call %Int32 (%Str, %Str) @strcmp (%Str %7, %Str %5)
   %9 = icmp eq %Int32 %8, 0
-  br i1 %9, label %then_0, label %else_0
-then_0:
-
-;stmt3:
-
-;stmt4:
-  ret %Unit* %0
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt5:
-  %11 = inttoptr i64 0 to %Unit*
-  ret %Unit* %11
+  ret %Bool %9
 }
 
 define %Bool @ren (%List*, %Str, %Str) {
@@ -14975,7 +14934,7 @@ define void @importAdd (%Str) {
   ret void
 }
 
-define %Unit* @search_import (%Unit*, %Unit*, %Nat32) {
+define %Bool @search_import (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
   %4 = bitcast %Unit* %0 to %Str
@@ -14986,22 +14945,7 @@ define %Unit* @search_import (%Unit*, %Unit*, %Nat32) {
 ;stmt2:
   %6 = call %Int32 (%Str, %Str) @strcmp (%Str %4, %Str %5)
   %7 = icmp eq %Int32 %6, 0
-  br i1 %7, label %then_0, label %else_0
-then_0:
-
-;stmt3:
-
-;stmt4:
-  %8 = bitcast %Str %4 to %Unit*
-  ret %Unit* %8
-  br label %endif_0
-else_0:
-  br label %endif_0
-endif_0:
-
-;stmt5:
-  %10 = inttoptr i64 0 to %Unit*
-  ret %Unit* %10
+  ret %Bool %7
 }
 
 define %Bool @importExist (%Str) {

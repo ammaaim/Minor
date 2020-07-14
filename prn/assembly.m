@@ -144,8 +144,7 @@ let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
     let search = func ListSearchHandler {
       let ai = data to *AssemblyItem
       let id_from = ctx to Str
-      if strcmp(ai.id, id_from) == 0 {return data}
-      return Nil
+      return strcmp(ai.id, id_from) == 0
     }
     let c = list_search(list, search, id_from) to *AssemblyItem
 

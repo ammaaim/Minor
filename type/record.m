@@ -65,8 +65,7 @@ let type_record_get_field = func (t : *Type, field_id : Str) -> *Field {
   let fsearch = func ListSearchHandler {
     let field = data to *Field
     let id = ctx to Str
-    if strcmp(field.id, id) == 0 {return field}
-    return Nil
+    return strcmp(field.id, id) == 0
   }
   return list_search(t.record.fields, fsearch, field_id to *Unit) to *Field
 }

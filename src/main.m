@@ -142,16 +142,15 @@ let source_open = func (import_string : Str) -> *Source {
     let lib_path = data to Str
     let import_string = ctx to Str
     let res = getres(lib_path, import_string)
-
-    if res.type != ResourceUnknown {
-      return res2src(res)
-    }
-
-    return Nil
+    return res.type != ResourceUnknown
   }
-  let lsrc = list_search(&liblist, search_in_lib, import_string) to *Source
+  let lib_path = list_search(&liblist, search_in_lib, import_string) to Str
 
-  return lsrc
+  if lib_path != Nil {
+    return res2src(getres(lib_path, import_string))
+  }
+
+  return Nil
 }
 
 

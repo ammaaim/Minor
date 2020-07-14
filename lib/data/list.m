@@ -21,7 +21,7 @@ type ListCompareHandler = (data1, data2, ctx : *Unit, index : Nat) -> Bool
 
 // list_search
 // TODO: переведи в Bool (но есть проблема с src/main/source_open//search_in_lib)
-type ListSearchHandler = (data, ctx : *Unit, index : Nat) -> *Unit
+type ListSearchHandler = (data, ctx : *Unit, index : Nat) -> Bool
 
 // list_map
 type ListMapHandler = (data, ctx : *Unit, index : Nat) -> *Unit
@@ -195,8 +195,9 @@ let list_search = func (list : *List, f : ListSearchHandler, ctx : *Unit) -> *Un
   var index : Nat
   index = 0
   while n != Nil {
-    let data = f(n.data, ctx, index)
-    if data != Nil {return data}
+    if f(n.data, ctx, index) {
+      return n.data
+    }
     n = n.next
     index = index + 1
   }
