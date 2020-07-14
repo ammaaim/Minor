@@ -17,12 +17,13 @@ type State = record {
   fd     : Int
   type   : TokenType
   token  : [TOKEN_MAX_LEN]Nat8
-  pos    : Nat16
-  length : Nat32
-  line   : Nat32
-  start  : Nat16
-  file   : Str
-  ch     : Nat8  // putback storage
+
+  pos    : Nat16  // position of current char in line
+  length : Nat32  // token length
+  line   : Nat32  // token line number
+  start  : Nat16  // token start position in line
+  file   : Str    // current source file
+  ch     : Nat8   // 'putback' storage
 }
 
 
@@ -30,7 +31,6 @@ type State = record {
  * Global Lexer State
  */
 var lstate : State
-
 
 
 // счетчик количества отсканированных строк
@@ -69,7 +69,6 @@ let getcc = func () -> Nat8 {
     }
     lstate.pos = lstate.pos + 1
   }
-
   return c
 }
 

@@ -4,42 +4,42 @@
 let MAXARG = 64
 
 
-type ObjKind = enum {
-  ObjInvalid,    // An error occurred while evaluation
+type OperandKind = enum {
+  OperandInvalid,    // An error occurred while evaluation
 
-  ObjImmediate,  // Numeric value in imm field
+  OperandImmediate,  // Numeric value in imm field
 
   /*
-   * Global Immutable Object used by name
+   * Global Immutable Operandect used by name
    * such as funcs, strings, literal arrays & records
    */
-  ObjGlobalConst,
+  OperandGlobalConst,
 
   // variables
-  ObjLocal,      // local var
-  ObjGlobal,     // global var
+  OperandLocal,      // local var
+  OperandGlobal,     // global var
 
   // register
-  ObjAddress,    // address of value in register
-  ObjRegister    // value in register
+  OperandAddress,    // address of value in register
+  OperandRegister    // value in register
 }
 
 
 // Объект принтера - содержит тип значения и его местоположение
-type Obj = record {
-  kind : ObjKind
+type Operand = record {
+  kind : OperandKind
 
   type : *Type
 
-  imm  : Int64  // ObjImmediate
-  id   : Str    // ObjGlobalConst, ObjLocal, ObjGlobal
-  reg  : Nat32  // ObjRegister, ObjAddress
+  imm  : Int64  // OperandImmediate
+  id   : Str    // OperandGlobalConst, OperandLocal, OperandGlobal
+  reg  : Nat32  // OperandRegister, OperandAddress
 }
 
 
-// new printer object
-let obj = func (t : *Type, k : ObjKind, reg : Nat32) -> Obj {
-  var o : Obj
+// new printer operand
+let operand = func (t : *Type, k : OperandKind, reg : Nat32) -> Operand {
+  var o : Operand
   o.type = t
   o.kind = k
   o.reg = reg
@@ -50,7 +50,7 @@ let obj = func (t : *Type, k : ObjKind, reg : Nat32) -> Obj {
 
 
 // evaluator type
-type Eval = (v : *Value) -> Obj
+type Eval = (v : *Value) -> Operand
 
 
 // value evaluation
@@ -61,30 +61,30 @@ type Eval = (v : *Value) -> Obj
 let eval = func Eval {
   let k = v.kind
 
-  var obj : Obj
-  obj.type = v.type
+  var operand : Operand
+  operand.type = v.type
 
   // terms
   if k == ValueImmediate {
-    obj.kind = ObjImmediate
-    obj.imm = v.imm
-    return obj
+    operand.kind = OperandImmediate
+    operand.imm = v.imm
+    return operand
   } else if k == ValueGlobalConst {
-    obj.kind = ObjGlobalConst
-    obj.id = v.id
-    return obj
+    operand.kind = OperandGlobalConst
+    operand.id = v.id
+    return operand
   } else if k == ValueLocalVar {
-    obj.kind = ObjLocal
-    obj.id = v.id
-    return obj
+    operand.kind = OperandLocal
+    operand.id = v.id
+    return operand
   } else if k == ValueGlobalVar {
-    obj.kind = ObjGlobal
-    obj.id = v.id
-    return obj
+    operand.kind = OperandGlobal
+    operand.id = v.id
+    return operand
   } else if k == ValueRegister or k == ValueParam {
-    obj.kind = ObjRegister
-    obj.reg = v.reg
-    return obj
+    operand.kind = OperandRegister
+    operand.reg = v.reg
+    return operand
 
   // operations
   } else if k == ValueCall {
@@ -117,7 +117,7 @@ let eval_call = func Eval {
 
   // контекст в котором накапливаются вычисленные аргументы
   type Arguments = record {
-    args : [MAXARG]Obj
+    args : [MAXARG]Operand
     cnt  : Nat16
   }
 
@@ -146,7 +146,7 @@ let eval_call = func Eval {
   printType(f.type, False, False)
   space()
 
-  print_obj(f)
+  print_operand(f)
 
   // печатаем список аргументов
 
@@ -162,19 +162,19 @@ let eval_call = func Eval {
     if need_comma {comma()}
     printType(args.args[c].type, True, True)
     space()
-    print_obj(args.args[c])
+    print_operand(args.args[c])
     need_comma = True
     c = c + 1
   }
 
   o(")")
 
-  return obj(v.type, ObjRegister, retval_reg)
+  return operand(v.type, OperandRegister, retval_reg)
 }
 
 
 let eval_index = func Eval {
-  var a : Obj
+  var a : Operand
   a = eval(v.index.array)
 
   let i = load(eval(v.index.index))
@@ -183,7 +183,7 @@ let eval_index = func Eval {
     a = load(a)
   }
 
-  let is_def_array_in_register = a.kind == ObjRegister and typeIsDefinedArray(a.type)
+  let is_def_array_in_register = a.kind == OperandRegister and typeIsDefinedArray(a.type)
   let index_is_imm = True
 
   // работа именно со значением в регистре
@@ -193,9 +193,9 @@ let eval_index = func Eval {
     fprintf(fout, "\n  %%%d = extractvalue ", reg)
     printType(a.type, True, True)
     space()
-    print_obj(a)
+    print_operand(a)
     fprintf(fout, ", %u", i.imm)
-    return obj(v.type, ObjRegister, reg)
+    return operand(v.type, OperandRegister, reg)
   }
 
   // работа по ссылке на массив
@@ -220,20 +220,20 @@ let eval_index = func Eval {
     o("* ")
   }
 
-  print_obj(a)
+  print_operand(a)
   if not a.type.array.undefined {
     o(", i32 0")
   }
   comma()
   printType(i.type, True, True)
   space()
-  print_obj(i)
-  return obj(v.type, ObjAddress, reg)
+  print_operand(i)
+  return operand(v.type, OperandAddress, reg)
 }
 
 
 let eval_access = func Eval {
-  var s : Obj
+  var s : Operand
   var record_type : *Type
 
   s = eval(v.access.value)
@@ -249,7 +249,7 @@ let eval_access = func Eval {
 
   let fieldno = type_record_get_field(record_type, v.access.field).offset
 
-  let is_record_in_register = s.kind == ObjRegister and s.type.kind == TypeRecord
+  let is_record_in_register = s.kind == OperandRegister and s.type.kind == TypeRecord
 
   // работа именно со значением в регистре
   if is_record_in_register {
@@ -258,9 +258,9 @@ let eval_access = func Eval {
     fprintf(fout, "\n  %%%d = extractvalue ", reg)
     printType(record_type, True, True)
     space()
-    print_obj(s)
+    print_operand(s)
     fprintf(fout, ", %u", fieldno)
-    return obj(v.type, ObjRegister, reg)
+    return operand(v.type, OperandRegister, reg)
   }
 
   // работа по ссылке на структуру
@@ -272,17 +272,17 @@ let eval_access = func Eval {
   comma()
   printType(record_type, True, True)
   o("* ")
-  print_obj(s)
+  print_operand(s)
   fprintf(fout, ", i32 0, i32 %u", fieldno)
-  return obj(v.type, ObjAddress, reg)
+  return operand(v.type, OperandAddress, reg)
 }
 
 
 let eval_ref = func Eval {
   let vx = eval(v.un.x)
-  if vx.kind == ObjAddress {
+  if vx.kind == OperandAddress {
     // если это адрес - вернем его в регистре, а тип обернем в указатель
-    return obj(v.type, ObjRegister, vx.reg)
+    return operand(v.type, OperandRegister, vx.reg)
   }
 
   //%7 = getelementptr inbounds %Int32, %Int32* @a, i32 0
@@ -292,11 +292,11 @@ let eval_ref = func Eval {
   comma()
   printType(vx.type, True, True)
   o("* ")
-  print_obj(vx)
+  print_operand(vx)
   comma()
   o("i32 0")
 
-  return obj(v.type, ObjRegister, reg)
+  return operand(v.type, OperandRegister, reg)
 }
 
 
@@ -305,7 +305,7 @@ let eval_deref = func Eval {
   let vx = load(eval(v.un.x))
 
   // returns loaded pointer as #Address
-  return obj(v.type, ObjAddress, vx.reg)
+  return operand(v.type, OperandAddress, vx.reg)
 }
 
 
@@ -317,9 +317,9 @@ let eval_not = func Eval {
   fprintf(fout, "\n  %%%d = xor ", reg)
   printType(vx.type, True, True)
   space()
-  print_obj(vx)
+  print_operand(vx)
   if (type_eq(vx.type, typeBool)) {o(", 1")} else {o(", -1")}
-  return obj(vx.type, ObjRegister, reg)
+  return operand(vx.type, OperandRegister, reg)
 }
 
 
@@ -334,8 +334,8 @@ let eval_minus = func Eval {
   printType(vx.type, True, True)
   fprintf(fout, " 0")
   comma()
-  print_obj(vx)
-  return obj(vx.type, ObjRegister, reg)
+  print_operand(vx)
+  return operand(vx.type, OperandRegister, reg)
 }
 
 
@@ -431,11 +431,11 @@ let eval_cast = func Eval {
 
   printType(e.type, True, True)
   space()
-  print_obj(e)
+  print_operand(e)
   o(" to ")
   printType(to, True, True)
 
-  return obj(v.type, ObjRegister, reg)
+  return operand(v.type, OperandRegister, reg)
 }
 
 
@@ -488,11 +488,11 @@ let eval_bin = func Eval {
   fprintf(fout, "\n  %%%d = %s ", reg, o)
   printType(l.type, True, True)
   space()
-  print_obj(l)
+  print_operand(l)
   comma()
-  print_obj(r)
+  print_operand(r)
 
-  return obj(v.type, ObjRegister, reg)
+  return operand(v.type, OperandRegister, reg)
 }
 
 
@@ -502,33 +502,33 @@ let print_st = func (l, r : *Value) -> Unit {
   fprintf(fout, "\n  store ")
   printType(rx.type, True, True)
   space()
-  print_obj(rx)
+  print_operand(rx)
   comma()
   printType(rx.type, True, True)
   o("* ")
-  print_obj(lx)
+  print_operand(lx)
 }
 
 
 
 // загрузка (если она необходима) значения вычисленного выражения
-let load = func (x : Obj) -> Obj {
-  if x.kind == ObjInvalid {return x}
+let load = func (x : Operand) -> Operand {
+  if x.kind == OperandInvalid {return x}
 
-  let loadImmPtr = func (x : Obj) -> Obj {
+  let loadImmPtr = func (x : Operand) -> Operand {
     let t = x.type
     let reg = lab_get()
     fprintf(fout, "\n  %%%d = inttoptr i64 ", reg)
-    print_obj(x)
+    print_operand(x)
     o(" to ")
     printType(t, True, True)
-    return obj(t, ObjRegister, reg)
+    return operand(t, OperandRegister, reg)
   }
 
   // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
   // явной операцией inttoptr. Поэтому если нам попался указатель вида ValueImmediate
   // то его нужно будет загрузить в регистр функцией inttoptr
-  if x.kind == ObjImmediate {
+  if x.kind == OperandImmediate {
     if typeIsReference(x.type) {
       return loadImmPtr(x)
     }
@@ -536,9 +536,9 @@ let load = func (x : Obj) -> Obj {
   }
 
   // в загрузке нуждаются только значения с изменяемым классом памяти
-  // это ObjGlobal, ObjLocal & ObjAddress;
+  // это OperandGlobal, OperandLocal & OperandAddress;
   // остальные вернем просто так
-  if x.kind != ObjLocal and x.kind != ObjGlobal and x.kind != ObjAddress {
+  if x.kind != OperandLocal and x.kind != OperandGlobal and x.kind != OperandAddress {
     return x
   }
 
@@ -548,25 +548,25 @@ let load = func (x : Obj) -> Obj {
   comma()
   printType(x.type, True, True)
   o("* ")
-  print_obj(x)
+  print_operand(x)
 
-  return obj(x.type, ObjRegister, reg)
+  return operand(x.type, OperandRegister, reg)
 }
 
 
 // печать значения вычисленного выражения
-let print_obj = func (o : Obj) -> Unit {
+let print_operand = func (o : Operand) -> Unit {
   let k = o.kind
-  if k == ObjImmediate {
+  if k == OperandImmediate {
     fprintf(fout, "%d", o.imm)
-  } else if k == ObjRegister or k == ObjAddress {
+  } else if k == OperandRegister or k == OperandAddress {
     fprintf(fout, "%%%d", o.reg)
-  } else if k == ObjGlobal or k == ObjGlobalConst {
+  } else if k == OperandGlobal or k == OperandGlobalConst {
     fprintf(fout, "@%s", o.id)
-  } else if k == ObjLocal {
+  } else if k == OperandLocal {
     fprintf(fout, "%%%s", o.id)
-  } else if k == ObjInvalid {
-    fprintf(fout, "<ObjInvalid>")
+  } else if k == OperandInvalid {
+    fprintf(fout, "<OperandInvalid>")
   }
 }
 
