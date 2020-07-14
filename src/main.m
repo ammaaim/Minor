@@ -30,9 +30,9 @@ var pdir : Str      // cuopenSourceent, project & lib dir paths
 
 var liblist : List  // list of additional libraries paths
 
+
 let maxlen = 512
 let cwd = func () -> Str {
-
   let buf = malloc(maxlen)
   let x = getcwd(buf, maxlen)
   return x
@@ -40,11 +40,11 @@ let cwd = func () -> Str {
 
 
 let liblist_add = func (path : Str) -> Unit {
-  //printf("+lib=%s\n", path)
   list_append(&liblist, path)
 }
 
 
+/*
 let domain = func (path : Str) -> Str {
   var i, j : Nat
   i = 0; j = 0
@@ -60,6 +60,7 @@ let domain = func (path : Str) -> Str {
   s[j] = 0
   return s
 }
+*/
 
 
 // получает каталог dir (где искать)
@@ -102,9 +103,8 @@ let getSourceInfo = func (dir, resource : Str) -> SourceInfo {
 
 
 let openSource = func (info : SourceInfo) -> *Source {
-  let tokens = tokenize(info.path)
-
   let src = malloc(sizeof Source) to *Source
+  let tokens = tokenize(info.path)
   src.tokens = tokens
   src.token_node = tokens.first
   src.info = info
@@ -113,7 +113,7 @@ let openSource = func (info : SourceInfo) -> *Source {
 
 
 let openImport = func (import_string : Str) -> *Source {
-  // search import local
+  // 1. search import in current package
   var cdir : [512]Nat8
   getcwd(&cdir[0] to Str, 512)
 
@@ -122,13 +122,13 @@ let openImport = func (import_string : Str) -> *Source {
     return openSource(csrc)
   }
 
-  // search import root
+  // 2. search import in root package
   let psrc = getSourceInfo(pdir, import_string)
   if psrc.type != SourceUnknown {
     return openSource(psrc)
   }
 
-  // search import in libraries
+  // 3. search import in libraries
   let search_in_lib = func ListSearchHandler {
     let lib_path = data to Str
     let import_string = ctx to Str
@@ -137,6 +137,7 @@ let openImport = func (import_string : Str) -> *Source {
   }
   let lib_path = list_search(&liblist, search_in_lib, import_string) to Str
 
+  // found in a library?
   if lib_path != Nil {
     return openSource(getSourceInfo(lib_path, import_string))
   }
