@@ -502,9 +502,7 @@ let term_num = func ValueParser {
   }
   skip()
 
-  let t = type_new(TypeNumeric)
-  t.declared_at = ti
-  let v = valueNewImm(t, d, ti)
+  let v = valueNewImm(typeNumeric, d, ti)
   v.defined_at = ti
   return v
 }

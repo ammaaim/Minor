@@ -71,6 +71,8 @@ var typeUnit,
     typeStr,
     typeEnum,
 
+    typeNumeric,
+
     typeSizeof,
     typeAlignof,
 

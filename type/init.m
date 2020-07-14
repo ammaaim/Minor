@@ -68,6 +68,7 @@ let type_init = func () -> Unit {
 
   // main types shortcuts
   typeFreePtr = type_pointer_new(typeUnit)
+  typeNumeric = type_new(TypeNumeric)
   typeBaseInt = typeInt32
   typeBaseNat = typeNat32
   typeSizeof = typeNat32
