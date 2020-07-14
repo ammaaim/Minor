@@ -745,8 +745,10 @@ target triple = "x86_64-apple-macosx10.14.0"
 @_func211_str2 = constant i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str._func211_str2, i32 0, i32 0), align 8
 @.str._func213_str1 = private unnamed_addr constant [40 x i8] c"value/un :: unknown value kind received\00", align 1
 @_func213_str1 = constant i8* getelementptr inbounds ([40 x i8], [40 x i8]* @.str._func213_str1, i32 0, i32 0), align 8
-@.str._func218_str1 = private unnamed_addr constant [18 x i8] c"expected pointer\0A\00", align 1
-@_func218_str1 = constant i8* getelementptr inbounds ([18 x i8], [18 x i8]* @.str._func218_str1, i32 0, i32 0), align 8
+@.str._func218_str1 = private unnamed_addr constant [26 x i8] c"cannot ref constant value\00", align 1
+@_func218_str1 = constant i8* getelementptr inbounds ([26 x i8], [26 x i8]* @.str._func218_str1, i32 0, i32 0), align 8
+@.str._func218_str2 = private unnamed_addr constant [18 x i8] c"expected pointer\0A\00", align 1
+@_func218_str2 = constant i8* getelementptr inbounds ([18 x i8], [18 x i8]* @.str._func218_str2, i32 0, i32 0), align 8
 @.str._func221_str1 = private unnamed_addr constant [11 x i8] c"type error\00", align 1
 @_func221_str1 = constant i8* getelementptr inbounds ([11 x i8], [11 x i8]* @.str._func221_str1, i32 0, i32 0), align 8
 @.str._func221_str2 = private unnamed_addr constant [9 x i8] c"LTYPE = \00", align 1
@@ -12836,64 +12838,69 @@ then_0:
 ;stmt5:
 
 ;stmt6:
-  %9 = call %Type* (%Type*) @type_pointer_new (%Type* %5)
-  store %Type* %9, %Type** %t
+  %9 = call %Bool (%Value*) @valueIsReadonly (%Value* %0)
+  br i1 %9, label %then_1, label %else_1
+then_1:
+
+;stmt7:
+
+;stmt8:
+  %10 = load %Str, %Str* @_func218_str1
+  %11 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 15
+  %12 = load %TokenInfo*, %TokenInfo** %11
+  call void (%Str, %TokenInfo*) @error (%Str %10, %TokenInfo* %12)
+  br label %endif_1
+else_1:
+  br label %endif_1
+endif_1:
+
+;stmt9:
+  %13 = call %Type* (%Type*) @type_pointer_new (%Type* %5)
+  store %Type* %13, %Type** %t
   br label %endif_0
 else_0:
 
-;stmt7:
-  %10 = icmp eq %ValueKind %7, 9
-  br i1 %10, label %then_1, label %else_1
-then_1:
-
-;stmt8:
-
-;stmt9:
-  %11 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0
-  %12 = load %TypeKind, %TypeKind* %11
-  %13 = icmp ne %TypeKind %12, 6
-  br i1 %13, label %then_2, label %else_2
+;stmt10:
+  %14 = icmp eq %ValueKind %7, 9
+  br i1 %14, label %then_2, label %else_2
 then_2:
 
-;stmt10:
-
 ;stmt11:
-  %14 = load %Str, %Str* @_func218_str1
-  %15 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 15
-  %16 = load %TokenInfo*, %TokenInfo** %15
-  call void (%Str, %TokenInfo*) @error (%Str %14, %TokenInfo* %16)
 
 ;stmt12:
-  %17 = inttoptr i64 0 to %Type*
-  ret %Type* %17
-  br label %endif_2
-else_2:
-  br label %endif_2
-endif_2:
-
-;stmt13:
-  %19 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 7
-  %20 = getelementptr inbounds %TypePointer, %TypePointer* %19, i32 0, i32 0
-  %21 = load %Type*, %Type** %20
-  store %Type* %21, %Type** %t
-  br label %endif_1
-else_1:
-
-;stmt14:
-  %22 = icmp eq %ValueKind %7, 11
-  br i1 %22, label %then_3, label %else_3
+  %15 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 0
+  %16 = load %TypeKind, %TypeKind* %15
+  %17 = icmp ne %TypeKind %16, 6
+  br i1 %17, label %then_3, label %else_3
 then_3:
 
-;stmt15:
+;stmt13:
 
-;stmt16:
-  store %Type* %5, %Type** %t
+;stmt14:
+  %18 = load %Str, %Str* @_func218_str2
+  %19 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 15
+  %20 = load %TokenInfo*, %TokenInfo** %19
+  call void (%Str, %TokenInfo*) @error (%Str %18, %TokenInfo* %20)
+
+;stmt15:
+  %21 = inttoptr i64 0 to %Type*
+  ret %Type* %21
   br label %endif_3
 else_3:
+  br label %endif_3
+endif_3:
+
+;stmt16:
+  %23 = getelementptr inbounds %Type, %Type* %5, i32 0, i32 7
+  %24 = getelementptr inbounds %TypePointer, %TypePointer* %23, i32 0, i32 0
+  %25 = load %Type*, %Type** %24
+  store %Type* %25, %Type** %t
+  br label %endif_2
+else_2:
 
 ;stmt17:
-  %23 = icmp eq %ValueKind %7, 10
-  br i1 %23, label %then_4, label %else_4
+  %26 = icmp eq %ValueKind %7, 11
+  br i1 %26, label %then_4, label %else_4
 then_4:
 
 ;stmt18:
@@ -12902,18 +12909,30 @@ then_4:
   store %Type* %5, %Type** %t
   br label %endif_4
 else_4:
+
+;stmt20:
+  %27 = icmp eq %ValueKind %7, 10
+  br i1 %27, label %then_5, label %else_5
+then_5:
+
+;stmt21:
+
+;stmt22:
+  store %Type* %5, %Type** %t
+  br label %endif_5
+else_5:
+  br label %endif_5
+endif_5:
   br label %endif_4
 endif_4:
-  br label %endif_3
-endif_3:
-  br label %endif_1
-endif_1:
+  br label %endif_2
+endif_2:
   br label %endif_0
 endif_0:
 
-;stmt20:
-  %24 = load %Type*, %Type** %t
-  ret %Type* %24
+;stmt23:
+  %28 = load %Type*, %Type** %t
+  ret %Type* %28
 }
 
 define %Bool @binTypeValid (%ValueKind, %Type*) {

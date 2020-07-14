@@ -1,11 +1,6 @@
 // m2/value/sizeof
 
 
-// сейчас при таком раскладе sizeof XX + 0 дает ошибку!!!
-// TODO решение - вынести свертку констант на этап тайпчека TODO
-
-// сделай такое же для ALignof!!
-
 let size_of = func (t : *Type, ti : *TokenInfo) -> *Value {
   let vx = valueNew(ValueSizeof, ti)
   //let vx = valueNewImm(Nil, 0, ti)  // gives nat error! why nat workd in first phase?
