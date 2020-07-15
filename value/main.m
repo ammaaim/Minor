@@ -71,7 +71,7 @@ type Value = record {
   imm    : Int64  // ValueImmediate
   reg    : Nat32  // StorageRegister (let)
 
-  // пока не могу выпилить - юзается для enum ...
+  // пока не могу выпилить это - юзается для enum ...
   id     : Str    // вместо id нужна ссылка на объект в сборке
 
 

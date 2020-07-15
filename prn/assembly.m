@@ -79,7 +79,6 @@ let asmInit = func (a : *Assembly, name : Str) -> Unit {
 
 
 let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *AssemblyItem {
-  //printf("asmTypedefAdd\n")
   let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmTypedefAdd")
   memset(x, 0, sizeof AssemblyItem)
