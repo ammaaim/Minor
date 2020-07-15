@@ -66,8 +66,12 @@ let rename = func (v : *Value, id : Str) -> Unit {
   let default_name = v.id
 
   if default_name != Nil {
-    if v.assembly_item != Nil {
-      v.assembly_item.id = id
+    let ai = v.assembly_item
+    if ai != Nil {
+      if not ai.marked {
+        ai.id = id
+        ai.marked = True
+      }
     }
   }
 }

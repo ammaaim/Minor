@@ -23,7 +23,11 @@ type Pad = [3]Nat8  //опять какая то херня с выравнив�
 
 type AssemblyItem = record {
   kind : AssemblyItemKind
-  id   : Str  // идентификатор который идет на печать
+  id   : Str     // идентификатор который идет на печать
+
+  // признак того что этот элемент уже получил свой id
+  // и его не нужно переименовывать (for rename)
+  marked : Bool
 
 //enum {
   _         : Pad
@@ -78,6 +82,7 @@ let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *AssemblyItem {
   //printf("asmTypedefAdd\n")
   let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmTypedefAdd")
+  memset(x, 0, sizeof AssemblyItem)
   x.kind = TypeDef
   x.id = id
   x.typedef.type = t
@@ -89,6 +94,7 @@ let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *AssemblyItem {
 let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> *AssemblyItem {
   let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmStringAdd")
+  memset(x, 0, sizeof AssemblyItem)
   x.kind = StringDef
   x.id = id
   x.stringdef.data = s
@@ -99,9 +105,9 @@ let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> *Assemb
 
 
 let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> *AssemblyItem {
-  //printf("asmArrayAdd\n")
   let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmArrayAdd")
+  memset(x, 0, sizeof AssemblyItem)
   x.kind = ArrayDef
   x.id = id
   x.arraydef.type = t
@@ -112,9 +118,9 @@ let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> *
 
 
 let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *AssemblyItem {
-  //printf("asmFuncAdd\n")
   let x = malloc(sizeof AssemblyItem) to *AssemblyItem
   assert(x != Nil, "asmFuncAdd")
+  memset(x, 0, sizeof AssemblyItem)
   x.kind = FuncDef
   x.id = id
   x.funcdef.type = t

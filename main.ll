@@ -78,7 +78,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %Stmt = type {%StmtKind, [2 x %Value*], %Block*, %VarDef*, %While*, %If*, %Str, %TokenInfo*}
 %AssemblyItemKind = type %Int16
 %Pad = type [3 x %Nat8]
-%AssemblyItem = type {%AssemblyItemKind, %Str, %Pad, %StringDef, %Pad, %TypeDef, %Pad, %ConstDef, %Pad, %ArrayDef, %Pad, %FuncDef, %Pad, %AssemblyVarDef}
+%AssemblyItem = type {%AssemblyItemKind, %Str, %Bool, %Pad, %StringDef, %Pad, %TypeDef, %Pad, %ConstDef, %Pad, %ArrayDef, %Pad, %FuncDef, %Pad, %AssemblyVarDef}
 %TypeDef = type {%Type*}
 %ConstDef = type {%Value*}
 %StringDef = type {%Str, %Nat32}
@@ -2044,7 +2044,7 @@ define %Node* @node_search_by_data (%Node*, %Unit*) {
   ret %Node* %3
 }
 
-define void @map_init (%List*) {
+define void @list_init (%List*) {
 
 ;stmt0:
   %2 = bitcast %List* %0 to %Unit*
@@ -2052,14 +2052,14 @@ define void @map_init (%List*) {
   ret void
 }
 
-define %List* @map_new () {
+define %List* @list_new () {
 
 ;stmt0:
   %1 = call %Unit* (%Nat32) @malloc (%Nat32 24)
   %2 = bitcast %Unit* %1 to %List*
 
 ;stmt1:
-  call void (%List*) @map_init (%List* %2)
+  call void (%List*) @list_init (%List* %2)
 
 ;stmt2:
   ret %List* %2
@@ -2134,7 +2134,7 @@ endif_1:
   ret %Bool 1
 }
 
-define %Bool @map_extend (%List*, %List*) {
+define %Bool @list_extend (%List*, %List*) {
 
 ;stmt0:
   %3 = bitcast %List* %0 to %Unit*
@@ -2705,7 +2705,7 @@ endif_0:
   store %Node* %10, %Node** %var1
 
 ;stmt7:
-  %11 = call %List* () @map_new ()
+  %11 = call %List* () @list_new ()
 
 ;stmt8:
   br label %continue_0
@@ -4198,7 +4198,7 @@ break_0:
 define %List* @tokenize (%Str) {
 
 ;stmt0:
-  %2 = call %List* () @map_new ()
+  %2 = call %List* () @list_new ()
 
 ;stmt1:
   call void (%Str) @lex_init (%Str %0)
@@ -7339,19 +7339,36 @@ then_0:
 ;stmt3:
   %8 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
   %9 = load %AssemblyItem*, %AssemblyItem** %8
+
+;stmt4:
   %10 = bitcast %AssemblyItem* %9 to %Unit*
   %11 = inttoptr i64 0 to %Unit*
   %12 = icmp ne %Unit* %10, %11
   br i1 %12, label %then_1, label %else_1
 then_1:
 
-;stmt4:
-
 ;stmt5:
-  %13 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
-  %14 = load %AssemblyItem*, %AssemblyItem** %13
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %14, i32 0, i32 1
-  store %Str %1, %Str* %15
+
+;stmt6:
+  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %9, i32 0, i32 2
+  %14 = load %Bool, %Bool* %13
+  %15 = xor %Bool %14, 1
+  br i1 %15, label %then_2, label %else_2
+then_2:
+
+;stmt7:
+
+;stmt8:
+  %16 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %9, i32 0, i32 1
+  store %Str %1, %Str* %16
+
+;stmt9:
+  %17 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %9, i32 0, i32 2
+  store %Bool 1, %Bool* %17
+  br label %endif_2
+else_2:
+  br label %endif_2
+endif_2:
   br label %endif_1
 else_1:
   br label %endif_1
@@ -8615,7 +8632,7 @@ then_1:
 ;stmt9:
 
 ;stmt10:
-  %12 = call %List* () @map_new ()
+  %12 = call %List* () @list_new ()
 
 ;stmt11:
   br label %continue_1
@@ -9031,7 +9048,7 @@ define %Value* @term_arr () {
   %5 = call %Bool (%Str) @need (%Str %4)
 
 ;stmt3:
-  %6 = call %List* () @map_new ()
+  %6 = call %List* () @list_new ()
 
 ;stmt4:
   %var0 = alloca %Nat32
@@ -9569,7 +9586,7 @@ endif_0:
 define %Block* @doblock () {
 
 ;stmt0:
-  %1 = call %List* () @map_new ()
+  %1 = call %List* () @list_new ()
 
 ;stmt1:
   %2 = call %Unit* (%Nat32) @malloc (%Nat32 80)
@@ -9577,21 +9594,21 @@ define %Block* @doblock () {
 
 ;stmt2:
   %4 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 1
-  %5 = call %List* () @map_new ()
+  %5 = call %List* () @list_new ()
   store %List* %5, %List** %4
 
 ;stmt3:
   %6 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 4
-  %7 = call %List* () @map_new ()
+  %7 = call %List* () @list_new ()
   store %List* %7, %List** %6
 
 ;stmt4:
   %8 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 2
-  call void (%List*) @map_init (%List* %8)
+  call void (%List*) @list_init (%List* %8)
 
 ;stmt5:
   %9 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 3
-  call void (%List*) @map_init (%List* %9)
+  call void (%List*) @list_init (%List* %9)
 
 ;stmt6:
   %10 = getelementptr inbounds %Block, %Block* %3, i32 0, i32 0
@@ -11018,27 +11035,27 @@ define void @asmInit (%Assembly*, %Str) {
 
 ;stmt1:
   %4 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 1
-  %5 = call %List* () @map_new ()
+  %5 = call %List* () @list_new ()
   store %List* %5, %List** %4
 
 ;stmt2:
   %6 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 2
-  %7 = call %List* () @map_new ()
+  %7 = call %List* () @list_new ()
   store %List* %7, %List** %6
 
 ;stmt3:
   %8 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 3
-  %9 = call %List* () @map_new ()
+  %9 = call %List* () @list_new ()
   store %List* %9, %List** %8
 
 ;stmt4:
   %10 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 5
-  %11 = call %List* () @map_new ()
+  %11 = call %List* () @list_new ()
   store %List* %11, %List** %10
 
 ;stmt5:
   %12 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 4
-  %13 = call %List* () @map_new ()
+  %13 = call %List* () @list_new ()
   store %List* %13, %List** %12
   ret void
 }
@@ -11046,7 +11063,7 @@ define void @asmInit (%Assembly*, %Str) {
 define %AssemblyItem* @asmTypedefAdd (%Assembly*, %Str, %Type*) {
 
 ;stmt0:
-  %4 = call %Unit* (%Nat32) @malloc (%Nat32 160)
+  %4 = call %Unit* (%Nat32) @malloc (%Nat32 168)
   %5 = bitcast %Unit* %4 to %AssemblyItem*
 
 ;stmt1:
@@ -11057,32 +11074,36 @@ define %AssemblyItem* @asmTypedefAdd (%Assembly*, %Str, %Type*) {
   call void (%Bool, %Str) @assert (%Bool %8, %Str %9)
 
 ;stmt2:
-  %10 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 0
-  store %AssemblyItemKind 0, %AssemblyItemKind* %10
+  %10 = bitcast %AssemblyItem* %5 to %Unit*
+  %11 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %10, %Nat8 0, %Nat32 168)
 
 ;stmt3:
-  %11 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 1
-  store %Str %1, %Str* %11
+  %12 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 0
+  store %AssemblyItemKind 0, %AssemblyItemKind* %12
 
 ;stmt4:
-  %12 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 5
-  %13 = getelementptr inbounds %TypeDef, %TypeDef* %12, i32 0, i32 0
-  store %Type* %2, %Type** %13
+  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 1
+  store %Str %1, %Str* %13
 
 ;stmt5:
-  %14 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 1
-  %15 = load %List*, %List** %14
-  %16 = bitcast %AssemblyItem* %5 to %Unit*
-  %17 = call %Bool (%List*, %Unit*) @list_append (%List* %15, %Unit* %16)
+  %14 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 6
+  %15 = getelementptr inbounds %TypeDef, %TypeDef* %14, i32 0, i32 0
+  store %Type* %2, %Type** %15
 
 ;stmt6:
+  %16 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 1
+  %17 = load %List*, %List** %16
+  %18 = bitcast %AssemblyItem* %5 to %Unit*
+  %19 = call %Bool (%List*, %Unit*) @list_append (%List* %17, %Unit* %18)
+
+;stmt7:
   ret %AssemblyItem* %5
 }
 
 define %AssemblyItem* @asmStringAdd (%Assembly*, %Str, %Str, %Nat32) {
 
 ;stmt0:
-  %5 = call %Unit* (%Nat32) @malloc (%Nat32 160)
+  %5 = call %Unit* (%Nat32) @malloc (%Nat32 168)
   %6 = bitcast %Unit* %5 to %AssemblyItem*
 
 ;stmt1:
@@ -11093,37 +11114,41 @@ define %AssemblyItem* @asmStringAdd (%Assembly*, %Str, %Str, %Nat32) {
   call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt2:
-  %11 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
-  store %AssemblyItemKind 2, %AssemblyItemKind* %11
+  %11 = bitcast %AssemblyItem* %6 to %Unit*
+  %12 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %11, %Nat8 0, %Nat32 168)
 
 ;stmt3:
-  %12 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
-  store %Str %1, %Str* %12
+  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
+  store %AssemblyItemKind 2, %AssemblyItemKind* %13
 
 ;stmt4:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 3
-  %14 = getelementptr inbounds %StringDef, %StringDef* %13, i32 0, i32 0
-  store %Str %2, %Str* %14
+  %14 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
+  store %Str %1, %Str* %14
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 3
-  %16 = getelementptr inbounds %StringDef, %StringDef* %15, i32 0, i32 1
-  store %Nat32 %3, %Nat32* %16
+  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 4
+  %16 = getelementptr inbounds %StringDef, %StringDef* %15, i32 0, i32 0
+  store %Str %2, %Str* %16
 
 ;stmt6:
-  %17 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 3
-  %18 = load %List*, %List** %17
-  %19 = bitcast %AssemblyItem* %6 to %Unit*
-  %20 = call %Bool (%List*, %Unit*) @list_append (%List* %18, %Unit* %19)
+  %17 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 4
+  %18 = getelementptr inbounds %StringDef, %StringDef* %17, i32 0, i32 1
+  store %Nat32 %3, %Nat32* %18
 
 ;stmt7:
+  %19 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 3
+  %20 = load %List*, %List** %19
+  %21 = bitcast %AssemblyItem* %6 to %Unit*
+  %22 = call %Bool (%List*, %Unit*) @list_append (%List* %20, %Unit* %21)
+
+;stmt8:
   ret %AssemblyItem* %6
 }
 
 define %AssemblyItem* @asmArrayAdd (%Assembly*, %Str, %Type*, %List*) {
 
 ;stmt0:
-  %5 = call %Unit* (%Nat32) @malloc (%Nat32 160)
+  %5 = call %Unit* (%Nat32) @malloc (%Nat32 168)
   %6 = bitcast %Unit* %5 to %AssemblyItem*
 
 ;stmt1:
@@ -11134,37 +11159,41 @@ define %AssemblyItem* @asmArrayAdd (%Assembly*, %Str, %Type*, %List*) {
   call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt2:
-  %11 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
-  store %AssemblyItemKind 3, %AssemblyItemKind* %11
+  %11 = bitcast %AssemblyItem* %6 to %Unit*
+  %12 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %11, %Nat8 0, %Nat32 168)
 
 ;stmt3:
-  %12 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
-  store %Str %1, %Str* %12
+  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
+  store %AssemblyItemKind 3, %AssemblyItemKind* %13
 
 ;stmt4:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 9
-  %14 = getelementptr inbounds %ArrayDef, %ArrayDef* %13, i32 0, i32 0
-  store %Type* %2, %Type** %14
+  %14 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
+  store %Str %1, %Str* %14
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 9
-  %16 = getelementptr inbounds %ArrayDef, %ArrayDef* %15, i32 0, i32 2
-  store %List* %3, %List** %16
+  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 10
+  %16 = getelementptr inbounds %ArrayDef, %ArrayDef* %15, i32 0, i32 0
+  store %Type* %2, %Type** %16
 
 ;stmt6:
-  %17 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 2
-  %18 = load %List*, %List** %17
-  %19 = bitcast %AssemblyItem* %6 to %Unit*
-  %20 = call %Bool (%List*, %Unit*) @list_append (%List* %18, %Unit* %19)
+  %17 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 10
+  %18 = getelementptr inbounds %ArrayDef, %ArrayDef* %17, i32 0, i32 2
+  store %List* %3, %List** %18
 
 ;stmt7:
+  %19 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 2
+  %20 = load %List*, %List** %19
+  %21 = bitcast %AssemblyItem* %6 to %Unit*
+  %22 = call %Bool (%List*, %Unit*) @list_append (%List* %20, %Unit* %21)
+
+;stmt8:
   ret %AssemblyItem* %6
 }
 
 define %AssemblyItem* @asmFuncAdd (%Assembly*, %Str, %Type*, %Block*) {
 
 ;stmt0:
-  %5 = call %Unit* (%Nat32) @malloc (%Nat32 160)
+  %5 = call %Unit* (%Nat32) @malloc (%Nat32 168)
   %6 = bitcast %Unit* %5 to %AssemblyItem*
 
 ;stmt1:
@@ -11175,37 +11204,41 @@ define %AssemblyItem* @asmFuncAdd (%Assembly*, %Str, %Type*, %Block*) {
   call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt2:
-  %11 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
-  store %AssemblyItemKind 4, %AssemblyItemKind* %11
+  %11 = bitcast %AssemblyItem* %6 to %Unit*
+  %12 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %11, %Nat8 0, %Nat32 168)
 
 ;stmt3:
-  %12 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
-  store %Str %1, %Str* %12
+  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
+  store %AssemblyItemKind 4, %AssemblyItemKind* %13
 
 ;stmt4:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 11
-  %14 = getelementptr inbounds %FuncDef, %FuncDef* %13, i32 0, i32 0
-  store %Type* %2, %Type** %14
+  %14 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
+  store %Str %1, %Str* %14
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 11
-  %16 = getelementptr inbounds %FuncDef, %FuncDef* %15, i32 0, i32 1
-  store %Block* %3, %Block** %16
+  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 12
+  %16 = getelementptr inbounds %FuncDef, %FuncDef* %15, i32 0, i32 0
+  store %Type* %2, %Type** %16
 
 ;stmt6:
-  %17 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 5
-  %18 = load %List*, %List** %17
-  %19 = bitcast %AssemblyItem* %6 to %Unit*
-  %20 = call %Bool (%List*, %Unit*) @list_append (%List* %18, %Unit* %19)
+  %17 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 12
+  %18 = getelementptr inbounds %FuncDef, %FuncDef* %17, i32 0, i32 1
+  store %Block* %3, %Block** %18
 
 ;stmt7:
+  %19 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 5
+  %20 = load %List*, %List** %19
+  %21 = bitcast %AssemblyItem* %6 to %Unit*
+  %22 = call %Bool (%List*, %Unit*) @list_append (%List* %20, %Unit* %21)
+
+;stmt8:
   ret %AssemblyItem* %6
 }
 
 define %AssemblyItem* @asmVarAdd (%Assembly*, %Str, %Type*, %Value*) {
 
 ;stmt0:
-  %5 = call %Unit* (%Nat32) @malloc (%Nat32 160)
+  %5 = call %Unit* (%Nat32) @malloc (%Nat32 168)
   %6 = bitcast %Unit* %5 to %AssemblyItem*
 
 ;stmt1:
@@ -11224,12 +11257,12 @@ define %AssemblyItem* @asmVarAdd (%Assembly*, %Str, %Type*, %Value*) {
   store %Str %1, %Str* %12
 
 ;stmt4:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 13
+  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 14
   %14 = getelementptr inbounds %AssemblyVarDef, %AssemblyVarDef* %13, i32 0, i32 1
   store %Value* %3, %Value** %14
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 13
+  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 14
   %16 = getelementptr inbounds %AssemblyVarDef, %AssemblyVarDef* %15, i32 0, i32 0
   store %Type* %2, %Type** %16
 
@@ -11528,7 +11561,7 @@ endif_1:
 define %List* @parse_fields (%Str) {
 
 ;stmt0:
-  %2 = call %List* () @map_new ()
+  %2 = call %List* () @list_new ()
 
 ;stmt1:
   call void () @skip_nl ()
@@ -11581,7 +11614,7 @@ endif_0:
   call void () @skip_nl ()
 
 ;stmt13:
-  %15 = call %Bool (%List*, %List*) @map_extend (%List* %2, %List* %7)
+  %15 = call %Bool (%List*, %List*) @list_extend (%List* %2, %List* %7)
   br label %continue_0
 break_0:
 
@@ -11615,7 +11648,7 @@ define %Type* @parse_type_record () {
 define %Type* @parse_type_enum () {
 
 ;stmt0:
-  %1 = call %List* () @map_new ()
+  %1 = call %List* () @list_new ()
 
 ;stmt1:
   %var0 = alloca %Int64
@@ -15743,7 +15776,7 @@ define void @set_type (%Unit*, %Unit*, %Nat32) {
 define %List* @parseField () {
 
 ;stmt0:
-  %1 = call %List* () @map_new ()
+  %1 = call %List* () @list_new ()
 
 ;stmt1:
   br label %continue_0
@@ -19868,7 +19901,7 @@ define void @foreach_typedef (%Unit*, %Unit*, %Nat32) {
   %4 = bitcast %Unit* %0 to %AssemblyItem*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 5
+  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 6
 
 ;stmt2:
   %6 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
@@ -19885,7 +19918,7 @@ define void @foreach_stringdef (%Unit*, %Unit*, %Nat32) {
   %4 = bitcast %Unit* %0 to %AssemblyItem*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 3
+  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 4
 
 ;stmt2:
   %6 = getelementptr inbounds %StringDef, %StringDef* %5, i32 0, i32 0
@@ -19925,7 +19958,7 @@ define void @foreach_arraydef (%Unit*, %Unit*, %Nat32) {
   %4 = bitcast %Unit* %0 to %AssemblyItem*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 9
+  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 10
 
 ;stmt2:
   %6 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
@@ -19944,7 +19977,7 @@ define void @foreach_vardef (%Unit*, %Unit*, %Nat32) {
   %4 = bitcast %Unit* %0 to %AssemblyItem*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 13
+  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 14
 
 ;stmt2:
   %6 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
@@ -19963,7 +19996,7 @@ define void @foreach_funcdef (%Unit*, %Unit*, %Nat32) {
   %4 = bitcast %Unit* %0 to %AssemblyItem*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 11
+  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 12
 
 ;stmt2:
   %6 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
@@ -19986,7 +20019,7 @@ define void @print_assembly (%Assembly*) {
 
 ;stmt1:
   %6 = getelementptr inbounds %List, %List* @md_list, i32 0
-  call void (%List*) @map_init (%List* %6)
+  call void (%List*) @list_init (%List* %6)
 
 ;stmt2:
   %7 = load %Unit*, %Unit** @fout
@@ -20180,7 +20213,7 @@ define void @init () {
 
 ;stmt2:
   %5 = getelementptr inbounds %List, %List* @liblist, i32 0
-  call void (%List*) @map_init (%List* %5)
+  call void (%List*) @list_init (%List* %5)
 
 ;stmt3:
   %6 = load %Str, %Str* @MINOR_LIB_ENV_VAR
@@ -20213,14 +20246,14 @@ endif_0:
 
 ;stmt9:
   %14 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
-  call void (%List*) @map_init (%List* %14)
+  call void (%List*) @list_init (%List* %14)
 
 ;stmt10:
   %15 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0
-  call void (%List*) @map_init (%List* %15)
+  call void (%List*) @list_init (%List* %15)
 
 ;stmt11:
-  %16 = call %List* () @map_new ()
+  %16 = call %List* () @list_new ()
   store %List* %16, %List** @settings
 
 ;stmt12:
@@ -20449,7 +20482,7 @@ define void @checkFunc (%Value*) {
 ;stmt2:
   %5 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
   %6 = load %AssemblyItem*, %AssemblyItem** %5
-  %7 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 11
+  %7 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 12
   %8 = getelementptr inbounds %FuncDef, %FuncDef* %7, i32 0, i32 1
   %9 = load %Block*, %Block** %8
 
