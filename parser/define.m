@@ -36,20 +36,26 @@ let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
 
   v.defined_at = ti
 
-  // alerady exists
+  // alerady exists?
   let ae = get_value_global(id)
-  if ae != Nil {
-    ae.kind = v.kind
-    ae.type = v.type
-    ae.id = v.id
-    ae.assembly_item = v.assembly_item
 
-    rename(ae, id)
+  if ae == Nil {
+    // not exists, creating new
+    bind_value_global(id, v)
     return
   }
 
-  rename(v, id)
-  bind_value_global(id, v)
+  // exist
+
+  if ae.kind != ValueUndefined {
+    error("attempt to redefinition", ti)
+    return
+  }
+
+  ae.kind = v.kind
+  ae.type = v.type
+  ae.id = v.id
+  ae.assembly_item = v.assembly_item
 }
 
 
@@ -61,8 +67,17 @@ let rename = func (v : *Value, id : Str) -> Unit {
 
   if default_name != Nil {
     // переименовываем как само значение
+
+    /*if strcmp(v.id, "meta") == 0 {
+      warning("CLAB: ", v.ti)
+    }*/
     v.id = id
     // так и соответствующую ему сущность в сборке
+    /*if v.assembly_item != Nil {
+      v.assembly_item.id = id
+      //printf("NIL = %s", id)
+      //warning("NIL", v.ti)
+    }*/
     asmRename(&asm0, default_name, id)
   }
 }

@@ -24,11 +24,11 @@ type ValueKind = enum {
   /* Terminals */
 
   ValueImmediate,    // by imm
-  ValueGlobalConst,  // by id
+  ValueGlobalConst,  // by assembly_item#id
 
   ValueParam,        // by id
   ValueLocalVar,     // by id
-  ValueGlobalVar,    // by id
+  ValueGlobalVar,    // by assembly_item#id
 
   ValueRegister,     // by reg  // `let c = a * b`
 

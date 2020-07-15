@@ -191,7 +191,9 @@ let parseLet = func () -> *Stmt {
 
   if id == Nil or v == Nil {return Nil}
 
-  rename(v, id)
+  //if v.kind == ValueGlobalConst or v.kind == ValueGlobalVar {
+    rename(v, id)
+  //}
 
   v.defined_at = ti
 
