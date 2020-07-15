@@ -136,9 +136,9 @@ let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -
   return x
 }
 
-
+// кандидат на выбывание - убери если не понадобится близжайшее время
 // rename entity in assembly
-let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
+/*let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
   // rename entity in assembly section list
   let ren = func (list : *List, id_from, id_to : Str) -> Bool {
     let search = func ListSearchHandler {
@@ -158,6 +158,6 @@ let asmRename = func (a : *Assembly, id_from, id_to : Str) -> Unit {
   if ren(a.funcs, id_from, id_to) {return}
   if ren(a.strings, id_from, id_to) {return}
   if ren(a.arrays, id_from, id_to) {return}
-}
+}*/
 
 

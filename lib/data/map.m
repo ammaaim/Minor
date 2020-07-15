@@ -72,6 +72,9 @@ let map_foreach = func (m : *Map, f : MapForeachHandler, ctx : *Unit) -> Unit {
   }
 }
 
-//let map_extend = list_extend
+
+let map_extend = list_extend
+
+
 
 

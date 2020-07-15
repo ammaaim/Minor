@@ -60,25 +60,15 @@ let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
 
 
 // получает значение имя которого выданное генератором
-// и меняет его на норм id (и в Value и в сборке)
+// и меняет его на норм id в assembly.
 let rename = func (v : *Value, id : Str) -> Unit {
   // имя которое значение получило от автоматического генератора
   let default_name = v.id
 
   if default_name != Nil {
-    // переименовываем как само значение
-
-    /*if strcmp(v.id, "meta") == 0 {
-      warning("CLAB: ", v.ti)
-    }*/
-    v.id = id
-    // так и соответствующую ему сущность в сборке
-    /*if v.assembly_item != Nil {
+    if v.assembly_item != Nil {
       v.assembly_item.id = id
-      //printf("NIL = %s", id)
-      //warning("NIL", v.ti)
-    }*/
-    asmRename(&asm0, default_name, id)
+    }
   }
 }
 
