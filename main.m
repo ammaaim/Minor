@@ -34,7 +34,8 @@ let main = func (argc : Int, argv : []Str) -> Int {
 
   parseArgs(argc, argv)
 
-  let src = openImport("main")
+  let srcinfo = getSourceInfo("main")
+  let src = openSource(srcinfo)
 
   if src == Nil {return -1}
 

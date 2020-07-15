@@ -4,6 +4,7 @@
 import "lexer"
 
 
+
 type SourceType = enum {
   SourceUnknown,  // we cannot found the resource
   SourceLocal     // this resource is a local file
@@ -102,6 +103,8 @@ let getSourceInfoFrom = func (dir, resource : Str) -> SourceInfo {
 }
 
 
+// получает строку импорта, возвращает дескриптор ресурса
+// самостоятельно ищет во всех директориях
 let getSourceInfo = func (imp_str : Str) -> SourceInfo {
   // 1. search import in current package
   var cdir : [512]Nat8
@@ -149,12 +152,6 @@ let openSource = func (info : SourceInfo) -> *Source {
   src.token_node = tokens.first
   src.info = info
   return src
-}
-
-
-let openImport = func (import_string : Str) -> *Source {
-  let info = getSourceInfo(import_string)
-  return openSource(info)
 }
 
 

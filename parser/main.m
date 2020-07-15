@@ -143,20 +143,7 @@ let parseImport = func () -> Unit {
   let imp_str = dup(&ctok().text[0] to Str)
   skip()
 
-  // get current dir (for go back)
-  let old_cdir = str_new(PATH_BUF_LEN)
-  getcwd(old_cdir, PATH_BUF_LEN)
-
-  let src = openImport(imp_str)
-
-  if src == Nil {
-    printf("when import = %s\n", imp_str)
-    fatal("cannot import")
-  }
-
-  parse(src)
-
-  chdir(old_cdir)  // go back
+  import(imp_str)
   //free(imp_str)
   //free(old_cdir)
 
