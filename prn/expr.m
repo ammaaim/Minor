@@ -85,7 +85,7 @@ let eval = func Eval {
     operand.kind = OperandGlobal
     operand.id = v.assembly_item.id
     return operand
-  } else if k == ValueRegister or k == ValueParam {
+  } else if k == ValueLocalConst or k == ValueParam {
     operand.kind = OperandRegister
     operand.reg = v.reg
     return operand

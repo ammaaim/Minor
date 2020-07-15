@@ -7109,7 +7109,7 @@ endif_0:
 ;stmt4:
   %11 = getelementptr inbounds %Field, %Field* %5, i32 0, i32 3
   %12 = load %TokenInfo*, %TokenInfo** %11
-  %13 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 4, %TokenInfo* %12)
+  %13 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 5, %TokenInfo* %12)
 
 ;stmt5:
   %14 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 1
@@ -9013,7 +9013,7 @@ define %Value* @term_str () {
   %9 = call %Str () @get_name_str ()
 
 ;stmt6:
-  %10 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 6, %TokenInfo* %2)
+  %10 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 4, %TokenInfo* %2)
 
 ;stmt7:
   %11 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 12
@@ -14926,7 +14926,7 @@ endif_1:
   %32 = icmp eq %ValueKind %3, 3
   %33 = icmp eq %ValueKind %3, 2
   %34 = icmp eq %ValueKind %3, 7
-  %35 = icmp eq %ValueKind %3, 4
+  %35 = icmp eq %ValueKind %3, 5
   %36 = or %Bool %34, %35
   %37 = or %Bool %33, %36
   %38 = or %Bool %32, %37
@@ -14940,8 +14940,8 @@ define %Bool @valueIsMutable (%Value*) {
   %3 = load %ValueKind, %ValueKind* %2
 
 ;stmt1:
-  %4 = icmp eq %ValueKind %3, 5
-  %5 = icmp eq %ValueKind %3, 6
+  %4 = icmp eq %ValueKind %3, 6
+  %5 = icmp eq %ValueKind %3, 4
   %6 = or %Bool %4, %5
   ret %Bool %6
 }
@@ -15864,7 +15864,7 @@ fail:
 define %Value* @create_local_var (%Str, %Type*, %Value*, %TokenInfo*) {
 
 ;stmt0:
-  %5 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 5, %TokenInfo* %3)
+  %5 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 6, %TokenInfo* %3)
 
 ;stmt1:
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 1
@@ -15922,7 +15922,7 @@ endif_0:
 define void @create_global_var (%Str, %Type*, %Value*, %TokenInfo*) {
 
 ;stmt0:
-  %5 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 6, %TokenInfo* %3)
+  %5 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 4, %TokenInfo* %3)
 
 ;stmt1:
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 12
@@ -17407,7 +17407,7 @@ then_1:
 else_1:
 
 ;stmt13:
-  %23 = icmp eq %ValueKind %3, 5
+  %23 = icmp eq %ValueKind %3, 6
   br i1 %23, label %then_2, label %else_2
 then_2:
 
@@ -17436,7 +17436,7 @@ then_2:
 else_2:
 
 ;stmt19:
-  %33 = icmp eq %ValueKind %3, 6
+  %33 = icmp eq %ValueKind %3, 4
   br i1 %33, label %then_3, label %else_3
 then_3:
 
@@ -17462,7 +17462,7 @@ else_3:
 
 ;stmt24:
   %42 = icmp eq %ValueKind %3, 7
-  %43 = icmp eq %ValueKind %3, 4
+  %43 = icmp eq %ValueKind %3, 5
   %44 = or %Bool %42, %43
   br i1 %44, label %then_4, label %else_4
 then_4:

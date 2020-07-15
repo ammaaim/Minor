@@ -24,13 +24,15 @@ type ValueKind = enum {
   /* Terminals */
 
   ValueImmediate,    // by imm
-  ValueGlobalConst,  // by assembly_item#id
 
-  ValueParam,        // by reg
-  ValueLocalVar,     // by reg
+  ValueGlobalConst,  // by assembly_item#id
   ValueGlobalVar,    // by assembly_item#id
 
-  ValueRegister,     // by reg  // `let c = a * b`
+  ValueParam,        // by reg
+
+  ValueLocalVar,     // by reg
+  ValueLocalConst,   // by reg  // `let c = a * b`
+
 
   /* Operations */
 
@@ -88,6 +90,7 @@ type Value = record {
   // ссылка на связанную со значением запись в сборке
   // в случае функции (константной) через это поле checkFunc получит ссылку на блок
   // для его проверки
+  // так же юзается для получения id в принтере для ValueGlobalVar & ValueGlobalConst
   assembly_item : *AssemblyItem
 
   declared_at,     // place in code where value was mentioned first time
@@ -226,7 +229,7 @@ let valueIsReadonly = func (v : *Value) -> Bool {
   // это неправильно - тк операции тоже readonly!
   return k == ValueGlobalConst or
          k == ValueImmediate or
-         k == ValueRegister or
+         k == ValueLocalConst or
          k == ValueParam
 }
 

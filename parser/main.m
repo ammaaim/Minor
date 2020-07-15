@@ -214,7 +214,7 @@ let parseLet = func () -> *Stmt {
     // v0 - значение сопряженное с результатом вычисления v
     // то есть он получит тот же регистр что и результат вычисления v
     // регистр он получит в принтере тк только там они проясняются
-    let v0 = valueNew(ValueRegister, ti)
+    let v0 = valueNew(ValueLocalConst, ti)
     v0.id = id
     bind_value_local(id, v0)
     return stmt_new_let(v, v0, ti)
