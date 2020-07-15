@@ -65,7 +65,9 @@ type Type = record {
 
 
 // global links to builtin types
-var typeUnit,
+var typeUnknown,
+
+    typeUnit,
     typeBool,
     typeChar,
     typeStr,
@@ -123,5 +125,23 @@ let alignment = func (req_sz : Nat32, align : Nat8) -> Nat32 {
   while (sz % align to Nat32) != 0 {sz = sz + 1}
   return sz
 }
+
+
+let typeCheck = func (t : *Type) -> Unit {
+  //printf("typeCheck\n")
+  let k = t.kind
+  if k == TypePointer {
+    typePointerCheck(&t.pointer)
+  } else if k == TypeArray {
+    typeArrayCheck(&t.array)
+  } else if k == TypeFunction {
+    typeFuncCheck(&t.function)
+  } else if k == TypeRecord {
+    typeRecordCheck(&t.record)
+  } else if k == TypeUnknown {
+    error("unknown type", t.ti)
+  }
+}
+
 
 

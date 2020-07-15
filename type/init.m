@@ -67,6 +67,7 @@ let type_init = func () -> Unit {
 
 
   // main types shortcuts
+  typeUnknown = type_new(TypeUnknown)
   typeFreePtr = type_pointer_new(typeUnit)
   typeNumeric = type_new(TypeNumeric)
   typeBaseInt = typeInt32

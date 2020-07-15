@@ -1,8 +1,5 @@
 // m2/check
 
-import "type/check"
-
-
 
 let checkMain = func () -> Unit {
   // check types
@@ -19,9 +16,13 @@ let checkMain = func () -> Unit {
 
     checkValue(val)
 
-    // проверяем все константные функции (не переменные с -> типом)
-    if val.type.kind == TypeFunction and val.kind == ValueGlobalConst {
-      checkFunc(val)
+    // у неопределенных значений (ошибочных)
+    // тип останется Nil
+    if val.type != Nil {
+      // проверяем все константные функции (не переменные с -> типом)
+      if val.type.kind == TypeFunction and val.kind == ValueGlobalConst {
+        checkFunc(val)
+      }
     }
   }
   map_foreach(&mctx.value_index, vchk, Nil)

@@ -99,6 +99,7 @@ let valueNew = func (k : ValueKind, ti : *TokenInfo) -> *Value {
   assert(v != Nil, "value_new")
   memset(v, 0, sizeof Value)
   v.kind = k
+  //v.type = typeUnknown
   v.ti = ti
   return v
 }

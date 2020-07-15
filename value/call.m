@@ -7,7 +7,6 @@ type ValueCall = record {function : *Value, arguments : *List}
 
 let call = func (f : *Value, a : *List, ti : *TokenInfo) -> *Value {
   if f == Nil or a == Nil {goto fail}
-
   let v = valueNew(ValueCall, ti)
   v.call.function = f
   v.call.arguments = a
@@ -37,7 +36,6 @@ let checkValueCall = func (v : *Value) -> *Type {
   checkParams(f, v.call.arguments, v.ti)
 
   let t = tf.function.to
-
   return t
 }
 
