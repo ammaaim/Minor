@@ -32,7 +32,7 @@ type FuncContext = record {
   loop   : Nat32   // `we're in cycle` semaphore (used by break/continue)
 
   // генераторы уникальных имен идентификаторов
-  locno,           // for local var
+  locno,           // for local var unical reg
   strno,           // for local string
   arrno,           // for local literal array
   recno  : Nat32   // for local literal record
@@ -308,17 +308,20 @@ fail:
 
 
 
-
 let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> *Value {
   // создадим фейковый value который будет занесен в индекс
   // и будет ссылаться на переменную (просто нести тот же id)
   let v = valueNew(ValueLocalVar, ti)
   v.type = t
   v.id = id
+
+  v.reg = fctx.locno
+  fctx.locno = fctx.locno + 1
+
   bind_value_local(id, v)
 
   // добавляем в код функции стейтмент с определением этой переменной
-  stmtAdd(stmt_new_vardef(id, t, init_value, Nil))
+  stmtAdd(stmt_new_vardef(id, v.reg, t, init_value, Nil))
 
   if init_value != Nil {
     // добавляем в код функции стейтмент

@@ -26,8 +26,8 @@ type ValueKind = enum {
   ValueImmediate,    // by imm
   ValueGlobalConst,  // by assembly_item#id
 
-  ValueParam,        // by id
-  ValueLocalVar,     // by id
+  ValueParam,        // by reg
+  ValueLocalVar,     // by reg
   ValueGlobalVar,    // by assembly_item#id
 
   ValueRegister,     // by reg  // `let c = a * b`
@@ -70,7 +70,10 @@ type Value = record {
   // term info
   imm    : Int64  // ValueImmediate
   reg    : Nat32  // StorageRegister (let)
+
+  // пока не могу выпилить - юзается для enum ...
   id     : Str    // вместо id нужна ссылка на объект в сборке
+
 
   // operation info
   un     : ValueUn

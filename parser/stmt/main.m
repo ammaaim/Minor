@@ -16,6 +16,7 @@ import "goto"
 
 type VarDef = record {
   id : Str
+  reg : Nat32  // локальная переменная юзается по reg а не по id; id для отладки оставил
   type : *Type
   init_value : *Value
   ti : *TokenInfo
@@ -145,9 +146,10 @@ let stmt_restore = func () -> Unit {
 
 
 
-let stmt_new_vardef = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> *Stmt {
+let stmt_new_vardef = func (id : Str, idx : Nat32, t : *Type, init_value : *Value, ti : *TokenInfo) -> *Stmt {
   let va = malloc(sizeof VarDef) to *VarDef
   va.id = id
+  va.reg = idx
   va.init_value = init_value
   va.type = t
 

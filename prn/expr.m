@@ -79,6 +79,7 @@ let eval = func Eval {
   } else if k == ValueLocalVar {
     operand.kind = OperandLocal
     operand.id = v.id
+    operand.reg = v.reg
     return operand
   } else if k == ValueGlobalVar {
     operand.kind = OperandGlobal
@@ -568,7 +569,7 @@ let print_operand = func (o : Operand) -> Unit {
   } else if k == OperandGlobal or k == OperandGlobalConst {
     fprintf(fout, "@%s", o.id)
   } else if k == OperandLocal {
-    fprintf(fout, "%%%s", o.id)
+    fprintf(fout, "%%var%d", o.reg)
   } else if k == OperandInvalid {
     fprintf(fout, "<OperandInvalid>")
   }
