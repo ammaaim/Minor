@@ -23,15 +23,15 @@ type ValueKind = enum {
 
   /* Terminals */
 
-  ValueImmediate,    // by imm
+  ValueImmediate,    // .imm
 
-  ValueGlobalConst,  // by assembly_item#id
-  ValueGlobalVar,    // by assembly_item#id
+  ValueGlobalConst,  // assembly_item.id
+  ValueGlobalVar,    // assembly_item.id
 
-  ValueParam,        // by reg
+  ValueParam,        // .reg
 
-  ValueLocalVar,     // by reg
-  ValueLocalConst,   // by reg  // `let c = a * b`
+  ValueLocalConst,   // .reg
+  ValueLocalVar,     // .reg
 
   /* Operations */
 
@@ -70,7 +70,7 @@ type Value = record {
 //union {
   // term info
   imm    : Int64  // ValueImmediate
-  reg    : Nat32  // StorageRegister (let)
+  reg    : Nat32  // ValueParam, ValueLocalConst, ValueLocalVar
 
   // пока не могу выпилить это - юзается для enum ...
   id     : Str    // вместо id нужна ссылка на объект в сборке
@@ -104,7 +104,6 @@ let valueNew = func (k : ValueKind, ti : *TokenInfo) -> *Value {
   assert(v != Nil, "value_new")
   memset(v, 0, sizeof Value)
   v.kind = k
-  //v.type = typeUnknown
   v.ti = ti
   return v
 }
@@ -212,7 +211,7 @@ let valueIsTerm = func (v : *Value) -> Bool {
 }
 
 
-// исп в assign
+// испольуется в assign
 let valueIsReadonly = func (v : *Value) -> Bool {
   let k = v.kind
 
