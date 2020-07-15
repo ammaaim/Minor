@@ -1,6 +1,7 @@
 
 
-import "data/list"
+import "data/map"
+
 
 var imports : Map
 
@@ -29,7 +30,6 @@ let import = func (imp_str : Str) -> *Module {
 
   let ae = importGet(info.path)
   if ae != Nil {
-    printf("AE: %s\n", imp_str)
     return ae
   }
 
