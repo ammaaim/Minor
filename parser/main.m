@@ -144,14 +144,10 @@ let parseImport = func () -> Unit {
   skip()
 
   import(imp_str)
-  //free(imp_str)
-  //free(old_cdir)
 
   return
 
 fail:
-  //free(imp_str)
-  //free(old_cdir)
 }
 
 
@@ -172,7 +168,6 @@ let parseTypedef = func () -> Unit {
     }
   }
 
-  //printf("TYPEDEF: %s\n", id)
   // bind type пока не умеет local
   add_type(&mctx.type_index, id, t)
 
@@ -246,7 +241,7 @@ let parseExtern = func () -> Unit {
   let fl = parseField()
   let extern_decl = func ListForeachHandler {
     let f = data to *Field
-    declare(f.id, f.type, f.ti)  // False = not local
+    declare(f.id, f.type, f.ti)
   }
   list_foreach(fl, extern_decl, Nil)
 }
@@ -334,7 +329,6 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *Tok
 
 
 let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *TokenInfo) -> Unit {
-
   // создадим фейковый value который будет занесен в индекс
   // и будет ссылаться на переменную (просто нести тот же id)
   let v = valueNew(ValueGlobalVar, ti)

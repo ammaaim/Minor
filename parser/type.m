@@ -164,8 +164,6 @@ fail:
 }
 
 
-
-
 let parse_type_func = func TypeParser {
   let params = parse_fields(")")
 

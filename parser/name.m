@@ -5,7 +5,7 @@
 // и его номер, формируя строку вида str0
 // формирует строку вида prefix#### - aka анонимной сущности
 let get_suid = func (prefix : Str, uid : Nat32) -> Str {
-  let suid = malloc(strlen(prefix) + 8 + 1) to Str
+  let suid = str_new(strlen(prefix) + 8 + 1)
   sprintf(suid, "%s%u\0", prefix, uid)
   return suid
 }

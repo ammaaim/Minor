@@ -7386,16 +7386,15 @@ define %Str @get_suid (%Str, %Nat32) {
   %3 = call %Nat32 (%Str) @strlen (%Str %0)
   %4 = add %Nat32 %3, 8
   %5 = add %Nat32 %4, 1
-  %6 = call %Unit* (%Nat32) @malloc (%Nat32 %5)
-  %7 = bitcast %Unit* %6 to %Str
+  %6 = call %Str (%Nat32) @str_new (%Nat32 %5)
 
 ;stmt1:
-  %8 = bitcast %Str %7 to %Unit*
-  %9 = load %Str, %Str* @_func135_str1
-  %10 = call %Int32 (%Unit*, %Str, ...) @sprintf (%Unit* %8, %Str %9, %Str %0, %Nat32 %1)
+  %7 = bitcast %Str %6 to %Unit*
+  %8 = load %Str, %Str* @_func135_str1
+  %9 = call %Int32 (%Unit*, %Str, ...) @sprintf (%Unit* %7, %Str %8, %Str %0, %Nat32 %1)
 
 ;stmt2:
-  ret %Str %7
+  ret %Str %6
 }
 
 define %Str @get_prefix () {
@@ -14925,7 +14924,7 @@ endif_1:
 ;stmt8:
   %32 = icmp eq %ValueKind %3, 3
   %33 = icmp eq %ValueKind %3, 2
-  %34 = icmp eq %ValueKind %3, 7
+  %34 = icmp eq %ValueKind %3, 6
   %35 = icmp eq %ValueKind %3, 5
   %36 = or %Bool %34, %35
   %37 = or %Bool %33, %36
@@ -14940,7 +14939,7 @@ define %Bool @valueIsMutable (%Value*) {
   %3 = load %ValueKind, %ValueKind* %2
 
 ;stmt1:
-  %4 = icmp eq %ValueKind %3, 6
+  %4 = icmp eq %ValueKind %3, 7
   %5 = icmp eq %ValueKind %3, 4
   %6 = or %Bool %4, %5
   ret %Bool %6
@@ -15584,7 +15583,7 @@ then_2:
 ;stmt15:
 
 ;stmt16:
-  %31 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 7, %TokenInfo* %2)
+  %31 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 6, %TokenInfo* %2)
 
 ;stmt17:
   %32 = getelementptr inbounds %Value, %Value* %31, i32 0, i32 4
@@ -15864,7 +15863,7 @@ fail:
 define %Value* @create_local_var (%Str, %Type*, %Value*, %TokenInfo*) {
 
 ;stmt0:
-  %5 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 6, %TokenInfo* %3)
+  %5 = call %Value* (%ValueKind, %TokenInfo*) @valueNew (%ValueKind 7, %TokenInfo* %3)
 
 ;stmt1:
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 1
@@ -17407,7 +17406,7 @@ then_1:
 else_1:
 
 ;stmt13:
-  %23 = icmp eq %ValueKind %3, 6
+  %23 = icmp eq %ValueKind %3, 7
   br i1 %23, label %then_2, label %else_2
 then_2:
 
@@ -17418,174 +17417,168 @@ then_2:
   store %OperandKind 3, %OperandKind* %24
 
 ;stmt16:
-  %25 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 3
-  %26 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 4
-  %27 = load %Str, %Str* %26
-  store %Str %27, %Str* %25
+  %25 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 4
+  %26 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 3
+  %27 = load %Nat32, %Nat32* %26
+  store %Nat32 %27, %Nat32* %25
 
 ;stmt17:
-  %28 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 4
-  %29 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 3
-  %30 = load %Nat32, %Nat32* %29
-  store %Nat32 %30, %Nat32* %28
-
-;stmt18:
-  %31 = load %Operand, %Operand* %var0
-  ret %Operand %31
+  %28 = load %Operand, %Operand* %var0
+  ret %Operand %28
   br label %endif_2
 else_2:
 
-;stmt19:
-  %33 = icmp eq %ValueKind %3, 4
-  br i1 %33, label %then_3, label %else_3
+;stmt18:
+  %30 = icmp eq %ValueKind %3, 4
+  br i1 %30, label %then_3, label %else_3
 then_3:
 
+;stmt19:
+
 ;stmt20:
+  %31 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 0
+  store %OperandKind 4, %OperandKind* %31
 
 ;stmt21:
-  %34 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 0
-  store %OperandKind 4, %OperandKind* %34
+  %32 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 3
+  %33 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
+  %34 = load %AssemblyItem*, %AssemblyItem** %33
+  %35 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %34, i32 0, i32 1
+  %36 = load %Str, %Str* %35
+  store %Str %36, %Str* %32
 
 ;stmt22:
-  %35 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 3
-  %36 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
-  %37 = load %AssemblyItem*, %AssemblyItem** %36
-  %38 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %37, i32 0, i32 1
-  %39 = load %Str, %Str* %38
-  store %Str %39, %Str* %35
-
-;stmt23:
-  %40 = load %Operand, %Operand* %var0
-  ret %Operand %40
+  %37 = load %Operand, %Operand* %var0
+  ret %Operand %37
   br label %endif_3
 else_3:
 
-;stmt24:
-  %42 = icmp eq %ValueKind %3, 7
-  %43 = icmp eq %ValueKind %3, 5
-  %44 = or %Bool %42, %43
-  br i1 %44, label %then_4, label %else_4
+;stmt23:
+  %39 = icmp eq %ValueKind %3, 6
+  %40 = icmp eq %ValueKind %3, 5
+  %41 = or %Bool %39, %40
+  br i1 %41, label %then_4, label %else_4
 then_4:
 
+;stmt24:
+
 ;stmt25:
+  %42 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 0
+  store %OperandKind 6, %OperandKind* %42
 
 ;stmt26:
-  %45 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 0
-  store %OperandKind 6, %OperandKind* %45
+  %43 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 4
+  %44 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 3
+  %45 = load %Nat32, %Nat32* %44
+  store %Nat32 %45, %Nat32* %43
 
 ;stmt27:
-  %46 = getelementptr inbounds %Operand, %Operand* %var0, i32 0, i32 4
-  %47 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 3
-  %48 = load %Nat32, %Nat32* %47
-  store %Nat32 %48, %Nat32* %46
-
-;stmt28:
-  %49 = load %Operand, %Operand* %var0
-  ret %Operand %49
+  %46 = load %Operand, %Operand* %var0
+  ret %Operand %46
   br label %endif_4
 else_4:
 
-;stmt29:
-  %51 = icmp eq %ValueKind %3, 28
-  br i1 %51, label %then_5, label %else_5
+;stmt28:
+  %48 = icmp eq %ValueKind %3, 28
+  br i1 %48, label %then_5, label %else_5
 then_5:
 
-;stmt30:
+;stmt29:
 
-;stmt31:
-  %52 = call %Operand (%Value*) @eval_call (%Value* %0)
-  ret %Operand %52
+;stmt30:
+  %49 = call %Operand (%Value*) @eval_call (%Value* %0)
+  ret %Operand %49
   br label %endif_5
 else_5:
 
-;stmt32:
-  %54 = icmp eq %ValueKind %3, 29
-  br i1 %54, label %then_6, label %else_6
+;stmt31:
+  %51 = icmp eq %ValueKind %3, 29
+  br i1 %51, label %then_6, label %else_6
 then_6:
 
-;stmt33:
+;stmt32:
 
-;stmt34:
-  %55 = call %Operand (%Value*) @eval_index (%Value* %0)
-  ret %Operand %55
+;stmt33:
+  %52 = call %Operand (%Value*) @eval_index (%Value* %0)
+  ret %Operand %52
   br label %endif_6
 else_6:
 
-;stmt35:
-  %57 = icmp eq %ValueKind %3, 30
-  br i1 %57, label %then_7, label %else_7
+;stmt34:
+  %54 = icmp eq %ValueKind %3, 30
+  br i1 %54, label %then_7, label %else_7
 then_7:
 
-;stmt36:
+;stmt35:
 
-;stmt37:
-  %58 = call %Operand (%Value*) @eval_access (%Value* %0)
-  ret %Operand %58
+;stmt36:
+  %55 = call %Operand (%Value*) @eval_access (%Value* %0)
+  ret %Operand %55
   br label %endif_7
 else_7:
 
-;stmt38:
-  %60 = icmp eq %ValueKind %3, 8
-  br i1 %60, label %then_8, label %else_8
+;stmt37:
+  %57 = icmp eq %ValueKind %3, 8
+  br i1 %57, label %then_8, label %else_8
 then_8:
 
-;stmt39:
+;stmt38:
 
-;stmt40:
-  %61 = call %Operand (%Value*) @eval_ref (%Value* %0)
-  ret %Operand %61
+;stmt39:
+  %58 = call %Operand (%Value*) @eval_ref (%Value* %0)
+  ret %Operand %58
   br label %endif_8
 else_8:
 
-;stmt41:
-  %63 = icmp eq %ValueKind %3, 9
-  br i1 %63, label %then_9, label %else_9
+;stmt40:
+  %60 = icmp eq %ValueKind %3, 9
+  br i1 %60, label %then_9, label %else_9
 then_9:
 
-;stmt42:
+;stmt41:
 
-;stmt43:
-  %64 = call %Operand (%Value*) @eval_deref (%Value* %0)
-  ret %Operand %64
+;stmt42:
+  %61 = call %Operand (%Value*) @eval_deref (%Value* %0)
+  ret %Operand %61
   br label %endif_9
 else_9:
 
-;stmt44:
-  %66 = icmp eq %ValueKind %3, 11
-  br i1 %66, label %then_10, label %else_10
+;stmt43:
+  %63 = icmp eq %ValueKind %3, 11
+  br i1 %63, label %then_10, label %else_10
 then_10:
 
-;stmt45:
+;stmt44:
 
-;stmt46:
-  %67 = call %Operand (%Value*) @eval_minus (%Value* %0)
-  ret %Operand %67
+;stmt45:
+  %64 = call %Operand (%Value*) @eval_minus (%Value* %0)
+  ret %Operand %64
   br label %endif_10
 else_10:
 
-;stmt47:
-  %69 = icmp eq %ValueKind %3, 10
-  br i1 %69, label %then_11, label %else_11
+;stmt46:
+  %66 = icmp eq %ValueKind %3, 10
+  br i1 %66, label %then_11, label %else_11
 then_11:
 
-;stmt48:
+;stmt47:
 
-;stmt49:
-  %70 = call %Operand (%Value*) @eval_not (%Value* %0)
-  ret %Operand %70
+;stmt48:
+  %67 = call %Operand (%Value*) @eval_not (%Value* %0)
+  ret %Operand %67
   br label %endif_11
 else_11:
 
-;stmt50:
-  %72 = icmp eq %ValueKind %3, 31
-  br i1 %72, label %then_12, label %else_12
+;stmt49:
+  %69 = icmp eq %ValueKind %3, 31
+  br i1 %69, label %then_12, label %else_12
 then_12:
 
-;stmt51:
+;stmt50:
 
-;stmt52:
-  %73 = call %Operand (%Value*) @eval_cast (%Value* %0)
-  ret %Operand %73
+;stmt51:
+  %70 = call %Operand (%Value*) @eval_cast (%Value* %0)
+  ret %Operand %70
   br label %endif_12
 else_12:
   br label %endif_12
@@ -17615,9 +17608,9 @@ endif_1:
   br label %endif_0
 endif_0:
 
-;stmt53:
-  %75 = call %Operand (%Value*) @eval_bin (%Value* %0)
-  ret %Operand %75
+;stmt52:
+  %72 = call %Operand (%Value*) @eval_bin (%Value* %0)
+  ret %Operand %72
 }
 
 define void @eval_args (%Unit*, %Unit*, %Nat32) {
@@ -19176,101 +19169,99 @@ define %Operand @load (%Operand) {
 
 ;stmt0:
   %2 = extractvalue %Operand %0, 0
+
+;stmt1:
   %3 = icmp eq %OperandKind %2, 0
   br i1 %3, label %then_0, label %else_0
 then_0:
 
-;stmt1:
-
 ;stmt2:
+
+;stmt3:
   ret %Operand %0
   br label %endif_0
 else_0:
   br label %endif_0
 endif_0:
 
-;stmt3:
-  %5 = extractvalue %Operand %0, 0
-  %6 = icmp eq %OperandKind %5, 1
-  br i1 %6, label %then_1, label %else_1
+;stmt4:
+  %5 = icmp eq %OperandKind %2, 1
+  br i1 %5, label %then_1, label %else_1
 then_1:
 
-;stmt4:
-
 ;stmt5:
-  %7 = extractvalue %Operand %0, 1
-  %8 = call %Bool (%Type*) @typeIsReference (%Type* %7)
-  br i1 %8, label %then_2, label %else_2
-then_2:
 
 ;stmt6:
+  %6 = extractvalue %Operand %0, 1
+  %7 = call %Bool (%Type*) @typeIsReference (%Type* %6)
+  br i1 %7, label %then_2, label %else_2
+then_2:
 
 ;stmt7:
-  %9 = call %Operand (%Operand) @loadImmPtr (%Operand %0)
-  ret %Operand %9
+
+;stmt8:
+  %8 = call %Operand (%Operand) @loadImmPtr (%Operand %0)
+  ret %Operand %8
   br label %endif_2
 else_2:
   br label %endif_2
 endif_2:
 
-;stmt8:
+;stmt9:
   ret %Operand %0
   br label %endif_1
 else_1:
   br label %endif_1
 endif_1:
 
-;stmt9:
-  %12 = extractvalue %Operand %0, 0
-  %13 = icmp ne %OperandKind %12, 3
-  %14 = extractvalue %Operand %0, 0
-  %15 = icmp ne %OperandKind %14, 4
-  %16 = extractvalue %Operand %0, 0
-  %17 = icmp ne %OperandKind %16, 5
-  %18 = and %Bool %15, %17
-  %19 = and %Bool %13, %18
-  br i1 %19, label %then_3, label %else_3
+;stmt10:
+  %11 = icmp ne %OperandKind %2, 3
+  %12 = icmp ne %OperandKind %2, 4
+  %13 = icmp ne %OperandKind %2, 5
+  %14 = and %Bool %12, %13
+  %15 = and %Bool %11, %14
+  br i1 %15, label %then_3, label %else_3
 then_3:
 
-;stmt10:
-
 ;stmt11:
+
+;stmt12:
   ret %Operand %0
   br label %endif_3
 else_3:
   br label %endif_3
 endif_3:
 
-;stmt12:
-  %21 = call %Nat32 () @lab_get ()
-
 ;stmt13:
-  %22 = load %Unit*, %Unit** @fout
-  %23 = load %Str, %Str* @_func320_str1
-  %24 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %22, %Str %23, %Nat32 %21)
+  %17 = call %Nat32 () @lab_get ()
 
 ;stmt14:
-  %25 = extractvalue %Operand %0, 1
-  call void (%Type*, %Bool, %Bool) @printType (%Type* %25, %Bool 1, %Bool 1)
+  %18 = load %Unit*, %Unit** @fout
+  %19 = load %Str, %Str* @_func320_str1
+  %20 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %18, %Str %19, %Nat32 %17)
 
 ;stmt15:
-  call void () @comma ()
+  %21 = extractvalue %Operand %0, 1
+  call void (%Type*, %Bool, %Bool) @printType (%Type* %21, %Bool 1, %Bool 1)
 
 ;stmt16:
-  %26 = extractvalue %Operand %0, 1
-  call void (%Type*, %Bool, %Bool) @printType (%Type* %26, %Bool 1, %Bool 1)
+  call void () @comma ()
 
 ;stmt17:
-  %27 = load %Str, %Str* @_func320_str2
-  call void (%Str) @o (%Str %27)
+  %22 = extractvalue %Operand %0, 1
+  call void (%Type*, %Bool, %Bool) @printType (%Type* %22, %Bool 1, %Bool 1)
 
 ;stmt18:
-  call void (%Operand) @print_operand (%Operand %0)
+  %23 = load %Str, %Str* @_func320_str2
+  call void (%Str) @o (%Str %23)
 
 ;stmt19:
-  %28 = extractvalue %Operand %0, 1
-  %29 = call %Operand (%Type*, %OperandKind, %Nat32) @operand (%Type* %28, %OperandKind 6, %Nat32 %21)
-  ret %Operand %29
+  call void (%Operand) @print_operand (%Operand %0)
+
+;stmt20:
+  %24 = extractvalue %Operand %0, 1
+  %25 = call %Operand (%Type*, %OperandKind, %Nat32) @operand (%Type* %24, %OperandKind 6, %Nat32 %17)
+  ret %Operand %25
 }
 
 define void @print_operand (%Operand) {

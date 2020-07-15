@@ -16,8 +16,8 @@ type OperandKind = enum {
   OperandGlobalConst,
 
   // variables
-  OperandLocal,      // local var
-  OperandGlobal,     // global var
+  OperandLocalVar,
+  OperandGlobalVar,
 
   // register
   OperandAddress,    // address of value in register
@@ -35,7 +35,7 @@ type Operand = record {
   type : *Type
 
   imm  : Int64  // OperandImmediate
-  id   : Str    // OperandGlobalConst, OperandLocal, OperandGlobal
+  id   : Str    // OperandGlobalConst, OperandLocalVar, OperandGlobalVar
   reg  : Nat32  // OperandRegister, OperandAddress
 }
 
@@ -77,12 +77,11 @@ let eval = func Eval {
     operand.id = v.assembly_item.id
     return operand
   } else if k == ValueLocalVar {
-    operand.kind = OperandLocal
-    operand.id = v.id
+    operand.kind = OperandLocalVar
     operand.reg = v.reg
     return operand
   } else if k == ValueGlobalVar {
-    operand.kind = OperandGlobal
+    operand.kind = OperandGlobalVar
     operand.id = v.assembly_item.id
     return operand
   } else if k == ValueLocalConst or k == ValueParam {
@@ -309,7 +308,7 @@ let eval_deref = func Eval {
   // load pointer
   let vx = load(eval(v.un.x))
 
-  // returns loaded pointer as #Address
+  // return loaded pointer as #Address
   return operand(v.type, OperandAddress, vx.reg)
 }
 
@@ -329,10 +328,6 @@ let eval_not = func Eval {
 
 
 let eval_minus = func Eval {
-  //%4 = sub nsw i32 0, %3
-  //nuw and nsw stand for "No Unsigned Wrap" and "No Signed Wrap", respectively. If the nuw and/or
-  //nsw keywords are present, the result value of the add is undefined if unsigned and/or signed
-  //overflow, respectively, occurs.
   let vx = load(eval(v.un.x))
   let reg = lab_get()
   fprintf(fout, "\n  %%%d = sub nsw ", reg)
@@ -518,7 +513,9 @@ let print_st = func (l, r : *Value) -> Unit {
 
 // загрузка (если она необходима) значения вычисленного выражения
 let load = func (x : Operand) -> Operand {
-  if x.kind == OperandInvalid {return x}
+  let k = x.kind
+
+  if k == OperandInvalid {return x}
 
   let loadImmPtr = func (x : Operand) -> Operand {
     let t = x.type
@@ -533,7 +530,7 @@ let load = func (x : Operand) -> Operand {
   // LLVM не умеет так ... i32* 12233445 - нужно привести int значение к типу
   // явной операцией inttoptr. Поэтому если нам попался указатель вида ValueImmediate
   // то его нужно будет загрузить в регистр функцией inttoptr
-  if x.kind == OperandImmediate {
+  if k == OperandImmediate {
     if typeIsReference(x.type) {
       return loadImmPtr(x)
     }
@@ -541,9 +538,9 @@ let load = func (x : Operand) -> Operand {
   }
 
   // в загрузке нуждаются только значения с изменяемым классом памяти
-  // это OperandGlobal, OperandLocal & OperandAddress;
+  // это OperandGlobalVar, OperandLocalVar & OperandAddress;
   // остальные вернем просто так
-  if x.kind != OperandLocal and x.kind != OperandGlobal and x.kind != OperandAddress {
+  if k != OperandLocalVar and k != OperandGlobalVar and k != OperandAddress {
     return x
   }
 
@@ -566,9 +563,9 @@ let print_operand = func (o : Operand) -> Unit {
     fprintf(fout, "%d", o.imm)
   } else if k == OperandRegister or k == OperandAddress {
     fprintf(fout, "%%%d", o.reg)
-  } else if k == OperandGlobal or k == OperandGlobalConst {
+  } else if k == OperandGlobalVar or k == OperandGlobalConst {
     fprintf(fout, "@%s", o.id)
-  } else if k == OperandLocal {
+  } else if k == OperandLocalVar {
     fprintf(fout, "%%var%d", o.reg)
   } else if k == OperandInvalid {
     fprintf(fout, "<OperandInvalid>")

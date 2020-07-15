@@ -25,8 +25,8 @@ type ValueKind = enum {
 
   ValueImmediate,    // .imm
 
-  ValueGlobalConst,  // assembly_item.id
-  ValueGlobalVar,    // assembly_item.id
+  ValueGlobalConst,  // .assembly_item.id
+  ValueGlobalVar,    // .assembly_item.id
 
   ValueParam,        // .reg
 

@@ -1,5 +1,12 @@
 // m2/type/eq
 
+import "array"
+import "basic"
+import "enum"
+import "func"
+import "pointer"
+import "record"
+
 
 let type_eq = func (a, b : *Type) -> Bool {
   if a.kind != b.kind {return False}
