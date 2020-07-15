@@ -53,7 +53,7 @@ let readConfig = func (fname : Str) -> Unit {
 
   var cdir : [512]Nat8
   getcwd(&cdir[0] to Str, 512)
-  let config_source = openSource(getSourceInfo(&cdir[0] to Str, "config"))
+  let config_source = openSource(getSourceInfoFrom(&cdir[0] to Str, "config"))
 
   let old_src = mctx.src
   mctx.src = config_source

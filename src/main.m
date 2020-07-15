@@ -66,7 +66,7 @@ let domain = func (path : Str) -> Str {
 // получает каталог dir (где искать)
 // и строку импорта ресурса resource
 // возвращает дескриптор ресурса SourceInfo
-let getSourceInfo = func (dir, resource : Str) -> SourceInfo {
+let getSourceInfoFrom = func (dir, resource : Str) -> SourceInfo {
   let path = cat3(dir, "/", resource)
 
   var info : SourceInfo
@@ -102,7 +102,47 @@ let getSourceInfo = func (dir, resource : Str) -> SourceInfo {
 }
 
 
+let getSourceInfo = func (imp_str : Str) -> SourceInfo {
+  // 1. search import in current package
+  var cdir : [512]Nat8
+  getcwd(&cdir[0] to Str, 512)
+
+  let csrc = getSourceInfoFrom(&cdir[0] to Str, imp_str)
+  if csrc.type != SourceUnknown {
+    return (csrc)
+  }
+
+  // 2. search import in root package
+  let psrc = getSourceInfoFrom(pdir, imp_str)
+  if psrc.type != SourceUnknown {
+    return (psrc)
+  }
+
+  // 3. search import in libraries
+  let search_in_lib = func ListSearchHandler {
+    let lib_path = data to Str
+    let imp_str = ctx to Str
+    let res = getSourceInfoFrom(lib_path, imp_str)
+    return res.type != SourceUnknown
+  }
+  let lib_path = list_search(&liblist, search_in_lib, imp_str) to Str
+
+  // found in a library?
+  if lib_path != Nil {
+    return (getSourceInfoFrom(lib_path, imp_str))
+  }
+
+  // Not found, return #SourceUnknown
+  var info : SourceInfo
+  info.type = SourceUnknown
+  info.imported_as = imp_str
+  info.path = Nil
+  return info
+}
+
+
 let openSource = func (info : SourceInfo) -> *Source {
+  if info.type == SourceUnknown {return Nil}
   let src = malloc(sizeof Source) to *Source
   let tokens = tokenize(info.path)
   src.tokens = tokens
@@ -113,36 +153,8 @@ let openSource = func (info : SourceInfo) -> *Source {
 
 
 let openImport = func (import_string : Str) -> *Source {
-  // 1. search import in current package
-  var cdir : [512]Nat8
-  getcwd(&cdir[0] to Str, 512)
-
-  let csrc = getSourceInfo(&cdir[0] to Str, import_string)
-  if csrc.type != SourceUnknown {
-    return openSource(csrc)
-  }
-
-  // 2. search import in root package
-  let psrc = getSourceInfo(pdir, import_string)
-  if psrc.type != SourceUnknown {
-    return openSource(psrc)
-  }
-
-  // 3. search import in libraries
-  let search_in_lib = func ListSearchHandler {
-    let lib_path = data to Str
-    let import_string = ctx to Str
-    let res = getSourceInfo(lib_path, import_string)
-    return res.type != SourceUnknown
-  }
-  let lib_path = list_search(&liblist, search_in_lib, import_string) to Str
-
-  // found in a library?
-  if lib_path != Nil {
-    return openSource(getSourceInfo(lib_path, import_string))
-  }
-
-  return Nil
+  let info = getSourceInfo(import_string)
+  return openSource(info)
 }
 
 
