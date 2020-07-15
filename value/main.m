@@ -17,7 +17,7 @@ import "init"
 
 
 type ValueKind = enum {
-  ValueInvalid,
+  ValueInvalid,      // Forbidden value kind (for debug)
 
   ValueUndefined,    // Value was used but not defined
 
@@ -32,7 +32,6 @@ type ValueKind = enum {
 
   ValueLocalVar,     // by reg
   ValueLocalConst,   // by reg  // `let c = a * b`
-
 
   /* Operations */
 
