@@ -67,7 +67,7 @@ let eval = func Eval {
   var operand : Operand
   operand.type = v.type
 
-  // terms
+  // terminals
   if k == ValueImmediate {
     operand.kind = OperandImmediate
     operand.imm = v.imm
@@ -84,7 +84,11 @@ let eval = func Eval {
     operand.kind = OperandGlobalVar
     operand.id = v.assembly_item.id
     return operand
-  } else if k == ValueLocalConst or k == ValueParam {
+  } else if k == ValueLocalConst {
+    operand.kind = OperandRegister
+    operand.reg = v.expr.reg
+    return operand
+  } else if k == ValueParam {
     operand.kind = OperandRegister
     operand.reg = v.reg
     return operand

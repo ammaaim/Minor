@@ -26,8 +26,6 @@ let print_stmt = func (s : *Stmt) -> Unit {
   let k = s.kind
   if k == StmtBlock {
     print_block(s.b)
-  } else if k == StmtLet {
-    print_stmt_let(s.a[0], s.a[1])
   } else if k == StmtExpr {
     print_stmt_expr(s.e)
   } else if k == StmtVarDef {
@@ -73,14 +71,11 @@ let print_stmt_var = func (v : *VarDef) -> Unit {
 
 
 let print_stmt_expr = func (e : *Expr) -> Unit {
-  eval(e.v)
-}
-
-
-let print_stmt_let = func (e, x : *Value) -> Unit {
-  let ee = load(eval(e))
-  // сопрягаем
-  x.reg = ee.reg
+  let o = load(eval(e.v))
+  // Сохраняем номер регистра в котором результат вычисления выражения
+  // в Expr#reg. Это нужно для того чтобы связанное значение вида ValueLocalConst (let)
+  // могло быть связано с результатом этого значения через Value#expr.reg
+  e.reg = o.reg
 }
 
 

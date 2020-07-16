@@ -23,15 +23,15 @@ type ValueKind = enum {
 
   /* Terminals */
 
-  ValueImmediate,    // .imm
+  ValueImmediate,    // Value#imm
 
-  ValueGlobalConst,  // .assembly_item.id
-  ValueGlobalVar,    // .assembly_item.id
+  ValueGlobalConst,  // Value#assembly_item (id)
+  ValueGlobalVar,    // Value#assembly_item (id)
 
-  ValueParam,        // .reg
+  ValueParam,        // Value#reg
 
-  ValueLocalConst,   // .reg
-  ValueLocalVar,     // .vardef.reg
+  ValueLocalConst,   // Value#expr (reg)
+  ValueLocalVar,     // Value#vardef (reg)
 
   /* Operations */
 
@@ -88,13 +88,11 @@ type Value = record {
 
   // ссылка на связанную со значением запись в сборке
   // в случае функции (константной) через это поле checkFunc получит ссылку на блок
-  // для его проверки
-  // так же юзается для получения id в принтере для ValueGlobalVar & ValueGlobalConst
-  assembly_item : *AssemblyItem
-
-  vardef : *VarDef // ValueLocalVar
-  field  : *Field  // ValueParam
-  expr   : *Expr   // ValueLocalConst
+  // для его проверки; Так же юзается для ValueGlobalVar & ValueGlobalConst
+  assembly_item : *AssemblyItem  // ValueGlobalVar & ValueGlobalConst
+  vardef : *VarDef  // ValueLocalVar
+  field  : *Field   // ValueParam
+  expr   : *Expr    // ValueLocalConst
 
 
   declared_at,     // place in code where value was mentioned first time
@@ -148,6 +146,9 @@ let checkValue = func (v : *Value) -> *Type {
     t = checkValueSizeof(v)
   } else if k == ValueAlignof {
     t = checkValueAlignof(v)
+
+  } else if k == ValueLocalConst {
+    t = checkValue(v.expr.v)
   }
 
   v.type = t
