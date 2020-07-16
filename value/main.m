@@ -93,6 +93,8 @@ type Value = record {
   assembly_item : *AssemblyItem
 
   vardef : *VarDef // ValueLocalVar
+  field  : *Field  // ValueParam
+
 
   declared_at,     // place in code where value was mentioned first time
   defined_at,      // place in code where value was defined

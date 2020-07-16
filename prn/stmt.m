@@ -29,7 +29,7 @@ let print_stmt = func (s : *Stmt) -> Unit {
   } else if k == StmtLet {
     print_stmt_let(s.a[0], s.a[1])
   } else if k == StmtExpr {
-    print_stmt_expr(s.a[0])
+    print_stmt_expr(s.e)
   } else if k == StmtVarDef {
     print_stmt_var(s.v)
   } else if k == StmtAssign {
@@ -72,7 +72,9 @@ let print_stmt_var = func (v : *VarDef) -> Unit {
 }
 
 
-let print_stmt_expr = func (e : *Value) -> Unit {eval(e)}
+let print_stmt_expr = func (e : *Expr) -> Unit {
+  eval(e.v)
+}
 
 
 let print_stmt_let = func (e, x : *Value) -> Unit {

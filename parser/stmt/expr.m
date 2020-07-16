@@ -1,5 +1,10 @@
 // m2/parser/stmt/expr
 
+type Expr = record {
+  v : *Value
+  reg : Nat32
+}
+
 
 let stmtExpr = func () -> *Stmt {
   let expr_ti = &ctok().ti
@@ -11,7 +16,10 @@ let stmtExpr = func () -> *Stmt {
   if not match("=") {
     // Just expression without assignation (e.g. call())
     let s = stmtNew(StmtExpr, expr_ti)
-    s.a[0] = e
+    s.e = malloc(sizeof Expr) to *Expr
+    assert(s.e != Nil, "stmtExpr::malloc(sizeof Expr)")
+    memset(s.e, 0, sizeof Expr)
+    s.e.v = e
     s.ti = e.ti
     return s
   }
@@ -28,6 +36,11 @@ fail_with_restore:
 
 fail:
   return Nil
+}
+
+
+let stmtExprCheck = func (e : *Expr) -> Unit {
+  checkValue(e.v)
 }
 
 

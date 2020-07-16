@@ -49,8 +49,9 @@ type Stmt = record {
   kind : StmtKind
 
 //union {
-    a : [2]*Value  // expr, assign & return statements
+    a : [2]*Value  // assign & return statements
     b : *Block     // block statement
+    e : *Expr      // StmtExpr
     v : *VarDef    // var definition
     w : *While     // while statement
     i : *If        // if statement
@@ -191,7 +192,7 @@ let stmtCheck = func (s : *Stmt) -> Unit {
   if k == StmtLet {
     stmtLetCheck(s)
   } else if k == StmtExpr {
-    checkValue(s.a[0])
+    stmtExprCheck(s.e)
   } else if k == StmtAssign {
     stmtAssignCheck(s)
   } else if k == StmtBlock {

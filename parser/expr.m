@@ -440,14 +440,15 @@ let term_func = func ValueParser {
 
   // создаем значение функции
   let fv = valueNew(ValueGlobalConst, ti)
-  fv.type = t
 
   // we're in function?
   if parent_block != Nil {
+    // add current func to parant func local_functions list
     list_append(parent_block.local_functions, fv)
   }
 
   fctx.cfunc = fv
+  fv.type = t
   fv.id = id
   fv.defined_at = ti
 
@@ -456,6 +457,19 @@ let term_func = func ValueParser {
 
   need("{")
   let block = doblock()
+
+  /*// создаем значения параметров
+  // и добавляем их в индекс корневого блока функции
+  let getparam = func ListForeachHandler {
+    let field = data to *Field
+    let block = ctx to *Block
+    let param_value = valueNew(ValueParam, field.ti)
+    param_value.field = field
+    param_value.type = field.type
+    param_value.id = field.id  // for debug
+    //bind_value_in_block(block, field.id, param_value)
+  }
+  list_foreach(t.function.params, getparam, block)*/
 
   fv.assembly_item = asmFuncAdd(&asm0, id, t, block)
 
