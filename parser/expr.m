@@ -363,7 +363,7 @@ let term_str = func ValueParser {
   // создаем значение для строки
   let v = valueNew(ValueGlobalVar, ti)
 
-  v.assembly_item = asmStringAdd(&asm0, id, s, len)
+  v.def = asmStringAdd(&asm0, id, s, len)
 
   v.type = typeStr
   v.id = id
@@ -393,7 +393,7 @@ let term_arr = func ValueParser {
   let t = type_array_new(of, len, False)
 
   let v = valueNew(ValueGlobalConst, ti)
-  v.assembly_item = asmArrayAdd(&asm0, id, t, data)
+  v.def = asmArrayAdd(&asm0, id, t, data)
   v.type = t
   v.id = id
   v.defined_at = ti
@@ -471,7 +471,7 @@ let term_func = func ValueParser {
   }
   list_foreach(t.function.params, getparam, block)*/
 
-  fv.assembly_item = asmFuncAdd(&asm0, id, t, block)
+  fv.def = asmFuncAdd(&asm0, id, t, block)
 
   // E_EXPECTED_RETURN check if no return
   if not type_eq(t.function.to, typeUnit) {

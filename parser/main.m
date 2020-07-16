@@ -334,7 +334,7 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *To
   // создадим фейковый value который будет занесен в индекс
   // и будет ссылаться на переменную (просто нести тот же id)
   let v = valueNew(ValueGlobalVar, ti)
-  v.assembly_item = asmVarAdd(&asm0, id, t, init_value)
+  v.def = asmVarAdd(&asm0, id, t, init_value)
   v.type = t
   v.id = id
   bind_value_global(id, v)

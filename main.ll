@@ -77,9 +77,9 @@ target triple = "x86_64-apple-macosx10.14.0"
 %VarDef = type {%Str, %Nat32, %Type*, %Value*, %TokenInfo*}
 %StmtKind = type %Int16
 %Stmt = type {%StmtKind, [2 x %Value*], %Block*, %Expr*, %VarDef*, %While*, %If*, %Str, %TokenInfo*}
-%AssemblyItemKind = type %Int16
+%DefinitionKind = type %Int16
 %Pad = type [3 x %Nat8]
-%AssemblyItem = type {%AssemblyItemKind, %Str, %Bool, %Pad, %StringDef, %Pad, %TypeDef, %Pad, %ConstDef, %Pad, %ArrayDef, %Pad, %FuncDef, %Pad, %AssemblyVarDef}
+%Definition = type {%DefinitionKind, %Str, %Bool, %Pad, %StringDef, %Pad, %TypeDef, %Pad, %ConstDef, %Pad, %ArrayDef, %Pad, %FuncDef, %Pad, %AssemblyVarDef}
 %TypeDef = type {%Type*}
 %ConstDef = type {%Value*}
 %StringDef = type {%Str, %Nat32}
@@ -95,7 +95,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %ValueCall = type {%Value*, %List*}
 %ValueCast = type {%Value*, %Type*}
 %ValueKind = type %Int16
-%Value = type {%ValueKind, %Type*, %Int64, %Nat32, %Str, %ValueUn, %ValueBin, %ValueIndex, %ValueAccess, %ValueCast, %ValueCall, %Type*, %AssemblyItem*, %VarDef*, %Field*, %Expr*, %TokenInfo*, %TokenInfo*, %TokenInfo*}
+%Value = type {%ValueKind, %Type*, %Int64, %Nat32, %Str, %ValueUn, %ValueBin, %ValueIndex, %ValueAccess, %ValueCast, %ValueCall, %Type*, %Definition*, %VarDef*, %Field*, %Expr*, %TokenInfo*, %TokenInfo*, %TokenInfo*}
 %ModuleContext = type {%Source*, %List, %List}
 %Module = type {%Source*, %List, %List}
 %FuncContext = type {%Value*, %Block*, %Nat32, %Nat32, %Nat32, %Nat32, %Nat32}
@@ -7224,8 +7224,8 @@ then_2:
   %30 = getelementptr inbounds %Value, %Value* %21, i32 0, i32 12
   %31 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
   %32 = inttoptr i64 0 to %Block*
-  %33 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %Block*) @asmFuncAdd (%Assembly* %31, %Str %0, %Type* %1, %Block* %32)
-  store %AssemblyItem* %33, %AssemblyItem** %30
+  %33 = call %Definition* (%Assembly*, %Str, %Type*, %Block*) @asmFuncAdd (%Assembly* %31, %Str %0, %Type* %1, %Block* %32)
+  store %Definition* %33, %Definition** %30
   br label %endif_2
 else_2:
   br label %endif_2
@@ -7319,8 +7319,8 @@ endif_1:
 ;stmt15:
   %32 = getelementptr inbounds %Value, %Value* %13, i32 0, i32 12
   %33 = getelementptr inbounds %Value, %Value* %1, i32 0, i32 12
-  %34 = load %AssemblyItem*, %AssemblyItem** %33
-  store %AssemblyItem* %34, %AssemblyItem** %32
+  %34 = load %Definition*, %Definition** %33
+  store %Definition* %34, %Definition** %32
   ret void
 }
 
@@ -7341,10 +7341,10 @@ then_0:
 
 ;stmt3:
   %8 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
-  %9 = load %AssemblyItem*, %AssemblyItem** %8
+  %9 = load %Definition*, %Definition** %8
 
 ;stmt4:
-  %10 = bitcast %AssemblyItem* %9 to %Unit*
+  %10 = bitcast %Definition* %9 to %Unit*
   %11 = inttoptr i64 0 to %Unit*
   %12 = icmp ne %Unit* %10, %11
   br i1 %12, label %then_1, label %else_1
@@ -7353,7 +7353,7 @@ then_1:
 ;stmt5:
 
 ;stmt6:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %9, i32 0, i32 2
+  %13 = getelementptr inbounds %Definition, %Definition* %9, i32 0, i32 2
   %14 = load %Bool, %Bool* %13
   %15 = xor %Bool %14, 1
   br i1 %15, label %then_2, label %else_2
@@ -7362,11 +7362,11 @@ then_2:
 ;stmt7:
 
 ;stmt8:
-  %16 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %9, i32 0, i32 1
+  %16 = getelementptr inbounds %Definition, %Definition* %9, i32 0, i32 1
   store %Str %1, %Str* %16
 
 ;stmt9:
-  %17 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %9, i32 0, i32 2
+  %17 = getelementptr inbounds %Definition, %Definition* %9, i32 0, i32 2
   store %Bool 1, %Bool* %17
   br label %endif_2
 else_2:
@@ -9020,8 +9020,8 @@ define %Value* @term_str () {
 ;stmt7:
   %11 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 12
   %12 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %13 = call %AssemblyItem* (%Assembly*, %Str, %Str, %Nat32) @asmStringAdd (%Assembly* %12, %Str %9, %Str %8, %Nat32 %7)
-  store %AssemblyItem* %13, %AssemblyItem** %11
+  %13 = call %Definition* (%Assembly*, %Str, %Str, %Nat32) @asmStringAdd (%Assembly* %12, %Str %9, %Str %8, %Nat32 %7)
+  store %Definition* %13, %Definition** %11
 
 ;stmt8:
   %14 = getelementptr inbounds %Value, %Value* %10, i32 0, i32 1
@@ -9124,8 +9124,8 @@ break_0:
 ;stmt20:
   %30 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 12
   %31 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %32 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %List*) @asmArrayAdd (%Assembly* %31, %Str %26, %Type* %28, %List* %6)
-  store %AssemblyItem* %32, %AssemblyItem** %30
+  %32 = call %Definition* (%Assembly*, %Str, %Type*, %List*) @asmArrayAdd (%Assembly* %31, %Str %26, %Type* %28, %List* %6)
+  store %Definition* %32, %Definition** %30
 
 ;stmt21:
   %33 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 1
@@ -9284,8 +9284,8 @@ endif_2:
 ;stmt31:
   %45 = getelementptr inbounds %Value, %Value* %29, i32 0, i32 12
   %46 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %47 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %Block*) @asmFuncAdd (%Assembly* %46, %Str %15, %Type* %22, %Block* %44)
-  store %AssemblyItem* %47, %AssemblyItem** %45
+  %47 = call %Definition* (%Assembly*, %Str, %Type*, %Block*) @asmFuncAdd (%Assembly* %46, %Str %15, %Type* %22, %Block* %44)
+  store %Definition* %47, %Definition** %45
 
 ;stmt32:
   %48 = getelementptr inbounds %Type, %Type* %22, i32 0, i32 6
@@ -11051,220 +11051,220 @@ define void @asmInit (%Assembly*, %Str) {
   ret void
 }
 
-define %AssemblyItem* @asmTypedefAdd (%Assembly*, %Str, %Type*) {
+define %Definition* @asmTypedefAdd (%Assembly*, %Str, %Type*) {
 
 ;stmt0:
   %4 = call %Unit* (%Nat32) @malloc (%Nat32 168)
-  %5 = bitcast %Unit* %4 to %AssemblyItem*
+  %5 = bitcast %Unit* %4 to %Definition*
 
 ;stmt1:
-  %6 = bitcast %AssemblyItem* %5 to %Unit*
+  %6 = bitcast %Definition* %5 to %Unit*
   %7 = inttoptr i64 0 to %Unit*
   %8 = icmp ne %Unit* %6, %7
   %9 = load %Str, %Str* @_func193_str1
   call void (%Bool, %Str) @assert (%Bool %8, %Str %9)
 
 ;stmt2:
-  %10 = bitcast %AssemblyItem* %5 to %Unit*
+  %10 = bitcast %Definition* %5 to %Unit*
   %11 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %10, %Nat8 0, %Nat32 168)
 
 ;stmt3:
-  %12 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 0
-  store %AssemblyItemKind 0, %AssemblyItemKind* %12
+  %12 = getelementptr inbounds %Definition, %Definition* %5, i32 0, i32 0
+  store %DefinitionKind 0, %DefinitionKind* %12
 
 ;stmt4:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 1
+  %13 = getelementptr inbounds %Definition, %Definition* %5, i32 0, i32 1
   store %Str %1, %Str* %13
 
 ;stmt5:
-  %14 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %5, i32 0, i32 6
+  %14 = getelementptr inbounds %Definition, %Definition* %5, i32 0, i32 6
   %15 = getelementptr inbounds %TypeDef, %TypeDef* %14, i32 0, i32 0
   store %Type* %2, %Type** %15
 
 ;stmt6:
   %16 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 1
   %17 = load %List*, %List** %16
-  %18 = bitcast %AssemblyItem* %5 to %Unit*
+  %18 = bitcast %Definition* %5 to %Unit*
   %19 = call %Bool (%List*, %Unit*) @list_append (%List* %17, %Unit* %18)
 
 ;stmt7:
-  ret %AssemblyItem* %5
+  ret %Definition* %5
 }
 
-define %AssemblyItem* @asmStringAdd (%Assembly*, %Str, %Str, %Nat32) {
+define %Definition* @asmStringAdd (%Assembly*, %Str, %Str, %Nat32) {
 
 ;stmt0:
   %5 = call %Unit* (%Nat32) @malloc (%Nat32 168)
-  %6 = bitcast %Unit* %5 to %AssemblyItem*
+  %6 = bitcast %Unit* %5 to %Definition*
 
 ;stmt1:
-  %7 = bitcast %AssemblyItem* %6 to %Unit*
+  %7 = bitcast %Definition* %6 to %Unit*
   %8 = inttoptr i64 0 to %Unit*
   %9 = icmp ne %Unit* %7, %8
   %10 = load %Str, %Str* @_func194_str1
   call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt2:
-  %11 = bitcast %AssemblyItem* %6 to %Unit*
+  %11 = bitcast %Definition* %6 to %Unit*
   %12 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %11, %Nat8 0, %Nat32 168)
 
 ;stmt3:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
-  store %AssemblyItemKind 2, %AssemblyItemKind* %13
+  %13 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 0
+  store %DefinitionKind 2, %DefinitionKind* %13
 
 ;stmt4:
-  %14 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
+  %14 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 1
   store %Str %1, %Str* %14
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 4
+  %15 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 4
   %16 = getelementptr inbounds %StringDef, %StringDef* %15, i32 0, i32 0
   store %Str %2, %Str* %16
 
 ;stmt6:
-  %17 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 4
+  %17 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 4
   %18 = getelementptr inbounds %StringDef, %StringDef* %17, i32 0, i32 1
   store %Nat32 %3, %Nat32* %18
 
 ;stmt7:
   %19 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 3
   %20 = load %List*, %List** %19
-  %21 = bitcast %AssemblyItem* %6 to %Unit*
+  %21 = bitcast %Definition* %6 to %Unit*
   %22 = call %Bool (%List*, %Unit*) @list_append (%List* %20, %Unit* %21)
 
 ;stmt8:
-  ret %AssemblyItem* %6
+  ret %Definition* %6
 }
 
-define %AssemblyItem* @asmArrayAdd (%Assembly*, %Str, %Type*, %List*) {
+define %Definition* @asmArrayAdd (%Assembly*, %Str, %Type*, %List*) {
 
 ;stmt0:
   %5 = call %Unit* (%Nat32) @malloc (%Nat32 168)
-  %6 = bitcast %Unit* %5 to %AssemblyItem*
+  %6 = bitcast %Unit* %5 to %Definition*
 
 ;stmt1:
-  %7 = bitcast %AssemblyItem* %6 to %Unit*
+  %7 = bitcast %Definition* %6 to %Unit*
   %8 = inttoptr i64 0 to %Unit*
   %9 = icmp ne %Unit* %7, %8
   %10 = load %Str, %Str* @_func195_str1
   call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt2:
-  %11 = bitcast %AssemblyItem* %6 to %Unit*
+  %11 = bitcast %Definition* %6 to %Unit*
   %12 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %11, %Nat8 0, %Nat32 168)
 
 ;stmt3:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
-  store %AssemblyItemKind 3, %AssemblyItemKind* %13
+  %13 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 0
+  store %DefinitionKind 3, %DefinitionKind* %13
 
 ;stmt4:
-  %14 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
+  %14 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 1
   store %Str %1, %Str* %14
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 10
+  %15 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 10
   %16 = getelementptr inbounds %ArrayDef, %ArrayDef* %15, i32 0, i32 0
   store %Type* %2, %Type** %16
 
 ;stmt6:
-  %17 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 10
+  %17 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 10
   %18 = getelementptr inbounds %ArrayDef, %ArrayDef* %17, i32 0, i32 2
   store %List* %3, %List** %18
 
 ;stmt7:
   %19 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 2
   %20 = load %List*, %List** %19
-  %21 = bitcast %AssemblyItem* %6 to %Unit*
+  %21 = bitcast %Definition* %6 to %Unit*
   %22 = call %Bool (%List*, %Unit*) @list_append (%List* %20, %Unit* %21)
 
 ;stmt8:
-  ret %AssemblyItem* %6
+  ret %Definition* %6
 }
 
-define %AssemblyItem* @asmFuncAdd (%Assembly*, %Str, %Type*, %Block*) {
+define %Definition* @asmFuncAdd (%Assembly*, %Str, %Type*, %Block*) {
 
 ;stmt0:
   %5 = call %Unit* (%Nat32) @malloc (%Nat32 168)
-  %6 = bitcast %Unit* %5 to %AssemblyItem*
+  %6 = bitcast %Unit* %5 to %Definition*
 
 ;stmt1:
-  %7 = bitcast %AssemblyItem* %6 to %Unit*
+  %7 = bitcast %Definition* %6 to %Unit*
   %8 = inttoptr i64 0 to %Unit*
   %9 = icmp ne %Unit* %7, %8
   %10 = load %Str, %Str* @_func196_str1
   call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt2:
-  %11 = bitcast %AssemblyItem* %6 to %Unit*
+  %11 = bitcast %Definition* %6 to %Unit*
   %12 = call %Unit* (%Unit*, %Nat8, %Nat32) @memset (%Unit* %11, %Nat8 0, %Nat32 168)
 
 ;stmt3:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
-  store %AssemblyItemKind 4, %AssemblyItemKind* %13
+  %13 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 0
+  store %DefinitionKind 4, %DefinitionKind* %13
 
 ;stmt4:
-  %14 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
+  %14 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 1
   store %Str %1, %Str* %14
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 12
+  %15 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 12
   %16 = getelementptr inbounds %FuncDef, %FuncDef* %15, i32 0, i32 0
   store %Type* %2, %Type** %16
 
 ;stmt6:
-  %17 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 12
+  %17 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 12
   %18 = getelementptr inbounds %FuncDef, %FuncDef* %17, i32 0, i32 1
   store %Block* %3, %Block** %18
 
 ;stmt7:
   %19 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 5
   %20 = load %List*, %List** %19
-  %21 = bitcast %AssemblyItem* %6 to %Unit*
+  %21 = bitcast %Definition* %6 to %Unit*
   %22 = call %Bool (%List*, %Unit*) @list_append (%List* %20, %Unit* %21)
 
 ;stmt8:
-  ret %AssemblyItem* %6
+  ret %Definition* %6
 }
 
-define %AssemblyItem* @asmVarAdd (%Assembly*, %Str, %Type*, %Value*) {
+define %Definition* @asmVarAdd (%Assembly*, %Str, %Type*, %Value*) {
 
 ;stmt0:
   %5 = call %Unit* (%Nat32) @malloc (%Nat32 168)
-  %6 = bitcast %Unit* %5 to %AssemblyItem*
+  %6 = bitcast %Unit* %5 to %Definition*
 
 ;stmt1:
-  %7 = bitcast %AssemblyItem* %6 to %Unit*
+  %7 = bitcast %Definition* %6 to %Unit*
   %8 = inttoptr i64 0 to %Unit*
   %9 = icmp ne %Unit* %7, %8
   %10 = load %Str, %Str* @_func197_str1
   call void (%Bool, %Str) @assert (%Bool %9, %Str %10)
 
 ;stmt2:
-  %11 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 0
-  store %AssemblyItemKind 5, %AssemblyItemKind* %11
+  %11 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 0
+  store %DefinitionKind 5, %DefinitionKind* %11
 
 ;stmt3:
-  %12 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 1
+  %12 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 1
   store %Str %1, %Str* %12
 
 ;stmt4:
-  %13 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 14
+  %13 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 14
   %14 = getelementptr inbounds %AssemblyVarDef, %AssemblyVarDef* %13, i32 0, i32 1
   store %Value* %3, %Value** %14
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 14
+  %15 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 14
   %16 = getelementptr inbounds %AssemblyVarDef, %AssemblyVarDef* %15, i32 0, i32 0
   store %Type* %2, %Type** %16
 
 ;stmt6:
   %17 = getelementptr inbounds %Assembly, %Assembly* %0, i32 0, i32 4
   %18 = load %List*, %List** %17
-  %19 = bitcast %AssemblyItem* %6 to %Unit*
+  %19 = bitcast %Definition* %6 to %Unit*
   %20 = call %Bool (%List*, %Unit*) @list_append (%List* %18, %Unit* %19)
 
 ;stmt7:
-  ret %AssemblyItem* %6
+  ret %Definition* %6
 }
 
 define %Type* @parse_type () {
@@ -15508,7 +15508,7 @@ endif_2:
 
 ;stmt15:
   %23 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %24 = call %AssemblyItem* (%Assembly*, %Str, %Type*) @asmTypedefAdd (%Assembly* %23, %Str %1, %Type* %8)
+  %24 = call %Definition* (%Assembly*, %Str, %Type*) @asmTypedefAdd (%Assembly* %23, %Str %1, %Type* %8)
   ret void
 }
 
@@ -15938,8 +15938,8 @@ define void @create_global_var (%Str, %Type*, %Value*, %TokenInfo*) {
 ;stmt1:
   %6 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 12
   %7 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %8 = call %AssemblyItem* (%Assembly*, %Str, %Type*, %Value*) @asmVarAdd (%Assembly* %7, %Str %0, %Type* %1, %Value* %2)
-  store %AssemblyItem* %8, %AssemblyItem** %6
+  %8 = call %Definition* (%Assembly*, %Str, %Type*, %Value*) @asmVarAdd (%Assembly* %7, %Str %0, %Type* %1, %Value* %2)
+  store %Definition* %8, %Definition** %6
 
 ;stmt2:
   %9 = getelementptr inbounds %Value, %Value* %5, i32 0, i32 1
@@ -17385,8 +17385,8 @@ then_1:
 ;stmt11:
   %17 = getelementptr inbounds %Operand, %Operand* %4, i32 0, i32 3
   %18 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
-  %19 = load %AssemblyItem*, %AssemblyItem** %18
-  %20 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %19, i32 0, i32 1
+  %19 = load %Definition*, %Definition** %18
+  %20 = getelementptr inbounds %Definition, %Definition* %19, i32 0, i32 1
   %21 = load %Str, %Str* %20
   store %Str %21, %Str* %17
 
@@ -17435,8 +17435,8 @@ then_3:
 ;stmt21:
   %35 = getelementptr inbounds %Operand, %Operand* %4, i32 0, i32 3
   %36 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
-  %37 = load %AssemblyItem*, %AssemblyItem** %36
-  %38 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %37, i32 0, i32 1
+  %37 = load %Definition*, %Definition** %36
+  %38 = getelementptr inbounds %Definition, %Definition* %37, i32 0, i32 1
   %39 = load %Str, %Str* %38
   store %Str %39, %Str* %35
 
@@ -19907,13 +19907,13 @@ endif_0:
 define void @foreach_typedef (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
-  %4 = bitcast %Unit* %0 to %AssemblyItem*
+  %4 = bitcast %Unit* %0 to %Definition*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 6
+  %5 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 6
 
 ;stmt2:
-  %6 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
+  %6 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 1
   %7 = load %Str, %Str* %6
   %8 = getelementptr inbounds %TypeDef, %TypeDef* %5, i32 0, i32 0
   %9 = load %Type*, %Type** %8
@@ -19924,10 +19924,10 @@ define void @foreach_typedef (%Unit*, %Unit*, %Nat32) {
 define void @foreach_stringdef (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
-  %4 = bitcast %Unit* %0 to %AssemblyItem*
+  %4 = bitcast %Unit* %0 to %Definition*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 4
+  %5 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 4
 
 ;stmt2:
   %6 = getelementptr inbounds %StringDef, %StringDef* %5, i32 0, i32 0
@@ -19942,7 +19942,7 @@ then_0:
 
 ;stmt4:
   %11 = load %Str, %Str* @_func335_str1
-  %12 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
+  %12 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 1
   %13 = load %Str, %Str* %12
   %14 = call %Int32 (%Str, ...) @printf (%Str %11, %Str %13)
   br label %endif_0
@@ -19951,7 +19951,7 @@ else_0:
 endif_0:
 
 ;stmt5:
-  %15 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
+  %15 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 1
   %16 = load %Str, %Str* %15
   %17 = getelementptr inbounds %StringDef, %StringDef* %5, i32 0, i32 1
   %18 = load %Nat32, %Nat32* %17
@@ -19964,13 +19964,13 @@ endif_0:
 define void @foreach_arraydef (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
-  %4 = bitcast %Unit* %0 to %AssemblyItem*
+  %4 = bitcast %Unit* %0 to %Definition*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 10
+  %5 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 10
 
 ;stmt2:
-  %6 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
+  %6 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 1
   %7 = load %Str, %Str* %6
   %8 = getelementptr inbounds %ArrayDef, %ArrayDef* %5, i32 0, i32 0
   %9 = load %Type*, %Type** %8
@@ -19983,13 +19983,13 @@ define void @foreach_arraydef (%Unit*, %Unit*, %Nat32) {
 define void @foreach_vardef (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
-  %4 = bitcast %Unit* %0 to %AssemblyItem*
+  %4 = bitcast %Unit* %0 to %Definition*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 14
+  %5 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 14
 
 ;stmt2:
-  %6 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
+  %6 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 1
   %7 = load %Str, %Str* %6
   %8 = getelementptr inbounds %AssemblyVarDef, %AssemblyVarDef* %5, i32 0, i32 0
   %9 = load %Type*, %Type** %8
@@ -20002,13 +20002,13 @@ define void @foreach_vardef (%Unit*, %Unit*, %Nat32) {
 define void @foreach_funcdef (%Unit*, %Unit*, %Nat32) {
 
 ;stmt0:
-  %4 = bitcast %Unit* %0 to %AssemblyItem*
+  %4 = bitcast %Unit* %0 to %Definition*
 
 ;stmt1:
-  %5 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 12
+  %5 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 12
 
 ;stmt2:
-  %6 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %4, i32 0, i32 1
+  %6 = getelementptr inbounds %Definition, %Definition* %4, i32 0, i32 1
   %7 = load %Str, %Str* %6
   %8 = getelementptr inbounds %FuncDef, %FuncDef* %5, i32 0, i32 0
   %9 = load %Type*, %Type** %8
@@ -20490,8 +20490,8 @@ define void @checkFunc (%Value*) {
 
 ;stmt2:
   %5 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 12
-  %6 = load %AssemblyItem*, %AssemblyItem** %5
-  %7 = getelementptr inbounds %AssemblyItem, %AssemblyItem* %6, i32 0, i32 12
+  %6 = load %Definition*, %Definition** %5
+  %7 = getelementptr inbounds %Definition, %Definition* %6, i32 0, i32 12
   %8 = getelementptr inbounds %FuncDef, %FuncDef* %7, i32 0, i32 1
   %9 = load %Block*, %Block** %8
 

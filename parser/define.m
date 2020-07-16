@@ -23,7 +23,7 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
 
   if type.kind == TypeFunction {
     v.kind = ValueGlobalConst
-    v.assembly_item = asmFuncAdd(&asm0, id, type, Nil)
+    v.def = asmFuncAdd(&asm0, id, type, Nil)
   }
 
   bind_value_global(id, v)
@@ -55,7 +55,7 @@ let def_global = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
   ae.kind = v.kind
   ae.type = v.type
   ae.id = v.id
-  ae.assembly_item = v.assembly_item
+  ae.def = v.def
 }
 
 
@@ -66,7 +66,7 @@ let rename = func (v : *Value, id : Str) -> Unit {
   let default_name = v.id
 
   if default_name != Nil {
-    let ai = v.assembly_item
+    let ai = v.def
     if ai != Nil {
       if not ai.marked {
         ai.id = id

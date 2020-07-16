@@ -21,7 +21,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
   // print Types
   o("\n\n;types:\n")
   let foreach_typedef = func ListForeachHandler {
-    let ai = data to *AssemblyItem
+    let ai = data to *Definition
     let td = &ai.typedef
     typedef(ai.id, td.type)
   }
@@ -31,7 +31,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
   // print Strings
   o("\n\n;strings:\n")
   let foreach_stringdef = func ListForeachHandler {
-    let ai = data to *AssemblyItem
+    let ai = data to *Definition
     let sd = &ai.stringdef
     if sd.data == Nil {
       printf("NIL: %s\n", ai.id)
@@ -43,7 +43,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
   // print Arrays
   o("\n\n;arrays:\n")
   let foreach_arraydef = func ListForeachHandler {
-    let ai = data to *AssemblyItem
+    let ai = data to *Definition
     let ad = &ai.arraydef
     arraydef(ai.id, ad.type, ad.values)
   }
@@ -52,7 +52,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
   // print Variables
   o("\n\n;vars:\n")
   let foreach_vardef = func ListForeachHandler {
-    let ai = data to *AssemblyItem
+    let ai = data to *Definition
     let vd = &ai.vardef
     vardef(ai.id, vd.type, vd.init_value)
   }
@@ -61,7 +61,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
   // print Functions
   o("\n\n;funcs:\n")
   let foreach_funcdef = func ListForeachHandler {
-    let ai = data to *AssemblyItem
+    let ai = data to *Definition
     let fd = &ai.funcdef
     funcdef(ai.id, fd.type, fd.block)
   }

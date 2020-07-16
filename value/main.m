@@ -72,6 +72,14 @@ type Value = record {
   imm    : Int64  // ValueImmediate
   reg    : Nat32  // ValueParam
 
+  // ссылка на связанную со значением запись в сборке
+  // в случае функции (константной) через это поле checkFunc получит ссылку на блок
+  // для его проверки; Так же юзается для ValueGlobalVar & ValueGlobalConst
+  def    : *Definition  // ValueGlobalVar & ValueGlobalConst
+  vardef : *VarDef  // ValueLocalVar
+  field  : *Field   // ValueParam
+  expr   : *Expr    // ValueLocalConst
+
   // пока не могу выпилить это - юзается для enum ...
   id     : Str    // вместо id нужна ссылка на объект в сборке
 
@@ -86,13 +94,7 @@ type Value = record {
   szof   : *Type
 //}
 
-  // ссылка на связанную со значением запись в сборке
-  // в случае функции (константной) через это поле checkFunc получит ссылку на блок
-  // для его проверки; Так же юзается для ValueGlobalVar & ValueGlobalConst
-  assembly_item : *AssemblyItem  // ValueGlobalVar & ValueGlobalConst
-  vardef : *VarDef  // ValueLocalVar
-  field  : *Field   // ValueParam
-  expr   : *Expr    // ValueLocalConst
+
 
 
   declared_at,     // place in code where value was mentioned first time

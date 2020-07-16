@@ -9,7 +9,7 @@
 /*
  * Тип объекта из сборки
  */
-type AssemblyItemKind = enum {
+type DefinitionKind = enum {
   TypeDef,
   ConstDef,
   StringDef,
@@ -21,8 +21,8 @@ type AssemblyItemKind = enum {
 
 type Pad = [3]Nat8  //опять какая то херня с выравниванием у тебя
 
-type AssemblyItem = record {
-  kind : AssemblyItemKind
+type Definition = record {
+  kind : DefinitionKind
   id   : Str     // идентификатор который идет на печать
 
   // признак того что этот элемент уже получил свой id
@@ -78,10 +78,10 @@ let asmInit = func (a : *Assembly, name : Str) -> Unit {
 }
 
 
-let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *AssemblyItem {
-  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
+let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *Definition {
+  let x = malloc(sizeof Definition) to *Definition
   assert(x != Nil, "asmTypedefAdd")
-  memset(x, 0, sizeof AssemblyItem)
+  memset(x, 0, sizeof Definition)
   x.kind = TypeDef
   x.id = id
   x.typedef.type = t
@@ -90,10 +90,10 @@ let asmTypedefAdd = func (a : *Assembly, id : Str, t : *Type) -> *AssemblyItem {
 }
 
 
-let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> *AssemblyItem {
-  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
+let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> *Definition {
+  let x = malloc(sizeof Definition) to *Definition
   assert(x != Nil, "asmStringAdd")
-  memset(x, 0, sizeof AssemblyItem)
+  memset(x, 0, sizeof Definition)
   x.kind = StringDef
   x.id = id
   x.stringdef.data = s
@@ -103,10 +103,10 @@ let asmStringAdd = func (a : *Assembly, id : Str, s : Str, len : Nat) -> *Assemb
 }
 
 
-let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> *AssemblyItem {
-  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
+let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> *Definition {
+  let x = malloc(sizeof Definition) to *Definition
   assert(x != Nil, "asmArrayAdd")
-  memset(x, 0, sizeof AssemblyItem)
+  memset(x, 0, sizeof Definition)
   x.kind = ArrayDef
   x.id = id
   x.arraydef.type = t
@@ -116,10 +116,10 @@ let asmArrayAdd = func (a : *Assembly, id : Str, t : *Type, values : *List) -> *
 }
 
 
-let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *AssemblyItem {
-  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
+let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *Definition {
+  let x = malloc(sizeof Definition) to *Definition
   assert(x != Nil, "asmFuncAdd")
-  memset(x, 0, sizeof AssemblyItem)
+  memset(x, 0, sizeof Definition)
   x.kind = FuncDef
   x.id = id
   x.funcdef.type = t
@@ -129,9 +129,9 @@ let asmFuncAdd = func (a : *Assembly, id : Str, t : *Type, b : *Block) -> *Assem
 }
 
 
-let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *AssemblyItem {
+let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -> *Definition {
   //printf("asmVarAdd\n")
-  let x = malloc(sizeof AssemblyItem) to *AssemblyItem
+  let x = malloc(sizeof Definition) to *Definition
   assert(x != Nil, "asmVarAdd")
   x.kind = VarDef
   x.id = id
@@ -147,11 +147,11 @@ let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -
   // rename entity in assembly section list
   let ren = func (list : *List, id_from, id_to : Str) -> Bool {
     let search = func ListSearchHandler {
-      let ai = data to *AssemblyItem
+      let ai = data to *Definition
       let id_from = ctx to Str
       return strcmp(ai.id, id_from) == 0
     }
-    let c = list_search(list, search, id_from) to *AssemblyItem
+    let c = list_search(list, search, id_from) to *Definition
 
     if c != Nil {
       c.id = id_to

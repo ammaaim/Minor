@@ -34,7 +34,7 @@ let checkFunc = func (f : *Value) -> Unit {
   let old_cfunc = fctx.cfunc
   fctx.cfunc = f
 
-  let block = f.assembly_item.funcdef.block
+  let block = f.def.funcdef.block
 
   // extern function doesn't have the block
   if block != Nil {
