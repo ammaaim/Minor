@@ -16,7 +16,7 @@ let get_prefix = func () -> Str {
 
   if fctx.cfunc != Nil {
     // мы работаем в контексте функции -> ее id будет префиксом
-    return dup(fctx.cfunc.id)
+    return dup(fctx.id)
   } else {
     // временно вырубил декорацию
     //return mctx.src.name

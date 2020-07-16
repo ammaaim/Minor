@@ -26,6 +26,7 @@ type Module = ModuleContext
 
 // parsing function context
 type FuncContext = record {
+  id     : Str     // for local strings prefix
   cfunc  : *Value  // current function
   cblock : *Block  // current block
   loop   : Nat32   // `we're in cycle` semaphore (used by break/continue)
@@ -231,7 +232,6 @@ let parseLet = func () -> *Stmt {
      k == ValueUndefined {
 
     let v0 = valueNew(ValueLocalConst, ti)
-    v0.id = id
     bind_value_local(id, v0)
 
     let se = stmt_expr_new(v, ti)
@@ -329,7 +329,6 @@ let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
   // Создаем знчение и добавляем его в индекс
   let v = valueNew(ValueUndefined, ti)
   v.type = type
-  v.id = id
   v.type = type
   v.declared_at = ti
 
@@ -405,7 +404,6 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *Tok
   // и будет ссылаться на переменную (просто нести тот же id)
   let v = valueNew(ValueLocalVar, ti)
   v.type = t
-  v.id = id
 
   bind_value_local(id, v)
 
@@ -430,7 +428,6 @@ let create_global_var = func (id : Str, t : *Type, init_value : *Value, ti : *To
   let v = valueNew(ValueGlobalVar, ti)
   v.def = asmVarAdd(&asm0, id, t, init_value)
   v.type = t
-  v.id = id
   bind_value_global(id, v)
 }
 

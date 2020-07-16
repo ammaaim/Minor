@@ -45,7 +45,7 @@ let print_type_record = func (t : *Type) -> Unit {
 let print_type_enum = func (t : *Type) -> Unit {
   printf("{")
     let print_cons = func ListForeachHandler {
-      printf("%s, ", (data to *Value).id);
+      printf("<%%s> ")
     }
     list_foreach(t.enum.cons, print_cons, Nil)
     printf("}")

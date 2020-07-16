@@ -368,7 +368,7 @@ let term_str = func ValueParser {
   v.def = asmStringAdd(&asm0, id, s, len)
 
   v.type = typeStr
-  v.id = id
+  //v.id = id
   return v
 }
 
@@ -397,7 +397,7 @@ let term_arr = func ValueParser {
   let v = valueNew(ValueGlobalConst, ti)
   v.def = asmArrayAdd(&asm0, id, t, data)
   v.type = t
-  v.id = id
+  //v.id = id
   v.defined_at = ti
   return v
 }
@@ -422,6 +422,8 @@ let term_func = func ValueParser {
 
   /* Get Id */
   let id = get_name_func()
+
+  fctx.id = id
 
   if id == Nil {
     printf("funcdef id fail")
@@ -449,9 +451,9 @@ let term_func = func ValueParser {
     list_append(parent_block.local_functions, fv)
   }
 
+
   fctx.cfunc = fv
   fv.type = t
-  fv.id = id
   fv.defined_at = ti
 
   // выставляем ссылку на текущую функцию
@@ -509,13 +511,11 @@ let term_id = func ValueParser {
 
   if v == Nil {
     let nv = valueNew(ValueUndefined, ti)
-    nv.id = id
     nv.declared_at = ti
     bind_value_global(id, nv)
     return nv
   }
 
-  v.id = id
   return v
 
 fail:

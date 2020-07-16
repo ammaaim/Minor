@@ -80,12 +80,6 @@ type Value = record {
   field  : *Field       // ValueParam
   expr   : *Expr        // ValueLocalConst
 
-
-  // У Value нет id тк на него может ссылаться как множество id так и ни одного
-  // Это поле юзается исключительно для поддержания костылей enum типа
-  id     : Str
-
-
   // operation info
   un     : ValueUn
   bin    : ValueBin
