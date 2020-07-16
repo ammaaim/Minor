@@ -137,3 +137,13 @@ let funcdef = func (id : Str, t : *Type, b : *Block) -> Unit {
 }
 
 
+let aliasdef = func (id : Str, t : *Type, org : Str) -> Unit {
+  //@sss = alias i8*, i8** @_func4_str6
+  //@main = alias void (), void ()* @xxx
+  fprintf(fout, "\n@%s = alias ", id)
+  printType(t, False, False)
+  comma()
+  printType(t, False, False)
+  fprintf(fout, "* @%s", org)
+}
+

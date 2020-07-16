@@ -15,7 +15,8 @@ type DefinitionKind = enum {
   StringDef,
   ArrayDef,
   FuncDef,
-  VarDef
+  VarDef,
+  AliasDef
 }
 
 
@@ -23,11 +24,8 @@ type Pad = [3]Nat8  //опять какая то херня с выравнив�
 
 type Definition = record {
   kind : DefinitionKind
-  id   : Str     // идентификатор который идет на печать
 
-  // признак того что этот элемент уже получил свой id
-  // и его не нужно переименовывать (for rename)
-  marked : Bool
+  id   : Str     // автоматически полученный идентификатор который идет на печать
 
 //enum {
   _         : Pad
@@ -42,6 +40,8 @@ type Definition = record {
   funcdef   : FuncDef
   _         : Pad
   vardef    : AssemblyVarDef
+  _         : Pad
+  aliasdef  : AliasDef
 //}
 }
 
@@ -52,7 +52,8 @@ type ConstDef = record {value : *Value}
 type StringDef = record {data : Str, len : Nat}
 type ArrayDef = record {type : *Type, len : Nat, values : *List}
 type FuncDef  = record {type : *Type, block : *Block}
-type AssemblyVarDef   = record {type : *Type, init_value : *Value}
+type AssemblyVarDef = record {type : *Type, init_value : *Value}
+type AliasDef = record {id : Str, type : *Type, org : Str}
 
 
 type Assembly = record {
@@ -60,6 +61,7 @@ type Assembly = record {
 
   // sections
   types,         // of *TypeDef
+  aliases,
   arrays,        // of *ArrayDef
   strings,       // of *StringDef
   vars,          // of *AssemblyVarDef
@@ -71,6 +73,7 @@ let asmInit = func (a : *Assembly, name : Str) -> Unit {
   a.name = name
 
   a.types = list_new()
+  a.aliases = list_new()
   a.arrays = list_new()
   a.strings = list_new()
   a.funcs = list_new()
@@ -138,6 +141,18 @@ let asmVarAdd = func (a : *Assembly, id : Str, t : *Type, init_value : *Value) -
   x.vardef.init_value = init_value
   x.vardef.type = t
   list_append(a.vars, x)
+  return x
+}
+
+let asmAliasAdd = func (a : *Assembly, id : Str, type : *Type, org : Str) -> *Definition {
+  let x = malloc(sizeof Definition) to *Definition
+  assert(x != Nil, "asmAdd")
+  x.kind = AliasDef
+  x.id = id
+  x.aliasdef.id = id
+  x.aliasdef.type = type
+  x.aliasdef.org = org
+  list_append(a.aliases, x)
   return x
 }
 

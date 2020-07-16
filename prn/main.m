@@ -67,6 +67,15 @@ let print_assembly = func (a: *Assembly) -> Unit {
   }
   list_foreach(a.funcs, foreach_funcdef, Nil)
 
+  // print Aliases
+  o("\n\n;aliases:\n")
+  let foreach_aliasdef = func ListForeachHandler {
+    let ai = data to *Definition
+    let ad = &ai.aliasdef
+    aliasdef(ai.id, ad.type, ad.org)
+  }
+  list_foreach(a.aliases, foreach_aliasdef, Nil)
+
   // print Metadata
   o("\n\n;metadata:\n")
   print_metadata_list(&md_list)

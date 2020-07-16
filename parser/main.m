@@ -2,7 +2,6 @@
 
 
 import "index"
-import "define"
 import "name"
 import "expr"
 import "stmt"
@@ -74,6 +73,8 @@ let parse = func (src : *Source) -> Unit {
       skip()
     } else if match("import") {
       parseImport()
+    } else if match("export") {
+      parseExport()
     } else {
       break
     }
@@ -132,6 +133,25 @@ let parse = func (src : *Source) -> Unit {
 }
 
 
+let parseExport  = func () -> Unit {
+  if ctok().type != TokenString {
+    error("expected export string", &ctok().ti)
+    skip()
+    return
+  }
+
+  // get import string
+  let exp_str = dup(&ctok().text[0] to Str)
+  skip()
+
+  printf("export: %s\n", exp_str)
+
+  return
+
+fail:
+}
+
+
 let parseImport = func () -> Unit {
   if ctok().type != TokenString {
     error("expected import string", &ctok().ti)
@@ -176,6 +196,13 @@ let parseTypedef = func () -> Unit {
 }
 
 
+
+/*
+  1. Функция создается анонимно
+  2. Возвращается значение ValueGlobalConst со ссылкой на функцию def
+  3. В случае let к этому значению привязывается <id> и таких <id> может быть много.
+  4. При этом в модуль добавляется alias <id> <org>
+*/
 let parseLet = func () -> *Stmt {
   let ti = &ctok().ti
   let id = parseId()
@@ -186,15 +213,11 @@ let parseLet = func () -> *Stmt {
 
   if id == Nil or v == Nil {return Nil}
 
-  //if v.kind == ValueGlobalConst or v.kind == ValueGlobalVar {
-    rename(v, id)
-  //}
-
   v.defined_at = ti
 
   // global?
   if fctx.cfunc == Nil {
-    def_global(id, v, ti)
+    globalLet(id, v, ti)
     return Nil
   }
 
@@ -206,13 +229,11 @@ let parseLet = func () -> *Stmt {
   if k != ValueGlobalConst and
      k != ValueImmediate or
      k == ValueUndefined {
-    // v0 - значение сопряженное с результатом вычисления v
-    // то есть он получит тот же регистр что и результат вычисления v
-    // регистр он получит в принтере тк только там они проясняются
+
     let v0 = valueNew(ValueLocalConst, ti)
     v0.id = id
     bind_value_local(id, v0)
-    //return stmt_new_let(v, v0, ti)
+
     let se = stmt_expr_new(v, ti)
     v0.expr = se.e
     return se
@@ -220,6 +241,49 @@ let parseLet = func () -> *Stmt {
 
   bind_value_in_block(fctx.cblock, id, v)
   return Nil
+}
+
+
+
+let globalLet = func (id : Str, v : *Value, ti : *TokenInfo) -> Unit {
+  // это уйдет отсюда когда сдклаю export_name, пока так #TODO
+  if strcmp(id, "main") == 0 {
+    let ai = v.def
+    if ai != Nil {
+      // Да потому что нету никаих имен! Нету ваще!
+      // Minor - язык в котором и типы и значения анонимны.
+      // let не создает новое значение - он просто привязывает к АНОНИМНОМУ значению
+      // еще один идентификатор. Это просто Map. У функции или строки например
+      // нет никакого имени! Если нужно привязать экспортируемые символы к значению
+      // нужно юзать прагмы. Тут это сделано по умолчанию лишь для "main".
+      asmAliasAdd(&asm0, id, v.type, ai.id)
+    }
+  }
+
+  // Тут мы могли бы просто связать id со значением но есть маленький нюанс:
+  // Если идентификатор использовался раньше чем был определен
+  // (а такое часто бывает с функциями) то нам не нужно создавать новое значение,
+  // а нужно определить существующее ValueUndefined переписав его поля
+  // (кроме поля declared_at)
+  let ae = get_value_global(id)
+
+  if ae == Nil {
+    // not exists, creating new
+    bind_value_global(id, v)
+    return
+  }
+
+  // exist
+
+  if ae.kind != ValueUndefined {
+    error("attempt to redefinition", ti)
+    return
+  }
+
+  // скопируем в ae все из v кроме поля declared_at
+  let declared_at = ae.declared_at
+  *ae = *v
+  ae.declared_at = declared_at
 }
 
 
@@ -248,6 +312,36 @@ let parseExtern = func () -> Unit {
   }
   list_foreach(fl, extern_decl, Nil)
 }
+
+// used only by doextern
+// глобально декларируем новую сущность о которой не известно ничего кроме типа и id
+let declare = func (id : Str, type : *Type, ti : *TokenInfo) -> Unit {
+  if id == Nil or type == Nil {return}
+
+  // already exist?
+  let ae = get_value_global(id)
+  if ae != Nil {
+    error("attempt to redeclaration", ti)
+    rem("declared at: ", ae.declared_at)
+    return
+  }
+
+  // Создаем знчение и добавляем его в индекс
+  let v = valueNew(ValueUndefined, ti)
+  v.type = type
+  v.id = id
+  v.type = type
+  v.declared_at = ti
+
+  if type.kind == TypeFunction {
+    v.kind = ValueGlobalConst
+    v.def = asmFuncAdd(&asm0, id, type, Nil)
+  }
+
+  bind_value_global(id, v)
+}
+
+
 
 
 // returns Str or Nil
@@ -441,9 +535,7 @@ let need = func (s : Str) -> Bool {
 
     let t = ctok()
     error("unexpected symbol", &t.ti)
-    printf("expected %s instead %s\n", s, &t.text[0])  //
-    printf("ctok.type = %d\n", t.type)
-    exit(0)
+    skip()
   }
   return rc
 }

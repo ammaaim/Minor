@@ -76,9 +76,9 @@ type Value = record {
   // в случае функции (константной) через это поле checkFunc получит ссылку на блок
   // для его проверки; Так же юзается для ValueGlobalVar & ValueGlobalConst
   def    : *Definition  // ValueGlobalVar & ValueGlobalConst
-  vardef : *VarDef  // ValueLocalVar
-  field  : *Field   // ValueParam
-  expr   : *Expr    // ValueLocalConst
+  vardef : *VarDef      // ValueLocalVar
+  field  : *Field       // ValueParam
+  expr   : *Expr        // ValueLocalConst
 
   // пока не могу выпилить это - юзается для enum ...
   id     : Str    // вместо id нужна ссылка на объект в сборке

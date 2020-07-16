@@ -19,6 +19,9 @@ import "init"
 import "check"
 
 
+export "main"
+
+
 let ARCH_DEFAULT = Arch_x64
 
 

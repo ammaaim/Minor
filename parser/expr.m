@@ -5,7 +5,7 @@
 type ValueParser = () -> *Value
 
 
-let expr = hier1
+
 
 
 // used in parser/type
@@ -39,6 +39,8 @@ let hier1 = func ValueParser {
   }
   return v
 }
+
+let expr = hier1
 
 
 let hier2 = func ValueParser {

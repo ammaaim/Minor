@@ -6,7 +6,7 @@
 // формирует строку вида prefix#### - aka анонимной сущности
 let get_suid = func (prefix : Str, uid : Nat32) -> Str {
   let suid = str_new(strlen(prefix) + 8 + 1)
-  sprintf(suid, "%s%u\0", prefix, uid)
+  sprintf(suid, "%s.%u\0", prefix, uid)
   return suid
 }
 
