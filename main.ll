@@ -14587,137 +14587,137 @@ endif_1:
   %17 = load %ValueKind, %ValueKind* %16
 
 ;stmt9:
-  %18 = call %Bool (%ValueKind) @isBinaryOpKind (%ValueKind %17)
+  %18 = icmp eq %ValueKind %17, 6
   br i1 %18, label %then_2, label %else_2
 then_2:
 
 ;stmt10:
 
 ;stmt11:
-  %19 = call %Type* (%Value*) @checkValueBinary (%Value* %0)
-  store %Type* %19, %Type** %14
+  %19 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 15
+  %20 = load %Expr*, %Expr** %19
+  %21 = getelementptr inbounds %Expr, %Expr* %20, i32 0, i32 0
+  %22 = load %Value*, %Value** %21
+  %23 = call %Type* (%Value*) @checkValue (%Value* %22)
+  store %Type* %23, %Type** %14
   br label %endif_2
 else_2:
 
 ;stmt12:
-  %20 = call %Bool (%ValueKind) @isUnaryOpKind (%ValueKind %17)
-  br i1 %20, label %then_3, label %else_3
+  %24 = call %Bool (%ValueKind) @isBinaryOpKind (%ValueKind %17)
+  br i1 %24, label %then_3, label %else_3
 then_3:
 
 ;stmt13:
 
 ;stmt14:
-  %21 = call %Type* (%Value*) @checkValueUnary (%Value* %0)
-  store %Type* %21, %Type** %14
+  %25 = call %Type* (%Value*) @checkValueBinary (%Value* %0)
+  store %Type* %25, %Type** %14
   br label %endif_3
 else_3:
 
 ;stmt15:
-  %22 = icmp eq %ValueKind %17, 28
-  br i1 %22, label %then_4, label %else_4
+  %26 = call %Bool (%ValueKind) @isUnaryOpKind (%ValueKind %17)
+  br i1 %26, label %then_4, label %else_4
 then_4:
 
 ;stmt16:
 
 ;stmt17:
-  %23 = call %Type* (%Value*) @checkValueCall (%Value* %0)
-  store %Type* %23, %Type** %14
+  %27 = call %Type* (%Value*) @checkValueUnary (%Value* %0)
+  store %Type* %27, %Type** %14
   br label %endif_4
 else_4:
 
 ;stmt18:
-  %24 = icmp eq %ValueKind %17, 29
-  br i1 %24, label %then_5, label %else_5
+  %28 = icmp eq %ValueKind %17, 28
+  br i1 %28, label %then_5, label %else_5
 then_5:
 
 ;stmt19:
 
 ;stmt20:
-  %25 = call %Type* (%Value*) @checkValueIndex (%Value* %0)
-  store %Type* %25, %Type** %14
+  %29 = call %Type* (%Value*) @checkValueCall (%Value* %0)
+  store %Type* %29, %Type** %14
   br label %endif_5
 else_5:
 
 ;stmt21:
-  %26 = icmp eq %ValueKind %17, 30
-  br i1 %26, label %then_6, label %else_6
+  %30 = icmp eq %ValueKind %17, 29
+  br i1 %30, label %then_6, label %else_6
 then_6:
 
 ;stmt22:
 
 ;stmt23:
-  %27 = call %Type* (%Value*) @checkValueAccess (%Value* %0)
-  store %Type* %27, %Type** %14
+  %31 = call %Type* (%Value*) @checkValueIndex (%Value* %0)
+  store %Type* %31, %Type** %14
   br label %endif_6
 else_6:
 
 ;stmt24:
-  %28 = icmp eq %ValueKind %17, 31
-  br i1 %28, label %then_7, label %else_7
+  %32 = icmp eq %ValueKind %17, 30
+  br i1 %32, label %then_7, label %else_7
 then_7:
 
 ;stmt25:
 
 ;stmt26:
-  %29 = call %Type* (%Value*) @checkValueCast (%Value* %0)
-  store %Type* %29, %Type** %14
+  %33 = call %Type* (%Value*) @checkValueAccess (%Value* %0)
+  store %Type* %33, %Type** %14
   br label %endif_7
 else_7:
 
 ;stmt27:
-  %30 = icmp eq %ValueKind %17, 26
-  %31 = icmp eq %ValueKind %17, 27
-  %32 = or %Bool %30, %31
-  br i1 %32, label %then_8, label %else_8
+  %34 = icmp eq %ValueKind %17, 31
+  br i1 %34, label %then_8, label %else_8
 then_8:
 
 ;stmt28:
 
 ;stmt29:
-  %33 = call %Type* (%Value*) @checkValueShift (%Value* %0)
-  store %Type* %33, %Type** %14
+  %35 = call %Type* (%Value*) @checkValueCast (%Value* %0)
+  store %Type* %35, %Type** %14
   br label %endif_8
 else_8:
 
 ;stmt30:
-  %34 = icmp eq %ValueKind %17, 32
-  br i1 %34, label %then_9, label %else_9
+  %36 = icmp eq %ValueKind %17, 26
+  %37 = icmp eq %ValueKind %17, 27
+  %38 = or %Bool %36, %37
+  br i1 %38, label %then_9, label %else_9
 then_9:
 
 ;stmt31:
 
 ;stmt32:
-  %35 = call %Type* (%Value*) @checkValueSizeof (%Value* %0)
-  store %Type* %35, %Type** %14
+  %39 = call %Type* (%Value*) @checkValueShift (%Value* %0)
+  store %Type* %39, %Type** %14
   br label %endif_9
 else_9:
 
 ;stmt33:
-  %36 = icmp eq %ValueKind %17, 33
-  br i1 %36, label %then_10, label %else_10
+  %40 = icmp eq %ValueKind %17, 32
+  br i1 %40, label %then_10, label %else_10
 then_10:
 
 ;stmt34:
 
 ;stmt35:
-  %37 = call %Type* (%Value*) @checkValueAlignof (%Value* %0)
-  store %Type* %37, %Type** %14
+  %41 = call %Type* (%Value*) @checkValueSizeof (%Value* %0)
+  store %Type* %41, %Type** %14
   br label %endif_10
 else_10:
 
 ;stmt36:
-  %38 = icmp eq %ValueKind %17, 6
-  br i1 %38, label %then_11, label %else_11
+  %42 = icmp eq %ValueKind %17, 33
+  br i1 %42, label %then_11, label %else_11
 then_11:
 
 ;stmt37:
 
 ;stmt38:
-  %39 = getelementptr inbounds %Value, %Value* %0, i32 0, i32 15
-  %40 = load %Expr*, %Expr** %39
-  %41 = getelementptr inbounds %Expr, %Expr* %40, i32 0, i32 0
-  %42 = load %Value*, %Value** %41
-  %43 = call %Type* (%Value*) @checkValue (%Value* %42)
+  %43 = call %Type* (%Value*) @checkValueAlignof (%Value* %0)
   store %Type* %43, %Type** %14
   br label %endif_11
 else_11:

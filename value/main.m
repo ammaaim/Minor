@@ -70,7 +70,7 @@ type Value = record {
 //union {
   // term info
   imm    : Int64  // ValueImmediate
-  reg    : Nat32  // ValueParam, ValueLocalConst, ValueLocalVar
+  reg    : Nat32  // ValueParam
 
   // пока не могу выпилить это - юзается для enum ...
   id     : Str    // вместо id нужна ссылка на объект в сборке
@@ -128,7 +128,9 @@ let checkValue = func (v : *Value) -> *Type {
 
   let k = v.kind
 
-  if isBinaryOpKind(k) {
+  if k == ValueLocalConst {
+    t = checkValue(v.expr.v)
+  } else if isBinaryOpKind(k) {
     t = checkValueBinary(v)
   } else if isUnaryOpKind(k) {
     t = checkValueUnary(v)
@@ -146,9 +148,6 @@ let checkValue = func (v : *Value) -> *Type {
     t = checkValueSizeof(v)
   } else if k == ValueAlignof {
     t = checkValueAlignof(v)
-
-  } else if k == ValueLocalConst {
-    t = checkValue(v.expr.v)
   }
 
   v.type = t
@@ -236,7 +235,6 @@ let valueIsReadonly = func (v : *Value) -> Bool {
          k == ValueLocalConst or
          k == ValueParam
 }
-
 
 
 let valueIsMutable = func (v : *Value) -> Bool {
