@@ -213,6 +213,8 @@ let parseLet = func () -> *Stmt {
     v0.id = id
     bind_value_local(id, v0)
     return stmt_new_let(v, v0, ti)
+    //let se = stmt_new_expr(v, ti)
+    //v0.
   }
 
   bind_value_in_block(fctx.cblock, id, v)

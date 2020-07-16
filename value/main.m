@@ -94,6 +94,7 @@ type Value = record {
 
   vardef : *VarDef // ValueLocalVar
   field  : *Field  // ValueParam
+  expr   : *Expr   // ValueLocalConst
 
 
   declared_at,     // place in code where value was mentioned first time

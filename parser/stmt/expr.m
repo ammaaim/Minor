@@ -6,6 +6,23 @@ type Expr = record {
 }
 
 
+let expr_new = func (v : *Value) -> *Expr {
+  let e = malloc(sizeof Expr) to *Expr
+  assert(e != Nil, "expr_new::malloc")
+  memset(e, 0, sizeof Expr)
+  e.v = v
+  return e
+}
+
+
+let stmt_expr_new = func (v : *Value, ti : *TokenInfo) -> *Stmt {
+  let s = stmtNew(StmtExpr, ti)
+  s.e = expr_new(v)
+  s.ti = v.ti
+  return s
+}
+
+
 let stmtExpr = func () -> *Stmt {
   let expr_ti = &ctok().ti
   let e = expr()
@@ -15,13 +32,8 @@ let stmtExpr = func () -> *Stmt {
   let assign_ti = &ctok().ti
   if not match("=") {
     // Just expression without assignation (e.g. call())
-    let s = stmtNew(StmtExpr, expr_ti)
-    s.e = malloc(sizeof Expr) to *Expr
-    assert(s.e != Nil, "stmtExpr::malloc(sizeof Expr)")
-    memset(s.e, 0, sizeof Expr)
-    s.e.v = e
-    s.ti = e.ti
-    return s
+    // or let statement
+    return stmt_expr_new(e, expr_ti)
   }
 
   /* It's assignation */
