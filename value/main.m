@@ -80,8 +80,10 @@ type Value = record {
   field  : *Field       // ValueParam
   expr   : *Expr        // ValueLocalConst
 
-  // пока не могу выпилить это - юзается для enum ...
-  id     : Str    // вместо id нужна ссылка на объект в сборке
+
+  // У Value нет id тк на него может ссылаться как множество id так и ни одного
+  // Это поле юзается исключительно для поддержания костылей enum типа
+  id     : Str
 
 
   // operation info
@@ -95,8 +97,6 @@ type Value = record {
 //}
 
 
-
-
   declared_at,     // place in code where value was mentioned first time
   defined_at,      // place in code where value was defined
   ti : *TokenInfo  // place in code where value was mentioned
@@ -106,7 +106,7 @@ type Value = record {
 
 let valueNew = func (k : ValueKind, ti : *TokenInfo) -> *Value {
   let v = malloc(sizeof Value) to *Value
-  assert(v != Nil, "value_new")
+  assert(v != Nil, "value_new : v != Nil")
   memset(v, 0, sizeof Value)
   v.kind = k
   v.ti = ti
