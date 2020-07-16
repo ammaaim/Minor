@@ -31,7 +31,7 @@ type ValueKind = enum {
   ValueParam,        // .reg
 
   ValueLocalConst,   // .reg
-  ValueLocalVar,     // .reg
+  ValueLocalVar,     // .vardef.reg
 
   /* Operations */
 
@@ -91,6 +91,8 @@ type Value = record {
   // для его проверки
   // так же юзается для получения id в принтере для ValueGlobalVar & ValueGlobalConst
   assembly_item : *AssemblyItem
+
+  vardef : *VarDef // ValueLocalVar
 
   declared_at,     // place in code where value was mentioned first time
   defined_at,      // place in code where value was defined

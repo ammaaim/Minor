@@ -310,13 +310,12 @@ let create_local_var = func (id : Str, t : *Type, init_value : *Value, ti : *Tok
   v.type = t
   v.id = id
 
-  v.reg = fctx.locno
-  fctx.locno = fctx.locno + 1
-
   bind_value_local(id, v)
 
   // добавляем в код функции стейтмент с определением этой переменной
-  stmtAdd(stmt_new_vardef(id, v.reg, t, init_value, Nil))
+  let vd = stmt_new_vardef(id, t, init_value, Nil)
+  stmtAdd(vd)
+  v.vardef = vd.v
 
   if init_value != Nil {
     // добавляем в код функции стейтмент

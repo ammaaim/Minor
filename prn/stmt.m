@@ -65,7 +65,9 @@ let print_stmt = func (s : *Stmt) -> Unit {
 
 
 let print_stmt_var = func (v : *VarDef) -> Unit {
-  fprintf(fout, "\n  %%var%d = alloca ", v.reg)
+  let reg = lab_get()
+  v.reg = reg
+  fprintf(fout, "\n  %%%d = alloca ", reg)
   printType(v.type, True, True)
 }
 
