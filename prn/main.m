@@ -25,7 +25,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
     let td = &ai.typedef
     typedef(ai.id, td.type)
   }
-  list_foreach(a.types, foreach_typedef, Nil)
+  list_foreach(&a.types, foreach_typedef, Nil)
 
 
   // print Strings
@@ -38,7 +38,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
     }
     stringdef(ai.id, sd.len, sd.data)
   }
-  list_foreach(a.strings, foreach_stringdef, Nil)
+  list_foreach(&a.strings, foreach_stringdef, Nil)
 
   // print Arrays
   o("\n\n;arrays:\n")
@@ -47,7 +47,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
     let ad = &ai.arraydef
     arraydef(ai.id, ad.type, ad.values)
   }
-  list_foreach(a.arrays, foreach_arraydef, Nil)
+  list_foreach(&a.arrays, foreach_arraydef, Nil)
 
   // print Variables
   o("\n\n;vars:\n")
@@ -56,7 +56,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
     let vd = &ai.vardef
     vardef(ai.id, vd.type, vd.init_value)
   }
-  list_foreach(a.vars, foreach_vardef, Nil)
+  list_foreach(&a.vars, foreach_vardef, Nil)
 
   // print Functions
   o("\n\n;funcs:\n")
@@ -65,7 +65,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
     let fd = &ai.funcdef
     funcdef(ai.id, fd.type, fd.block)
   }
-  list_foreach(a.funcs, foreach_funcdef, Nil)
+  list_foreach(&a.funcs, foreach_funcdef, Nil)
 
   // print Aliases
   o("\n\n;aliases:\n")
@@ -74,7 +74,7 @@ let print_assembly = func (a: *Assembly) -> Unit {
     let ad = &ai.aliasdef
     aliasdef(ai.id, ad.type, ad.org)
   }
-  list_foreach(a.aliases, foreach_aliasdef, Nil)
+  list_foreach(&a.aliases, foreach_aliasdef, Nil)
 
   // print Metadata
   o("\n\n;metadata:\n")
