@@ -15,8 +15,8 @@ import "goto"
 
 
 type VarDef = record {
-  id : Str
-  reg : Nat32  // локальная переменная юзается по reg а не по id; id для отладки оставил
+  id : Str  // оставил тут для отладки
+  lab : Nat32  // локальная переменная юзается через lab
   type : *Type
   init_value : *Value
   ti : *TokenInfo
@@ -67,7 +67,7 @@ type Stmt = record {
 // add statement to current block
 let stmtAdd = func (s : *Stmt) -> Unit {
   if s != Nil {
-    list_append(fctx.cblock.stmts, s)
+    list_append(&fctx.cblock.stmts, s)
   }
 }
 

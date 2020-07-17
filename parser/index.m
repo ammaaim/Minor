@@ -117,7 +117,7 @@ let get_value_local = func (id : Str) -> *Value {
 
     if b == Nil {
       // если не нашли в иерархии блоков, ищем в параметрах функции
-      return get_value_from_params(fctx.cfunc.type.function.params, id)
+      return Nil
     }
   }
   return Nil
@@ -135,25 +135,6 @@ let get_value_builtin = func (id : Str) -> *Value {
     if strcmp(id, "self") == 0 {return fctx.cfunc}
   }
   return x
-}
-
-
-// Ищем значение среди параметров функции
-let get_value_from_params = func (params : *List, id : Str) -> *Value {
-  let psearch = func ListSearchHandler {
-    let param = data to *Field
-    return strcmp(param.id, ctx to Str) == 0
-  }
-
-  let param = list_search(params, psearch, id) to *Field
-  if param == Nil {return Nil}
-
-  // нашли параметр с таким именем
-  // создадим для него 'Value' и вернем его
-  let v = valueNew(ValueParam, param.ti)
-  v.type = param.type
-  v.reg = param.offset to Nat32 // <! printer use this info
-  return v
 }
 
 

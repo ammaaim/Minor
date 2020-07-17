@@ -64,7 +64,7 @@ let print_stmt = func (s : *Stmt) -> Unit {
 
 let print_stmt_var = func (v : *VarDef) -> Unit {
   let reg = lab_get()
-  v.reg = reg
+  v.lab = reg
   fprintf(fout, "\n  %%%d = alloca ", reg)
   printType(v.type, True, True)
 }
@@ -158,7 +158,7 @@ let print_block = func (b : *Block) -> Unit {
     blockno = blockno + 1
     print_stmt(data to *Stmt)
   }
-  list_foreach(b.stmts, for_stmt, Nil)
+  list_foreach(&b.stmts, for_stmt, Nil)
 }
 
 

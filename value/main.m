@@ -70,14 +70,13 @@ type Value = record {
 //union {
   // term info
   imm    : Int64  // ValueImmediate
-  reg    : Nat32  // ValueParam
 
   // ссылка на связанную со значением запись в сборке
   // в случае функции (константной) через это поле checkFunc получит ссылку на блок
   // для его проверки; Так же юзается для ValueGlobalVar & ValueGlobalConst
-  def    : *Definition  // ValueGlobalVar & ValueGlobalConst
-  vardef : *VarDef      // ValueLocalVar
-  field  : *Field       // ValueParam
+  def    : *Definition  // ValueGlobalVar & ValueGlobalConst (Definition#reg)
+  vardef : *VarDef      // ValueLocalVar (VarDef#lab)
+  field  : *Field       // ValueParam (Field#offset)
   expr   : *Expr        // ValueLocalConst
 
   // operation info

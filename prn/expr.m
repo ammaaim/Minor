@@ -78,7 +78,7 @@ let eval = func Eval {
     return operand
   } else if k == ValueLocalVar {
     operand.kind = OperandLocalVar
-    operand.reg = v.vardef.reg
+    operand.reg = v.vardef.lab
     return operand
   } else if k == ValueGlobalVar {
     operand.kind = OperandGlobalVar
@@ -90,7 +90,7 @@ let eval = func Eval {
     return operand
   } else if k == ValueParam {
     operand.kind = OperandRegister
-    operand.reg = v.reg
+    operand.reg = v.field.offset to Nat32
     return operand
 
   // operations

@@ -448,7 +448,7 @@ let term_func = func ValueParser {
   // we're in function?
   if parent_block != Nil {
     // add current func to parant func local_functions list
-    list_append(parent_block.local_functions, fv)
+    list_append(&parent_block.local_functions, fv)
   }
 
 
@@ -459,21 +459,23 @@ let term_func = func ValueParser {
   // выставляем ссылку на текущую функцию
   fctx.cfunc = fv
 
-  need("{")
-  let block = doblock()
-
-  /*// создаем значения параметров
-  // и добавляем их в индекс корневого блока функции
+  // создаем фиктивный parent-block c параметрами
+  let param_block = block_new(Nil)
   let getparam = func ListForeachHandler {
     let field = data to *Field
-    let block = ctx to *Block
+    let param_block = ctx to *Block
+
     let param_value = valueNew(ValueParam, field.ti)
     param_value.field = field
     param_value.type = field.type
-    param_value.id = field.id  // for debug
-    //bind_value_in_block(block, field.id, param_value)
+    map_append(&param_block.value_index, field.id, param_value)
   }
-  list_foreach(t.function.params, getparam, block)*/
+  list_foreach(t.function.params, getparam, param_block)
+
+  need("{")
+  let block = doblock(param_block)
+
+
 
   fv.def = asmFuncAdd(&asm0, id, t, block)
 
