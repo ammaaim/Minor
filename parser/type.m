@@ -66,7 +66,7 @@ let parse_type_named = func TypeParser {
 
   let nt = type_new(TypeUnknown)
   nt.declared_at = ti
-  add_type(&mctx.index.types, id, nt)
+  add_type(&mctx.index, id, nt)
   return nt
 }
 

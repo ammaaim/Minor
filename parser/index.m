@@ -1,23 +1,7 @@
 // m2/parser/index
 
 
-type Index = record {
-  types,
-  values : Map
-}
-
-
-var builtinIndex : Index
-
-
-let index_get_type = func (index : *Index, id : Str) -> *Type {
-  return map_get(&index.types, id) to *Type
-}
-
-let index_get_value = func (index : *Index, id : Str) -> *Value {
-  return map_get(&index.values, id) to *Value
-}
-
+type Index = record {types, values : Map}
 
 
 
@@ -27,13 +11,37 @@ let index_init = func (index : *Index) -> Unit {
 }
 
 
-let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
+let index_type_append = func (index : *Index, id : Str, t : *Type) -> Unit {
+  map_append(&index.types, id, t)
+}
+
+
+let index_value_append = func (index : *Index, id : Str, v : *Value) -> Unit {
+  map_append(&index.values, id, v)
+}
+
+
+let index_get_type = func (index : *Index, id : Str) -> *Type {
+  return map_get(&index.types, id) to *Type
+}
+
+
+let index_get_value = func (index : *Index, id : Str) -> *Value {
+  return map_get(&index.values, id) to *Value
+}
+
+
+var builtinIndex : Index
+
+
+
+let add_type = func (index : *Index, id : Str, t : *Type) -> Unit {
   /*if map_get(index, id) != Nil {
     error("type bind error: attempt to id redefinition", t.ti)
     return
   }*/
 
-  let ae = get_type(id)
+  let ae = index_get_type(index, id)
   if ae != Nil {
     // define already declared type (TypeUndefined)
     if ae.kind != TypeUnknown {
@@ -41,13 +49,11 @@ let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
       return
     }
 
-    //printf("add_type unk: %s\n", id)
     memcpy(ae, t, sizeof Type)
     return
   }
 
-  //printf("add_type: %s\n", id)
-  map_append(index, id, t)
+  index_type_append(index, id, t)
 }
 
 
@@ -72,17 +78,19 @@ let get_type = func (id : Str) -> *Type {
   let m = index_get_type(&mctx.index, id)
   if m != Nil {return m}
 
-  return Nil
-
-  printf("SRCH: %s\n", id)
+  //printf("SRCHT: %s\n", id)
 
   // searching in imports
   let search_type_in_import = func ListSearchHandler {
     let module = data to *ModuleContext
     let id = ctx to Str
-    return False
+    return index_get_type(&module.index, id) != Nil
   }
-  list_search(&mctx.imports, search_type_in_import, id)
+  let module = list_search(&mctx.imports, search_type_in_import, id)
+
+  if module != Nil {
+    return index_get_type(&mctx.index, id)
+  }
 
   return Nil
 }
@@ -101,24 +109,26 @@ let bind_value = func (id : Str, v : *Value) -> Unit {
 
 // Add bind into a block
 let bind_value_in_block = func (b : *Block, id : Str, v : *Value) -> Unit {
-  add_value(&b.index.values, id, v)
+  add_value(&b.index, id, v)
 }
 
 
 // Add bind into current block
 let bind_value_local = func (id : Str, v : *Value) -> Unit {
-  add_value(&fctx.cblock.index.values, id, v)
+  add_value(&fctx.cblock.index, id, v)
 }
 
 
 // Add bind to global namespace
 let bind_value_global = func (id : Str, v : *Value) -> Unit {
-  add_value(&mctx.index.values, id, v)
+  add_value(&mctx.index, id, v)
 }
 
 
-let add_value = func (index : *Map, id : Str, v : *Value) -> Unit {
-  let ae = map_get(index, id) to *Value
+
+
+let add_value = func (index : *Index, id : Str, v : *Value) -> Unit {
+  let ae = index_get_value(index, id)
   if ae != Nil {
     // если значение уже есть но не определено
     if ae.kind != ValueUndefined {
@@ -130,7 +140,7 @@ let add_value = func (index : *Map, id : Str, v : *Value) -> Unit {
     memcpy(ae, v, sizeof Value)
     return
   }
-  map_append(index, id, v)
+  index_value_append(index, id, v)
 }
 
 
@@ -141,7 +151,24 @@ let get_value = func (id : Str) -> *Value {
   let global = get_value_global(id)
   if global != Nil {return global}
 
-  return get_value_builtin(id)
+  let builtin = get_value_builtin(id)
+  if builtin != Nil {return builtin}
+
+  //printf("SRCHV: %s\n", id)
+
+  // searching in imports
+  let search_value_in_import = func ListSearchHandler {
+    let module = data to *ModuleContext
+    let id = ctx to Str
+    return index_get_value(&module.index, id) != Nil
+  }
+  let module = list_search(&mctx.imports, search_value_in_import, id)
+
+  if module != Nil {
+    return index_get_value(&mctx.index, id)
+  }
+
+  return Nil
 }
 
 
