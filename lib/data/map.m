@@ -1,5 +1,9 @@
 // lib/data/map
 
+import "lib/C"
+//import "lib/data/node"
+//import "lib/data/list"
+
 
 type Map = List
 

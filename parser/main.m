@@ -65,7 +65,6 @@ let parse = func (src : *Source) -> *Module {
   // save module context
   let old_mctx = mctx
 
-  printf("parse: %s\n", src.info.path)
 
   mctx = malloc(sizeof ModuleContext)
   assert(mctx != Nil, "malloc(sizeof ModuleContext)")
@@ -91,6 +90,8 @@ let parse = func (src : *Source) -> *Module {
       break
     }
   }
+
+  printf("> parse: %s\n", src.info.path)
 
   comments = False
 
@@ -140,7 +141,7 @@ let parse = func (src : *Source) -> *Module {
     /*set("flagNoDecorate", 0)*/
   }
 
-  printf("end-parse %s\n", src.info.path)
+  printf("< end-parse %s\n", src.info.path)
   // restore module context
   let my_ctx = mctx
   mctx = old_mctx
@@ -224,6 +225,7 @@ let parseLet = func () -> *Stmt {
   let ti = &ctok().ti
   let id = parseId()
 
+  printf("parse-let %s\n", id)
   need("=")
 
   let v = expr()
@@ -235,6 +237,7 @@ let parseLet = func () -> *Stmt {
   // global?
   if fctx.cfunc == Nil {
     globalLet(id, v, ti)
+    printf("end-parse-let\n")
     return Nil
   }
 
@@ -252,10 +255,12 @@ let parseLet = func () -> *Stmt {
 
     let se = stmt_expr_new(v, ti)
     v0.expr = se.e
+    printf("end-parse-let\n")
     return se
   }
 
   bind_value_in_block(fctx.cblock, id, v)
+  printf("end-parse-let\n")
   return Nil
 }
 

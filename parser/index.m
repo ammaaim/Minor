@@ -156,7 +156,7 @@ let get_value = func (id : Str) -> *Value {
   let search_value_in_import = func ListSearchHandler {
     let module = data to *ModuleContext
     let id = ctx to Str
-    printf("search %s in %s\n", id, module.src.info.path)
+    //printf("search %s in %s\n", id, module.src.info.path)
     return index_get_value(&module.index, id) != Nil
   }
   let module = list_search(&mctx.imports, search_value_in_import, id) to *Module

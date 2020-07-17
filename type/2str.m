@@ -1,5 +1,8 @@
 // m2/type/print
 
+//import "lib/C"
+//import "lib/data/list"
+
 
 let prttype = func (t : *Type) -> Unit {
   if t.aka != Nil {
