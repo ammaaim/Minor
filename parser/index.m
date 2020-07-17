@@ -1,3 +1,4 @@
+// m2/parser/index
 
 
 type Index = record {
@@ -7,6 +8,12 @@ type Index = record {
 
 
 var builtinIndex : Index
+
+
+let index_init = func (index : *Index) -> Unit {
+  map_init(&index.types)
+  map_init(&index.values)
+}
 
 
 let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
@@ -43,13 +50,13 @@ let get_type = func (id : Str) -> *Type {
   var b : *Block
   b = fctx.cblock
   while b != Nil {
-    let local_t = map_get(&b.type_index, id) to *Type
+    let local_t = map_get(&b.index.types, id) to *Type
     if local_t != Nil {return local_t}
     b = b.parent
   }
 
   // searching in current module
-  return map_get(&mctx.type_index, id) to *Type
+  return map_get(&mctx.index.types, id) to *Type
 }
 
 
@@ -66,19 +73,19 @@ let bind_value = func (id : Str, v : *Value) -> Unit {
 
 // Add bind into a block
 let bind_value_in_block = func (b : *Block, id : Str, v : *Value) -> Unit {
-  add_value(&b.value_index, id, v)
+  add_value(&b.index.values, id, v)
 }
 
 
 // Add bind into current block
 let bind_value_local = func (id : Str, v : *Value) -> Unit {
-  add_value(&fctx.cblock.value_index, id, v)
+  add_value(&fctx.cblock.index.values, id, v)
 }
 
 
 // Add bind to global namespace
 let bind_value_global = func (id : Str, v : *Value) -> Unit {
-  add_value(&mctx.value_index, id, v)
+  add_value(&mctx.index.values, id, v)
 }
 
 
@@ -116,7 +123,7 @@ let get_value_local = func (id : Str) -> *Value {
   b = fctx.cblock
   while b != Nil {
     // ищем значение в индексе блока b
-    let v = map_get(&b.value_index, id) to *Value
+    let v = map_get(&b.index.values, id) to *Value
     if v != Nil {return v}
     b = b.parent
 
@@ -130,7 +137,7 @@ let get_value_local = func (id : Str) -> *Value {
 
 
 let get_value_global = func (id : Str) -> *Value {
-  return map_get(&mctx.value_index, id) to *Value
+  return map_get(&mctx.index.values, id) to *Value
 }
 
 

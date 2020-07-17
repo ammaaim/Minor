@@ -3,11 +3,9 @@
 
 // Compound Statement
 type Block = record {
-  parent  : *Block   // block-parent or Nil
+  parent  : *Block  // block-parent or Nil
+  index   : Index   // block local index
   stmts   : List    // list of statements
-
-  type_index,
-  value_index : Map  // local indexes
 
   // список в который попадают все локальные функции
   // для того чтобы их тела потом при check инге прочекать
@@ -34,8 +32,7 @@ let block_new = func (parent : *Block) -> *Block {
 
   b.parent = parent
 
-  map_init(&b.type_index)
-  map_init(&b.value_index)
+  index_init(&b.index)
   map_init(&b.stmts)
   map_init(&b.local_functions)
 

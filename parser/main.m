@@ -12,12 +12,9 @@ import "import"
 
 
 
-
 type ModuleContext = record {
-  src : *Source      // current source
-
-  type_index,
-  value_index : Map  // индексы модуля
+  src   : *Source
+  index : Index
 }
 
 
@@ -190,7 +187,7 @@ let parseTypedef = func () -> Unit {
   }
 
   // bind type пока не умеет local
-  add_type(&mctx.type_index, id, t)
+  add_type(&mctx.index.types, id, t)
 
   // creating data for printer
   asmTypedefAdd(&asm0, id, t)

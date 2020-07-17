@@ -468,7 +468,7 @@ let term_func = func ValueParser {
     let param_value = valueNew(ValueParam, field.ti)
     param_value.field = field
     param_value.type = field.type
-    map_append(&param_block.value_index, field.id, param_value)
+    map_append(&param_block.index.values, field.id, param_value)
   }
   list_foreach(t.function.params, getparam, param_block)
 

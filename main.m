@@ -120,7 +120,7 @@ let showTypes = func () -> Unit {
     prttype(t)
     printf("\n")
   }
-  map_foreach(&mctx.type_index, shwt, Nil)
+  map_foreach(&mctx.index.types, shwt, Nil)
 }
 
 
@@ -141,7 +141,7 @@ let showValues = func () -> Unit {
     prttype((v to *Value).type)
     printf("\n")
   }
-  map_foreach(&mctx.value_index, shwv, Nil)
+  map_foreach(&mctx.index.values, shwv, Nil)
 }
 
 

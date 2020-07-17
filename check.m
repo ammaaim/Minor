@@ -7,7 +7,7 @@ let checkMain = func () -> Unit {
     let type = v to *Type
     typeCheck(type)
   }
-  map_foreach(&mctx.type_index, tchk, Nil)
+  map_foreach(&mctx.index.types, tchk, Nil)
 
 
   // check values
@@ -25,7 +25,7 @@ let checkMain = func () -> Unit {
       }
     }
   }
-  map_foreach(&mctx.value_index, vchk, Nil)
+  map_foreach(&mctx.index.values, vchk, Nil)
 }
 
 

@@ -22,8 +22,7 @@ let init = func () -> Unit {
 
   asmInit(&asm0, "<asm0>")
 
-  map_init(&builtinIndex.types)
-  map_init(&builtinIndex.values)
+  index_init(&builtinIndex)
 
   settings = map_new()
 
