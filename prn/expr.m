@@ -67,6 +67,8 @@ let eval = func Eval {
   var operand : Operand
   operand.type = v.type
 
+  assert(k != ValueUndefined, "ValueUndefined in prn::eval")
+
   // terminals
   if k == ValueImmediate {
     operand.kind = OperandImmediate

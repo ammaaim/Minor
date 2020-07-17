@@ -78,18 +78,16 @@ let get_type = func (id : Str) -> *Type {
   let m = index_get_type(&mctx.index, id)
   if m != Nil {return m}
 
-  //printf("SRCHT: %s\n", id)
-
   // searching in imports
   let search_type_in_import = func ListSearchHandler {
     let module = data to *ModuleContext
     let id = ctx to Str
     return index_get_type(&module.index, id) != Nil
   }
-  let module = list_search(&mctx.imports, search_type_in_import, id)
+  let module = list_search(&mctx.imports, search_type_in_import, id) to *Module
 
   if module != Nil {
-    return index_get_type(&mctx.index, id)
+    return index_get_type(&module.index, id)
   }
 
   return Nil
@@ -154,18 +152,17 @@ let get_value = func (id : Str) -> *Value {
   let builtin = get_value_builtin(id)
   if builtin != Nil {return builtin}
 
-  //printf("SRCHV: %s\n", id)
-
   // searching in imports
   let search_value_in_import = func ListSearchHandler {
     let module = data to *ModuleContext
     let id = ctx to Str
+    printf("search %s in %s\n", id, module.src.info.path)
     return index_get_value(&module.index, id) != Nil
   }
-  let module = list_search(&mctx.imports, search_value_in_import, id)
+  let module = list_search(&mctx.imports, search_value_in_import, id) to *Module
 
   if module != Nil {
-    return index_get_value(&mctx.index, id)
+    return index_get_value(&module.index, id)
   }
 
   return Nil

@@ -43,11 +43,11 @@ let main = func (argc : Int, argv : []Str) -> Int {
   if src == Nil {return -1}
 
   // let's start!
-  parse(src)
+  let main_module = parse(src)
 
   printf("lines: %d\n", lines)
 
-  checkMain()
+  checkModule(main_module)
 
   //showValues()
   //showTypes()

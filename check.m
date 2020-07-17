@@ -1,16 +1,27 @@
 // m2/check
 
 
-let checkMain = func () -> Unit {
-  // check types
+
+let checkModule = func (m : *Module) -> Unit {
+
+  // check module imports before
+  let mcheck = func MapForeachHandler {
+    let module = v to *Module
+    checkModule(module)
+  }
+  map_foreach(&m.imports, mcheck, Nil)
+
+  printf("checkModule %s\n", m.src.info.path)
+
+  // check module types
   let tchk = func MapForeachHandler {
     let type = v to *Type
     typeCheck(type)
   }
-  map_foreach(&mctx.index.types, tchk, Nil)
+  map_foreach(&m.index.types, tchk, Nil)
 
 
-  // check values
+  // check module values
   let vchk = func MapForeachHandler {
     let val = v to *Value
 
@@ -25,8 +36,11 @@ let checkMain = func () -> Unit {
       }
     }
   }
-  map_foreach(&mctx.index.values, vchk, Nil)
+  map_foreach(&m.index.values, vchk, Nil)
+
+  printf("end-checkModule %s\n", m.src.info.path)
 }
+
 
 
 let checkFunc = func (f : *Value) -> Unit {

@@ -45,14 +45,14 @@ let import = func (imp_str : Str) -> *Module {
     fatal("cannot import")
   }
 
-  importAdd(info.path, &mctx)
+  let m = parse(src)
 
-  parse(src)
-
+  importAdd(info.path, m)
 
   chdir(old_cdir)  // go back.
 
-  return &mctx
+
+  return m
 }
 
 

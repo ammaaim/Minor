@@ -38,7 +38,7 @@ type FuncContext = record {
 
 
 
-var mctx : ModuleContext     // current module context
+var mctx : *ModuleContext     // current module context
 var fctx : FuncContext       // current function context
 
 var asm0 : Assembly          // сущности идущие на печать попадают сюда
@@ -49,14 +49,27 @@ let PATH_BUF_LEN = 512
 var comments : Bool
 
 
+let module_init = func (m : *Module) -> Unit {
+  m.src = Nil
+  index_init(&m.index)
+  list_init(&m.imports)
+}
+
+
 let comment = func (c : Str) -> Unit {
   //printf("COM: %s\n", c)
 }
 
 
-let parse = func (src : *Source) -> Unit {
+let parse = func (src : *Source) -> *Module {
   // save module context
-  let old_src = mctx.src
+  let old_mctx = mctx
+
+  printf("parse: %s\n", src.info.path)
+
+  mctx = malloc(sizeof ModuleContext)
+  assert(mctx != Nil, "malloc(sizeof ModuleContext)")
+  module_init(mctx)
 
   mctx.src = src
 
@@ -127,8 +140,12 @@ let parse = func (src : *Source) -> Unit {
     /*set("flagNoDecorate", 0)*/
   }
 
+  printf("end-parse %s\n", src.info.path)
   // restore module context
-  mctx.src = old_src
+  let my_ctx = mctx
+  mctx = old_mctx
+
+  return my_ctx
 }
 
 
@@ -162,7 +179,8 @@ let parseImport = func () -> Unit {
   let imp_str = dup(&ctok().text[0] to Str)
   skip()
 
-  import(imp_str)
+  let mod = import(imp_str)
+  list_append(&mctx.imports, mod)
 
   return
 
