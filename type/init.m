@@ -6,8 +6,8 @@ let type_init = func () -> Unit {
   // Special builtin types
   typeUnit = type_basic_new("Unit", 1, 0, False, False)
   typeBool = type_basic_new("Bool", 1, 1, False, False)
-  map_append(&globalTypeIndex, "Unit", typeUnit)
-  map_append(&globalTypeIndex, "Bool", typeBool)
+  map_append(&builtinIndex.types, "Unit", typeUnit)
+  map_append(&builtinIndex.types, "Bool", typeBool)
 
 
   // Signed Numeric
@@ -34,36 +34,36 @@ let type_init = func () -> Unit {
 
 
   // Add most popular types
-  map_append(&globalTypeIndex, "Int64", typeInt64)
-  map_append(&globalTypeIndex, "Nat64", typeNat64)
+  map_append(&builtinIndex.types, "Int64", typeInt64)
+  map_append(&builtinIndex.types, "Nat64", typeNat64)
 
-  map_append(&globalTypeIndex, "Int32", typeInt32)
-  map_append(&globalTypeIndex, "Nat32", typeNat32)
+  map_append(&builtinIndex.types, "Int32", typeInt32)
+  map_append(&builtinIndex.types, "Nat32", typeNat32)
 
-  map_append(&globalTypeIndex, "Int8", typeInt8)
-  map_append(&globalTypeIndex, "Nat8", typeNat8)
+  map_append(&builtinIndex.types, "Int8", typeInt8)
+  map_append(&builtinIndex.types, "Nat8", typeNat8)
 
-  map_append(&globalTypeIndex, "Int16", typeInt16)
-  map_append(&globalTypeIndex, "Nat16", typeNat16)
+  map_append(&builtinIndex.types, "Int16", typeInt16)
+  map_append(&builtinIndex.types, "Nat16", typeNat16)
 
 
   // Add builtin type Str
   typeChar = typeNat8
   typeStr = type_array_new(typeChar, 0, True)
   typeStr.aka = "Str"
-  map_append(&globalTypeIndex, "Str", typeStr)
+  map_append(&builtinIndex.types, "Str", typeStr)
 
 
   // Add heavy types
-  map_append(&globalTypeIndex, "Int128", typeInt128)
-  map_append(&globalTypeIndex, "Int256", typeInt256)
-  map_append(&globalTypeIndex, "Int512", typeInt512)
-  map_append(&globalTypeIndex, "Int1024", typeInt1024)
+  map_append(&builtinIndex.types, "Int128", typeInt128)
+  map_append(&builtinIndex.types, "Int256", typeInt256)
+  map_append(&builtinIndex.types, "Int512", typeInt512)
+  map_append(&builtinIndex.types, "Int1024", typeInt1024)
 
-  map_append(&globalTypeIndex, "Nat128", typeNat128)
-  map_append(&globalTypeIndex, "Nat256", typeNat256)
-  map_append(&globalTypeIndex, "Nat512", typeNat512)
-  map_append(&globalTypeIndex, "Nat1024", typeNat1024)
+  map_append(&builtinIndex.types, "Nat128", typeNat128)
+  map_append(&builtinIndex.types, "Nat256", typeNat256)
+  map_append(&builtinIndex.types, "Nat512", typeNat512)
+  map_append(&builtinIndex.types, "Nat1024", typeNat1024)
 
 
   // main types shortcuts

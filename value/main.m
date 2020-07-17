@@ -69,9 +69,7 @@ type Value = record {
 
 //union {
   // term info
-  imm    : Int64  // ValueImmediate
-
-  // ссылка на связанную со значением сущность
+  imm    : Int64        // ValueImmediate
   def    : *Definition  // ValueGlobalVar & ValueGlobalConst (Definition#reg)
   vardef : *VarDef      // ValueLocalVar (VarDef#lab)
   field  : *Field       // ValueParam (Field#offset)

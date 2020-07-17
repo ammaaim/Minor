@@ -68,6 +68,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 %TypeFunc = type {%List*, %Type*, %Bool}
 %TypeKind = type %Int16
 %Type = type {%TypeKind, %Str, %Nat32, %Nat32, %Nat8, %TypeBasic, %TypeFunc, %TypePointer, %TypeArray, %TypeRecord, %TypeEnum, %TokenInfo*, %TokenInfo*, %TokenInfo*}
+%Index = type {%List, %List}
 %ValueParser = type %Value* ()*
 %StmtParser = type %Stmt* (%TokenInfo*)*
 %Block = type {%Block*, %List, %List, %List, %List, %TokenInfo*}
@@ -1328,8 +1329,7 @@ target triple = "x86_64-apple-macosx10.14.0"
 @typeFreePtr = global %Type* zeroinitializer
 @typeNumeric = global %Type* zeroinitializer
 @x_uid = global %Nat32 zeroinitializer
-@globalTypeIndex = global %List zeroinitializer
-@globalValueIndex = global %List zeroinitializer
+@builtinIndex = global %Index zeroinitializer
 @func_uid = global %Nat32 zeroinitializer
 @str_uid = global %Nat32 zeroinitializer
 @arr_uid = global %Nat32 zeroinitializer
@@ -6177,14 +6177,14 @@ define void @_func.111 () {
   store %Type* %4, %Type** @typeBool
 
 ;stmt2:
-  %5 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %5 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %6 = load %Str, %Str* @_func.111_str.3
   %7 = load %Type*, %Type** @typeUnit
   %8 = bitcast %Type* %7 to %Unit*
   %9 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %5, %Str %6, %Unit* %8)
 
 ;stmt3:
-  %10 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %10 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %11 = load %Str, %Str* @_func.111_str.4
   %12 = load %Type*, %Type** @typeBool
   %13 = bitcast %Type* %12 to %Unit*
@@ -6255,49 +6255,49 @@ define void @_func.111 () {
   %46 = call %Type* (%Str, %Nat32, %Nat32, %Bool, %Bool) @_func.85 (%Str %45, %Nat32 128, %Nat32 1024, %Bool 1, %Bool 0)
 
 ;stmt20:
-  %47 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %47 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %48 = load %Str, %Str* @_func.111_str.21
   %49 = bitcast %Type* %22 to %Unit*
   %50 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %47, %Str %48, %Unit* %49)
 
 ;stmt21:
-  %51 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %51 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %52 = load %Str, %Str* @_func.111_str.22
   %53 = bitcast %Type* %38 to %Unit*
   %54 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %51, %Str %52, %Unit* %53)
 
 ;stmt22:
-  %55 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %55 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %56 = load %Str, %Str* @_func.111_str.23
   %57 = bitcast %Type* %20 to %Unit*
   %58 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %55, %Str %56, %Unit* %57)
 
 ;stmt23:
-  %59 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %59 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %60 = load %Str, %Str* @_func.111_str.24
   %61 = bitcast %Type* %36 to %Unit*
   %62 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %59, %Str %60, %Unit* %61)
 
 ;stmt24:
-  %63 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %63 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %64 = load %Str, %Str* @_func.111_str.25
   %65 = bitcast %Type* %16 to %Unit*
   %66 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %63, %Str %64, %Unit* %65)
 
 ;stmt25:
-  %67 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %67 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %68 = load %Str, %Str* @_func.111_str.26
   %69 = bitcast %Type* %32 to %Unit*
   %70 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %67, %Str %68, %Unit* %69)
 
 ;stmt26:
-  %71 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %71 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %72 = load %Str, %Str* @_func.111_str.27
   %73 = bitcast %Type* %18 to %Unit*
   %74 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %71, %Str %72, %Unit* %73)
 
 ;stmt27:
-  %75 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %75 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %76 = load %Str, %Str* @_func.111_str.28
   %77 = bitcast %Type* %34 to %Unit*
   %78 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %75, %Str %76, %Unit* %77)
@@ -6317,56 +6317,56 @@ define void @_func.111 () {
   store %Str %83, %Str* %82
 
 ;stmt31:
-  %84 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %84 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %85 = load %Str, %Str* @_func.111_str.30
   %86 = load %Type*, %Type** @typeStr
   %87 = bitcast %Type* %86 to %Unit*
   %88 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %84, %Str %85, %Unit* %87)
 
 ;stmt32:
-  %89 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %89 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %90 = load %Str, %Str* @_func.111_str.31
   %91 = bitcast %Type* %24 to %Unit*
   %92 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %89, %Str %90, %Unit* %91)
 
 ;stmt33:
-  %93 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %93 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %94 = load %Str, %Str* @_func.111_str.32
   %95 = bitcast %Type* %26 to %Unit*
   %96 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %93, %Str %94, %Unit* %95)
 
 ;stmt34:
-  %97 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %97 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %98 = load %Str, %Str* @_func.111_str.33
   %99 = bitcast %Type* %28 to %Unit*
   %100 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %97, %Str %98, %Unit* %99)
 
 ;stmt35:
-  %101 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %101 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %102 = load %Str, %Str* @_func.111_str.34
   %103 = bitcast %Type* %30 to %Unit*
   %104 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %101, %Str %102, %Unit* %103)
 
 ;stmt36:
-  %105 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %105 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %106 = load %Str, %Str* @_func.111_str.35
   %107 = bitcast %Type* %40 to %Unit*
   %108 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %105, %Str %106, %Unit* %107)
 
 ;stmt37:
-  %109 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %109 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %110 = load %Str, %Str* @_func.111_str.36
   %111 = bitcast %Type* %42 to %Unit*
   %112 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %109, %Str %110, %Unit* %111)
 
 ;stmt38:
-  %113 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %113 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %114 = load %Str, %Str* @_func.111_str.37
   %115 = bitcast %Type* %44 to %Unit*
   %116 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %113, %Str %114, %Unit* %115)
 
 ;stmt39:
-  %117 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %117 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %118 = load %Str, %Str* @_func.111_str.38
   %119 = bitcast %Type* %46 to %Unit*
   %120 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %117, %Str %118, %Unit* %119)
@@ -6704,7 +6704,7 @@ endif_0:
 define %Type* @_func.120 (%Str) {
 
 ;stmt0:
-  %2 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %2 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %3 = call %Unit* (%List*, %Str) @_func.38 (%List* %2, %Str %0)
 
 ;stmt1:
@@ -7022,7 +7022,7 @@ define %Value* @_func.128 (%Str) {
 define %Value* @_func.129 (%Str) {
 
 ;stmt0:
-  %2 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0
+  %2 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 1
   %3 = call %Unit* (%List*, %Str) @_func.38 (%List* %2, %Str %0)
 
 ;stmt1:
@@ -14107,7 +14107,7 @@ define void @_func.236 () {
   %3 = call %Value* (%Type*, %Int64, %TokenInfo*) @_func.239 (%Type* %1, %Int64 0, %TokenInfo* %2)
 
 ;stmt1:
-  %4 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0
+  %4 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 1
   %5 = load %Str, %Str* @_func.236_str.1
   %6 = bitcast %Value* %3 to %Unit*
   %7 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %4, %Str %5, %Unit* %6)
@@ -14118,7 +14118,7 @@ define void @_func.236 () {
   %10 = call %Value* (%Type*, %Int64, %TokenInfo*) @_func.239 (%Type* %8, %Int64 1, %TokenInfo* %9)
 
 ;stmt3:
-  %11 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0
+  %11 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 1
   %12 = load %Str, %Str* @_func.236_str.2
   %13 = bitcast %Value* %10 to %Unit*
   %14 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %11, %Str %12, %Unit* %13)
@@ -14129,7 +14129,7 @@ define void @_func.236 () {
   %17 = call %Value* (%Type*, %Int64, %TokenInfo*) @_func.239 (%Type* %15, %Int64 1, %TokenInfo* %16)
 
 ;stmt5:
-  %18 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0
+  %18 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 1
   %19 = load %Str, %Str* @_func.236_str.3
   %20 = bitcast %Value* %17 to %Unit*
   %21 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %18, %Str %19, %Unit* %20)
@@ -14140,7 +14140,7 @@ define void @_func.236 () {
   %24 = call %Value* (%Type*, %Int64, %TokenInfo*) @_func.239 (%Type* %22, %Int64 0, %TokenInfo* %23)
 
 ;stmt7:
-  %25 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0
+  %25 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 1
   %26 = load %Str, %Str* @_func.236_str.4
   %27 = bitcast %Value* %24 to %Unit*
   %28 = call %Bool (%List*, %Str, %Unit*) @_func.33 (%List* %25, %Str %26, %Unit* %27)
@@ -19787,7 +19787,7 @@ endif_0:
   %26 = call %Int32 (%Unit*, %Str, ...) @fprintf (%Unit* %24, %Str %25)
 
 ;stmt11:
-  %27 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %27 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   %28 = inttoptr i64 0 to %Unit*
   call void (%List*, %MapForeachHandler, %Unit*) @_func.39 (%List* %27, %MapForeachHandler @_func.335, %Unit* %28)
 
@@ -20171,11 +20171,11 @@ endif_0:
   call void (%Assembly*, %Str) @_func.189 (%Assembly* %12, %Str %13)
 
 ;stmt9:
-  %14 = getelementptr inbounds %List, %List* @globalTypeIndex, i32 0
+  %14 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 0
   call void (%List*) @_func.21 (%List* %14)
 
 ;stmt10:
-  %15 = getelementptr inbounds %List, %List* @globalValueIndex, i32 0
+  %15 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0, i32 1
   call void (%List*) @_func.21 (%List* %15)
 
 ;stmt11:

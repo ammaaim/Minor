@@ -1,7 +1,12 @@
 
-// base indexes (for builtin entities)
-var globalTypeIndex,
-    globalValueIndex : Map
+
+type Index = record {
+  types,
+  values : Map
+}
+
+
+var builtinIndex : Index
 
 
 let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
@@ -31,7 +36,7 @@ let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
 let get_type = func (id : Str) -> *Type {
   // firstly search in globalTypeIndex тк наибольшая вероятность что тип там
   // тк встроенные типы чаще всего встречаются в коде
-  let builtin_t = map_get(&globalTypeIndex, id)
+  let builtin_t = map_get(&builtinIndex.types, id)
   if builtin_t != Nil {return builtin_t}
 
   // local searching
@@ -130,7 +135,7 @@ let get_value_global = func (id : Str) -> *Value {
 
 
 let get_value_builtin = func (id : Str) -> *Value {
-  let x = map_get(&globalValueIndex, id)
+  let x = map_get(&builtinIndex.values, id)
   if x == Nil {
     if strcmp(id, "self") == 0 {return fctx.cfunc}
   }

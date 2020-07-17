@@ -25,7 +25,7 @@ let printer_init = func (a : Arch, fname : Str) -> Unit {
       fprintf(fout, "%%%s = type i%d\n", tid, t.basic.p)
     }
   }
-  map_foreach(&globalTypeIndex, prt_itype, Nil)
+  map_foreach(&builtinIndex.types, prt_itype, Nil)
 
   fprintf(fout, "\n")
 }
