@@ -71,9 +71,7 @@ type Value = record {
   // term info
   imm    : Int64  // ValueImmediate
 
-  // ссылка на связанную со значением запись в сборке
-  // в случае функции (константной) через это поле checkFunc получит ссылку на блок
-  // для его проверки; Так же юзается для ValueGlobalVar & ValueGlobalConst
+  // ссылка на связанную со значением сущность
   def    : *Definition  // ValueGlobalVar & ValueGlobalConst (Definition#reg)
   vardef : *VarDef      // ValueLocalVar (VarDef#lab)
   field  : *Field       // ValueParam (Field#offset)
