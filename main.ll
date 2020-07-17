@@ -20184,13 +20184,13 @@ endif_0:
   call void (%Str) @_func.65 (%Str %7)
 
 ;stmt8:
-  %12 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
-  %13 = load %Str, %Str* @_func.349_str.2
-  call void (%Assembly*, %Str) @_func.190 (%Assembly* %12, %Str %13)
+  %12 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0
+  call void (%Index*) @_func.119 (%Index* %12)
 
 ;stmt9:
-  %14 = getelementptr inbounds %Index, %Index* @builtinIndex, i32 0
-  call void (%Index*) @_func.119 (%Index* %14)
+  %13 = getelementptr inbounds %Assembly, %Assembly* @asm0, i32 0
+  %14 = load %Str, %Str* @_func.349_str.2
+  call void (%Assembly*, %Str) @_func.190 (%Assembly* %13, %Str %14)
 
 ;stmt10:
   %15 = call %List* () @_func.22 ()

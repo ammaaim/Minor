@@ -20,9 +20,9 @@ let init = func () -> Unit {
 
   liblist_add(syslib_path)
 
-  asmInit(&asm0, "<asm0>")
-
   index_init(&builtinIndex)
+
+  asmInit(&asm0, "<asm0>")
 
   settings = map_new()
 
@@ -36,11 +36,8 @@ let init = func () -> Unit {
 
   //handle_ini("cfg/sys64.cfg")
 
-  // create built-in types
-  type_init()
-
-  // create built-in values (True, False, Nil)
-  value_init()
+  type_init()   // create built-in types
+  value_init()  // create built-in values
 
   arch = ARCH_DEFAULT
 }
