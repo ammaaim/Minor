@@ -10,6 +10,17 @@ type Index = record {
 var builtinIndex : Index
 
 
+let index_get_type = func (index : *Index, id : Str) -> *Type {
+  return map_get(&index.types, id) to *Type
+}
+
+let index_get_value = func (index : *Index, id : Str) -> *Value {
+  return map_get(&index.values, id) to *Value
+}
+
+
+
+
 let index_init = func (index : *Index) -> Unit {
   map_init(&index.types)
   map_init(&index.values)
@@ -40,23 +51,40 @@ let add_type = func (index : *Map, id : Str, t : *Type) -> Unit {
 }
 
 
+
+
 let get_type = func (id : Str) -> *Type {
   // firstly search in globalTypeIndex тк наибольшая вероятность что тип там
   // тк встроенные типы чаще всего встречаются в коде
-  let builtin_t = map_get(&builtinIndex.types, id)
+  let builtin_t = index_get_type(&builtinIndex, id)
   if builtin_t != Nil {return builtin_t}
 
   // local searching
   var b : *Block
   b = fctx.cblock
   while b != Nil {
-    let local_t = map_get(&b.index.types, id) to *Type
+    let local_t = index_get_type(&b.index, id) // map_get(&b.index.types, id) to *Type
     if local_t != Nil {return local_t}
     b = b.parent
   }
 
   // searching in current module
-  return map_get(&mctx.index.types, id) to *Type
+  let m = index_get_type(&mctx.index, id)
+  if m != Nil {return m}
+
+  return Nil
+
+  printf("SRCH: %s\n", id)
+
+  // searching in imports
+  let search_type_in_import = func ListSearchHandler {
+    let module = data to *ModuleContext
+    let id = ctx to Str
+    return False
+  }
+  list_search(&mctx.imports, search_type_in_import, id)
+
+  return Nil
 }
 
 
@@ -123,7 +151,7 @@ let get_value_local = func (id : Str) -> *Value {
   b = fctx.cblock
   while b != Nil {
     // ищем значение в индексе блока b
-    let v = map_get(&b.index.values, id) to *Value
+    let v = index_get_value(&b.index, id)
     if v != Nil {return v}
     b = b.parent
 
@@ -137,12 +165,12 @@ let get_value_local = func (id : Str) -> *Value {
 
 
 let get_value_global = func (id : Str) -> *Value {
-  return map_get(&mctx.index.values, id) to *Value
+  return index_get_value(&mctx.index, id)
 }
 
 
 let get_value_builtin = func (id : Str) -> *Value {
-  let x = map_get(&builtinIndex.values, id)
+  let x = index_get_value(&builtinIndex, id)
   if x == Nil {
     if strcmp(id, "self") == 0 {return fctx.cfunc}
   }
